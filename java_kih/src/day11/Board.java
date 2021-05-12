@@ -25,6 +25,7 @@ public class Board {
 		this.type = type;
 	}
 	
+
 	/* 기능 : 게시글 정보 출력하는 메소드
 	 * 매개변수 : 없음
 	 * 리턴타입 : 없음 => void
