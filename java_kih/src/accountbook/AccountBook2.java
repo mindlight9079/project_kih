@@ -28,6 +28,8 @@ public class AccountBook2 {
  		count++;
  		//총 금액을 계산
  		total = total+item.calCost();
+ 		} else {
+ 			throw new RuntimeException("가계부 내역이 꽉 찼습니다.");
  		}
  	}	
 		
@@ -41,6 +43,8 @@ public class AccountBook2 {
  		total = total -arr[index].calCost();
  		total = total+item.calCost();
  		arr[index] = item;
+ 		} else {
+ 			throw new ArrayIndexOutOfBoundsException("잘못된 번지로 접근하고 있습니다.");
  		}
  	}
  	
@@ -51,8 +55,7 @@ public class AccountBook2 {
 	 * */
  	public void delete(int index) {
  		if(index>=count || index<0) {
- 			System.out.println("잘못된 번지입니다.");
- 			return;
+ 			throw new ArrayIndexOutOfBoundsException("잘못된 번지로 접근하고 있습니다.");
  		}
  		total = total - arr[index].calCost();
  		//삭제된 공간을 제거하기 위해 앞으로 하나씩 땡겨줌
