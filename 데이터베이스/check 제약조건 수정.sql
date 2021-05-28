@@ -1,0 +1,1 @@
+alter table 제품 add constraint 제품_chk_1 check(재고량>=0 and  재고량 <=10000);
