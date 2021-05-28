@@ -1,0 +1,12 @@
+강의 23일차
+
+
+select [all | distinct] 속성1, 속성2,...,속성 n(또는 전체인 경우 *)
+from 테이블명;
+
+- 검색
+select [all | distinct] 속성1,...,속성n from 테이블
+	[join 테이블2 on 테이블1.속성명 = 테이블2.속성명]
+	[where 조건]
+	[group by 속성명]
+	[order by 속성명1 [asc|desc], 속성명2 [asc|desc]];
