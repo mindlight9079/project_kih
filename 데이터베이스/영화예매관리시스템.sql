@@ -30,10 +30,11 @@ create table if not exists `time`(
 );
 
 create table if not exists place (
-	pl_code varchar(20) not null primary key,
+	pl_code varchar(20) not null,
     pl_num int not null,
     pl_se_place varchar(10) not null,
-    foreign key(pl_se_place) references seat (se_place)
+    primary key(pl_code),
+    foreign key(pl_se_place) references seat(se_place)
 );
 
 create table if not exists reservation (
@@ -47,5 +48,5 @@ create table if not exists reservation (
     foreign key(re_cu_num) references customer(cu_num),
     foreign key(re_mo_name) references movie(mo_name),
     foreign key(re_se_seat) references seat(se_seat),
-    foreign key(re_se_place) references place(se_place)
-);
+    foreign key(re_se_place) references seat(se_place)
+    );
