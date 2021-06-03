@@ -4,6 +4,7 @@ public class ObjectToStringTest {
 
 	public static void main(String[] args) {
 		Student s = new Student("홍길동",1,1,1);
+		s.print();
 		System.out.println(s);
 		System.out.println(s.toString());
 	}
@@ -52,6 +53,10 @@ class Student {
 	@Override
 	public String toString() {
 		return "Student [name=" + name + ", grade=" + grade + ", classNum=" + classNum + ", num=" + num + "]";
+	}
+	
+	public void print() {
+		System.out.println("이름 :"+name+ "\n학년 : "+grade+"\n반 :"+classNum+"\n번호 :"+ num);
 	}
 	
 	
