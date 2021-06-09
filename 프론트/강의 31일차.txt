@@ -1,0 +1,8 @@
+강의 31일차
+
+
+% => 부모 컨텐츠 길이의 %
+여백 => padding, margin
+      => 자식 요소에 margin을 주면 width와 height 계산하기가 어렵다.
+      => 부모 요소에 padding
+배경 => padding+컨텐츠
