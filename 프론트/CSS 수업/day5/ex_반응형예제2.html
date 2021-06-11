@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>반응형 예제2</title>
+    <script src="https://kit.fontawesome.com/be5943d19e.js" crossorigin="anonymous"></script>
+    <!-- 내가 작성한 코드 -->
+    <style>
+        .nav {width: 100%; height: 200px; border: 1px solid black; display: block; position: relative;}
+        .fa-bars{ 
+            position: absolute; border: 1px solid black; width: 20%; height: 100%; top: -1px; right:-1px;
+            font-size: 100px; text-align: center; line-height: 200px; 
+            }
+        ul{ margin:0; padding:0; list-style-type: none;}
+        li{ 
+            width:30%; height: 300px; flex-grow: 2; border: 1px solid black;
+            text-align: center; line-height: 300px; ;
+        }
+        li:nth-child(1), li:nth-child(2){ border-bottom: none;}
+        li:nth-child(1){border-top: none;}
+        li>a{display: block; color:black; text-decoration: none; height: 300px;} 
+        @media screen and (min-width: 640px) {
+            .nav{ display:none;}
+            li{ 
+            width:calc(100% / 3); height: 200px; flex-grow: 2; border: 1px solid black;
+            text-align: center; line-height: 300px; float: left; box-sizing: border-box;
+            } 
+            li:first-child, li:nth-child(2){ border-bottom: 1px solid black; border-right: none;}    
+            li>a{display: block; color:black; text-decoration: none; height: 200px;}
+            li:first-child{border-top: 1px solid black;}    
+        }
+    </style>
+</head>
+<body>
+    <div class="nav"> <i class="fas fa-bars"></i></div>
+    <div class="box">
+        <ul>
+            <li><a href="#1">메뉴1</a></li>
+            <li><a href="#2">메뉴2</a></li>
+            <li><a href="#3">메뉴3</a></li>
+        </ul>
+    </div>
+</body>
+</html>
