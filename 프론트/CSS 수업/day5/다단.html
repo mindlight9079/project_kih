@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>다단 예제</title>
+    <style>
+        /*  
+        - column-count : 다단 갯수
+        - column-gap : 단과 단 사이에 여백
+        - column-rule : 단 선 모양
+        - column-span : h태그가 포함되면 해당 부분에 단을 해제할지 말지를 결정하는 속성
+        - column-width : 한 단의 너비
+         */
+         body{
+             width: 600px;
+             column-count: 3;
+             column-gap : 20px;
+             column-rule: 1px solid red;
+             column-width: 250;
+             text-align: justify;
+         }
+         body h1 { column-span: all;}
+
+    </style>
+</head>
+<body>
+    <h1> 인천 아동 학대 </h1>
+    <p>
+            [인천=뉴시스] 정일형 기자 = 인천에서 5살 아들을 학대해 중태에 빠뜨린 20대 부부가 경찰에 붙잡혔다.
+        인천경찰청 여성청소년수사대는 아동학대 범죄의 처벌 등에 관한 특례법상 중상해 혐의로 20대 중반 A씨 부부를 긴급체포했다고 11일 밝혔다.
+        A씨 부부는 전날 오후 1시께 인천 남동구 빌라 자택에서 아들 B(5)군을 학대해 중상해를 입힌 혐의를 받고 있다.
+        B군은 머리 쪽을 크게 다쳐 119구급대원에 의해 인근 병원으로 옮겨졌으며, 전날 B군을 치료하던 병원 측에서 아동학대를 의심해 경찰에 신고한 것으로 알려졌다.
+        뇌출혈 증상을 보였던 B군은 중환자실로 이송돼 수술을 받았지만 아직 의식을 찾지 못하고 있다.   
+        이들은 경찰 조사에서 "아이와 목말을 태우고 놀아주다 떨어졌다"면서 혐의를 부인하고 있는 것으로 전해졌다.
+        경찰 관계자는 "아동학대 혐의가 포착돼 A씨 부부를 긴급체포했다"면서 이날 중으로 구속영장을 신청할 방침"이라고 밝혔다.
+    </p>
+</body>
+</html>
