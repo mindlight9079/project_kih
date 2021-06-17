@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>반복문 예제</title>
+</head>
+<body>
+    <script>
+        //document.write('<input type="text">');
+        /* 구구단 7단을 출력하는 코드를 작성하세요 */
+        var num = 7, i;
+        for(i=1; i<10; i++){
+            document.write(`${num} x ${i} = ${num*i}`+'<br>');
+        }
+
+        document.write('<br>');
+
+        /* 구구단 2단에서 9단까지 출력하는 코드를 작성하세요.*/
+        var j, num2;
+        for(num2=2; num2<10; num2++){
+            for(j=1; j<10; j++){
+                document.write(`${num2} x ${j} = ${num2*j}` +'<br>');
+            }
+            document.write('<br>');
+        }
+
+        /* 100이하의 짝수를 출력하는 코드를 작성하세요. */ 
+        var k;
+        for(k=1; k<=100; k++){
+            if(k%2 == 0){
+                document.write(k +' ');
+            }
+            if(k%20 == 0){
+                document.write('<br>');
+            }
+        }
+
+        document.write('<br>');
+        
+        /* 100이하의 짝수의 합을 출력하는 코드를 작성하세요.*/
+        var sum = 0;
+        for(k=1; k<=100; k++){
+            if(k%2 == 0){
+                sum += k;
+            }
+        }
+        document.write(`1부터 100이하의 짝수 합 : ${sum}<br>`);
+    </script>
+</body>
+</html>
