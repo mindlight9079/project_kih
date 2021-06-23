@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>햄버거</title>
+    <!-- 내가 작성한 코드 -->
+    <script src="https://kit.fontawesome.com/be5943d19e.js" crossorigin="anonymous"></script>
+    <script src="../js/jquery.js"></script>
+    <script>
+        $(function(){
+            $('.fa-hamburger').click(function(){
+                $('.nav').show();
+                $('.nav').animate({left:'0px'},1000);
+            })
+            $('.fa-window-close').click(function(){
+                $('.nav').hide();
+                $('.nav').animate({left:'-150px'},1000);
+            })
+        })
+    </script>
+</head>
+<style>
+    .container {
+        position: relative;
+    }
+    .header{
+        height: 50px; background-color: red;
+    }
+    .ham-box{
+        position: absolute;  text-align: center;
+        height: 50px; width: 50px; top: -1px; right:-1px;
+    }
+    .box{
+        height: 300px; background-color: green;;
+    }
+    .fa-hamburger{
+        font-size: 30px;  line-height: 50px;
+    }
+    .nav{
+        position: absolute; top:50px; left:px;
+        width: 150px; height: 250px; background-color: blue;
+    }
+    .fa-window-close{
+        position: absolute;
+        font-size: 25px; top: 5px; right: 5px;
+    }
+</style>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="ham-box"><i class="fas fa-hamburger"></i></div>            
+        </div>
+        <div class="nav"><i class="fas fa-window-close"></i></div>
+    </div>
+</body>
+</html>
