@@ -7,36 +7,22 @@
     <title>롤링 예제</title>
     <script src="../js/jquery.js"></script>
     <script src="../js/rolling.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
     <script>
+        var id;
         $(function(){
-        setInterval(function(){
-            if(!$('.box1 li').first().is(':animated')){
-                var width = $('.box1 li').last().width();
-                $('.box1 li').last().detach().prependTo('.box1')
-                .css('margin-left',-width+'px')
-                .animate({'margin-left' : '0px'},800);
-            }
-        },1000)
+                id = rolling('right','.box1','li',0,800,1000)
+                $('.view-box').hover(function(){
+                    clearInterval(id);
+                },function(){
+                    id = rollingRight('.box1','li',800,1000);
+                })
         })
-        // $(function(){
-        //   id = rollingRight('.box1','li','800','1000');
-        //   $('.box1').hover(function(){
-        //       clearInterval(id);
-        //   },function(){
-        //       id = rollingRight('.box1','li','800','1000');
-        //   })
-        // })
-
-        // function rollingRight(list, listItem, animateTime, intervalTime){
-        //     var id =setInterval(function(){
-        //     var width =  $(list+' '+listItem).last().width();
-        //     $(list+' '+listItem).last().detach().prependTo(list).removeAttr('style');
-        //       $(list+' '+listItem).animate({'margin-left':width},intervalTime);
-        //     },intervalTime)
-        //     return id;
-        // }
     </script>
     <style>
+      .container{
+          position: relative;
+      }
       .view-box{
           height: 50px; overflow: hidden; border: 2px solid black;
       }
@@ -50,16 +36,29 @@
       ul::after{
           display: block; content: '';  clear: both;
       }
+      button{
+          position: absolute; top:calc(50% - 13px);
+      }
+      #left {
+          left: -5px;
+      }
+      #right {
+          right: -5px;
+      }
     </style>
 </head>
 <body>
-    <div class="view-box">
-        <ul class="box1">
-            <li>1</li>
-            <li>2</li>
-            <li>3</li>
-            <li>4</li>
-        </ul>
+    <div class="container">
+        <button id="left"><i class="fas fa-chevron-left"></i></button>
+        <div class="view-box">
+            <ul class="box1">
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+            </ul>
+        </div>
+        <button id="right"><i class="fas fa-chevron-right"></i></button>
     </div>
 </body>
 </html>
