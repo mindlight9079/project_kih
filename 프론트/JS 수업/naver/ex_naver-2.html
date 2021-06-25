@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>네이버 구조 예제-2</title>
+    <!-- 내가 작성한 코드 -->
+    <script src="https://kit.fontawesome.com/be5943d19e.js" crossorigin="anonymous"></script>
+    <script src="../js/rolling.js"></script>
+    <script src="../js/jquery.js"></script>
+    <script>
+        $(function(){
+            id = rollingLeft('.right-down','li',800,1000);
+            $('.right-down').hover(function(){
+                clearInterval(id);
+            }, function(){
+                id = rollingLeft('.right-down','li',800,1000);
+            })
+            $('.right-down .fa-angle-right').click(function(){
+                var width = $('.rolling-box li').first().width();
+                $('.rolling-box li').first().animate({'margin-left': -width+'px'},800,function(){
+                    $(this).detach().appendTo('.rolling-box ul').removeAttr('style');
+                })
+            })    
+         
+            $('.right-down .fa-angle-left').click(function(){
+                var width = $('.right-down li').first().width();
+                $('.right-down li').last().detach().prependTo('.rolling-box ul')
+                .css('margin-left',-width+'px').animate({'margin-left':0},800);
+            })
+        })
+    </script>
+    <style>
+        * { padding:0; margin: 0; box-sizing: border-box;}
+        li{  width:1190px; margin: 0 auto; list-style-type: none;}
+        .li1{ border: 1px solid red; height: 49px;}
+        .li2{  height: 160px;}
+        .div{ width: 100%; height: 53px;  border-top : 1px solid #e4e8eb;
+            box-shadow: 0px 2px 2px #e4e8eb;; }
+        .li3{ min-height: 1000px; padding:20px 30px;}
+        .li4{ height: 423px; border: 1px solid purple;}
+        .li2::after{ content: ''; display: block; clear: both;}
+        .box1{ width:222px; height: 53px; border: 1px solid red; margin: calc(160px / 2 - (53px / 2)); margin-left: 0;
+            float: left; margin-right: 46px;} 
+        .box2{ float: left; width: 586px; height: 56px; border: 2px solid #19ce60;  
+            margin: calc(160px / 2 - (56px / 2)) 0; position: relative;
+        }
+        .search{ width:56px; height: 56px; background-color: #19ce60; position: absolute; top:-2px; right: -2px;}
+        input[name="search"] {
+            width: 444px; height: 24px; display:block; margin:14px 15px; outline: none; border:none;
+        } 
+        .div2{  min-width:1190px; height: 100%;border: 1px solid blue; margin: 0 auto;}
+        .box4{  width: 100%px;}
+        .box4::after{ content: ''; display: block; clear: both;}
+        .left{ width: 750px; float: left;}
+        .right{ width: 350px; float: right;}
+        .left-up{ height:135px; border: 1px solid green;}
+        .left-down{ height: 367px; margin-top: 12px;}
+        .right-up{ height: 135px; border: 1px solid green; padding:16px 16px 12px 17px;}
+        .right-down
+        { height: 49px; border: 1px solid blue; margin-top: 12px; position: relative; overflow: hidden;
+        }
+        .left1{ border: 1px solid purple; height: 49px;}
+        .left2{ border: 1px solid gray; height: 56px; }
+        .left3>div{ border: 1px solid #dae1e6; height: calc(262px / 4); 
+                    width: calc(100% / 6); float: left; border-right:none; border-bottom: none;}
+        .left3>div:nth-child(19), .left3>div:nth-child(20),.left3>div:nth-child(21),
+        .left3>div:nth-child(22),.left3>div:nth-child(23),.left3>div:nth-child(24)
+        { border-bottom: 1px solid #dae1e6;}
+        .left3>div:nth-child(6), .left3>div:nth-child(12), .left3>div:nth-child(18), .left3>div:nth-child(24){
+            border-right: 1px solid #dae1e6;
+        }
+        .left>div>.hover1{
+            width: 100%; height: 100%;
+        }
+        .left3>div>.hover2{
+            width:100%; height: 100%; background: #f7f9fa; display: none;
+        }
+        .left3>div:hover>.hover1{
+            display: none;
+        }    
+        .left3>div:hover>.hover2{
+            display: block;
+        }
+        .button{
+            width: calc(47px / 2); height: 24px; display: inline-block;
+        }
+        .icon{ float: right; margin: 11px 10px} 
+        .right1{ height:100%; font-size: 12px;}
+        .right1::after{ clear:both; content: ''; display: block;}
+        .right2{ height: 16px; margin-bottom: 11px; font-size: 12px; color:gray; }
+        .right3{ 
+            height: 48px; background-color: #19ce60; display: block; margin-bottom: 11px;
+            color:white; text-decoration: none; font-size: 18px; text-align: center; line-height: 48px; font-weight:bold;
+        }
+        .fa-lock, .fa-user{ font-size: 13px; color: gray;}
+        .idpw{ float: left;}
+        .signin{float: right;}
+        .right3>span { font-size: 14px;} 
+        .right-middle{ border:1px solid black; width:100%; height: 200px; margin-top:12px;}
+        .right-bottom{ border:1px solid black; width: 100%; height: 1539px; margin-top:15px;}
+        .section1{ border:1px solid blue; height: 44px;}
+        .section2{ border:1px solid gray; height: 70px; padding: 12px 4px 11px 10px;  }
+        .section3{ padding:55px 8px 22px 8px;  height:886px; position: relative;}
+        .section4{ border:1px solid skyblue; height: 262px;}
+        .section5{ border:1px solid purple; height: 274px; position: relative;}
+        .mall-link{ 
+            text-decoration: none; color:black; font-size: 13px; float: left; height: 23px; line-height: 23px;
+            }
+        .point1, .point2{
+             width: 3px; height: 3px; background-color: #c9cccf; border-radius: 50%; float: left;
+             margin: 10px 8px 0 10px;     
+        }
+        .point2{
+            margin: 10px 5px 0 5px;
+        }
+        .mall-link:hover { text-decoration: underline;}
+        .mall-list::after{ content: ''; display: block; clear: both;}
+        .bold{ font-weight: bold;}
+        .product-list{ height: 183px; display:flex; margin-bottom:10px;}
+        .product-mall{ height: 146px; width: 100%;  margin-right:5px;}
+        .img-list{ width:100%; height: 146px; overflow: hidden;}
+        .img-list>img{ width: 100%; height: 146px; transition: transform 0.5s; }
+        .img-list>img:hover{ transform: scale(1.02);}
+        .product-contents{
+             width:100% ;height:32px; font-size: 12px; text-align: center; 
+        }
+        .product-contents>p{ white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .product-mall:hover .img-list>img{ transform: scale(1.02); }
+        .product-mall:hover .product-contents{ text-decoration: underline;}
+        .number{ position: absolute; width:7px; font-size: 13px; top:13px; right: 92px; text-align: center; line-height: 30px;}
+        .number-box, .number-box2{ position: absolute; width: 57px; height: 29px; top:13px; right:8px;}
+        .number-box::after{ content: ''; display: block; clear: both;}
+        .number-bnt, .number-bnt2-1, .number-bnt2-2{ width:calc(57px / 2); height: 29px; float: left; }
+        .under-number{ height: 29px; position: relative;}
+        .under-number::after{ content: ''; display:block; clear: both;}
+        .number-bnt2-1, .number-bnt2-2, .number2{ float: left;}
+        .number-bnt2-1{ margin-right: 15px;}
+        .number-bnt2-2{ margin-left: 15px;}
+        .under-inner{ position: absolute; right:calc(50% - 55px)}
+        .number2{ font-size: 14px; line-height: 26px;}
+        .line{ width: calc(100% - 6px); border: 1px solid red; margin:0 auto;}
+        .line-box{ margin: 55px 8px 30px 8px;}
+        .line-box::after{ content: ''; clear: both; display: block;}
+        .inner-line{width:calc((100% -5px) / 2); float: left; }
+        .inner-line:hover img, .inner-line2:hover img{ transform: scale(1.02);}
+        .inner-line:hover .inner-box2,.inner-line2:hover .inner-box2{ text-decoration: underline;}
+        .inner-box{ height: 163px; overflow: hidden;}
+        .inner-box>img{ height: 163px; width: 100%;  transition: transform 1s; }
+        .inner-box2{ 
+            height: 16px; margin-top:9px; font-size: 13px; text-align: center;
+            line-height: 16px;    
+        }
+        .inner-line2{ height:190px; width: calc((100% - 5px) / 2); float: right;}
+        .index{ position: absolute; top:14px; right:8px;}
+        .index-number{ float: left; font-size: 13px; text-align: center; line-height: 28px; padding-right: 5px;}
+        .index-icon{ float: left; width:28.5px; height:29px;}
+        .rolling-box{ 
+            background-color: violet;
+        }
+        .rolling-box>ul{
+            position: absolute; width: 400%; height:49px;
+        }
+        .rolling-box>ul>li{
+            width: 25%; float: left; border: 1px solid blue; text-align: center; 
+            line-height: 49px;
+        }
+        .rolling-container {
+             margin-top: 10px; border: 1px solid black;  text-align: center;
+            line-height: 60px; overflow: hidden;
+        }
+        .menu-rolling{
+            height: 60px; width: 200%;
+        }
+    
+        .menu-rolling ul li{
+            float: left; width:calc(100% / 12); height: 60px; border-right: 1px solid black;
+        }
+        .menu-rolling ul li:last-child{
+            border-right: none;
+        }
+        .con-cont{
+            width: 100%; background-color: blanchedalmond; margin-top: 15px;
+        }
+        
+       </style>
+</head>
+<body>
+    <div class="box">
+    <ul>
+        <li class="li1"></li>
+        <li class="li2">
+            <div class="box1"></div>
+            <form class="box2">
+                    <input type="text" name="search">
+                <div class="search"></div>
+            </form>
+        </li>
+    </ul>
+    <div class="div">
+        <div class="div2"></div>
+    </div>
+      <ul>
+          <li class="li3">
+            <div class="box4">
+                <div class="left">
+                    <div class="left-up"></div>
+                    <div class="left-down">
+                        <div class="left1"></div>
+                        <div class="left2"></div>
+                        <div class="left3">
+                            <div><div class="hover1"></div> <div class="hover2"></div></div>
+                            <div><div class="hover1"></div> <div class="hover2"></div></div>
+                            <div><div class="hover1"></div> <div class="hover2"></div></div>
+                            <div><div class="hover1"></div> <div class="hover2"></div></div>
+                            <div><div class="hover1"></div> <div class="hover2"></div></div>
+                            <div><div class="hover1"></div> <div class="hover2"></div></div>
+                            <div><div class="hover1"></div> <div class="hover2"></div></div>
+                            <div><div class="hover1"></div> <div class="hover2"></div></div>
+                            <div><div class="hover1"></div> <div class="hover2"></div></div>
+                            <div><div class="hover1"></div> <div class="hover2"></div></div>
+                            <div><div class="hover1"></div> <div class="hover2"></div></div>
+                            <div><div class="hover1"></div> <div class="hover2"></div></div>
+                            <div><div class="hover1"></div> <div class="hover2"></div></div>
+                            <div><div class="hover1"></div> <div class="hover2"></div></div>
+                            <div><div class="hover1"></div> <div class="hover2"></div></div>
+                            <div><div class="hover1"></div> <div class="hover2"></div></div>
+                            <div><div class="hover1"></div> <div class="hover2"></div></div>
+                            <div><div class="hover1"></div> <div class="hover2"></div></div>
+                            <div><div class="hover1"></div> <div class="hover2"></div></div>
+                            <div><div class="hover1"></div> <div class="hover2"></div></div>
+                            <div><div class="hover1"></div> <div class="hover2"></div></div>
+                            <div><div class="hover1"></div> <div class="hover2"></div></div>
+                            <div><div class="hover1"></div> <div class="hover2"></div></div>
+                            <div><div class="hover1"></div> <div class="hover2"></div></div>
+                        </div>
+                    </div>
+
+                    <div class="rolling-container">
+                        <div class="menu-rolling">
+                            <ul class="rol-menu1">
+                                <li>메뉴1</li>
+                                <li>메뉴2</li>
+                                <li>메뉴3</li>
+                                <li>메뉴4</li>
+                                <li>메뉴5</li>
+                                <li>메뉴6</li>
+                            </ul>
+                            <ul class="rol-menu2">
+                                <li>메뉴1</li>
+                                <li>메뉴2</li>
+                                <li>메뉴3</li>
+                                <li>메뉴4</li>
+                                <li>메뉴5</li>
+                                <li>메뉴6</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="con-cont contents- container1">
+                        <div class="contents" id="contents1">1</div>
+                        <div class="contents" id="contents2">2</div>
+                        <div class="contents" id="contents3">3</div>
+                        <div class="contents" id="contents4">4</div>
+                        <div class="contents" id="contents5">5</div>
+                        <div class="contents" id="contents6">6</div>
+                    </div>
+                    <div class="con-cont contents- container2">
+                        <div class="contents" id="contents7">7</div>
+                        <div class="contents" id="contents8">8</div>
+                        <div class="contents" id="contents9">9</div>
+                        <div class="contents" id="contents10">10</div>
+                        <div class="contents" id="contents11">11</div>
+                        <div class="contents" id="contents12">12</div>
+                    </div>
+                </div>
+                <div class="right">
+                    <div class="right-up">
+                        <div class="right1">
+                            <div class="right2">네이버를 더 안전하고 편리하게 이용하세요</div>
+                            <a href="#" class="right3">NAVER <span>로그인</span></a>
+                                <div class="idpw">
+                                <i class="fas fa-lock"></i> 아이디 · 비밀번호 찾기 
+                                </div>
+                                <div class="signin">
+                                <i class="fas fa-user"></i> 회원가입
+                                </div>
+                        </div>
+                    </div>
+                    <div class="right-down">
+                      <div class="icon">
+                        <button class="button"><i class="fas fa-angle-left" ></i></button>
+                        <button class="button"><i class="fas fa-angle-right"></i></button>
+                      </div> 
+                      <div class="rolling-box">
+                          <ul>
+                              <li>1</li>
+                              <li>2</li>
+                              <li>3</li>
+                              <li>4</li>
+                          </ul>
+                      </div>
+                    </div>
+                    <div class="right-middle"></div>
+                    <div class="right-bottom">
+                        <div class="section1"></div>
+                        <div class="section2">
+                            <div class="mall-list">
+                                <a href="" class="mall-link bold">G마켓</a>
+                                <span class="point1"></span>
+                                <a href="" class="mall-link">옥션</a>
+                                <span class="point1"></span>
+                                <a href="" class="mall-link">11번가</a>
+                                <span class="point1"></span>
+                                <a href="" class="mall-link bold">이마트몰</a>
+                                <span class="point1"></span>
+                                <a href="" class="mall-link">티몬</a>
+                                <span class="point1"></span>
+                                <a href="" class="mall-link">위메프</a>
+                            </div>
+                            <div class="mall-list">
+                                <a href="" class="mall-link">쿠팡</a>
+                                <span class="point2"></span>
+                                <a href="" class="mall-link bold">신세계몰</a>
+                                <span class="point2"></span>
+                                <a href="" class="mall-link">올리브영</a>
+                                <span class="point2"></span>
+                                <a href="" class="mall-link">GS샵</a>
+                                <span class="point2"></span>
+                                <a href="" class="mall-link bold">롯데i몰</a>
+                                <span class="point2"></span>
+                                <a href="" class="mall-link">CJ온스타일</a>
+                            </div>
+                        </div>
+                        <div class="section3">
+                            <div class="number"><span class="bold">1</span>/18</div>
+                            <div class="number-box">
+                                <button class="number-bnt"><i class="fas fa-angle-left" ></i></button>
+                                <button class="number-bnt"><i class="fas fa-angle-right"></i></button>
+                            </div>
+                            <div class="product">
+                                <div class="product-list">
+                                    <div class="product-mall">
+                                        <div class="img-list">
+                                            <img src="../img/갤럭시탭s7.jpg" alt="갤럭시탭s7">
+                                        </div>
+                                        <div class="product-contents">
+                                            <p class="bold">MD가 추천</p>
+                                            <p>갤럭시탭s7</p>
+                                        </div>
+                                    </div>
+                                    <div class="product-mall">
+                                        <div class="img-list">
+                                            <img src="../img/우리, 이토록 작은 존재들을 위하여.jpg" alt="도서">
+                                        </div>
+                                        <div class="product-contents">
+                                            <p class="bold">MD가 추천</p>
+                                            <p>우리 이토록</p>
+                                        </div>
+                                    </div>
+                                    <div class="product-mall">
+                                            <div class="img-list">
+                                            <img src="../img/갤럭시탭s7.jpg" alt="갤럭시탭s7">
+                                            </div>
+                                        <div class="product-contents">
+                                            <p class="bold">MD가 추천</p>
+                                            <p>갤럭시탭s7</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="product-list">
+                                    <div class="product-mall">
+                                        <div class="img-list">
+                                            <img src="../img/우리, 이토록 작은 존재들을 위하여.jpg" alt="도서">
+                                        </div>
+                                        <div class="product-contents">
+                                            <p class="bold">MD추천 상품</p>
+                                            <p>갤럭시탭s7</p>
+                                        </div>
+                                    </div>
+                                    <div class="product-mall">
+                                        <div class="img-list">
+                                            <img src="../img/우리, 이토록 작은 존재들을 위하여.jpg" alt="도서">
+                                        </div>
+                                        <div class="product-contents">
+                                            <p class="bold">MD추천 상품</p>
+                                            <p>갤럭시탭s7   </p>
+                                        </div>
+                                    </div>
+                                    <div class="product-mall">
+                                            <div class="img-list">
+                                            <img src="../img/우리, 이토록 작은 존재들을 위하여.jpg" alt="도서">
+                                        </div>
+                                        <div class="product-contents">
+                                            <p class="bold">MD추천 상품</p>
+                                            <p>갤럭시탭s7</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="product-list">
+                                    <div class="product-mall">
+                                        <div class="img-list">
+                                            <img src="../img/갤럭시탭s7.jpg" alt="갤럭시탭s7">
+                                        </div>
+                                        <div class="product-contents">
+                                            <p class="bold">MD추천 상품</p>
+                                            <p>갤럭시탭s7</p>
+                                        </div>
+                                    </div>
+                                    <div class="product-mall">
+                                        <div class="img-list">
+                                            <img src="../img/갤럭시탭s7.jpg" alt="갤럭시탭s7">
+                                        </div>
+                                        <div class="product-contents">
+                                            <p class="bold">MD추천 상품</p>
+                                            <p>갤럭시탭s7   </p>
+                                        </div>
+                                    </div>
+                                    <div class="product-mall">
+                                            <div class="img-list">
+                                            <img src="../img/갤럭시탭s7.jpg" alt="갤럭시탭s7">
+                                        </div>
+                                        <div class="product-contents">
+                                            <p class="bold">MD추천 상품</p>
+                                            <p>갤럭시탭s7</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="product-list">
+                                    <div class="product-mall">
+                                        <div class="img-list">
+                                            <img src="../img/갤럭시탭s7.jpg" alt="갤럭시탭s7">
+                                        </div>
+                                        <div class="product-contents">
+                                            <p class="bold">MD추천 상품</p>
+                                            <p>갤럭시탭s7</p>
+                                        </div>
+                                    </div>
+                                    <div class="product-mall">
+                                        <div class="img-list">
+                                            <img src="../img/갤럭시탭s7.jpg" alt="갤럭시탭s7">
+                                        </div>
+                                        <div class="product-contents">
+                                            <p class="bold">MD추천 상품</p>
+                                            <p>갤럭시탭s7   </p>
+                                        </div>
+                                    </div>
+                                    <div class="product-mall">
+                                            <div class="img-list">
+                                            <img src="../img/갤럭시탭s7.jpg" alt="갤럭시탭s7">
+                                        </div>
+                                        <div class="product-contents">
+                                            <p class="bold">MD추천 상품</p>
+                                            <p>갤럭시탭s7</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="under-number">
+                                <span class="under-inner">
+                                    <button class="number-bnt2-1"><i class="fas fa-angle-left" ></i></button>
+                                    <div class="number2"><span class="bold">1</span>/18</div>   
+                                    <button class="number-bnt2-2"><i class="fas fa-angle-right"></i></button>  
+                                </span>                
+                            </div>
+                        </div>
+                        <div class="section4"></div>
+                        <div class="section5">
+                            <div class="line"></div>
+                            <div class="index">
+                                <div class="index-number"><span class="bold">1</span> / 10 </div>
+                                <button class="index-icon"><i class="fas fa-angle-left" ></i></button>
+                                <button class="index-icon"><i class="fas fa-angle-right"></i></button>
+                            </div>
+                            <div class="line-box">
+                                <div class="inner-line">
+                                    <div class="inner-box">
+                                        <img src="../img/apple.jpg" alt="사과">
+                                    </div>
+                                    <div class="inner-box2 bold">사과사과사과</div>
+                                </div>
+                                <div class="inner-line2">
+                                    <div class="inner-box">
+                                        <img src="../img/apple.jpg" alt="사과">
+                                    </div>
+                                    <div class="inner-box2 bold">사과사과사과</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+          </li>
+          <li class="li4"></li>
+      </ul>
+    </div> 
+</body>
+</html>
