@@ -32,7 +32,7 @@
         })
     </script>
     <style>
-        * { padding:0; margin: 0; box-sizing: border-box;}
+        * { padding:0; margin: 0; box-sizing: border-box; text-decoration: none; list-style: none;}
         li{  width:1190px; margin: 0 auto; list-style-type: none;}
         .li1{ border: 1px solid red; height: 49px;}
         .li2{  height: 160px;}
@@ -50,7 +50,7 @@
         input[name="search"] {
             width: 444px; height: 24px; display:block; margin:14px 15px; outline: none; border:none;
         } 
-        .div2{  min-width:1190px; height: 100%;border: 1px solid blue; margin: 0 auto;}
+        .div2{ min-width:1190px; height: 100%;border: 1px solid blue; margin: 0 auto;}
         .box4{  width: 100%px;}
         .box4::after{ content: ''; display: block; clear: both;}
         .left{ width: 750px; float: left;}
@@ -183,6 +183,14 @@
         .con-cont{
             width: 100%; background-color: blanchedalmond; margin-top: 15px;
         }
+        .inner-menu>.menu1{
+            position: absolute; float: left;  text-align: center;
+            font-size: 11px; margin : 0 auto;
+        }
+      
+        .inner-menu>.menu1>li a,  .inner-menu>.menu2 li a{
+            color: black; width: 45px; float: left;  line-height: 53px; display: f;
+        }
         
        </style>
 </head>
@@ -199,7 +207,8 @@
         </li>
     </ul>
     <div class="div">
-        <div class="div2"></div>
+        <div class="div2">
+        </div>
     </div>
       <ul>
           <li class="li3">
