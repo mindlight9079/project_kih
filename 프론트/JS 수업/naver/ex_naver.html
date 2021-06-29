@@ -298,12 +298,12 @@
         }
         .setting .service-box, .menu-setting>.reset{
             float:left; border: 1px solid #505050; border-radius: 15px; 
-            margin-left: 100px; padding: 7px 13px 5px; font-size: 12px;
+            margin-left: 100px; padding: 7px 13px 5px; font-size: 12px; cursor: pointer;
         }
    
         .setting .menu-box, .menu-setting>.store{
             float: left; border: 1px solid #505050; border-radius: 15px; padding: 7px 13px 5px;
-            margin-left: 10px; font-size: 12px; box-sizing: border-box;
+            margin-left: 10px; font-size: 12px; box-sizing: border-box; cursor: pointer;
         }
     
         .more-view-box{
@@ -332,11 +332,35 @@
         .view .view-title{
            margin-bottom: 10px; display: block;
         }
-        .menu-setting-box {
-            position: absolute; top: 3px; right: 440px; display: none;
+        .input-box{
+          width: 70px; height: 30px; border:1px solid red; box-sizing: border-box;
         }
-        .menu-setting-box li{
-            width: 70px; height: 40px; border: 1px solid #03c75a; float: left; margin-right: 10px;
+        .input-box.selected{
+          border-color: blue;
+        }
+        .left3{
+            position: relative;
+        }
+        .rolling-menu{
+            overflow: hidden; margin-top: 40px;
+        }
+        .rolling-box{
+            width: 800%; height: 50px; border: 1px solid black;
+        }
+        .rolling-box li{
+            float: left; border-right: 1px solid black; width: calc(100% / 64); box-sizing: border-box;
+            height: 50px; text-align: center; line-height: 50px;
+        }
+     
+        .prev, .next{
+            width: 50px; height: 50px; border: 1px solid black; border-radius: 50%;  position: absolute;
+            text-align: center; line-height: 50px; margin-left: -30px; float: left;
+        }
+        .next{
+            right:-30px;
+        }
+        .selected{
+            background-color: yellow;
         }
 
         .bold{ font-weight: bold;}
@@ -345,9 +369,12 @@
         .menu.container::after,
         .menu .black-menu-list-box::after, 
         .menu .green-menu-list-box::after,
-        .menu-setting-box::after
+        .rolling-menu::before,
+        .btn-box::after
         { content: ''; display: block; clear: both;}
-        
+        .display-none{
+          display: none !important;
+        }
         </style>
 </head>
 <body>
@@ -382,12 +409,6 @@
                 <li class="list-item"><a href="#">VIBE</a></li>
                 <li class="list-item"><a href="#">책</a></li>
                 <li class="list-item"><a href="#">웹툰</a></li>
-            </ul>
-            <ul class="menu-setting-box">
-                <li>1</li>
-                <li>2</li>
-                <li>3</li>
-                <li>4</li>
             </ul>
             <div class="more-btn">더보기</div>
             <div class="fold-btn">접기</div>
@@ -479,81 +500,77 @@
             <div class="inner-view-box check-box">
                 <ul class="view">
                     <li><a href="#"class="bold view-title">ㄱ-ㅁ</a></li>
-                    <li><label><input type="checkbox" name="view-check">날씨</label></li>
-                    <li><label><input type="checkbox" name="view-check"> 네이버 MY CAR</label></li>
-                    <li><label><input type="checkbox" name="view-check"> 네이버 게임</label></li>
-                    <li><label><input type="checkbox" name="view-check"> 네이버 예약</label></li>
-                    <li><label><input type="checkbox" name="view-check"> 네이버 프리미엄콘텐츠</label></li>
-                    <li><label><input type="checkbox" name="view-check"> 네이버플러스 멤버십</label></li>
-                    <li><label><input type="checkbox" name="view-check"> 뉴스</label></li>
-                    <li><label><input type="checkbox" name="view-check"> 데이터랩</label></li>
-                    <li><label><input type="checkbox" name="view-check"> 메모</label></li>
+                    <li><label><input type="checkbox" value="날씨">날씨</label></li>
+                    <li><label><input type="checkbox" value="네이버 MY CART"> 네이버 MY CAR</label></li>
+                    <li><label><input type="checkbox" value="네이버게임"> 네이버 게임</label></li>
+                    <li><label><input type="checkbox" value="네이버 예약"> 네이버 예약</label></li>
+                    <li><label><input type="checkbox" value="네이버 프리미엄콘텐츠"> 네이버 프리미엄콘텐츠</label></li>
+                    <li><label><input type="checkbox" value="네이버플러스 멤버십"> 네이버플러스 멤버십</label></li>
+                    <li><label><input type="checkbox" value="뉴스"> 뉴스</label></li>
+                    <li><label><input type="checkbox" value="데이터랩"> 데이터랩</label></li>
+                    <li><label><input type="checkbox" value="메모"> 메모</label></li>
                 </ul>
                 <ul class="view">
                     <li><a href="#"class="bold view-title">ㅂ-ㅅ</a></li>
-                    <li><a href="#"> <input type="checkbox" name="view-check"> 밴드</a></li>
-                    <li><a href="#"> <input type="checkbox" name="view-check"> 부동산</a></li>
-                    <li><a href="#"> <input type="checkbox" name="view-check"> 북마크</a></li>
-                    <li><a href="#"> <input type="checkbox" name="view-check"> 소프트웨어</a></li>
-                    <li><a href="#"> <input type="checkbox" name="view-check"> 스포츠</a></li>
-                    <li><a href="#"> <input type="checkbox" name="view-check"> 시리즈</a></li>
-                    <li><a href="#"> <input type="checkbox" name="view-check"> 시리즈온</a></li>
+                    <li><a href="#"> <input type="checkbox" value="밴드"> 밴드</a></li>
+                    <li><a href="#"> <input type="checkbox" value="부동산"> 부동산</a></li>
+                    <li><a href="#"> <input type="checkbox" value="북마크"> 북마크</a></li>
+                    <li><a href="#"> <input type="checkbox" value="소프트웨어"> 소프트웨어</a></li>
+                    <li><a href="#"> <input type="checkbox" value="스포츠"> 스포츠</a></li>
+                    <li><a href="#"> <input type="checkbox" value="시리즈"> 시리즈</a></li>
+                    <li><a href="#"> <input type="checkbox" value="시리즈온"> 시리즈온</a></li>
                 </ul>
                 <ul class="view">
                     <li><a href="#"class="bold view-title">ㅇ</a></li>
-                    <li><a href="#"> <input type="checkbox" name="view-check"> 영화</a></li>
-                    <li><a href="#"> <input type="checkbox" name="view-check"> 오디오클립</a></li>
-                    <li><a href="#"> <input type="checkbox" name="view-check"> 오피스</a></li>
-                    <li><a href="#"> <input type="checkbox" name="view-check"> 웨일</a></li>
-                    <li><a href="#"> <input type="checkbox" name="view-check"> 웹소설</a></li>
-                    <li><a href="#"> <input type="checkbox" name="view-check"> 웹툰</a></li>
-                    <li><a href="#"> <input type="checkbox" name="view-check"> 인플루언서 검색</a></li>
+                    <li><a href="#"> <input type="checkbox" value="영화"> 영화</a></li>
+                    <li><a href="#"> <input type="checkbox" value="오디오클립"> 오디오클립</a></li>
+                    <li><a href="#"> <input type="checkbox" value="오피스"> 오피스</a></li>
+                    <li><a href="#"> <input type="checkbox" value="웨일"> 웨일</a></li>
+                    <li><a href="#"> <input type="checkbox" value="웹소설"> 웹소설</a></li>
+                    <li><a href="#"> <input type="checkbox" value="웹툰"> 웹툰</a></li>
+                    <li><a href="#"> <input type="checkbox" value="인플루언서 검색"> 인플루언서 검색</a></li>
                 </ul>
                 <ul class="view">
                     <li><a href="#"class="bold view-title">ㅈ-ㅊ</a></li>
-                    <li><a href="#"> <input type="checkbox" name="view-check"> 자동차</a></li>
-                    <li><a href="#"> <input type="checkbox" name="view-check"> 주소록</a></li>
-                    <li><a href="#"> <input type="checkbox" name="view-check"> 증권</a></li>
-                    <li><a href="#"> <input type="checkbox" name="view-check"> 지도</a></li>
-                    <li><a href="#"> <input type="checkbox" name="view-check"> 지식백과</a></li>
-                    <li><a href="#"> <input type="checkbox" name="view-check"> 책</a></li>
+                    <li><a href="#"> <input type="checkbox" value="자동차"> 자동차</a></li>
+                    <li><a href="#"> <input type="checkbox" value="주소록"> 주소록</a></li>
+                    <li><a href="#"> <input type="checkbox" value="증권"> 증권</a></li>
+                    <li><a href="#"> <input type="checkbox" value="지도"> 지도</a></li>
+                    <li><a href="#"> <input type="checkbox" value="지식백과"> 지식백과</a></li>
+                    <li><a href="#"> <input type="checkbox" value="책"> 책</a></li>
                 </ul>
                 <ul class="view">
                     <li><a href="#"class="bold view-title">ㅋ-ㅎ</a></li>
-                    <li><a href="#"> <input type="checkbox" name="view-check"> 캘린더</a></li>
-                    <li><a href="#"> <input type="checkbox" name="view-check"> 클로바더빙</a></li>
-                    <li><a href="#"> <input type="checkbox" name="view-check"> 파파고</a></li>
-                    <li><a href="#"> <input type="checkbox" name="view-check"> 포스트</a></li>
-                    <li><a href="#"> <input type="checkbox" name="view-check"> 학술정보</a></li>
-                    <li><a href="#"> <input type="checkbox" name="view-check"> 항공권</a></li>
-                    <li><a href="#"> <input type="checkbox" name="view-check"> 호텔</a></li>
+                    <li><a href="#"> <input type="checkbox" value="캘린더"> 캘린더</a></li>
+                    <li><a href="#"> <input type="checkbox" value="클로바더빙"> 클로바더빙</a></li>
+                    <li><a href="#"> <input type="checkbox" value="파파고"> 파파고</a></li>
+                    <li><a href="#"> <input type="checkbox" value="포스트"> 포스트</a></li>
+                    <li><a href="#"> <input type="checkbox" value="학술정보"> 학술정보</a></li>
+                    <li><a href="#"> <input type="checkbox" value="항공권"> 항공권</a></li>
+                    <li><a href="#"> <input type="checkbox" value="호텔"> 호텔</a></li>
                 </ul>
                 <ul class="view">
                     <li><a href="#"class="bold view-title">A-Z</a></li>
-                    <li><a href="#"> <input type="checkbox" name="view-check"> keep</a></li>
-                    <li><a href="#"> <input type="checkbox" name="view-check"> modoo!</a></li>
-                    <li><a href="#"> <input type="checkbox" name="view-check"> MYBOX</a></li>
-                    <li><a href="#"> <input type="checkbox" name="view-check"> MY구독</a></li>
-                    <li><a href="#"> <input type="checkbox" name="view-check"> TV연예</a></li>
-                    <li><a href="#"> <input type="checkbox" name="view-check"> VIBE</a></li>
-                    <li><a href="#"> <input type="checkbox" name="view-check"> V LIVE</a></li>
+                    <li><a href="#"> <input type="checkbox" value="keep"> keep</a></li>
+                    <li><a href="#"> <input type="checkbox" value="modoo!"> modoo!</a></li>
+                    <li><a href="#"> <input type="checkbox" value="MYBOX"> MYBOX</a></li>
+                    <li><a href="#"> <input type="checkbox" value="MY구독"> MY구독</a></li>
+                    <li><a href="#"> <input type="checkbox" value="TV연예"> TV연예</a></li>
+                    <li><a href="#"> <input type="checkbox" value="VIBE"> VIBE</a></li>
+                    <li><a href="#"> <input type="checkbox" value="V LIVE"> V LIVE</a></li>
                 </ul>
                 <ul class="view">
                     <li><a href="#"class="bold view-title">사전</a></li>
-                    <li><a href="#"> <input type="checkbox" name="view-check">사전</a></li>
-                    <li><a href="#"> <input type="checkbox" name="view-check">국어사전</a></li>
-                    <li><a href="#"> <input type="checkbox" name="view-check">영어/영영사전</a></li>
-                    <li><a href="#"> <input type="checkbox" name="view-check">일본어사전</a></li>
-                    <li><a href="#"> <input type="checkbox" name="view-check">중국어사전</a></li>
-                    <li><a href="#"> <input type="checkbox" name="view-check">한자사전</a></li>
+                    <li><a href="#"> <input type="checkbox" value="사전">사전</a></li>
+                    <li><a href="#"> <input type="checkbox" value="국어사전">국어사전</a></li>
+                    <li><a href="#"> <input type="checkbox" value="영어/영영사전">영어/영영사전</a></li>
+                    <li><a href="#"> <input type="checkbox" value="일본어사전">일본어사전</a></li>
+                    <li><a href="#"> <input type="checkbox" value="중국어사전">중국어사전</a></li>
+                    <li><a href="#"> <input type="checkbox" value="한자사전">한자사전</a></li>
                 </ul>
             </div>
         </div>
     </div>
-
-
-
-    
     <div class="box4 container">
         <div class="box4-inner after">
             <div class="left-box">
@@ -675,6 +692,56 @@
                                 <div class="col1"></div>
                                 <div class="col2"></div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="left3">
+                    <div class="btn-box">
+                        <div class="prev"><i class="fas fa-angle-left" ></i></div>
+                        <div class="next"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                    <div class="rolling-menu">                        
+                        <div class="rolling-box">
+                            <ul class="menu-rolling ">
+                                <li class="selected"><a href="#">메뉴1</a></li>
+                                <li><a href="#">메뉴2</a></li>
+                                <li><a href="#">메뉴3</a></li>
+                                <li><a href="#">메뉴4</a></li>
+                                <li><a href="#">메뉴5</a></li>
+                                <li><a href="#">메뉴6</a></li>
+                                <li><a href="#">메뉴7</a></li>
+                                <li><a href="#">메뉴8</a></li>
+                            </ul>
+                            <ul class="menu-rolling">
+                                <li><a href="#">메뉴1</a></li>
+                                <li><a href="#">메뉴2</a></li>
+                                <li><a href="#">메뉴3</a></li>
+                                <li><a href="#">메뉴4</a></li>
+                                <li><a href="#">메뉴5</a></li>
+                                <li><a href="#">메뉴6</a></li>
+                                <li><a href="#">메뉴7</a></li>
+                                <li><a href="#">메뉴8</a></li>
+                            </ul>
+                            <ul class="menu-rolling">
+                                <li><a href="#">메뉴1</a></li>
+                                <li><a href="#">메뉴2</a></li>
+                                <li><a href="#">메뉴3</a></li>
+                                <li><a href="#">메뉴4</a></li>
+                                <li><a href="#">메뉴5</a></li>
+                                <li><a href="#">메뉴6</a></li>
+                                <li><a href="#">메뉴7</a></li>
+                                <li><a href="#">메뉴8</a></li>
+                            </ul>
+                            <ul class="menu-rolling">
+                                <li><a href="#">메뉴1</a></li>
+                                <li><a href="#">메뉴2</a></li>
+                                <li><a href="#">메뉴3</a></li>
+                                <li><a href="#">메뉴4</a></li>
+                                <li><a href="#">메뉴5</a></li>
+                                <li><a href="#">메뉴6</a></li>
+                                <li><a href="#">메뉴7</a></li>
+                                <li><a href="#">메뉴8</a></li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -928,14 +995,19 @@
                                 </div>
                             </div>
                         </div>
+                    </div>                   
                     </div>
-                    
                 </div>
+                
             </div>
+            
         </div>
     </div>
     <div class="box5 container"></div>
     <script>
+      var oriMenu = ['사전','뉴스','증권','부동산','지도','VIBE','책','웹툰'];
+      var selMenu = [];
+      var arr=[];
         $(function(){
             $('.more-btn').click(function(){
                 $('.setting').show();
@@ -952,6 +1024,8 @@
                 $('.fold-btn').hide();
                 $('.more-btn').show();
                 $('.more-view-box2').hide();
+                setMenuBox(selMenu,oriMenu);
+                initCheckbox(selMenu);
             })
             $('.setting .menu-box').click(function(){
                 $('.more-view-box2').show();
@@ -959,10 +1033,117 @@
                 $('.more-view-box').hide();
                 $('.setting').hide();
                 $('.menu-setting').show();
-                $('.black-menu-list').hide();
-               
+                var arr=[];
+                initMenuBox(selMenu);
             })
+            $('.view input[type=checkbox]').click(function(){
+                var value = $(this).val();
+                var index = arr.indexOf(value);
+                if(index>=0){
+                    arr.splice(index,1);
+                } else{
+                    if(arr.length<4){
+                        arr.push(value);
+                    } else{
+                        $(this).prop('checked',false);
+                    }
+                }
+                initMenuBox(arr);
+            })
+            $('.menu-setting .store').click(function(){
+                selMenu = arr.slice(0)
+                $('.fold-btn').click();
+            })
+
+            $('.menu-setting .reset').click(function(){
+                selMenu = oriMenu.slice(0);
+                setMenuBox(selMenu,oriMenu);
+                alert('초기화')
+                $('.fold-btn').click();
+            })
+
+            $('.menu-rolling li').click(function(){
+                $('.menu-rolling li').removeClass('selected')
+                $(this).addClass('selected');
+            })
+            $('.btn-box .next').click(function(){
+                var selected = $('.selected');
+                if(selected.next().length == 0){
+                    if(selected.parent().next().length == 0){
+                        return;
+                    }
+                    var ml = $('.rolling-box').css('margin-left');
+                    ml = parseFloat(ml);
+                    var width = $('.menu-rolling').first().width();
+                    ml = ml - width;
+                    $('.rolling-box').animate({'margin-left':ml+'px'},500);
+                    selected.parent().next().children('.menu-rolling li').first().addClass('selected');
+                    selected.removeClass('selected');
+                } else{
+                    selected.removeClass('selected').next().addClass('selected');
+                }
+                $('.selected').click();
+            })
+            $('.btn-box .prev').click(function(){
+                var selected = $('.selected');
+                if(selected.prev().length == 0){
+                    if(selected.parent().prev().length == 0){
+                        return;
+                    }
+                    var ml = $('.rolling-box li').css('margin-left');
+                    ml = parseFloat(ml);
+                    var width = $('.menu').first().width();
+                    ml = ml+width;
+                    $('.rolling-box').animate({'margin-left':ml+'px'},500);
+                    selected.parent().prev().children('.menu-rolling li').last().addClass('selected');
+                    selected.removeClass('selected');
+                } else{
+                    selected.removeClass('selected').prev().addClass('selected');
+                }
+                $('.selected').click();
+            })
+          
         })
+        function initMenuBox(arr){
+          $('.black-menu-list .list-item').each(function(index){
+            $(this).removeClass('input-box selected display-none');
+            if(index>=4){
+              $(this).addClass('display-none');
+            }
+            else if(arr.length>index){
+              $(this).find('a').text(arr[index]);
+            } else{
+              $(this).find('a').text('');
+              $(this).addClass('input-box');
+              if(index == arr.length){
+                $(this).addClass('selected');
+              }
+            }
+          })
+        }
+        function setMenuBox(selArr, oriArr){
+          var arr = selArr.length == 0? oriArr : selArr;
+          $('.black-menu-list .list-item').each(function(index){
+            $(this).removeClass('display-none');
+            $(this).removeClass('selected input-box');
+            if(index < arr.length){
+              $(this).find('a').text(arr[index]);
+            } else{
+              $(this).addClass('display-none')
+            }
+          })
+        }
+        function initCheckbox(arr){
+            $('.view input[type=checkbox]').each(function(){
+                var value = $(this).val();
+                //선택된 메뉴에 값이 있으면
+                if(arr.indexOf(value)>=0){
+                    $(this).prop('checked',true);
+                }else{
+                    $(this).prop('checked',false);
+                }
+            })
+        }
     </script>
 </body>
 </html>
