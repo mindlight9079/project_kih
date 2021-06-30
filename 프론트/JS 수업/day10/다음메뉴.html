@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 내가 작성한 코드(미완) -->
+    <script src="../js/jquery.js"></script>
+    <script>
+        var num = 1;
+        $(function(){
+          $('.list li').click(function(e){
+              if(!$(this).hasClass('selected')){
+                  e.preventDefault();
+              }
+              $('.list li').removeClass('selected');
+              $(this).addClass('selected');         
+          })
+          
+          $('.dot-list').click(function(){
+             if($('.dot-list .dot.dot-selected').length == 0){
+                $('.dot-list .dot').first().addClass('dot-selected')
+             } else {
+                $('.dot-list .dot').removeClass('dot-selected').eq(num++)
+                .addClass('dot-selected');
+             }
+             num = num == 3 ? 0:num;
+          })
+        })
+
+
+
+    </script>
+    <style>
+        *{ margin: 0; padding: 0; text-decoration: none; list-style: none; color: #000;}
+        .list{
+            display: flex; height: 30px; border: 1px solid black;
+        }
+        .list li {
+            margin-right: 25px; text-align: center; line-height: 30px;
+        }
+        .div{
+            height: 300px; border: 1px solid black; margin-top: 10px;
+        }
+        .list button {
+            width: 50px; height: 30px; background-color: white; border: none; 
+        }
+        .selected a{
+            text-decoration: underline; color: blue; 
+        }
+        .display-none{
+            display: none;
+        }
+        .dot-list{
+            display: flex; margin-left:-20px; margin-right: 10px;
+        }
+        .dot {
+            width: 8px; height: 8px; background-color: gray; border-radius: 50%; ;
+            margin:11px 2px;
+        }
+        .dot-selected{
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-box">
+        <ul class="list">
+            <li class="selected"><a href="https://news.daum.net/">뉴스</a></li>
+            <div class="dot-list">
+                <div class="dot dot-click1 dot-selected"></div>
+                <div class="dot dot-click2"></div>
+                <div class="dot dot-click3"></div>
+            </div>
+            <li><a href="https://entertain.daum.net/">연예</a></li>
+            <li><a href="https://sports.daum.net/">스포츠</a></li>
+            <li><a href="https://movie.daum.net/main">영화</a></li>
+            <li><a href="https://auto.daum.net/">자동차</a></li>
+            <li><a href="https://realty.daum.net/">부동산</a></li>
+        </ul>
+        <div class="div display-none">박스1</div>
+        <div class="div display-none">박스2</div>
+        <div class="div display-none">박스3</div>
+        <div class="div display-none">박스4</div>
+        <div class="div display-none">박스5</div>
+        <div class="div display-none">박스6</div>
+    </div>
+</body>
+</html>
