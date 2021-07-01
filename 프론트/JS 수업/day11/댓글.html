@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>댓글예제</title>
+    <!-- 내가 작성한 코드 -->
+    <script src="../js/jquery.js"></script>
+    <script>
+        $(function(){
+            $('button[type=submit]').click(function(){
+              var value = $('textarea[name=comment-view]').val();
+              var id = $('.comment-name').text();
+              var str =   
+               '<br>'+'<div class="reply-name">'+id+'</div>'+
+                '<div class="reply-view">'+value+'</div>'+
+                '<button id="reply-delete">삭제X</button>'+'<br>'     
+                $('.register').append(str);
+            })
+        })
+    </script>
+    <style>
+        .container{
+            margin:20px;
+        }
+        .title{
+            margin: 25px 0;
+        }
+        .name{
+            margin-bottom: 15px;
+        }
+        input[name="review"]{
+            height: 300px; width: 620px; border: 1px solid black;
+        }
+        textarea[name="comment-view"]{
+            width: 420px; height:100px ; margin-left: 70px;
+        }
+        .comment{
+            font-weight: bold; margin: 10px 0; font-size: 20px;
+        }
+        .comment-box{
+            float: left; position: relative; margin: 10px 0;
+        }
+        button[type="submit"]{
+            width: 85px; height: 100px; margin-left: 20px; position: absolute;
+        }
+        .comment-name{
+            margin-right: 20px; position: absolute;
+        }
+        .register{
+            width: 600px; position: relative; 
+        }
+        .register>*{
+            float: left;
+        }
+        .reply-view{
+            width: 420px; height: 25px; margin: 0 20px;
+        }
+        .register::after{
+            clear: both; content: ''; display: block;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="contents-box">
+            <div class="title">제목입니다</div>
+            <div class="name">홍길동</div>
+            <input type="text" name="review">
+            <div class="comment">댓글</div>
+        </div>
+        <div class="register">
+         
+        </div>
+        <div class="comment-box">
+          <div class="comment-name">작성자</div>
+          <textarea name="comment-view"></textarea>
+          <button type="submit">등록</button>
+        </div>
+    </div>
+</body>
+</html>
