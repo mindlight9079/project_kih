@@ -18,38 +18,33 @@
      <!-- Latest compiled JavaScript -->
      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
-        $(function(){
-           $('form').on('submit',function(){
-               var idRegex = /^[0-9a-z_-]{5,20}$/;
-               var pwRegex = /^[0-9a-z]{8,16}$/i;
-               var emptyMessage = '필수 정보입니다.';
-               var idRegexMessage = '5~20자의 영문 소문자, 숫자와 특수기호(_)(-)만 사용가능합니다.';
-               var pwRegexMessage = '8~16자 영문 대 소문자, 숫자를 사용하세요.'
-               printMessage('id',emptyMessage,idRegex, idRegexMessage);
-               printMessage('pw',emptyMessage,pwRegex, pwRegexMessage);
-               return false;
-           })
-        })
+       $(function(){
+			$('form').on('submit',function(){
+				var idRegex = /^[0-9a-z_-]{5,20}$/;
+				var pwRegex = /^[0-9a-z]{8,16}$/i;
+				var emptyMessage = '필수 정보입니다'; 
+				var idRegexMessage = '5~20자의 영문 소문자, 숫자와 특수기호(_),(-)만 사용 가능합니다.';
+				var pwRegexMessage = '8~16자 영문 대 소문자, 숫자를 사용하세요.'
+				printMessage('id', emptyMessage, idRegex, idRegexMessage);
+				printMessage('pw', emptyMessage, pwRegex, pwRegexMessage);
+				return false;
+			})
+		})
+		function printMessage(name, emptyMessage, regex, regexMessage){
+			var val = $('input[name='+name+']').val();
+			var message = check(val,emptyMessage ,regex,regexMessage);
+			$('#'+name+'-error').text(message);
+		}
 
-        function printMessage(name, emptyMessage, regex, regexMessage){
-            var val = $('input[name='+name+']').val();
-            var message = check(id,emptyMessage,Regex,regexMessage);
-               $('#'+name+'-error').text(message);
-        }
-
-        function check(str, emptyMessage, regex, regexMessage){
-            var str = '';
-            var regex = /^$/;
-            var emptyMessage  = '';
-            var regexMessage = '';
-            if(str == null || str == ''){
-                return emptyMessage;
-            } else if(typeof regex != 'undefined' && regex != '' && !regex.test(str)){
-                return regexMessage;
-            } else{
-                return '';
-            }
-        }
+		function check(str, emptyMessage, regex, regexMessage){
+			if(str == null || str == ''){
+				return emptyMessage;
+			}else if(typeof regex != 'undefined' && regex != '' && !regex.test(str)){
+				return regexMessage;
+			}else{
+				return '';
+			}
+		}
     </script>
 </head>
 <body>
