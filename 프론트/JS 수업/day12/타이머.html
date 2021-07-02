@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>타이머</title>
+    <script src="../js/jquery.js"></script>
+    <script>
+        var id;
+        var count = 0
+        var second = 0;
+        var minute = 0;
+        $(function(){
+            $('.start').click(function(){
+               id = setInterval(function(){
+                    count++;
+                    minute = second == 60 ? ++minute : minute;
+                    second = count == 60 ? ++second : second;
+                    count = count == 60 ? 0: count;
+                    var time = getTime(minute,second,count);
+                    $('.timer').html(time);                    
+                },15)
+
+            })
+            $('.reset').click(function(){
+                clearInterval(id);
+                getTime(minute,second,count);
+                
+            })
+            $('.record').click(function(){
+
+            })
+        })
+        
+        function addZero(num){
+            return num<10 ? '0'+num : num;
+        }
+
+        function getTime(minute, second, count) {
+            return addZero(minute)+" : "+addZero(second)+" : "+addZero(count);
+        }
+    </script>
+    <style>
+        .timer, .record-box{
+            width:410px;  height: 70px; border: 1px solid black;
+            text-align: center; line-height: 70px;
+        }
+        .start, .reset, .record{
+            width: calc(400px / 3); display: inline-block; line-height: 70px;
+            text-align: center;
+            border : 1px solid black; box-sizing: border-box; margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="timer"></div>
+            <span class="start">시작</span>
+            <span class="reset">초기화</span>
+            <span class="record">기록</span>
+        <div class="record-box"></div>
+    </div>
+</body>
+</html>
