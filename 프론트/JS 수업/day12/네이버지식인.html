@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/jquery.js"></script>
+    <script>
+        $(function(){
+            $('.view1').click(function(){
+                $('.container').show();
+                $('.container2').hide();
+            })
+            $('.view2').click(function(){
+                $('.container').hide();
+                $('.container2').show();
+            })
+        })
+    </script>
+    <style>
+        .container, .container2{
+            border : 1px solid black; padding: 10px;
+        }
+        .header{
+            font-size: 25px; font-weight: bold;
+        }
+        .title{
+            width: 700px; height: 30px; 
+        }
+        .contents{
+            width: 700px; height: 100px;
+        }
+        .box{
+            border-top: 1px solid black;
+        }
+        .view1, .view2{
+            width: 30px; height: 30px; background-color: gray; float: left; margin: 10px 2px; 
+            text-align: center; line-height: 30px; cursor: pointer;
+        }
+        .container::after, .b::before, .c::before{
+            content: ''; clear: both; display: block;
+        }
+        .div{
+            width: 700px;
+        }
+        .list-box{
+            height: 40px; line-height: 40px;
+        }
+        .list-box:last-child{
+            border-bottom: 1px solid black;
+        }
+        .container2{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="a">
+            <div class="header">전체</div>
+            <div class="view1">😁</div>
+            <div class="view2">😊</div>
+        </div>   
+        <div class="b">
+            <div class="box">
+                <div class="title">1</div>
+                <div class="contents">내용1</div>
+            </div>
+            <div class="box">
+                <div class="title">2</div>
+                <div class="contents">내용2</div>
+            </div>
+            <div class="box">
+                <div class="title">3</div>
+                <div class="contents">내용3</div>
+            </div>
+            <div class="box">
+                <div class="title">4</div>
+                <div class="contents">내용4</div>
+            </div>
+            <div class="box">
+                <div class="title">5</div>
+                <div class="contents">내용5</div>
+            </div>
+        </div>
+    </div>
+    <div class="container2">
+        <div class="a">
+            <div class="header">전체</div>
+            <div class="view1">😁</div>
+            <div class="view2">😊</div>
+        </div>  
+            <div class="c">
+                <div><div class="list-box">제목 내용 작성자</div></div>
+                <div><div class="list-box">제목 내용 작성자</div></div>
+                <div><div class="list-box">제목 내용 작성자</div></div>
+                <div><div class="list-box">제목 내용 작성자</div></div>
+                <div><div class="list-box">제목 내용 작성자</div></div>
+            </div>
+    </div>
+</body>
+</html>
