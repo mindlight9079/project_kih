@@ -12,11 +12,16 @@
             $('button[type=submit]').click(function(){
               var value = $('textarea[name=comment-view]').val();
               var id = $('.comment-name').text();
-              var str =   
-               '<br>'+'<div class="reply-name">'+id+'</div>'+
-                '<div class="reply-view">'+value+'</div>'+
-                '<button id="reply-delete">삭제X</button>'+'<br>'     
+              var str = 
+              '<div class="reply">'+  
+                '<br>'+'<div class="reply-name">'+id+'</div>'+
+                    '<div class="reply-view">'+value+'</div>'+
+                    '<button id="reply-delete">삭제X</button>'+'<br>'
+               '</div>'     
                 $('.register').append(str);
+                $('button[id=reply-delete]').click(function(){
+                    $(this).parent().remove();
+                })
             })
         })
     </script>
@@ -48,10 +53,10 @@
         .comment-name{
             margin-right: 20px; position: absolute;
         }
-        .register{
+       .register>.reply{
             width: 600px; position: relative; 
         }
-        .register>*{
+        .register>.reply>*{
             float: left;
         }
         .reply-view{
