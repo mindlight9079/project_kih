@@ -14,6 +14,7 @@
                 if($(this).hasClass('stop')){
                     //중지버튼을 클릭하면 타이머를 중지
                     clearInterval(id);
+                    $(this).text('시작');
                 } else{
                     id = setInterval(function(){
                     ms++;
