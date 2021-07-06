@@ -1,0 +1,16 @@
+spring 2일차
+
+
+singin.jsp에 로그인 화면을 구현하고 , 로그인 정보를 입력해서 서버로 데이터를 전송한 후,
+서버에서 전송된 데이터를 출력하세요.
+
+
+signup.jsp 파일을 생성한 후, 회원 가입 화면을 구현하고, 회원 정보를 입력해서
+서버로 데이터를 전송한 후, 서버에서 전송된 데이터를 출력하세요.
+URI는 /signup 
+
+
+- /signup에 접근할 수 있도록 컨트롤러에 @RequestMapping과 메소드를 추가
+- signup.jsp를 생성 후 코드 추가, 이때 method를 post
+- signup.post를 처리할 수 있도록 컨트롤러에 @RequestMapping과 메소드를 추가
+
