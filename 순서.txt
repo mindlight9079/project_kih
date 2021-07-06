@@ -1,0 +1,171 @@
+- 프로젝트 생성
+
+컨트롤+ N 
+spring 검색
+spring legacy project 클릭
+location 변경 또는 유지
+spring MVC project 선택
+
+
+컨트롤+N
+server 검색
+톰켓 버전 선택 
+브라우저에서 다운받은 톰캣 파일 선택
+
+
+- 한글 깨지는 걸 막아줘야 한다. = 인코딩 설정
+강사님 블로그에 올려져있음.
+스프링-프로젝트-인코딩 설정하기
+필터 소스 복붙
+jsp 파일 인코딩 설정
+
+
+- GIT에 올리기
+
+
+- 데이터 베이스 연동
+데이터 베이스 설정하기 - 강사님 티스토리
+- db연동하기
+depedency 추가
+namespaces 추가
+
+예시 복사 - root-context에 붙여넣기
+<bean id="dataSource"
+      class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+    <property name="url"
+              value="jdbc:mysql://localhost:3306/spring(=>파일이름)?useSSL=false&amp;serverTimezone=UTC(UTC를 Asia/Seoul로 교체)">
+    </property>
+    <property name="username" value="green(=>sql이름으로 설정)"></property>
+    <property name="password" value="cjgreen"></property>
+</bean>  
+
+
+
+예시 복사 - root-context붙여넣기
+<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    <property name="dataSource" ref="dataSource" />
+    <property name="mapperLocations" value="classpath:mappers/**/*M(대문자중요)apper.xml"></property>
+</bean>
+<mybatis-spring:scan base-package="kr.green.spring(패키지만든 후  이름 수정).dao"/>
+
+
+- 패키지 만들기
+kr.grenn.test => 이름변경 kr.green.test.controlloer
+kr.green.test.dao
+kr.green.test.service
+kr.green.test.VO
+총 4개의 패키지.
+
+
+- scr > main > webapp> web-inf> appServlet > servlet-context.xml 파일 수정
+맨 마지막줄 뒷부분을 *로 수정
+
+
+- mappers 폴더 만들기
+ - scr/main/resoureces 에 만들기
+컨트롤 +N
+folder 검색
+folder name : mappers
+
+만들어진 mappers폴터 클릭 후 xml 파일 만들기
+xml.file 선택
+file name : MemberMapper
+
+샘플코드 가져오기 
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.green.spring.dao.MemberDAO">
+  <select id="getEmail" resultType="String">
+    select email from member where id = #{id}
+  </select>
+</mapper>
+
+
+namespace 부분을 "kr.green.test.dao.MemberDAO"으로 수정
+
+
+
+- kr.green.test.dao에 인터페이스 만들기
+인터페이스명 : MemberDAO
+샘플코드 가져오고 붙여넣기
+package kr.green.spring.dao;
+ 
+import org.apache.ibatis.annotations.Param;
+ 
+public interface MemberDAO {
+    public String getEmail(@Param("id")String id);
+}
+ 
+
+회원을 관리하기 위해 member 테이블을 생성
+MemberVO	 - class
+MemberController  - class
+MemberService	 - interface
+MemberServiceImp - class
+MemberDAO	 - interface
+MemberMapper	 - xml
+
+
+
+- kr.green.test.Service에 인터페이스 만들기
+인터페이스명 : MemberService
+샘플코드 복붙
+package kr.green.spring.service;
+ 
+public interface MemberService {
+    public String getEmail(String id);
+}
+
+- kr.green.test.Service에 클래스 생성
+클래스명 : MemberServiceImp
+샘플코드 복붙
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+ 
+import kr.green.test.dao.MemberDAO;
+ 
+@Service
+public class MemberServiceImp implements MemberService {
+    @Autowired
+    MemberDAO memberDao;
+    
+    @Override
+    public String getEmail(String id) {
+        return memberDao.getEmail(id);
+    }
+}    
+
+
+- kr.green.test.controller 패키지에 MemberController클래스 생성
+
+package kr.green.test.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import kr.green.test.service.MemberService;
+@Controller
+public class MemberController {
+	
+		@Autowired 
+		MemberService memberService;
+		
+		@RequestMapping(value ="/test")
+		public String test(Model model) {
+			System.out.println(memberService.getEmail("abc123"));
+			return "home";
+		}
+}
+
+
+- 롬복을 사용하려면 의존성 추가를 해야 한다.
+ - 롬복 홈페이지 > install > maven 샘플코드
+
+- kr.green.test.VO 패키지 선택 
+  - MemberVO 클래스 생성
+  - 데이터베이스 멤버 테이블의 속성 이름과 이름을 맞추면 된다.
