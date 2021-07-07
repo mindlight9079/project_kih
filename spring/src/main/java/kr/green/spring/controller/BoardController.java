@@ -9,12 +9,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.green.spring.service.BoardService;
+import kr.green.spring.service.MemberService;
 import kr.green.spring.vo.BoardVO;
+import kr.green.spring.vo.MemberVO;
 
 @Controller
 public class BoardController {
 	@Autowired
 	BoardService boardService;
+	@Autowired
+	MemberService memberService;
 	
 	@RequestMapping(value="/board/list")
 	public ModelAndView boardList(ModelAndView mv) {
@@ -79,6 +83,5 @@ public class BoardController {
 		boardService.deleteBoard(num);
 		mv.setViewName("redirect:/board/list");
 		return mv;
-	}
-	
+	}	
 }
