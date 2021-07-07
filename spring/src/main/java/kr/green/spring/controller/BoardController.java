@@ -73,4 +73,12 @@ public class BoardController {
 		mv.setViewName("redirect:/board/modify");
 		return mv;
 	}
+	
+	@RequestMapping(value="/board/delete", method=RequestMethod.GET)
+	public ModelAndView boarddeleteGet(ModelAndView mv, Integer num) {
+		boardService.deleteBoard(num);
+		mv.setViewName("redirect:/board/list");
+		return mv;
+	}
+	
 }
