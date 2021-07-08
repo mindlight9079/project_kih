@@ -12,8 +12,10 @@ public interface BoardDAO {
 
 	BoardVO getBoard(@Param("num")Integer num);
 
-	int updateBoard(@Param("board")BoardVO board);
+	int updateViews(@Param("board")BoardVO board);
 
 	void registerBoard(@Param("board")BoardVO board);
+
+	int updateBoard(@Param("board")BoardVO board);
 
 }

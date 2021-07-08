@@ -9,7 +9,7 @@
 	<select id="getBoard" resultType ="kr.green.test.vo.BoardVO">
 		select * from board where num = #{num} and valid='I'
 	</select>
-	<update id="updateBoard">
+	<update id="updateViews">
 		update board set
 			title = #{board.title},
 			contents = #{board.contents},
@@ -21,4 +21,12 @@
 		insert into board(title, writer, contents)
 			values(#{board.title},#{board.writer},#{board.contents})
 	</insert>
+	<update id="updateBoard">
+	  	update board set
+	  		title = #{board.title},
+	  		contents = #{board.contents},
+	  		views = #{board.views},
+	  		valid = #{board.valid}
+	  	where num = #{board.num}
+	</update>
 </mapper>

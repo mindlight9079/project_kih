@@ -36,7 +36,7 @@ public class BoardServiceImp implements BoardService {
 			return 0;
 		}
 		board.setViews(board.getViews()+1);
-		return boardDao.updateBoard(board);
+		return boardDao.updateViews(board);
 	}
 
 	@Override
@@ -45,6 +45,18 @@ public class BoardServiceImp implements BoardService {
 			return;
 		}
 		boardDao.registerBoard(board);
+	}
+
+	@Override
+	public int updateBoard(BoardVO board) {
+		if(board == null) {
+			return 0;
+		}
+		if(board.getValid() == (null)) {
+			board.setValid("I");
+		}
+		return boardDao.updateBoard(board);
+		
 	}		
 
 }
