@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>식물키우기</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        var id;
+        var angle;
+        $(function(){
+            
+            
+            $('.container').removeClass('nightDay');
+            $('.button1').click(function(){
+                $('.sun').show();
+                $('.button1').hide();
+                $('.night').show();
+            })
+            $('.night').click(function(){
+                $('.container').addClass('nightDay');
+                $('.sun').hide();
+
+            })
+            $('.button2').click(function(){
+                $('.water1').show();
+                if(!$('.water1').is(':animated')){
+                    angle = calculateDeg('.water1');
+                    
+                   
+                }
+                rotate('.water1', angle,15,1000)
+                    rotate('.water1', angle,0,1000)
+                //$('.water1').hide();
+                   
+                
+            })
+        })
+        
+        function calculateDeg(selector){
+            var tr = $(selector).css('transform');
+            var values = tr.split('(')[1].split(')')[0].split(',');
+            var a = values[0];
+            var b = values[1];
+            var c = values[2];
+            var d = values[3];
+
+            var scale = Math.sqrt(a*a + b*b);
+            var sin = b/scale;
+            var angle = Math.round(Math.atan2(b, a) * (180/Math.PI));
+            return angle
+        }
+        function rotate(selector, angle, deg, ms){
+            $(selector).animate({a: deg},{
+                duration:ms,
+                step: function(now,fx) {
+                $(this).css('transform','rotate('+(angle+now)+'deg)'); 
+                }
+            });
+        }
+            
+    </script>
+    <style>
+      .container{
+          position: relative;
+          width: 1000px; height: 1000px; background: linear-gradient(to top, white,skyblue);
+      }
+      .sun{
+          width: 900px; margin: -95px -230px; display: none;
+      }
+      .plants{
+          width: 1500px;
+          position: absolute; bottom: 10px; left:-50px;
+      }
+      .button{
+          position: absolute; left: 50px; bottom: 10px;
+      }
+      .button1, .button2, .night{
+        width: 100px; height: 70px; background-color: rgb(240, 78, 57); margin-bottom: 10px;
+        text-align: center; line-height: 70px; color: white; font-size: 20px; border-radius: 10px;
+        cursor: pointer;
+      }
+      .night{
+          display: none;
+      }
+      .water1{
+          width: 500px; position: absolute; top: 300px; left: 150px;
+          transform-origin: 50% 50%;
+          transform : rotate(15deg);
+          /* animation: rotate_image 3s;  */
+          display: none;
+      }
+      @keyframes rotate_image {
+        100%{  
+            transform : rotate(15deg);
+        }
+    }
+    .nightDay{
+        background: linear-gradient(to top, gray,black);
+    }
+
+    </style>
+</head>
+<body>
+    <div class="container nightDay">
+        <img src="해-01.png" alt="해" class="sun">
+        <img src="식물키우기-01.png" alt="식물" class="plants">
+        <img src="물뿌리개.png" alt="물뿌리개" class="water1">
+        <div class="button">
+            <div class="button1">광합성하기</div>
+            <div class="night">밤</div>
+            <div class="button2">물주기</div>
+        </div>
+    </div>
+</body>
+</html>
