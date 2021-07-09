@@ -39,5 +39,18 @@
 	   <a href="<%=request.getContextPath()%>/board/register"><button class="btn btn-outline-danger">글쓰기</button></a>
 	</div>
 	<!-- <img src="<%=request.getContextPath()%>/resources/img/김태리.jfif"> -->
+	<script type="text/javascript">
+		$(function(){
+			var msg = '${msg}';
+			printMsg(msg);
+			history.replaceState({},null,null);
+		})
+		function printMsg(msg){
+			if(msg == '' || history.state){
+				return ;
+			}
+			alert(msg);
+		}
+	</script>
 </body>
 </html>

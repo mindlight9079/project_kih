@@ -52,11 +52,25 @@ public class BoardServiceImp implements BoardService {
 		if(board == null) {
 			return 0;
 		}
-		if(board.getValid() == (null)) {
+		if(board.getValid() == null) {
 			board.setValid("I");
 		}
+		BoardVO dbBoard = boardDao.getBoard(board.getNum());
+		dbBoard.setContents(board.getContents());
+		dbBoard.setTitle(board.getTitle());
 		return boardDao.updateBoard(board);
 		
-	}		
+	}
+
+	@Override
+	public int deleteBoard(Integer num) {
+		if(num == null) {
+			return 0;
+		}
+		BoardVO board = boardDao.getBoard(num);
+		board.setValid("D");
+		return boardDao.updateBoard(board);
+	}
+
 
 }

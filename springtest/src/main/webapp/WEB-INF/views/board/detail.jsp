@@ -33,8 +33,29 @@
 			  <label for="usr">내용</label>
 			  <textarea class="form-control" name="contents" rows="10" readonly>${board.contents}</textarea>
 		 </div>
+		 <div class="input-group">
+		 	<a href="<%=request.getContextPath()%>/board/list" class="mr-2"><button class ="btn btn-outline-danger">목록</button></a>
+		 	<c:if test="${board != null}">
+		 		<a href="<%=request.getContextPath()%>/board/update?num=${board.num}" class="mr-2"><button class ="btn btn-outline-danger">수정</button></a>
+				 <form action="<%=request.getContextPath()%>/board/delete" method="post" class="mr-2">
+		 			<input type="hidden" value="${board.num}" name ="num">
+		 			<button class ="btn btn-outline-danger">삭제</button>
+		 		</form>
+		 	</c:if>
+		 </div>	
 	</div>
-	<a href="<%=request.getContextPath()%>/board/list"><button class ="btn btn-outline-danger">목록</button></a>
-	<a href="<%=request.getContextPath()%>/board/update?num=${board.num}"><button class ="btn btn-outline-danger">수정</button></a>
+	<script type="text/javascript">
+		$(function(){
+			var msg = '${msg}';
+			printMsg(msg);
+			history.replaceState({},null,null);
+		})
+		function printMsg(msg){
+			if(msg == '' || history.state){
+				return ;
+			}
+			alert(msg);
+		}
+	</script>
 </body>
 </html>

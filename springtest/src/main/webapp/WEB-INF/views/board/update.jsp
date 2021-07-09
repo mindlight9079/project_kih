@@ -14,20 +14,19 @@
 	<form class="container" method="post" action="<%=request.getContextPath()%>/board/update">
 		<h1>게시판</h1>
 		 <div class="form-group">
-			  <label for="usr">제목</label>
+			  <label>제목</label>
 			  <input type="text" class="form-control" name="title" value="${board.title}">
 		 </div>
 		 <div class="form-group">
-			  <label for="usr">작성자</label>
-			  <input type="text" class="form-control" name="writer "value="${board.writer}" readonly >
+			  <label>작성자</label>
+			  <input type="text" class="form-control" name="writer " value="${board.writer}" readonly >
 		 </div>
 		 <div class="form-group">
-			  <label for="usr">내용</label>
+			  <label>내용</label>
 			  <textarea class="form-control" name="contents" rows="10">${board.contents}</textarea>
 		 </div>
 		 	<input type="hidden" value="${board.num}" name="num">
-			<input type="hidden" value="${board.views}" name="views">
-			<a href="<%=request.getContextPath()%>/board/list"><button class ="btn btn-outline-danger">목록</buttton></a>
+		 	<a href="<%=request.getContextPath()%>/board/list"><button class ="btn btn-outline-danger mr-2">목록</buttton></a>
 			<button type="submit" class ="btn btn-outline-danger">수정완료</button>
 	</form>
 </body>
