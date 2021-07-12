@@ -1,5 +1,6 @@
 package kr.green.spring.controller;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,6 +87,13 @@ public class HomeController {
 			}
 		}
 		mv.setViewName("redirect:/member/mypage");
+		return mv;
+	}
+	
+	@RequestMapping(value="/signout", method= RequestMethod.GET)
+	public ModelAndView signOutGet(ModelAndView mv, HttpServletRequest request) {
+		request.getSession().removeAttribute("user");
+		mv.setViewName("redirect:/");
 		return mv;
 	}
 }
