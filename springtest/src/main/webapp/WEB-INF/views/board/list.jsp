@@ -13,6 +13,15 @@
 <body>
 	<div class="container">
 	  <h2>게시판</h2>
+		<form class="input-group float-right mb-3" method="get" action="<%=request.getContextPath()%>/board/list">
+		  	<select class="form-control mr-2" name="type">
+		  		<option value="0" <c:if test="${pm.criteria.type == 0}">selected</c:if> >전체</option>
+		  		<option value="1" <c:if test="${pm.criteria.type == 1}">selected</c:if>>제목+내용</option>
+		  		<option value="2" <c:if test="${pm.criteria.type == 2}">selected</c:if>>작성자</option>
+		  	</select>
+		  		<input type="text" class="form-control mr-2" name="search" value="<c:out value="${pm.criteria.search}"/>">
+		  		<button class="btn btn-outline-dark">검색</button>
+		</form>
 	  <table class="table table-hover">
 	    <thead>
 	      <tr>
@@ -36,6 +45,22 @@
 		      </c:forEach>
 	    </tbody>
 	  </table>
+	    <ul class="pagination justify-content-center">
+			 <c:if test="${pm.prev}">
+			    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/board/list?page=${pm.startPage-1}&type=${pm.criteria.type}&search=<c:out value="${pm.criteria.search}"/>">이전</a></li>
+			 </c:if>
+			 <c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="index">
+			    <li class="page-item <c:if test="${pm.criteria.page == index}">active</c:if>">
+			    	<a class="page-link" href="<%=request.getContextPath()%>/board/list?page=${index}&type=${pm.criteria.type}&search=<c:out value="${pm.criteria.search}"/>">${index}</a>
+			    </li>
+			 </c:forEach>
+			 <c:if test="${pm.next}">
+			    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/board/list?page=${pm.endPage+1}&type=${pm.criteria.type}&search=<c:out value="${pm.criteria.search}"/>">다음</a></li>
+			 </c:if>
+		</ul>
+		  <c:if test="${list.size() == 0}">
+		  	<h1>게시글이 없습니다.</h1>
+		  </c:if>
 	   <a href="<%=request.getContextPath()%>/board/register"><button class="btn btn-outline-danger">글쓰기</button></a>
 	</div>
 	<!-- <img src="<%=request.getContextPath()%>/resources/img/김태리.jfif"> -->
