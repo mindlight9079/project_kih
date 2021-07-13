@@ -6,7 +6,7 @@ import kr.green.test.vo.MemberVO;
  
 public interface MemberDAO {
 
-	MemberVO getMember(@Param("id")String id);
+	public MemberVO getMember(@Param("id")String id);
 
 	public boolean signup(@Param("user")MemberVO user);
 

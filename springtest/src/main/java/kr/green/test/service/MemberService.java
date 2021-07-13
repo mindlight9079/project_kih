@@ -6,6 +6,6 @@ public interface MemberService {
 
 	MemberVO signin(MemberVO user);
 
-	void signup(MemberVO user);
+	public void signup(MemberVO user);
     
 }

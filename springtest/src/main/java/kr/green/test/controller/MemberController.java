@@ -16,17 +16,20 @@ public class MemberController {
 		@Autowired 
 		MemberService memberService;
 		
-		@RequestMapping(value = "/signin", method = RequestMethod.GET)
+		@GetMapping(value = "/signin")
 		public ModelAndView signinGet(ModelAndView mv) {
 			mv.setViewName("member/signin");
 			return mv;
 		}
 		
-		@RequestMapping(value = "/signin", method = RequestMethod.POST)
+		@PostMapping(value = "/signin")
 		public ModelAndView signinPost(ModelAndView mv, MemberVO user, String pw) {
-			MemberVO dbUser = memberService.signin(user);
-			mv.addObject("user",dbUser); 
-			mv.setViewName("redirect:/");
+			MemberVO loginUser = memberService.signin(user);
+			if(loginUser != null)
+				mv.setViewName("redirect:/");
+			else
+				mv.setViewName("redirect:/signin");
+				mv.addObject("user",loginUser); 
 			return mv;
 		}
 		

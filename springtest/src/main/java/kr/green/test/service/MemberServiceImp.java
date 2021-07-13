@@ -16,11 +16,15 @@ public class MemberServiceImp implements MemberService {
     
 	@Override
 	public MemberVO signin(MemberVO user) {
-		MemberVO dbUser = memberDao.getMember(user.getId());
-		if(dbUser == null || !passwordEncoder.matches(user.getPw(),dbUser.getPw() )) {
+		if(user == null || user.getId() == null || user.getId().trim().length() == 0 
+				|| user.getPw() == null || user.getPw().trim().length() == 0)
 			return null;
-		}
-		return dbUser;
+			MemberVO dbUser = memberDao.getMember(user.getId());
+			if(dbUser == null)
+				return null;
+			if(passwordEncoder.matches(user.getPw(), dbUser.getPw()))
+				return dbUser;
+		return null;
 	}
 
 	@Override
