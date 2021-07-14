@@ -4,9 +4,17 @@
 <!doctype html>
 <html>
 <head>
-
+<style type="text/css">
+	.jumbotron{
+		marin-bottom : 0;
+	}
+</style>
 </head>
 <body>
-	footer
+	<div class="footer">
+	  <div class="jumbotron">
+		<h1>푸터</h1>  
+	  </div>
+	</div>
 </body>
 </html>
