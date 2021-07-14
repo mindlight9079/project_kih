@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import kr.green.test.dao.BoardDAO;
 import kr.green.test.pagination.Criteria;
 import kr.green.test.vo.BoardVO;
+import kr.green.test.vo.MemberVO;
 
 @Service
 public class BoardServiceImp implements BoardService {
@@ -41,22 +42,27 @@ public class BoardServiceImp implements BoardService {
 	}
 
 	@Override
-	public void registerBoard(BoardVO board) {
-		if(board == null) {
+	public void registerBoard(BoardVO board, MemberVO user) {
+		if(board == null || board.getTitle().trim().length() == 0) {
 			return;
 		}
+		if(user == null || user.getId() == null || user.getId().trim().length() == 0)
+			return;
+		board.setWriter(user.getId());
 		boardDao.registerBoard(board);
 	}
 
 	@Override
-	public int updateBoard(BoardVO board) {
+	public int updateBoard(BoardVO board, MemberVO user) {
 		if(board == null) {
 			return 0;
 		}
-		if(board.getValid() == null) {
+		if(user == null)
+			return -1;
+		BoardVO dbBoard = boardDao.getBoard(board.getNum());
+		if(!user.getId().equals(board.getWriter())) {
 			board.setValid("I");
 		}
-		BoardVO dbBoard = boardDao.getBoard(board.getNum());
 		dbBoard.setContents(board.getContents());
 		dbBoard.setTitle(board.getTitle());
 		return boardDao.updateBoard(board);
@@ -64,11 +70,17 @@ public class BoardServiceImp implements BoardService {
 	}
 
 	@Override
-	public int deleteBoard(Integer num) {
+	public int deleteBoard(Integer num, MemberVO user) {
+		BoardVO board = boardDao.getBoard(num);
 		if(num == null) {
 			return 0;
 		}
-		BoardVO board = boardDao.getBoard(num);
+		if(board == null || user == null) {
+			return 0;
+		}
+		if(!user.getId().equals(board.getWriter())) {
+			return -1;
+		}
 		board.setValid("D");
 		return boardDao.updateBoard(board);
 	}

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import kr.green.test.pagination.Criteria;
 import kr.green.test.vo.BoardVO;
+import kr.green.test.vo.MemberVO;
 
 public interface BoardService {
 
@@ -13,12 +14,14 @@ public interface BoardService {
 
 	int updateViews(Integer num);
 
-	void registerBoard(BoardVO board);
+	void registerBoard(BoardVO board, MemberVO user);
 
-	int updateBoard(BoardVO board);
+	int updateBoard(BoardVO board, MemberVO user);
 
-	int deleteBoard(Integer num);
+	int deleteBoard(Integer num, MemberVO user);
 
 	int getTotalCount(Criteria cri);
 
+
+	
 }
