@@ -115,8 +115,5 @@ public class BoardController {
 		}
 		mv.setViewName("redirect:/board/list");
 		return mv;
-	}
-	
-	
-	
+	}	
 }
