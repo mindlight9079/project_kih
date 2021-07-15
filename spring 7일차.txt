@@ -1,0 +1,17 @@
+spring 7일차
+
+
+비밀번호 암호를 적용하여, 암호된 비밀번호로 로그인하고,
+회원가입시 비밀번호가 암호화 되도록 작성하세요.
+
+회원 상태에 따라 url 접근 권한 설정
+/board/register
+/board/modify
+/board/delete
+/member/mypage
+는 로그인한 회원만 접근 가능하도록 하고,
+/signup
+/signin
+은 로그인하지 않은 회원만 접근 가능하도록 설정해보세요.
+/board/modify에 작성자가 아닌 회원이 수정할 수 없도록 처리
+/board/delete에 작성자가 아닌 회원이 삭제할 수 없도록 처리
