@@ -1,13 +1,21 @@
 package kr.green.spring.controller;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -16,6 +24,7 @@ import kr.green.spring.pagination.PageMaker;
 import kr.green.spring.service.BoardService;
 import kr.green.spring.service.MemberService;
 import kr.green.spring.vo.BoardVO;
+import kr.green.spring.vo.FileVO;
 import kr.green.spring.vo.MemberVO;
 import lombok.extern.log4j.Log4j;
 
@@ -57,6 +66,9 @@ public class BoardController {
 		BoardVO board = boardService.getBoard(num);
 		//가져온 게시글을 화면에 전달, 이름은 board로
 		mv.addObject("board",board);
+		//첨부파일 가져오기
+		FileVO file = boardService.getFileVO(num);
+		mv.addObject("file",file);
 		System.out.println(board);
 		mv.setViewName("/template/board/detail");
 		return mv;
@@ -81,6 +93,8 @@ public class BoardController {
 	
 	@RequestMapping(value="/board/modify", method=RequestMethod.GET)
 	public ModelAndView boardModifyGet(ModelAndView mv, Integer num, HttpServletRequest request) {
+		FileVO file = boardService.getFileVO(num);
+		mv.addObject("file",file);		
 		BoardVO board = boardService.getBoard(num);
 		mv.addObject("board",board);
 		mv.setViewName("/template/board/modify");
@@ -92,9 +106,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/board/modify", method=RequestMethod.POST)
-	public ModelAndView boardModifyPost(ModelAndView mv, BoardVO board, HttpServletRequest request) {
-		//서비스에게 게시글을 주면서 수정하라고 요청
-		boardService.updateBoard(board);
+	public ModelAndView boardModifyPost(ModelAndView mv, BoardVO board, HttpServletRequest request, MultipartFile file) {
 		//detail로 이동
 		mv.addObject("num",board.getNum());
 		mv.setViewName("redirect:/board/modify");
@@ -103,9 +115,8 @@ public class BoardController {
 			mv.setViewName("redirect:/board/list");
 		} else {
 			//서비스에게 게시글을 주면서 수정하라고 요청
-			boardService.updateBoard(board);
+			boardService.updateBoard(board, file);
 		}
-			
 		return mv;
 	}
 	
@@ -116,4 +127,11 @@ public class BoardController {
 		mv.setViewName("redirect:/board/list");
 		return mv;
 	}	
+	
+	@ResponseBody
+	@RequestMapping("/board/download")
+	public ResponseEntity<byte[]> downloadFile(String fileName)throws Exception{
+		ResponseEntity<byte[]> entity = boardService.downloadFile(fileName);
+		return entity;
+	}
 }
