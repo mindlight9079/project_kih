@@ -25,6 +25,17 @@
 			  <label>내용</label>
 			  <textarea class="form-control" name="contents" rows="10">${board.contents}</textarea>
 		 </div>
+
+		<div class="form-group files">
+			<label>첨부파일</label>
+			<c:forEach items="${fileList}" var="file">
+			<div class="form-control attach">
+				<span>${file.ori_name}</span><button type="button" class="del-btn">x</button>
+				<input type="hidden" name="fileNum" value="${file.num}">
+				</div>
+			</c:forEach>
+		</div>
+
 		 	<input type="hidden" value="${board.num}" name="num">
 		 	<a href="<%=request.getContextPath()%>/board/list"><button class ="btn btn-outline-danger mr-2">목록</buttton></a>
 			<button type="submit" class ="btn btn-outline-danger">수정완료</button>

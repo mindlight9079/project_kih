@@ -1,16 +1,10 @@
 package kr.green.test.controller;
 
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -80,7 +74,9 @@ public class BoardController {
 	}
 	
 	@RequestMapping (value="/update",method=RequestMethod.GET)
-	public ModelAndView updateGet(ModelAndView mv, Integer num, HttpServletRequest request) {
+	public ModelAndView updateGet(ModelAndView mv, Integer num, HttpServletRequest request, MultipartFile[] files) {
+		ArrayList<FileVO> fileList = boardService.getFileVOList(num);
+		mv.addObject("fileList",fileList);
 		BoardVO board = boardService.getBoard(num);
 		mv.addObject("board",board);
 		mv.setViewName("/template/board/update");
