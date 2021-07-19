@@ -119,12 +119,12 @@ public class BoardServiceImp implements BoardService {
 
 	@Override
 	public ResponseEntity<byte[]> downloadFile(String fileName) throws IOException {
-		ResponseEntity<byte[]> entity = null;
-		InputStream in = null;
-		   try{
-		      String FormatName = fileName.substring(fileName.lastIndexOf(".")+1);
-		      HttpHeaders headers = new HttpHeaders();
-		      in = new FileInputStream(uploadPath+fileName);
+		 InputStream in = null;
+		    ResponseEntity<byte[]> entity = null;
+		    try{
+		        String FormatName = fileName.substring(fileName.lastIndexOf(".")+1);
+		        HttpHeaders headers = new HttpHeaders();
+		        in = new FileInputStream(uploadPath+fileName);
 
 		        fileName = fileName.substring(fileName.indexOf("_")+1);
 		        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
@@ -147,5 +147,7 @@ public class BoardServiceImp implements BoardService {
 		}
 		return boardDao.getFileVOList(num);
 	}
+
+
 
 }
