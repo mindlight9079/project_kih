@@ -42,7 +42,7 @@
 			</div>
 		</c:if>
 		 <div class="input-group">
-		 	<a href="<%=request.getContextPath()%>/board/list" class="mr-2"><button class ="btn btn-outline-danger">목록</button></a>
+		 	<a href="<%=request.getContextPath()%>/board/list" class="mr-2"><button type="button" class ="btn btn-outline-danger">목록</button></a>
 		 	<c:if test="${board != null && user.id.equals(board.writer)}">
 		 		<a href="<%=request.getContextPath()%>/board/update?num=${board.num}" class="mr-2"><button class ="btn btn-outline-danger">수정</button></a>
 				 <form action="<%=request.getContextPath()%>/board/delete" method="post" class="mr-2">

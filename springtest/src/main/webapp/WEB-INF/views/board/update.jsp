@@ -11,7 +11,7 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	</head>
 <body>
-	<form class="container" method="post" action="<%=request.getContextPath()%>/board/update">
+	<form class="container" method="post" action="<%=request.getContextPath()%>/board/update" enctype="multipart/form-data">
 		<h1>게시판</h1>
 		 <div class="form-group">
 			  <label>제목</label>
@@ -25,20 +25,30 @@
 			  <label>내용</label>
 			  <textarea class="form-control" name="contents" rows="10">${board.contents}</textarea>
 		 </div>
-
-		<div class="form-group files">
-			<label>첨부파일</label>
-			<c:forEach items="${fileList}" var="file">
-			<div class="form-control attach">
-				<span>${file.ori_name}</span><button type="button" class="del-btn">x</button>
-				<input type="hidden" name="fileNum" value="${file.num}">
-				</div>
-			</c:forEach>
-		</div>
-
+		 <div class="form-group file-box">
+			  <label>첨부파일</label>
+			  <c:forEach items="${fileList}" var="file">
+			  <div class="form-control mb-2">
+			  	<span>${file.ori_name}</span>
+			  	<input type="hidden" value="${file.num}" name="filenums">
+			  	<button type="button" class="btn btn-outline-danger del-btn">X</button>
+			  </div>
+			  </c:forEach>
+			  <c:forEach begin="1" end="${3 - fileList.size()}">
+			  <input type="file" class="form-control mb-2" name="files">
+			  </c:forEach>
+		 </div>
 		 	<input type="hidden" value="${board.num}" name="num">
 		 	<a href="<%=request.getContextPath()%>/board/list"><button class ="btn btn-outline-danger mr-2">목록</buttton></a>
 			<button type="submit" class ="btn btn-outline-danger">수정완료</button>
 	</form>
+	<script type="text/javascript">
+	$(function(){
+		$('.del-btn').click(function(){
+				$(this).parent().remove();
+				$('.file-box').append('<input type="file" class="form-control mb-2" name="files">');
+		})
+	})	
+	</script>
 </body>
 </html>

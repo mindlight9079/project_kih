@@ -74,8 +74,10 @@ public class BoardController {
 	}
 	
 	@RequestMapping (value="/update",method=RequestMethod.GET)
-	public ModelAndView updateGet(ModelAndView mv, Integer num, HttpServletRequest request, MultipartFile[] files) {
+	public ModelAndView updateGet(ModelAndView mv, Integer num, HttpServletRequest request) {
+		//첨부파일 가져옴
 		ArrayList<FileVO> fileList = boardService.getFileVOList(num);
+		//화면에 첨부파일 전송
 		mv.addObject("fileList",fileList);
 		BoardVO board = boardService.getBoard(num);
 		mv.addObject("board",board);
@@ -88,9 +90,9 @@ public class BoardController {
 	}
 	
 	@RequestMapping (value="/update",method=RequestMethod.POST)
-	public ModelAndView updatePost(ModelAndView mv, BoardVO board, HttpServletRequest request) {
+	public ModelAndView updatePost(ModelAndView mv, BoardVO board, HttpServletRequest request, MultipartFile[] files, Integer[] filenums) {
 		MemberVO user = memberService.getMember(request);
-		int res = boardService.updateBoard(board, user);
+		int res = boardService.updateBoard(board, user, files, filenums);
 		String msg = "";
 		if(res == 1)
 			msg = board.getNum()+"번 게시글이 수정되었습니다.";
@@ -105,7 +107,7 @@ public class BoardController {
 		if(!user.getId().equals(board.getWriter())) {
 			mv.setViewName("redirect:/board/list");
 		} else {
-			boardService.updateBoard(board, user);
+			boardService.updateBoard(board, user, files, filenums);
 		}
 		return mv;
 	}
