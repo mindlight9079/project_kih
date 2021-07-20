@@ -128,7 +128,7 @@ public class BoardController {
 	}	
 	
 	@ResponseBody
-	@RequestMapping("/download")
+	@RequestMapping("/board/download")
 	public ResponseEntity<byte[]> downloadFile(String fileName)throws Exception{
 		return boardService.downloadFile(fileName);
 	}

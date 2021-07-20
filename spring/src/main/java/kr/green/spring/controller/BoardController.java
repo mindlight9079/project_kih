@@ -1,18 +1,16 @@
 package kr.green.spring.controller;
 
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -58,7 +56,6 @@ public class BoardController {
 	
 	@RequestMapping(value="/board/detail")
 	public ModelAndView boardDetail(ModelAndView mv, Integer num) {
-		System.out.println(num);
 		//게시글을 가져오기 전 조회수를 증가
 		//서비스에게 게시글 번호를 주면서 게시글 조회수를 1증가하라고 시킴
 		boardService.updateViews(num);
@@ -69,7 +66,6 @@ public class BoardController {
 		//첨부파일 가져오기
 		ArrayList<FileVO> fileList = boardService.getFileVOList(num);
 		mv.addObject("fileList",fileList);
-		System.out.println(board);
 		mv.setViewName("/template/board/detail");
 		return mv;
 	}
@@ -133,5 +129,18 @@ public class BoardController {
 	public ResponseEntity<byte[]> downloadFile(String fileName)throws Exception{
 		ResponseEntity<byte[]> entity = boardService.downloadFile(fileName);
 		return entity;
+	}
+	
+	@ResponseBody
+	@GetMapping("/board/recommend/{state}/{board}")
+	public Map<String,Object> boardRecommend(@PathVariable("state") int state, @PathVariable("board") int board, HttpServletRequest r){
+		HashMap<String,Object> map = new HashMap<String, Object>();
+		MemberVO user = memberService.getMember(r);
+		//추천/비추천했으면 1, 취소했으면 0, 로그인 안했으면 -1
+		int res = boardService.updateRecommend(user, board, state);
+		map.put("state",state);
+		map.put("board", board);
+		map.put("result", res);
+		return map;
 	}
 }
