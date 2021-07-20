@@ -68,6 +68,6 @@
   	 </insert>
   	 <update id="updateRecommend">
   	 	update recommend set state = #{rvo.state} 
-  	 		where id = #{rvo.id} and and board = #{rvo.board} 
+  	 		where id = #{rvo.id} and board = #{rvo.board} 
   	 </update>
 </mapper>
