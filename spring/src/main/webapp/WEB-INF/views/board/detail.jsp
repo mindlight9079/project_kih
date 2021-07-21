@@ -47,8 +47,10 @@
 		<label>댓글</label>
 			<div class="contents">
 				<div class="reply-list">
-					
 				</div>
+				<ul class="pagination">
+				  
+				</ul>
 				<div class="reply-box form-group">
 					<textarea class="reply-input form-control mb-2"></textarea>
 					<button type="button" class="reply-btn btn btn-outline-success">등록</button>
@@ -140,7 +142,7 @@
 				success : function(result, status, xhr){
 					if(result == 'ok'){
 						alert('댓글 등록이 완료되었습니다.')
-						readReply();
+						readReply('${board.num}',1);
 					}
 				},
 				error: function(xhr, status, e){
@@ -148,12 +150,19 @@
 				}
 			})
 		})	
-		readReply();
+		readReply('${board.num}',1);
+		$(document).on('click','.pagination .page-item',function(){
+			var page = $(this).attr('data');
+			readReply('${board.num}',page);
+		})
+		//$(document).on('click','.del-btn',function(){
+		//	
+		//})
 	})
-function readReply(){
+function readReply(rp_bd_num, page){
 		$.ajax({
 			type: 'get',
-			url : '<%=request.getContextPath()%>/reply/list/' + '${board.num}',
+			url : '<%=request.getContextPath()%>/reply/list/' + rp_bd_num +'/'+page,
 			dataType : "json",
 			success : function(result, status, xhr){
 				var list = result['list'];
@@ -164,8 +173,26 @@ function readReply(){
 						'<label>'+list[i].rp_me_id+'</label>'+
 						'<div class="form-control">'+list[i].rp_content+'</div>'+
 					'</div>';
+					if('${user.id}' == list[i].rp_me_id)
+						str += '<button class="btn btn-outline-danger del-btn" data="'+list[i].rp_num+'">삭제</button>'
 				}
 				$('.reply-list').html(str);
+				var pm = (result['pm']);
+				var pmStr ='';
+				if(pm['prev']){
+					pmStr += '<li class="page-item" data="'+(pm['startPage']-1)+'"><a class="page-link" href="#">이전</a></li>';
+				}
+				for(i=pm['startPage']; i<=pm['endPage']; i++){
+					var active = '';
+					if(i==pm['criteria']['page'])
+						active = 'active';							
+				  	pmStr += '<li class="page-item '+active+'" data="'+i+'"><a class="page-link" href="#">'+i+'</a></li>';
+				}
+				if(pm['next']){
+					pmStr += '<li class="page-item" data="'+(pm['endPage']+1)+'"><a class="page-link" href="#">다음</a></li>';
+				}
+				$('.pagination').html(pmStr);
+				  
 			},
 			error: function(xhr, status, e){
 			
