@@ -155,9 +155,21 @@
 			var page = $(this).attr('data');
 			readReply('${board.num}',page);
 		})
-		//$(document).on('click','.del-btn',function(){
-		//	
-		//})
+		$(document).on('click','.del-btn',function(){
+			var rp_num = $(this).attr('data');
+			$.ajax({
+				type: 'post',
+				url : '<%=request.getContextPath()%>/reply/del',
+				data : JSON.stringify({'rp_num' : rp_num}),
+				contentType : "application/json; charset=utf-8",
+				success : function(result, status, xhr){
+					readReply('${board.num}',1)
+				},
+				error: function(xhr, status, e){
+				
+				}
+			})
+		})
 	})
 function readReply(rp_bd_num, page){
 		$.ajax({
