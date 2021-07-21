@@ -4,9 +4,8 @@
 <!doctype html>
 <html>
 <head>
-
+	<title>메인</title>
 </head>
 <body>
-	
 <body>
 </html>
