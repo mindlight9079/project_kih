@@ -52,7 +52,7 @@ public class BoardController {
 		BoardVO board = boardService.getBoard(num);
 		mv.addObject("msg",msg);
 		mv.addObject("board",board);
-		mv.setViewName("board/detail");
+		mv.setViewName("/template/board/detail");
 		ArrayList<FileVO> fileList = boardService.getFileVOList(num);
 		mv.addObject("fileList",fileList);
 		return mv;
