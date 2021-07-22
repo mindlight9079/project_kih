@@ -13,5 +13,7 @@ public interface MemberService {
 	MemberVO getMember(HttpServletRequest request);
 
 	MemberVO updateMember(MemberVO user, MemberVO sUser);
+
+	boolean idCheck(String id);
     
 }

@@ -10,6 +10,7 @@ import kr.green.test.pagination.Criteria;
 import kr.green.test.vo.BoardVO;
 import kr.green.test.vo.FileVO;
 import kr.green.test.vo.MemberVO;
+import kr.green.test.vo.RecommendVO;
 
 public interface BoardService {
 
@@ -29,5 +30,9 @@ public interface BoardService {
 
 	ResponseEntity<byte[]> downloadFile(String fileName) throws IOException;
 
-	ArrayList<FileVO> getFileVOList(Integer num);	
+	ArrayList<FileVO> getFileVOList(Integer num);
+
+	String recommend(int board, int state, MemberVO user);
+
+	RecommendVO getRecommend(Integer num, MemberVO user);	
 }

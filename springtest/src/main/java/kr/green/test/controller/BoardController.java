@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,6 +22,7 @@ import kr.green.test.service.MemberService;
 import kr.green.test.vo.BoardVO;
 import kr.green.test.vo.FileVO;
 import kr.green.test.vo.MemberVO;
+import kr.green.test.vo.RecommendVO;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
@@ -47,7 +50,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping (value="/detail" )
-	public ModelAndView detail(ModelAndView mv, Integer num, String msg) {
+	public ModelAndView detail(ModelAndView mv, Integer num, String msg, HttpServletRequest request) {
 		boardService.updateViews(num);
 		BoardVO board = boardService.getBoard(num);
 		mv.addObject("msg",msg);
@@ -55,6 +58,9 @@ public class BoardController {
 		mv.setViewName("/template/board/detail");
 		ArrayList<FileVO> fileList = boardService.getFileVOList(num);
 		mv.addObject("fileList",fileList);
+		MemberVO user = memberService.getMember(request);
+		RecommendVO rvo = boardService.getRecommend(num, user);
+		mv.addObject("recommend",rvo);
 		return mv;
 	}
 
@@ -128,8 +134,15 @@ public class BoardController {
 	}	
 	
 	@ResponseBody
-	@RequestMapping("/board/download")
+	@RequestMapping("/download")
 	public ResponseEntity<byte[]> downloadFile(String fileName)throws Exception{
 		return boardService.downloadFile(fileName);
+	}
+	
+	@ResponseBody
+	@GetMapping("/recommend/{board}/{state}")
+	public String boardRecommend(@PathVariable("board") int board, @PathVariable("state") int state, HttpServletRequest request) {
+		MemberVO user = memberService.getMember(request);
+		return boardService.recommend(board,state,user);
 	}
 }

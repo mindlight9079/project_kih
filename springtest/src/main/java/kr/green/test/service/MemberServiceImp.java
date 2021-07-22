@@ -70,6 +70,13 @@ public class MemberServiceImp implements MemberService {
 		sUser.setName(user.getName());
 		memberDao.updateMember(sUser);
 		return sUser;
+	}
+
+	@Override
+	public boolean idCheck(String id) {
+		if(id == null || id.length() == 0)
+			return false;
+		return memberDao.getMember(id) == null ? true : false;
 	} 
 }
  
