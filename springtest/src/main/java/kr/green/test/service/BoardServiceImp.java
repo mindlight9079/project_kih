@@ -15,9 +15,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import kr.green.spring.utils.UploadFileUtils;
 import kr.green.test.dao.BoardDAO;
 import kr.green.test.pagination.Criteria;
+import kr.green.test.utils.UploadFileUtils;
 import kr.green.test.vo.BoardVO;
 import kr.green.test.vo.FileVO;
 import kr.green.test.vo.MemberVO;
