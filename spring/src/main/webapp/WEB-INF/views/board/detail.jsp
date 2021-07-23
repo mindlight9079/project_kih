@@ -203,6 +203,8 @@
 			
 		})
 	})
+	
+
 function readReply(rp_bd_num, page){
 		$.ajax({
 			type: 'get',

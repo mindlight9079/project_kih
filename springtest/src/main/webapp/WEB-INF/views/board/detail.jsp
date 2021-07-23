@@ -8,6 +8,7 @@
 	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 	<script src="https://kit.fontawesome.com/be5943d19e.js" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/reply.js"></script>
 	<style>
 	.recommend-size{
 		font-size : 30px;
@@ -62,6 +63,21 @@
 			</c:forEach>
 			</div>
 		</c:if>
+		
+		<div class="reply form-group">
+			<label>댓글</label>
+				<div class="contents">
+					<div class="reply-list"></div>
+					<div class="reply-box form-group">
+						<ul class="pagination justify-content-center">
+						  
+						</ul>
+						<textarea class="reply-input form-control mb-2"></textarea>
+						<button type="button" class="reply-btn btn btn-outline-success">등록</button>
+					</div>
+				</div>
+		</div>
+		
 		 <div class="input-group">
 		 	<a href="<%=request.getContextPath()%>/board/list" class="mr-2"><button type="button" class ="btn btn-outline-danger">목록</button></a>
 		 	<c:if test="${board != null && user.id.equals(board.writer)}">
@@ -74,27 +90,34 @@
 		 </div>	
 	</div>
 	<script type="text/javascript">
-		$(function(){
+	//전역변수
+	//게시글번호
+	var rp_bd_num = '${board.num}';
+	//프로젝트명
+	var contextPath = '<%=request.getContextPath()%>'
+	
+$(function(){
 			var msg = '${msg}';
 			printMsg(msg);
 			history.replaceState({},null,null);
 		})
-		function printMsg(msg){
+		
+function printMsg(msg){
 			if(msg == '' || history.state){
 				return ;
 			}
 			alert(msg);
-		}
+}
 		
-		$(document).ready(function() {
-	        $('#summernote').summernote({
+	$(document).ready(function() {
+	   $('#summernote').summernote({
 		         placeholder: '내용을 작성하세요.',
 		         tabsize: 2,
 		   	     height: 400	
-	        });
-	    });
+	   });
+	});
 	
-			$('.re-btn').click(function(e){
+	$('.re-btn').click(function(e){
 				e.preventDefault();
 				var board = ${board.num};
 				var state = $(this).hasClass('up') ? 1 : -1;
@@ -126,6 +149,28 @@
 				})	
 			})
 	
+	replyService.list(contextPath, rp_bd_num, 1);
+	
+	$('.reply-btn').click(function(){
+				var rp_bd_num = '${board.num}';
+				var rp_me_id = '${user.id}';
+				var rp_content = $('.reply-input').val();
+				if(rp_me_id == ''){
+					alert('댓글을 달려면 로그인하세요.')
+					return ;
+				}
+				var data = {
+						'rp_bd_num' : rp_bd_num, 
+						'rp_me_id' : rp_me_id,
+						'rp_content' : rp_content }
+				replyService.insert(contextPath, data);
+	})
+	
+	$(document).on('click','.pagination .page-item',function(){
+		var page = $(this).attr('data');
+		replyService.list(contextPath, rp_bd_num, page);
+	})
+		  
 	</script>
 </body>
 </html>
