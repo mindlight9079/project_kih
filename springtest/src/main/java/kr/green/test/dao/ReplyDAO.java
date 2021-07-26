@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.apache.ibatis.annotations.Param;
 
 import kr.green.test.pagination.Criteria;
+import kr.green.test.vo.MemberVO;
 import kr.green.test.vo.ReplyVO;
 
 public interface ReplyDAO {
@@ -15,10 +16,7 @@ public interface ReplyDAO {
 
 	int getTotalCount(@Param("rp_bd_num")int rp_bd_num);
 
-	ReplyVO getReply(@Param("rp_num")int rp_num);
+	ReplyVO getReply(@Param("rp_num") int rp_num);
 
-	void updateReply(@Param("reply")ReplyVO rvo);
-
-
-
+	int updateReply(@Param("reply") ReplyVO dbReply);
 }

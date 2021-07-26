@@ -35,24 +35,32 @@ public class ReplyServiceImp implements ReplyService {
 	}
 
 	@Override
-	public String updateReply(ReplyVO reply, MemberVO user) {
-		if(reply == null || reply.getRp_bd_num() <= 0) {
-			return "NO_REPLY_FAIL";
+	public String updateReply(ReplyVO reply) {
+		if(reply == null || reply.getRp_bd_num() <= 0 || reply.getRp_me_id() == null || reply.getRp_me_id().length() == 0) {
+			return "FAIL";
 		}
-		if(user == null || user.getId() == null) {
-			return "NO_USER";
+		ReplyVO dbReply = replyDao.getReply(reply.getRp_num());
+		if(!reply.getRp_me_id().equals(dbReply.getRp_me_id())) {
+			return "FAIL";
 		}
-		ReplyVO rvo = replyDao.getReply(reply.getRp_num());
-		if(rvo == null) {
-			return "NO_REPLY_FAIL";
-		}
-		if(!rvo.getRp_me_id().equals(user.getId())) {
-			return "NO_REPLY_FAIL";
-		}
-		rvo.setRp_content(reply.getRp_content());
-		replyDao.updateReply(rvo);
-		return "MODIFY_SUCCESS";
+		dbReply.setRp_content(reply.getRp_content());
+			return replyDao.updateReply(dbReply)  == 1 ? "SUCCESS" : "FAIL";
 	}
+
+	@Override
+	public String deleteReply(ReplyVO reply) {
+		if(reply == null || reply.getRp_bd_num() <= 0 || reply.getRp_me_id() == null || reply.getRp_me_id().length() == 0) {
+			return "FAIL";
+		}
+		ReplyVO dbReply = replyDao.getReply(reply.getRp_num());
+		if(!reply.getRp_me_id().equals(dbReply.getRp_me_id())) {
+			return "FAIL";
+		}
+		dbReply.setRp_valid("D");
+			return replyDao.updateReply(dbReply)  == 1 ? "SUCCESS" : "FAIL";
+	}
+
+
 
 
 

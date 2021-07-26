@@ -174,14 +174,36 @@ function printMsg(msg){
 	})
 	$(document).on('click','.mod-btn',function(){
 		var contentObj = $(this).parent().prev().children().last();
+		var rp_num = $(this).attr('data');
 		var str = 
 			'<textarea class="reply-input form-control mb-2">'+contentObj.text()+'</textarea>'+
-			'<button type="button" class="reply-mod-btn btn btn-outline-success">등록</button>'
+			'<button type="button" class="mr-2 reply-mod-btn btn btn-outline-success" data="'+rp_num+'">등록</button>'
 		contentObj.after(str).remove();
 		$(this).parent().remove();
 	})
-	
-	  
+	$(document).on('click','.reply-mod-btn',function(){
+		var rp_content = $(this).siblings('.reply-input').val();
+		var rp_num = $(this).attr('data');
+		var data = {
+			rp_content : rp_content,
+			rp_me_id : id,
+			rp_num : rp_num,
+			rp_bd_num : rp_bd_num
+		};
+		var page = $('.pagination .active a').text();
+		replyService.modify(contextPath, data, page);		
+	})
+	$(document).on('click','.del-btn',function(){
+		var rp_me_id = id;
+		var rp_num = $(this).attr('data');
+		var data = {
+				rp_me_id : rp_me_id,
+				rp_num : rp_num,
+				rp_bd_num : rp_bd_num
+		}
+		var page = $('.pagination .active a').text();
+		replyService.deleteReply(contextPath, data, page);		
+	})
 	</script>
 </body>
 </html>
