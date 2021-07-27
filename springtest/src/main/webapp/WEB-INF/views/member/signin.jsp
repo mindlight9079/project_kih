@@ -20,7 +20,11 @@
 	  <label>비밀번호:</label>
 	  <input type="password" class="form-control" name="pw">
 	</div>
+	<label class="form-group">
+	  <input type="checkbox" name="useCookie" value="true"> 자동로그인
+	</label>
 	<button class="btn btn-outline-success col-12">로그인</button>
+	<a href="<%=request.getContextPath()%>/find/pw">비밀번호찾기</a>
 </form>
 </body>
 </html>

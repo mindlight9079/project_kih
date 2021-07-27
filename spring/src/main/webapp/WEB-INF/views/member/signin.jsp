@@ -18,7 +18,11 @@
 	  <label>비밀번호:</label>
 	  <input type="password" class="form-control" name="pw">
 	</div>
-	<button id="loginBtn" type="button" class="btn btn-outline-success col-12">로그인</button>
+	<label class="form-group">
+	 	<input type="checkbox" name="useCookie" value="true">자동로그인
+	</label>
+	
+	<button id="loginBtn" type="submit" class="btn btn-outline-success col-12">로그인</button>
 	<a href="<%=request.getContextPath()%>/find/pw">비밀번호찾기</a>
 	<a href="<%=request.getContextPath()%>/find/id">아이디찾기</a>
 </form>
@@ -27,7 +31,10 @@
 		$('#loginBtn').click(function(){
 			var id = $('[name=id]').val();
 			var pw = $('[name=pw]').val();
-			var data = {'id' : id, 'pw': pw};
+			var useCookie = $('[name=useCookie]').is(':checked') ? true : false;
+			var data = {'id' : id, 'pw': pw, 'useCookie' : useCookie};
+			console.log(data);
+			return;
 			$.ajax({
 				type: 'post',
 				url : '<%=request.getContextPath()%>/member/signin',

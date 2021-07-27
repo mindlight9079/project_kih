@@ -1,9 +1,12 @@
 package kr.green.spring.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.util.WebUtils;
 
 import kr.green.spring.service.MemberService;
 import kr.green.spring.vo.MemberVO;
@@ -101,8 +105,19 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value="/signout", method= RequestMethod.GET)
-	public ModelAndView signOutGet(ModelAndView mv, HttpServletRequest request) {
-		request.getSession().removeAttribute("user");
+	public ModelAndView signOutGet(ModelAndView mv, HttpServletRequest request, HttpServletResponse response) {
+		MemberVO user = (MemberVO)request.getSession().getAttribute("user");
+		if(user != null) {
+			request.getSession().removeAttribute("user");
+			request.getSession().invalidate();
+			Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
+			if(loginCookie != null) {
+				loginCookie.setPath("/");
+				loginCookie.setMaxAge(0);
+				response.addCookie(loginCookie);
+				memberService.keeplogin(user.getId(), "none", new Date());
+			}
+		}
 		mv.setViewName("redirect:/");
 		return mv;
 	}
@@ -207,7 +222,7 @@ public class HomeController {
 	       messageHelper.setFrom("kih9079@gmail.com");  // 보내는사람 생략하거나 하면 정상작동을 안함
 	       messageHelper.setTo(email);    // 받는사람 이메일
 	       messageHelper.setSubject("가입된 아이디입니다."); // 메일제목은 생략이 가능하다
-	       messageHelper.setText("","가입된 아이디는 <b>"+idList.toString()+"</b>입니다.");  // 메일 내용
+	       messageHelper.setText("","가입된 아이디는 <b>"+idList.toString().replaceAll("[\\[\\]]","")+"</b>입니다.");  // 메일 내용
 
 	       mailSender.send(message);
 	       return "SUCCESS";

@@ -1,14 +1,21 @@
 package kr.green.test.controller;
 
+import java.util.Date;
+
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.util.WebUtils;
 
 import kr.green.test.service.MemberService;
 import kr.green.test.vo.MemberVO;
@@ -20,6 +27,9 @@ public class MemberController {
 	
 		@Autowired 
 		MemberService memberService;
+		@Autowired
+		private JavaMailSender mailSender;
+		
 		
 		@GetMapping(value = "/signin")
 		public ModelAndView signinGet(ModelAndView mv) {
@@ -30,6 +40,7 @@ public class MemberController {
 		@PostMapping(value = "/signin")
 		public ModelAndView signinPost(ModelAndView mv, MemberVO user, String pw) {
 			MemberVO loginUser = memberService.signin(user);
+			System.out.println(loginUser);
 			if(loginUser != null)
 				mv.setViewName("redirect:/");
 			else
@@ -74,8 +85,19 @@ public class MemberController {
 		}
 		
 		@GetMapping(value="/member/signout")
-		public ModelAndView signOutGet(ModelAndView mv, HttpServletRequest request) {
+		public ModelAndView signOutGet(ModelAndView mv, HttpServletRequest request, HttpServletResponse response) {
+			MemberVO user = (MemberVO)request.getSession().getAttribute("user");
+			if(user != null) {
 			request.getSession().removeAttribute("user");
+			request.getSession().invalidate();
+			Cookie loginCookie = WebUtils.getCookie(request,"loginCookie");
+			if(loginCookie != null) {
+				loginCookie.setPath("/");
+				loginCookie.setMaxAge(0);
+				response.addCookie(loginCookie);
+				memberService.keeplogin(user.getId(), "none", new Date());
+			}
+			}
 			mv.setViewName("redirect:/");
 			return mv;
 		}	
@@ -85,5 +107,17 @@ public class MemberController {
 		public String memberIdCheckGet(@PathVariable ("id") String id) {
 			return memberService.idCheck(id) ? "POSSIBLE":"IMPOSSIBLE";
 		}	
+		
+		@GetMapping(value="/find/pw")
+		public ModelAndView findPw(ModelAndView mv) {
+			mv.setViewName("/template/member/findpw");
+			return mv;
+		}
+		
+		@ResponseBody
+		@GetMapping(value="/find/pw/{id}")
+		public String findPwIdGet(@PathVariable("id") String id) {
+			return memberService.findPw(id);
+		}
 }
 
