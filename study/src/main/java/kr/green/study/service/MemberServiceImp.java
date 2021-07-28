@@ -19,6 +19,7 @@ public class MemberServiceImp implements MemberService {
 
 	@Override
 	public boolean signup(MemberVO user) {
+		System.out.println(user);
 	if(user == null)
 		return false;
 	//아이디 유효성 검사
@@ -44,5 +45,21 @@ public class MemberServiceImp implements MemberService {
 	user.setPw(encPw);	
 	memberDao.insertMember(user);
 	return true;
+	}
+
+	@Override
+	public MemberVO signin(MemberVO user) {
+		if(user == null || user.getId() == null)
+			return null;
+		MemberVO dbUser = memberDao.selectUser(user.getId());
+		//잘못된 ID == 회원이 아닌
+		if(dbUser == null)
+			return null;
+		//잘못된 비번
+		if(user.getPw() == null || !passwordEncoder.matches(user.getPw(), dbUser.getPw()))
+			return null;
+		//자동로그인 기능을 위해
+		dbUser.setUseCookie(user.getUseCookie());
+		return dbUser;
 	}
 }

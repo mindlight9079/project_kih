@@ -1,6 +1,5 @@
 package kr.green.study.controller;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,6 +26,25 @@ public class MemberController {
 	public ModelAndView memberSingupPost (ModelAndView mv, MemberVO user) {
 	boolean signupOk = memberService.signup(user);
 	mv.setViewName("redirect:/");
+	return mv;
+	}
+	
+	@GetMapping("/member/signin")
+	public ModelAndView memberSinginGet (ModelAndView mv) {
+	mv.addObject("title","로그인");
+	mv.setViewName("/template/member/signin");
+	return mv;
+	}
+	
+	@PostMapping("/member/signin")
+	public ModelAndView memberSinginPost (ModelAndView mv, MemberVO user) {
+	MemberVO loginUser = memberService.signin(user);
+	System.out.println(loginUser);
+	if(loginUser != null)
+		mv.setViewName("redirect:/ ");		
+	else
+		mv.setViewName("redirect:/member/signin");		
+	mv.addObject("user",loginUser);
 	return mv;
 	}
 }
