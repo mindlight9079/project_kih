@@ -1,0 +1,43 @@
+- 프로젝트 생성
+컨트롤+N => SPRING => spring legacy project 선택 -> location에서 폴더선택
+=> spring MVC project 선택후 next 
+
+  - 새 프로젝트 생성 > spring legacy project 선택 > Use default location 해제 >
+    Browse...선택 > 원하는 폴더 선택(빈폴더) > spring mvc project 선택 후 >
+    next 클릭 > 패키지이름 입력(xxx.yy.zzz) > finish
+
+- 패키지명 변경
+  - xxx.yyy.zzz  => xxx.yyy.zzz.controller
+  - servlet-context.xml에서 component-scan에서 base-package를
+    xxx.yyy.zzz/*로 변경
+
+
+- 인코딩 설정 (강사님 티스토리 참고)
+  - 이클립스 설정(한번 하면 추후에 할 필요 없음 - 같은 pc에 한해서)
+  - 프로젝트 인코딩 설정 
+  - jsp 파일 인코딩 설정
+
+- 스프링 프레임워크 버전 수정 (pom.xml)
+  - 5.0.7.RELEASE
+
+- 자바 버전 수정(pom.xml)
+  - 1.8
+
+- 템플릿 설정(선택)
+  - 템플릿을 사용하기 위한 설정
+  - 템플릿 파일을 구성(base.jsp, nav.jsp, footer.jsp 등)
+  - 컨트롤러에서 템플릿을 적용
+
+
+- DB연동
+  - DB 연동을 하기 위한 설정
+  - DB에 필요한 DB와 테이블을 생성
+  - Controller, Service, Servicelmp, Dao, Mapper를 생성
+
+
+- lombok 연동
+  - lombok 설치
+  - 의존성 추가
+
+
+
