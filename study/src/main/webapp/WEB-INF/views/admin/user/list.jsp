@@ -27,10 +27,10 @@
 	        <th>
  			 	<a href="<%=request.getContextPath()%>/admin/user/list?sortType=authority&&sort=${pm.criteria.notSort}">
 	        		<span>등급</span>
-	        		<c:if test="${pm.criteria.sortType == 'id' && pm.criteria.sort == 'asc'}">
+	        		<c:if test="${pm.criteria.sortType == 'authority' && pm.criteria.sort == 'asc'}">
 	        		<i class="fas fa-sort-up"></i>
 	        		</c:if>
-	        		<c:if test="${pm.criteria.sortType == 'id' && pm.criteria.sort == 'desc'}">
+	        		<c:if test="${pm.criteria.sortType == 'authority' && pm.criteria.sort == 'desc'}">
 	        		<i class="fas fa-sort-down"></i>
 	        		</c:if>
 	        	</a>

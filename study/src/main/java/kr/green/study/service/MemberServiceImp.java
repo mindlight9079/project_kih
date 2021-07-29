@@ -133,7 +133,7 @@ public class MemberServiceImp implements MemberService {
 			return false;
 		MemberVO dbUser = memberDao.selectUser(user.getId());
 		System.out.println(dbUser);
-		dbUser.setAuthority(dbUser.getAuthority());
+		dbUser.setAuthority(user.getAuthority());
 		memberDao.updateUser(dbUser);
 		return true;
 	}
