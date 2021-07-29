@@ -2,6 +2,8 @@ package kr.green.study.service;
 
 import java.util.regex.Pattern;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -61,5 +63,19 @@ public class MemberServiceImp implements MemberService {
 		//자동로그인 기능을 위해
 		dbUser.setUseCookie(user.getUseCookie());
 		return dbUser;
+	}
+
+	@Override
+	public Object getMember(String id) {
+		if(id == null)
+			return null;
+		return memberDao.selectUser(id);
+	}
+
+	@Override
+	public void signout(HttpServletRequest request) {
+		if(request != null)
+			request.getSession().removeAttribute("user");
+		
 	}
 }
