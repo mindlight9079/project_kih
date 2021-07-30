@@ -5,19 +5,26 @@
 <!doctype html>
 <html>
 <head>
+<title>
+	<c:if test="${title ne null }">${title}</c:if>
+	<c:if test="${title eq null }">스프링</c:if>
+</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="https://kit.fontawesome.com/be5943d19e.js" crossorigin="anonymous"></script>
-<title>
-	<c:if test="${title ne null}">${title}</c:if>
-	<c:if test="${title eq null}">스프링</c:if>
-</title>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap\/4.5.2/js/bootstrap.min.js"></script>
+<style>
+	.body{
+		min-height: calc(100vh - 200px - 56px);
+	}
+</style>
 </head>
 <body>
     <tiles:insertAttribute name="nav"/>
-    <tiles:insertAttribute name="body" />                                 
+    <div class="body">
+    	<tiles:insertAttribute name="body" />
+    </div>
     <tiles:insertAttribute name="footer" />
 </body>
 </html>

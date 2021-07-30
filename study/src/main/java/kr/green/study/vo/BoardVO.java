@@ -18,6 +18,8 @@ public class BoardVO {
 	private Date registered;
 	private int views;	
 	private String type;
+	private int groupOrd;
+	private int oriNo;
 	
 	public String getRegisteredDate() {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");

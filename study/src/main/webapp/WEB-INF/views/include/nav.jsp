@@ -10,6 +10,9 @@
 	<nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
 	  <a class="navbar-brand" href="#">Logo</a>
 	  <ul class="navbar-nav">
+	  	<li class="nav-item">
+	      <a class="nav-link" href="<%=request.getContextPath()%>/board/list">일반게시판</a>
+	    </li>	   
 	  <c:if test="${user == null}">
 	    <li class="nav-item">
 	      <a class="nav-link" href="<%=request.getContextPath()%>/member/signup">회원가입</a>
