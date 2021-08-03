@@ -1,5 +1,5 @@
 var replyService = (function(){
-	function add(contextPath, data, callback){
+	function add(contextPath, data, callback, callback2){
 		$.ajax({
 			type : 'post',
 			url : contextPath + '/reply/add',
@@ -8,6 +8,7 @@ var replyService = (function(){
 			success : function(res){
 				if(callback)
 					callback(res);
+					list(contextPath,{page:1, rp_bd_num : data.rp_bd_num},callback2)
 			}
 		})
 	}
