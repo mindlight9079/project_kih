@@ -12,6 +12,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.encoding.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -26,8 +28,14 @@ import kr.green.study.vo.MemberVO;
 public class BoardServiceImp implements BoardService {
 	@Autowired
 	private BoardDAO boardDao;
+	@Autowired
+	BCryptPasswordEncoder passwordEncoder;
+
 	private String uploadPath = "D:\\JAVA_TEST\\uploadfiles";
 	private String uploadThumbnailPath = "D:\\JAVA_TEST\\project_kih\\study2\\src\\main\\webapp\\resources\\img";
+	
+	
+	
 	@Override
 	public ArrayList<BoardVO> getBoardList(Criteria cri) {
 		return boardDao.selectBoardList(cri);
@@ -46,6 +54,11 @@ public class BoardServiceImp implements BoardService {
 			return;
 		board.setWriter(user.getId());
 		board.setGroupOrd(0);
+		//비밀번호 암호화, 단, 비밀번호가 있는 경우
+		if(board.getPw() != null && board.getPw().length() != 0) {
+			String encodePw = passwordEncoder.encode(board.getPw());
+			board.setPw(encodePw);
+		}
 		boardDao.insertBoard(board);
 		
 		if(fileList == null)
@@ -198,7 +211,13 @@ public class BoardServiceImp implements BoardService {
 		return insertFile(tmp,num,"N");
 	}
 	private void deleteFile(FileVO tmp) {
-		File file = new File(uploadPath+tmp.getName());
+		String path;
+		if(tmp.getThumbnail().equals("Y")) {
+			path = uploadThumbnailPath;
+		}else {
+			path = uploadPath;
+		}
+		File file = new File(path+tmp.getName());
 		if(file.exists())
 			file.delete();
 		boardDao.deleteFile(tmp.getNum());
@@ -224,5 +243,16 @@ public class BoardServiceImp implements BoardService {
 		ArrayList<Integer> dbFileNumList = boardDao.selectFileNumList(board.getNum());
 		deleteFile(boardDao.selectFile(dbFileNumList.get(0)));
 		insertFile(mainImage, board.getNum(),"Y");
+	}
+
+	@Override
+	public boolean checkBoardPw(BoardVO tmpBoard) {
+		if(tmpBoard == null || tmpBoard.getPw() == null)
+			return false;
+		BoardVO board = boardDao.selectBoard(tmpBoard.getNum());
+		if(board != null && passwordEncoder.matches(tmpBoard.getPw(), board.getPw()))
+			return true;
+		return false;
+		
 	}
 }
