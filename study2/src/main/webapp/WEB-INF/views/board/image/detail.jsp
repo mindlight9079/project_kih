@@ -42,7 +42,7 @@
 		<div class="form-group">
 			<div class="form-group">
 				<label>메인 이미지</label>
-					<img width="auto" height="300" src="<%=request.getContextPath()%>/resources/img${fList}">
+					<img width="auto" height="300" src="<%=request.getContextPath()%>/resources/img${fList.get(0).name}">
 			</div>
 			<label>첨부파일</label>
 			<c:forEach items="${fList}" var="file">
