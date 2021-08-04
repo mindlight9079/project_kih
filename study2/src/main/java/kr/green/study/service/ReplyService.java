@@ -13,5 +13,7 @@ public interface ReplyService {
 	ArrayList<ReplyVO> getReplyList(int rp_bd_num, Criteria cri);
 
 	int getTotalCount(int rp_bd_num);
+
+	String modifyReply(ReplyVO reply, MemberVO user);
 	
 }
