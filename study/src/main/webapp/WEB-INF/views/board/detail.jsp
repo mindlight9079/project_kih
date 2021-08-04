@@ -44,12 +44,12 @@
 		 <c:if test="${fileList.size() != 0}">
 			<div class="form-group">
 			<label>첨부파일</label>
-			<c:forEach items="${fileList}" var="file">
-				<a href="<%=request.getContextPath()%>/board/download?fileName=${file.name}" class="form-control mb-2">${file.ori_name}</a>
+			<c:forEach items="${fList}" var ="file">
+				<a class="form-control" href="<%=request.getContextPath()%>/board/download?fileName=${file.name}">${file.ori_name}</a>
 			</c:forEach>
 			</div>
 		</c:if>
-		
+				
 		<div class="reply form-group">
 			<label>댓글</label>
 				<div class="contents">
@@ -74,11 +74,20 @@
 		 		</form>
 		 	</c:if>
 		 </div>	
-	</div>
 	<c:if test="${board.groupOrd == 0 && (user != null && user.authority != 'USER')}">
 		<a href="<%=request.getContextPath()%>/board/reply/register?oriNo=${board.num}">
 			<button class="btn btn-outline-success">답변</button>
 		</a>
 	</c:if>
+	<c:if test="${user != null && user.id == board.writer}">
+		<a href="<%=request.getContextPath()%>/board/modify?num=${board.num}" style="text-decoration: none">
+			<button class="btn btn-outline-danger">수정</button>
+		</a>
+		<a href="<%=request.getContextPath()%>/board/delete?num=${board.num}"  style="text-decoration:none">
+			<button class="btn btn-outline-danger">삭제</button>
+		</a>
+	</c:if>
+</div>
+                                                                                                                                                                                                           
 </body>
 </html>

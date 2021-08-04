@@ -4,7 +4,8 @@
 <!doctype html>
 <html>
 <head>
-
+ <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+ <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 </head>
 <body>
 	<form class="container" method="post" action="<%=request.getContextPath()%>/board/register" enctype="multipart/form-data">
@@ -27,6 +28,12 @@
 	<button class ="btn btn-outline-success">등록</button>
 	<a href="<%=request.getContextPath()%>/board/list"><button type="button" class ="btn btn-outline-danger">목록</button></a>
 	</form>
-	
+	<script>
+      $('#summernote').summernote({
+        placeholder: 'Hello Bootstrap 4',
+        tabsize: 2,
+        height: 100
+      });
+    </script>
 </body>
 </html>
