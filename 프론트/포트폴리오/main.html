@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <script src="https://kit.fontawesome.com/be5943d19e.js" crossorigin="anonymous"></script>
+<style>
+    * {
+        margin: 0; padding: 0; text-decoration: none; list-style: none; color:black;
+    }
+    .main{
+        position:relative; background-image: url(water.jpg); background-position: center center; height: 1280px; width: 100%; overflow: hidden;
+        
+    }
+    .homeImg{
+        width: 100%; height: 100%;
+    }
+    .bookstore{
+        position: absolute;  top:calc(45% - 768px / 2); left: calc(50% - 1366px / 2);
+    }
+    .letter{
+        color: white; font-size: 35px; position:absolute; top: 65%; text-align: center; width: 100%;
+    }
+    .menu {
+        display: flex; position: absolute; top: 15px; right: 30px; 
+    }
+    .menu ul li{
+        float: left; padding: 10px;  font-size: 20px;  font-family:sans-serif; font-weight: bold;  cursor: pointer;
+    }
+    .fa-search{
+        font-size: 25px; text-align: center; margin-top: 11px; margin-left: 3px; cursor: pointer;
+    }
+    .fa-bars{
+        font-size: 35px; position: absolute; top:20px; left:15px; cursor: pointer;
+    }
+
+    .menu::after{
+        content: ''; clear: both; display: block;
+    }
+    .container, .container2, .container3{
+        width: 100%; height: 900px; position: relative; overflow: hidden;
+    }
+    .container2{
+        height: 1200px;
+    }
+    .choice, .bookToday, .bestSeller{
+        font-size: 40px; font-family:Georgia, 'Times New Roman', Times, serif ; margin: 130px 0 0 80px;
+        display: flex;
+    }
+    .bookToday{
+       position: absolute; right: 140px; display: flex;
+    }
+    .line, .line2 {
+        background-color: gray; height: 2px; width:1525px; position:absolute; top:165px; right: 0;
+    }
+    .line2{
+        left:0;
+    }
+    .choiceImg{
+        display:flex; position: absolute; top:220px; left: calc(50% - 1480px / 2);
+    }
+    .choiceImg img{
+        width: 250px; margin: 20px;  margin: 80px 60px 20px;
+    }
+    .contents div{
+        text-align: center;
+    }
+    .contents2{
+        position: absolute; top: calc(50% - 300px); left: 250px;
+    }
+    .contents2 img{
+        width: 450px; float: left; margin-right: 80px;
+    }
+    .bookContents{
+        text-align: center; width: 800px; float: left; font-size: 30px; padding: 60px;
+    }
+    .contents3 img{
+        width: 150px; margin-right: 60px;
+    }
+    .container3{
+        position: relative;
+    }
+    .contents3{
+        position: absolute; display: flex; top: 250px; left:calc(50% - 1095px / 2);
+    }
+    .container2::after{
+        display: block; content: ''; clear: both;
+    }
+</style>
+</head>
+<body>
+    <div class="main">
+        <img class="bookstore animate__repeat-1	animate__fadeInDown animate__animated" src="BOOKSTORE.png" alt="greenbookstore" >
+        <p class="letter">Books makes you valuable</p>
+    </div>   
+    <i class="fas fa-bars"></i>
+    <div class="menu">
+        <ul>
+            <li><a href="#">LOGIN</a></li>
+            <li><a href="#">SIGNUP</a></li>
+            <li><a href="#">ORDERS</a></li>
+            <li><a href="#">MYPAGE</a></li>
+            <li><a href="#">CART</a></li>
+        </ul>
+        <i class="fas fa-search"></i>
+    </div>
+    <div class="container" >
+        <div class="choice">
+         Green's Choice
+        <div class="line"></div>
+        </div>
+        <div class="choiceImg">
+            <div class="contents">
+            <img src="소크라테스 익스프레스.jpg" alt="express">
+                <div>소크라테스 익스프레스</div>
+                <div>에릭 와이너 저/김하현 역 |어크로스</div>
+            </div>
+            <div class="contents">
+                <img src="소크라테스 익스프레스.jpg" alt="express">
+                    <div>소크라테스 익스프레스</div>
+                    <div>에릭 와이너 저/김하현 역 |어크로스</div>
+            </div>
+            <div class="contents">
+                <img src="소크라테스 익스프레스.jpg" alt="express">
+                    <div>소크라테스 익스프레스</div>
+                    <div>에릭 와이너 저/김하현 역 |어크로스</div>
+            </div>
+            <div class="contents">
+                <img src="소크라테스 익스프레스.jpg" alt="express">
+                    <div>소크라테스 익스프레스</div>
+                    <div>에릭 와이너 저/김하현 역 |어크로스</div>
+            </div>
+        </div>
+    </div>
+    <div class="container2">
+        <div class="line2"></div>
+        <div class="bookToday">
+            Book Today
+        </div>
+        <div class="contents2">
+        <img src="소크라테스 익스프레스.jpg" alt="express">
+        <div class="bookContents">
+            " 대중을 품에 안고 그들에게 밝은 길을 찾아 주며 그들을 행복스럽고 평화스러운 곳으로 인도하겠다는 커다란 이상을 품었기 때문이다 그러므로 그들은 길지 아니한 목숨을 사는가 싶이 살았으며 그들의 그림자는 천고에 사라지지 않는 것이다 이것은 "
+
+            로 그들은 길지 아니한 목숨을 사는가 싶이 살았으며 그들의 그림자는 천고에 사라지지 않는 것이다 이것은
+            " 대중을 품에 안고 그들에게 밝은 길을 찾아 주며 그들을 행복스럽고 평화스러운 곳으로 인도하겠다는 커다란 이상을 품었기 때문이다 그러므로 그들은 길지 아니한 목숨을 사는가 싶이 살았으며 그들의 그림자는 천고에 사라지지 않는 것이다 이것은 "
+
+            로 그들은 길지 아니한 목숨을 사는가 싶이 살았으며 그들의 그림자는 천고에 사라지지 않는 것이다 이것은
+        </div>
+        </div>
+    </div>
+    <div class="container3">
+        <div class="bestSeller">
+           The Best Seller 10
+        <div class="line"></div>
+        </div>
+    <div class="contents3">
+        <span>1</span><img src="소크라테스 익스프레스.jpg" alt="express">
+        <span>2</span><img src="소크라테스 익스프레스.jpg" alt="express">
+        <span>3</span><img src="소크라테스 익스프레스.jpg" alt="express">
+        <span>4</span><img src="소크라테스 익스프레스.jpg" alt="express">
+        <span>5</span><img src="소크라테스 익스프레스.jpg" alt="express">
+    </div>
+    </div>
+</body>
+</html>
