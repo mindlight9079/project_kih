@@ -36,7 +36,7 @@
         </div>
         <div class="form-group form-check">
         <label class="form-check-label">
-            <input class="form-check-input" type="checkbox"> 자동로그인
+            <input class="form-check-input" name="useCookie" type="checkbox"> 자동로그인
         </label>
         </div>
         <button class="btn btn-primary col-12">로그인</button>

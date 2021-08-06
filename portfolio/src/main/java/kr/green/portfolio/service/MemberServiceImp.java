@@ -1,7 +1,10 @@
 package kr.green.portfolio.service;
 
+
+import java.util.Date;
 import java.util.regex.Pattern;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -9,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.WebUtils;
 
 import kr.green.portfolio.dao.MemberDAO;
 import kr.green.portfolio.vo.MemberVO;
@@ -27,6 +31,11 @@ public class MemberServiceImp implements MemberService {
 			return null;
 		}
 		MemberVO dbUser = memberDao.getMember(user.getMe_id());
+		if(dbUser == null)
+			return null;
+		if(user.getMe_password() == null || !passwordEncoder.matches(user.getMe_password(), dbUser.getMe_password()))
+			return null;
+		dbUser.setUseCookie(user.getUseCookie());
 		return dbUser;
 		
 	}
@@ -74,7 +83,14 @@ public class MemberServiceImp implements MemberService {
 			return;
 		HttpSession session = request.getSession();
 		session.removeAttribute("user");
-		session.invalidate();		
+		session.invalidate();
+		Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
+		if(loginCookie == null)
+			return ;
+		loginCookie.setPath("/");
+		loginCookie.setMaxAge(0);
+		response.addCookie(loginCookie);
+		keepLogin(user.getMe_id(), "none", new Date());
 	}
 
 	private MemberVO getMemberByRequest(HttpServletRequest request) {
@@ -82,5 +98,21 @@ public class MemberServiceImp implements MemberService {
 			return null;
 		return (MemberVO)request.getSession().getAttribute("user");
 	}
+
+	@Override
+	public void keepLogin(String me_id, String me_session_id, Date me_session_limit) {
+		if(me_id == null)
+			return;
+		memberDao.keepLogin(me_id, me_session_id,me_session_limit);
+		
+	}
+
+	@Override
+	public MemberVO getMemberByCookie(String me_session_id) {
+		if(me_session_id == null)
+			return null;
+		return memberDao.selectUserBySession(me_session_id);
+	}
+	
 
 }

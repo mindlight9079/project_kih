@@ -17,4 +17,5 @@ public class MemberVO {
 	private int me_point;
 	private String me_grade;
 	private String me_jAddress;
+	private Boolean useCookie;
 }

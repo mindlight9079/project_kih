@@ -1,5 +1,7 @@
 package kr.green.portfolio.service;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -14,5 +16,9 @@ public interface MemberService {
 	Object getMember(String id);
 
 	void logout(HttpServletRequest request, HttpServletResponse response);
+
+	void keepLogin(String me_id, String id, Date date);
+
+	MemberVO getMemberByCookie(String value);
 
 }
