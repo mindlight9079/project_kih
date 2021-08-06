@@ -16,4 +16,5 @@ public class MemberVO {
 	private String me_email;
 	private int me_point;
 	private String me_grade;
+	private String me_jAddress;
 }

@@ -79,6 +79,7 @@
                 <input class="form-control"type="text" id="sample4_detailAddress" placeholder="상세주소">
                 <input class="form-control"type="text" id="sample4_extraAddress" placeholder="참고항목">
                 <input type="hidden" name="me_address">
+                <input type="hidden" name="me_jAddress">
             </div>
             <div class="form-group">
             <label>전화번호</label>
@@ -271,8 +272,10 @@ $(function(){
 		     var jibun = $('input[id=sample4_jibunAddress]').val();
 		     var detail = $('input[id=sample4_detailAddress]').val();
 		     var extra = $('input[id=sample4_extraAddress]').val();
-		     var address = sp+","+road+jibun+detail+extra;
+		     var address = sp+","+road+detail+" "+extra;
+		     var jAddress = sp+","+jibun+detail+" "+extra;
 		     $('[name=me_address]').val(address);
+		     $('[name=me_jAddress]').val(jAddress);
 		     
 		     var year = $('[type=year]').val();
 		     var month = $('[name=month]').val();

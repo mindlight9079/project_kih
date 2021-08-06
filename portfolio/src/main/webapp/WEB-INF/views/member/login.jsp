@@ -24,22 +24,22 @@
 </style>
 </head>
 <body>
-    <form class="container">
+    <form class="container" method="post" action="<%=request.getContextPath()%>/member/login">
         <h1>로그인</h1>
         <div class="form-group">
         <label>아이디</label>
-        <input type="text" class="form-control" placeholder="아이디" id="id">
+        <input type="text" class="form-control" placeholder="아이디" id="id" name="me_id">
         </div>
         <div class="form-group">
         <label>비밀번호</label>
-        <input type="password" class="form-control" placeholder="비밀번호" id="pw">
+        <input type="password" class="form-control" placeholder="비밀번호" id="pw" name="me_password">
         </div>
         <div class="form-group form-check">
         <label class="form-check-label">
             <input class="form-check-input" type="checkbox"> 자동로그인
         </label>
         </div>
-        <button type="button" class="btn btn-primary col-12">로그인</button>
+        <button class="btn btn-primary col-12">로그인</button>
     </form>
 </body>
 </html>
