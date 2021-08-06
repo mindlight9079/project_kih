@@ -2,8 +2,10 @@ package kr.green.portfolio.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.green.portfolio.service.MemberService;
@@ -41,6 +43,7 @@ public class MemberController {
 	@RequestMapping(value="/member/signup", method=RequestMethod.POST)
 	public ModelAndView signupPost(ModelAndView mv, MemberVO user) {
 		boolean isSignup = memberService.signup(user);
+		System.out.println(user);
 		if(isSignup) {
 			mv.setViewName("redirect:/");
 		}else {
@@ -55,4 +58,9 @@ public class MemberController {
 		return mv;
 	}
 	
+	@ResponseBody
+	@PostMapping("/id/check")
+	public String idCheck(String id) {
+		return (String)memberService.getMember(id) ;
+	}	
 }

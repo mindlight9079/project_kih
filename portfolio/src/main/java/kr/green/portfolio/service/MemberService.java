@@ -8,4 +8,6 @@ public interface MemberService {
 
 	boolean signup(MemberVO user);
 
+	Object getMember(String id);
+
 }

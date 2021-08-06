@@ -7,7 +7,9 @@ import kr.green.portfolio.vo.MemberVO;
 public interface MemberDAO {
 	
 	public MemberVO getMember(String me_id);
-	
-	public void signup(MemberVO user);
+
+	public MemberVO selectUser(String id);
+
+	public void insertMember(MemberVO user);
 
 }

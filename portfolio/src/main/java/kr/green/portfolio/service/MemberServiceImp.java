@@ -1,6 +1,9 @@
 package kr.green.portfolio.service;
 
+import java.util.regex.Pattern;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import kr.green.portfolio.dao.MemberDAO;
@@ -11,6 +14,8 @@ public class MemberServiceImp implements MemberService {
 
 	@Autowired
 	MemberDAO memberDao;
+	@Autowired
+	BCryptPasswordEncoder passwordEncoder;
 	
 	@Override
 	public MemberVO login(MemberVO user) {
@@ -24,11 +29,36 @@ public class MemberServiceImp implements MemberService {
 
 	@Override
 	public boolean signup(MemberVO user) {
-		if(user == null || memberDao.getMember(user.getMe_id())!= null) {
+		if(user == null)
 			return false;
-		}
-		memberDao.signup(user);
+		String idRegex = "^[a-z0-9_-]{5,20}$";
+		if(user.getMe_id() == null || !Pattern.matches(idRegex, user.getMe_id()) )
+			return false;
+		String pwRegex = "^[a-zA-Z0-9!@#]{8,16}$";
+		if(user.getMe_password() == null || !Pattern.matches(pwRegex, user.getMe_password()))
+			return false;
+		String emailRegex = "\\w+@\\w+\\.\\w+(\\.\\w+)?";
+		if(user.getMe_email()== null || !Pattern.matches(emailRegex, user.getMe_email()))
+			return false;
+		if(user.getMe_name() == null || user.getMe_name().trim().length() == 0)
+			return false;
+		if(user.getMe_gender() == null)
+			return false;
+		String encPw = passwordEncoder.encode(user.getMe_password());
+		user.setMe_password(encPw);
+		memberDao.insertMember(user);
 		return true;
+	}
+
+
+	@Override
+	public Object getMember(String id) {
+		String idRegex = "^[a-z0-9_-]{5,20}$";
+		if(id == null || !Pattern.matches(idRegex, id) )
+			return "NO";
+		if(memberDao.selectUser(id) != null)
+			return "IMPOSSIBLE";
+		return "POSSIBLE";
 	}
 
 }

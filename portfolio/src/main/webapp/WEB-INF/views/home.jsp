@@ -46,27 +46,60 @@
     .menu::after{
         content: ''; clear: both; display: block;
     }
-    .container{
+    .container, .container2, .container3{
         width: 100%; height: 900px; position: relative; overflow: hidden;
     }
-    .choice{
+    .container2{
+        height: 1200px;
+    }
+    .choice, .bookToday, .bestSeller{
         font-size: 40px; font-family:Georgia, 'Times New Roman', Times, serif ; margin: 130px 0 0 80px;
         display: flex;
     }
-    .line{
+    .bookToday{
+       position: absolute; right: 140px; display: flex;
+    }
+    .line, .line2 {
         background-color: gray; height: 2px; width:1525px; position:absolute; top:165px; right: 0;
     }
+    .line2{
+        left:0;
+    }
     .choiceImg{
-        display:flex; position: absolute; top:180px; left: calc(50% - 1480px / 2);
+        display:flex; position: absolute; top:220px; left: calc(50% - 1480px / 2);
     }
     .choiceImg img{
-        width: 250px; margin: 20px;  margin: 80px 60px;
+        width: 250px; margin: 20px;  margin: 80px 60px 20px;
+    }
+    .contents div{
+        text-align: center;
+    }
+    .contents2{
+        position: absolute; top: calc(50% - 300px); left:calc(50% - 1370px / 2); display: flex;
+    }
+    .contents2 img{
+        width: 450px;
+    }
+    .bookContents{
+        text-align: center; width: 800px; font-size: 30px; padding: 60px 0 0 60px;
+    }
+    .contents3 img{
+        width: 150px; margin-right: 60px;
+    }
+    .container3{
+        position: relative;
+    }
+    .contents3{
+        position: absolute; display: flex; top: 250px; left:calc(50% - 1095px / 2);
+    }
+    .container2::after{
+        display: block; content: ''; clear: both;
     }
 </style>
 </head>
 <body>
     <div class="main">
-        <img class="bookstore animate__repeat-1	animate__fadeInDown animate__animated" src="<%=request.getContextPath()%>/resources/js/BOOKSTORE.png" alt="greenbookstore">
+        <img class="bookstore animate__repeat-1	animate__fadeInDown animate__animated" src="<%=request.getContextPath()%>/resources/js/BOOKSTORE.png" alt="greenbookstore" >
         <p class="letter">Books makes you valuable</p>
     </div>   
     <i class="fas fa-bars"></i>
@@ -74,23 +107,69 @@
         <ul>
             <li><a href="<%=request.getContextPath()%>/member/login">LOGIN</a></li>
             <li><a href="<%=request.getContextPath()%>/member/signup">SIGNUP</a></li>
-            <li>ORDERS</li>
-            <li><a href="<%=request.getContextPath()%>/member/mypage">MYPAGE</a></li>
-            <li>CART</li>
+            <li><a href="#">ORDERS</a></li>
+            <li><a href="#">MYPAGE</a></li>
+            <li><a href="#">CART</a></li>
         </ul>
         <i class="fas fa-search"></i>
     </div>
     <div class="container" >
         <div class="choice">
          Green's Choice
-         <div class="line"></div>
+        <div class="line"></div>
         </div>
         <div class="choiceImg">
+            <div class="contents">
             <img src="소크라테스 익스프레스.jpg" alt="express">
-            <img src="소크라테스 익스프레스.jpg" alt="express">
-            <img src="소크라테스 익스프레스.jpg" alt="express">
-            <img src="소크라테스 익스프레스.jpg" alt="express">
+                <div>소크라테스 익스프레스</div>
+                <div>에릭 와이너 저/김하현 역 |어크로스</div>
+            </div>
+            <div class="contents">
+                <img src="소크라테스 익스프레스.jpg" alt="express">
+                    <div>소크라테스 익스프레스</div>
+                    <div>에릭 와이너 저/김하현 역 |어크로스</div>
+            </div>
+            <div class="contents">
+                <img src="소크라테스 익스프레스.jpg" alt="express">
+                    <div>소크라테스 익스프레스</div>
+                    <div>에릭 와이너 저/김하현 역 |어크로스</div>
+            </div>
+            <div class="contents">
+                <img src="소크라테스 익스프레스.jpg" alt="express">
+                    <div>소크라테스 익스프레스</div>
+                    <div>에릭 와이너 저/김하현 역 |어크로스</div>
+            </div>
         </div>
+    </div>
+    <div class="container2">
+        <div class="line2"></div>
+        <div class="bookToday">
+            Book Today
+        </div>
+        <div class="contents2">
+        <img src="소크라테스 익스프레스.jpg" alt="express">
+        <div class="bookContents">
+            " 대중을 품에 안고 그들에게 밝은 길을 찾아 주며 그들을 행복스럽고 평화스러운 곳으로 인도하겠다는 커다란 이상을 품었기 때문이다 그러므로 그들은 길지 아니한 목숨을 사는가 싶이 살았으며 그들의 그림자는 천고에 사라지지 않는 것이다 이것은 "
+
+            로 그들은 길지 아니한 목숨을 사는가 싶이 살았으며 그들의 그림자는 천고에 사라지지 않는 것이다 이것은
+            " 대중을 품에 안고 그들에게 밝은 길을 찾아 주며 그들을 행복스럽고 평화스러운 곳으로 인도하겠다는 커다란 이상을 품었기 때문이다 그러므로 그들은 길지 아니한 목숨을 사는가 싶이 살았으며 그들의 그림자는 천고에 사라지지 않는 것이다 이것은 "
+
+            로 그들은 길지 아니한 목숨을 사는가 싶이 살았으며 그들의 그림자는 천고에 사라지지 않는 것이다 이것은
+        </div>
+        </div>
+    </div>
+    <div class="container3">
+        <div class="bestSeller">
+           The Best Seller 10
+        <div class="line"></div>
+        </div>
+    <div class="contents3">
+        <span>1</span><img src="소크라테스 익스프레스.jpg" alt="express">
+        <span>2</span><img src="소크라테스 익스프레스.jpg" alt="express">
+        <span>3</span><img src="소크라테스 익스프레스.jpg" alt="express">
+        <span>4</span><img src="소크라테스 익스프레스.jpg" alt="express">
+        <span>5</span><img src="소크라테스 익스프레스.jpg" alt="express">
+    </div>
     </div>
 </body>
 </html>
