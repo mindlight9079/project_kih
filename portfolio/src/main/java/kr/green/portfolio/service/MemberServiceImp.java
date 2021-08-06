@@ -2,6 +2,10 @@ package kr.green.portfolio.service;
 
 import java.util.regex.Pattern;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -59,6 +63,24 @@ public class MemberServiceImp implements MemberService {
 		if(memberDao.selectUser(id) != null)
 			return "IMPOSSIBLE";
 		return "POSSIBLE";
+	}
+
+	@Override
+	public void logout(HttpServletRequest request, HttpServletResponse response) {
+		if(request == null || response == null)
+			return;
+		MemberVO user = getMemberByRequest(request);
+		if(user == null)
+			return;
+		HttpSession session = request.getSession();
+		session.removeAttribute("user");
+		session.invalidate();		
+	}
+
+	private MemberVO getMemberByRequest(HttpServletRequest request) {
+		if(request == null)
+			return null;
+		return (MemberVO)request.getSession().getAttribute("user");
 	}
 
 }

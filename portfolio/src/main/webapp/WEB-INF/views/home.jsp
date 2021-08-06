@@ -105,10 +105,15 @@
     <i class="fas fa-bars"></i>
     <div class="menu">
         <ul>
+        	<c:if test="${user == null}">
             <li><a href="<%=request.getContextPath()%>/member/login">LOGIN</a></li>
             <li><a href="<%=request.getContextPath()%>/member/signup">SIGNUP</a></li>
+            </c:if>
+            <c:if test="${user != null}">
+            <li><a href="<%=request.getContextPath()%>/member/logout">LOGOUT</a></li>
+            </c:if>
             <li><a href="#">ORDERS</a></li>
-            <li><a href="#">MYPAGE</a></li>
+            <li><a href="<%=request.getContextPath()%>/member/mypage">MYPAGE</a></li>
             <li><a href="#">CART</a></li>
         </ul>
         <i class="fas fa-search"></i>
