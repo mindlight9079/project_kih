@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DETAILS</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <style>
+    *{
+      margin: 0; padding: 0;
+    }
+    body{
+      background-color: gainsboro;
+    }
+    .container{
+      padding: 50px; padding-top: 150px; background-color: white;
+    }
+    .book-top{
+      display: flex; overflow: hidden; margin-left: 40px;
+    }
+    .bookImg img{
+      width: 300px;
+    }
+    .title{
+      width: calc(100% - 400px);
+    }
+    .height-line{
+      width: 1px; height: 580px; background-color: gainsboro; margin-left:50px;
+    }
+    .title h1{
+      margin-left: 50px;
+    }
+    .title p{
+      color: gray; margin-top: 10px; margin-left: 50px; font-size: 18x;
+    }
+    .width-line{
+      background-color: gainsboro; margin-top: 30px; height: 1px; width: 100%; 
+    }
+    .title-bottom{
+      margin: 50px;
+    }
+    .title-bottom *{
+      padding: 10px;
+    }
+    .title-bottom h2{
+      display: inline;
+    }
+    .order-line{
+      display: flex; margin-left: 50px; line-height: 40px; padding: 10px;
+    }
+    .order-line * {
+      margin-right: 15px;
+    }
+    .amount input{
+      width: 100px; height: 30px;
+    }
+    .cart, .buy{
+      width: 70px; height: 40px;
+    }
+    .middle-line{
+      width: 1040px; height:2px; color: gainsboro;
+    }
+    .table-box{
+      margin-top: 30px;
+    }
+    hr{
+      margin-top: -0.7px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="book-top">
+      <div class="bookImg">
+       <img src="소크라테스 익스프레스.jpg" alt="express">
+     </div>
+     <div class="height-line"></div>
+     <div class="title">
+        <h1>소크라테스 익스프레스</h1>
+        <p> 철학이 우리 인생에 스며드는 순간</p>
+        <div class="width-line"></div>
+        <div class="title-bottom">
+            <div>에릭 와이너 저/김하현 역 | 어크러스 | 2021년 4월 28일</div>
+            <div>
+              판매가 | <h2>18,000원</h2>
+            </div>
+            <div>그린 포인트 | 900원(5% 적립)</div>
+            <div>배송일정 | 서울시특별구 종로구 세정대로 기준</div>
+            <div>배송비 | 무료</div>
+        </div>
+        <div class="order-line">
+          <div class="amount">
+            수량 <input type="number">
+          </div>
+          <button class="cart">장바구니</button>
+          <button class="buy">바로구매</button>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div class="book-bottom"></div>
+    <div class="table-box">
+        <table class="table table-bordered table-sm">
+          <thead>
+            <tr>
+              <th>Firstname</th>
+              <th>Lastname</th>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>John</td>
+              <td>Doe</td>
+              <td>john@example.com</td>
+            </tr>
+            <tr>
+              <td>Mary</td>
+              <td>Moe</td>
+              <td>mary@example.com</td>
+            </tr>
+            <tr>
+              <td>July</td>
+              <td>Dooley</td>
+              <td>july@example.com</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>     
+    </div>
+  </div>
+</body>
+</html>
