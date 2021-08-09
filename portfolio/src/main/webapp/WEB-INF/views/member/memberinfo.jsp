@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIGNUP</title>
+    <title>MEMBERINFO</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -42,14 +42,14 @@
 </style>
 </head>
 <body>
-    <form class="container" method="post" action="<%=request.getContextPath()%>/member/signup">
+    <form class="container" method="post" action="<%=request.getContextPath()%>/member/memberinfo">
         <div class="box1">
-            <h1>회원가입</h1>
+            <h1>회원정보</h1>
             <div class="form-group">
             <label>아이디</label>
-            <input type="text" class="form-control" placeholder="아이디" id="id" name="me_id">
+            <input type="text" class="form-control" placeholder="아이디" id="id" name="me_id" value="${user.me_id}" readonly>
             </div>
-            <button type="button" class="id-dup-btn mb-3 col-12 btn btn btn-outline-primary">아이디 중복 확인</button>
+            
             <div class="form-group">
             <label>비밀번호</label>
             <input type="password" class="form-control" placeholder="비밀번호" id="pw" name="me_password">
@@ -60,11 +60,11 @@
             </div>
             <div class="form-group">
                 <label>이름</label>
-                <input type="text" class="form-control" placeholder="이름" id="name" name="me_name">
+                <input type="text" class="form-control" placeholder="이름" id="name" name="me_name" value="${user.me_name}" readonly>
             </div>
             <div class="form-group">
                 <label>닉네임</label>
-                <input type="text" class="form-control" placeholder="닉네임" id="nickname" name="me_nickname">
+                <input type="text" class="form-control" placeholder="닉네임" id="nickname" name="me_nickname" value="${user.me_nickname }">
             </div>
         </div>
 
@@ -83,14 +83,14 @@
             </div>
             <div class="form-group">
             <label>전화번호</label>
-            <input type="text" class="form-control" placeholder="전화번호" id="phone" name="me_phone">
+            <input type="text" class="form-control" placeholder="전화번호" id="phone" name="me_phone" value="${user.me_phone}">
             </div>
             <div class="form-group">
             <label>성별</label>
             <select class="form-control" name="me_gender" id="gender">
             	<option>성별</option>
-                <option value="M">남성</option>
-                <option value="F">여성</option>
+                <option value="M" <c:if test="${user.me_gender == 'M'}">selected</c:if> >남성</option>
+                <option value="F" <c:if test="${user.me_gender == 'F'}">selected</c:if> >여성</option>
             </select>
             </div>
             <div class="form-group birth">
@@ -113,18 +113,12 @@
                 <input class="form-control col-4" type="day" placeholder="일" maxlength="2">
                 <input type="hidden" name="me_birth">
             </div>
-            <div class="form-group" name=" me_resident_num">
-                <label>주민번호</label> <br>
-                <input type="text" placeholder="주민번호" id="jumin1" class="form-control col-5" maxlength="6"> - 
-                <input type="password" placeholder="주민번호" id="jumin2" class="form-control col-5" maxlength="7">
-                <input type="hidden" name="me_resident_num">
-            </div>
             <div class="form-group">
                 <label>이메일</label>
-                <input type="text" class="form-control" placeholder="이메일" id="email" name="me_email">
+                <input type="text" class="form-control" placeholder="이메일" id="email" name="me_email" value="${user.me_email}">
             </div>
         </div>
-        <button class="btn btn-primary col-12">회원가입</button>
+        <button class="btn btn-primary col-12">회원정보수정</button>
     </form>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
@@ -194,72 +188,41 @@ $(function(){
 */
 	$("form").validate({
 	    rules: {
-	        me_id: {
-	            required : true,
-	            regex : /^[a-z0-9_-]{5,20}$/
-	        },
 	        me_password: {
-	            required : true,
+	            required : false,
 	            regex: /^[a-z0-9!@#]{8,16}$/i
 	        },
 	        me_password2: {
-	            required : true,
+	            required : false,
 	            equalTo : pw
 	        },
 	        me_name: {
-	            required : true
+	            required :false
 	        },
 	        me_nickname: {
-	            required : true
+	            required :false
 	        },
 	        me_gender: {
-	        	required : true
+	        	required :false
 	        },
 	        me_phone: {
-	        	required : true
+	        	required :false
 	        },
 	        me_birth : {
-	        	required : true
-	        },
-	        me_resident_num: {
-	        	required : true
+	        	required :false
 	        },	        
 	        me_email: {
-	            required : true,
+	            required :false,
 	            email : true
 	        }
 	    },
 	    //규칙체크 실패시 출력될 메시지
 	    messages : {
-	        me_id: {
-	            required : "필수 정보입니다.",
-	            regex : "5~20자의 영문 소문자, 숫자와 특수기호(_),(-)만 사용 가능합니다."
-	        },
 	        me_password: {
-	            required : "필수 정보입니다.",
 	            regex : "8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요."
 	        },
 	        me_password2: {
-	            required : "필수 정보입니다.",
 	            equalTo : "비밀번호와 일치하지 않습니다."
-	        },
-	        me_name: {
-	            required : "필수 정보입니다."
-	        },
-	        me_nickname: {
-	            required : "필수 정보입니다."
-	        },
-	        me_gender: {
-	        	required : "필수 정보입니다."
-	        },
-	        me_phone: {
-	        	required : "필수 정보입니다."
-	        },
-	        me_birth : {
-	        	required : "필수 정보입니다."
-	        },
-	        me_resident_num: {
-	        	required : "필수 정보입니다."
 	        },
 	        me_email: {
 	            required : "필수 정보입니다.",
@@ -291,16 +254,6 @@ $(function(){
 		     $('form').submit();
 	    }
 	});
- $('.id-dup-btn').click(function(){
-   	var id = $('[name=me_id]').val();
-   	var res = memberService.idCheck(contextPath, id);
-   	if(res == 0)
-   		alert('올바른 아이디를 입력하세요.');
-   	else if(res == 1)
-   		alert('가입 가능한 아이디입니다.');
-   	else
-   		alert('이미 가입된 아이디입니다.');
-   })
 })
 
 $.validator.addMethod(
@@ -311,33 +264,6 @@ $.validator.addMethod(
 	    },
 	    "Please check your input."
 );
-	
-var contextPath = '<%=request.getContextPath()%>';
-var memberService = (function(){
-	function idCheck(contextPath, id){
-		var flag = -1;
-		$.ajax({
-			async: false,
-    		type : 'post',
-    		url  : contextPath + '/id/check',
-    		data : {id : id},
-    		success : function (res){
-    			if(res == 'NO'){
-    				flag = 0;
-    			}else if(res == 'POSSIBLE'){
-    				flag = 1;
-    			} else{
-    				flag = -1;
-    			}
-    		}
-    	})
-    	return flag;
-	}
-	return {
-		name : 'memberService',
-		idCheck : idCheck
-	}
-})();
 </script>
 </body>
 </html>

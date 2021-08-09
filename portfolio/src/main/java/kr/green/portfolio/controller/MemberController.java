@@ -62,6 +62,32 @@ public class MemberController {
 		return mv;
 	}
 	
+	@RequestMapping(value="/member/memberinfo", method=RequestMethod.GET)
+	public ModelAndView memberInfoGet (ModelAndView mv) {
+		mv.setViewName("/member/memberinfo");
+		return mv;
+	}
+	
+	@RequestMapping(value="/member/memberinfo", method=RequestMethod.POST)
+	public ModelAndView memberInfoPost (ModelAndView mv, MemberVO user, HttpServletRequest request) {
+		MemberVO sessionUser = memberService.getMemberInfo(request);
+		System.out.println(sessionUser);
+		if(sessionUser != null && sessionUser.getMe_id().equals(user.getMe_id())) {
+			MemberVO updateUser = memberService.updateMember(user);
+			if(updateUser !=null) {
+				request.getSession().setAttribute("user", updateUser);
+			}
+		}
+		mv.setViewName("/member/memberinfo");
+		return mv;
+	}
+	
+	@RequestMapping(value="/member/greenpoint", method=RequestMethod.GET)
+	public ModelAndView greenpointGet (ModelAndView mv) {
+		mv.setViewName("/member/greenpoint");
+		return mv;
+	}
+	
 	@ResponseBody
 	@PostMapping("/id/check")
 	public String idCheck(String id) {

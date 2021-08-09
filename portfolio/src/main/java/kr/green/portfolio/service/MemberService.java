@@ -21,4 +21,8 @@ public interface MemberService {
 
 	MemberVO getMemberByCookie(String value);
 
+	MemberVO getMemberInfo(HttpServletRequest request);
+
+	MemberVO updateMember(MemberVO user);
+
 }

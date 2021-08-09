@@ -55,7 +55,7 @@ public class MemberServiceImp implements MemberService {
 			return false;
 		if(user.getMe_name() == null || user.getMe_name().trim().length() == 0)
 			return false;
-		if(user.getMe_gender() == null)
+		if(user.getMe_gender() == null || !(user.getMe_gender().equals("F")||user.getMe_gender().equals("M")))
 			return false;
 		String encPw = passwordEncoder.encode(user.getMe_password());
 		user.setMe_password(encPw);
@@ -113,6 +113,62 @@ public class MemberServiceImp implements MemberService {
 			return null;
 		return memberDao.selectUserBySession(me_session_id);
 	}
+
+	@Override
+	public MemberVO getMemberInfo(HttpServletRequest request) {
+		if(request == null) {
+			return null;
+		}
+		return (MemberVO)request.getSession().getAttribute("user");
+	}
+
+	@Override
+	public MemberVO updateMember(MemberVO user) {
+		System.out.println(user);
+		if(user == null) {
+			return null;
+		}
+		
+		String emailRegex = "\\w+@\\w+\\.\\w+(\\.\\w+)?";
+		if(user.getMe_email()== null || !Pattern.matches(emailRegex, user.getMe_email()))
+			return null;
+		if(user.getMe_name() == null || user.getMe_name().trim().length() == 0)
+			return null;
+		if(user.getMe_gender() == null || !(user.getMe_gender().equals("F")||user.getMe_gender().equals("M")))
+			return null;
+		
+		MemberVO dbUser = memberDao.getMember(user.getMe_id());
+		if(dbUser == null) {
+			return null;
+		}
+		
+		dbUser.setMe_gender(user.getMe_gender());
+		dbUser.setMe_email(user.getMe_email());
+		dbUser.setMe_jAddress(user.getMe_jAddress());
+		dbUser.setMe_nickname(user.getMe_nickname());
+		dbUser.setMe_phone(user.getMe_phone());
+		
+		
+		String pwRegex = "^[a-zA-Z0-9!@#]{8,16}$";
+		if(user.getMe_password() != null && !user.getMe_password().equals("") && Pattern.matches(pwRegex, user.getMe_password())) {
+			String encodePw = passwordEncoder.encode(user.getMe_password());
+			dbUser.setMe_password(encodePw);
+		}else if(!user.getMe_password().equals(""))
+			return null;
+		
+		if(user.getMe_address() != null && user.getMe_address().trim().length() > 3) {
+			dbUser.setMe_address(user.getMe_address());
+		} 
+		
+		if(user.getMe_birth() != null && user.getMe_birth().trim().length()>4) {
+			dbUser.setMe_birth(user.getMe_birth());
+		}
+		
+		if(memberDao.updateMember(dbUser) == 0)
+			return null;
+		return dbUser;
+	}
+	
 	
 
 }

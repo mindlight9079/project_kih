@@ -18,4 +18,6 @@ public interface MemberDAO {
 
 	public MemberVO selectUserBySession(String me_session_id);
 
+	public int updateMember(MemberVO dbUser);
+
 }

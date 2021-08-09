@@ -11,7 +11,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <style>
     *{
-      margin: 0; padding: 0; border-radius: 5px;
+      margin: 0; padding: 0; border-radius: 5px; color: black; text-decoration: none;
     }
     body{
       background-color: gainsboro;
@@ -39,13 +39,16 @@
       border-radius: 50%; margin: 0 auto; color: white;
     }
     .nav-bottom li{
-      margin-left: 30px; line-height: 50px;
+      margin-left: 30px; line-height: 50px; cursor: pointer;
     }
     .inner-container {
       display: flex; overflow: hidden;
     }
     .list{
       margin-left: 20px; width:calc(100% - 220px); margin-top: 20px;
+    }
+    .table-bordered{
+      width: 900px;
     }
   
   </style>
@@ -69,30 +72,30 @@
             <table class="table table-bordered">
               <thead>
                 <tr>
-                  <th>Firstname</th>
-                  <th>Lastname</th>
-                  <th>Email</th>
-                  <th>Email</th>
+                  <th>주문일자</th>
+                  <th>주문번호</th>
+                  <th>주문내역</th>
+                  <th>주문상태</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>John</td>
-                  <td>Doe</td>
-                  <td>john@example.com</td>
-                  <td>john@example.com</td>
+                  <td>2021.07.25</td>
+                  <td>Y0210236502</td>
+                  <td>자바로 배우는 핵심 구조</td>
+                  <td>배송완료</td>
                 </tr>
                 <tr>
-                  <td>Mary</td>
-                  <td>Moe</td>
-                  <td>mary@example.com</td>
-                  <td>mary@example.com</td>
+                  <td>2021.07.25</td>
+                  <td>Y0210236502</td>
+                  <td>자바로 배우는 핵심 구조</td>
+                  <td>배송완료</td>
                 </tr>
                 <tr>
-                  <td>July</td>
-                  <td>Dooley</td>
-                  <td>july@example.com</td>
-                  <td>july@example.com</td>
+                  <td>2021.07.25</td>
+                  <td>Y0210236502</td>
+                  <td>자바로 배우는 핵심 구조</td>
+                  <td>배송완료</td>
                 </tr>
               </tbody>
             </table>

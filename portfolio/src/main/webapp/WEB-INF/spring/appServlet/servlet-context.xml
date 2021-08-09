@@ -27,10 +27,16 @@
 	class="kr.green.portfolio.interceptor.LoginInterceptor"></beans:bean>
 	<beans:bean id="autologinInterceptor" 
 	class="kr.green.portfolio.interceptor.AutoLoginInterceptor"></beans:bean>
+	<beans:bean id="memberInterceptor" 
+	class="kr.green.portfolio.interceptor.MemberInterceptor"></beans:bean>
 	<interceptors>
 	    <interceptor>
 	        <mapping path="/member/login"/>
 	        <beans:ref bean="loginInterceptor"/>
+	    </interceptor>
+	    <interceptor>
+	        <mapping path="/member/mypage"/>
+	        <beans:ref bean="memberInterceptor"/>
 	    </interceptor>
 	</interceptors>
 		<interceptors>

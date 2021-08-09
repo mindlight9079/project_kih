@@ -1,3 +1,6 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +14,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <style>
     *{
-      margin: 0; padding: 0; border-radius: 5px;
+      margin: 0; padding: 0; border-radius: 5px; color:black; text-decoration:none;
     }
     body{
       background-color: gainsboro;
@@ -62,8 +65,8 @@
             </div>
               <ul class="nav-bottom">
                   <li class="order">주문내역</li>
-                  <li class="point">그린포인트</li>
-                  <li class="info">회원정보</li>
+                  <li class="point"><a href="<%=request.getContextPath()%>/member/greenpoint">그린포인트</a></li>
+                  <li class="info"><a href="<%=request.getContextPath()%>/member/memberinfo">회원정보</a></li>
               </ul>      
           </div>
           <div class="list">
