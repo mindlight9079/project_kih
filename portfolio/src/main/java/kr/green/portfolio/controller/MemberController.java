@@ -78,7 +78,7 @@ public class MemberController {
 				request.getSession().setAttribute("user", updateUser);
 			}
 		}
-		mv.setViewName("/member/memberinfo");
+		mv.setViewName("/member/mypage");
 		return mv;
 	}
 	

@@ -144,7 +144,6 @@ public class MemberServiceImp implements MemberService {
 		
 		dbUser.setMe_gender(user.getMe_gender());
 		dbUser.setMe_email(user.getMe_email());
-		dbUser.setMe_jAddress(user.getMe_jAddress());
 		dbUser.setMe_nickname(user.getMe_nickname());
 		dbUser.setMe_phone(user.getMe_phone());
 		
@@ -156,10 +155,12 @@ public class MemberServiceImp implements MemberService {
 		}else if(!user.getMe_password().equals(""))
 			return null;
 		
-		if(user.getMe_address() != null && user.getMe_address().trim().length() > 3) {
+		if(user.getMe_address() != null && user.getMe_address().trim().length()>3) {
 			dbUser.setMe_address(user.getMe_address());
 		} 
-		
+		if(user.getMe_jAddress() != null && user.getMe_jAddress().trim().length()>3) {
+			dbUser.setMe_jAddress(user.getMe_jAddress());
+		}		
 		if(user.getMe_birth() != null && user.getMe_birth().trim().length()>4) {
 			dbUser.setMe_birth(user.getMe_birth());
 		}
