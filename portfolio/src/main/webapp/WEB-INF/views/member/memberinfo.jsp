@@ -39,6 +39,9 @@
     .error{
     	color:red;
     }
+    .address-box{
+    	display: none;
+    }
 </style>
 </head>
 <body>
@@ -71,6 +74,11 @@
         <div class="box2">
             <div class="form-group address">
                 <label>주소</label>
+                <br>
+               도로명 <input type="text" class="form-control" name="me_address" value="${user.me_address}" readonly>
+               지번 <input type="text" class="form-control" name="me_jAddress" value="${user.me_jAddress}" readonly>
+                <input class="form-control address-mod-btn"type="button" value="수정"><br>
+               <div class="address-box">
                 <input class="form-control"type="text" id="sample4_postcode" placeholder="우편번호">
                 <input class="form-control"type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
                 <input class="form-control"type="text" id="sample4_roadAddress" placeholder="도로명주소">
@@ -78,8 +86,7 @@
                 <span class="form-control"id="guide" style="color:#999;display:none"></span>
                 <input class="form-control"type="text" id="sample4_detailAddress" placeholder="상세주소">
                 <input class="form-control"type="text" id="sample4_extraAddress" placeholder="참고항목">
-                <input type="hidden" name="me_address">
-                <input type="hidden" name="me_jAddress">
+               </div>
             </div>
             <div class="form-group">
             <label>전화번호</label>
@@ -178,6 +185,9 @@
         }).open();
     }
 $(function(){
+	$('.address-mod-btn').click(function(){
+        $('.address-box').show();
+    })
 	/*
 	 $('form').submit(function(){
 	    
