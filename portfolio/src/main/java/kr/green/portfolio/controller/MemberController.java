@@ -47,7 +47,6 @@ public class MemberController {
 	@RequestMapping(value="/member/signup", method=RequestMethod.POST)
 	public ModelAndView signupPost(ModelAndView mv, MemberVO user) {
 		boolean isSignup = memberService.signup(user);
-		System.out.println(user);
 		if(isSignup) {
 			mv.setViewName("redirect:/");
 		}else {

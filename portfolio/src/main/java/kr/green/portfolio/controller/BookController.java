@@ -13,5 +13,4 @@ public class BookController {
 		mv.setViewName("/book/details");
 		return mv;
 	}
-	
 }
