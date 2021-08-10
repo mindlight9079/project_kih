@@ -114,7 +114,7 @@
             </c:if>
             <li><a href="#">ORDERS</a></li>
             <li><a href="<%=request.getContextPath()%>/member/mypage">MYPAGE</a></li>
-            <li><a href="#">CART</a></li>
+            <li><a href="<%=request.getContextPath()%>/buy/cart">CART</a></li>
         </ul>
         <i class="fas fa-search"></i>
     </div>
@@ -124,11 +124,11 @@
         <div class="line"></div>
         </div>
         <div class="choiceImg">
-            <div class="contents">
-            <img src="소크라테스 익스프레스.jpg" alt="express">
+            <a class="contents" href="<%=request.getContextPath()%>/book/details">
+            <img src="<%=request.getContextPath()%>/resources/js/소크라테스 익스프레스.jpg" alt="express">
                 <div>소크라테스 익스프레스</div>
                 <div>에릭 와이너 저/김하현 역 |어크로스</div>
-            </div>
+            </a>
             <div class="contents">
                 <img src="소크라테스 익스프레스.jpg" alt="express">
                     <div>소크라테스 익스프레스</div>

@@ -16,6 +16,9 @@
     *{
       margin: 0; padding: 0; border-radius: 5px; color:black; text-decoration:none;
     }
+    a{
+      color: black; text-decoration: none;
+    }
     body{
       background-color: gainsboro;
     }

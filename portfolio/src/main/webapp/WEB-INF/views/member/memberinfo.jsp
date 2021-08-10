@@ -39,7 +39,7 @@
     .error{
     	color:red;
     }
-    .address-box{
+    .address-box, .birth-box{
     	display: none;
     }
 </style>
@@ -102,23 +102,26 @@
             </div>
             <div class="form-group birth">
             <label>생년월일</label> <br>
-                <input class="form-control col-5" type="year" placeholder="년(4자)" maxlength="4">
-                <select class="form-control col-2" name="month">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                    <option value="11">11</option>
-                    <option value="12">12</option>
-                </select>
-                <input class="form-control col-4" type="day" placeholder="일" maxlength="2">
-                <input type="hidden" name="me_birth">
+                <input type="text" class="form-control mb-2" name="me_birth" value="${user.me_birth}" readonly>
+                <input class="form-control mb-2 birth-mod-btn"type="button" value="수정"><br>
+	              <div class="birth-box">
+	                <input class="form-control col-5" type="year" placeholder="년(4자)" maxlength="4">
+	                <select class="form-control col-2" name="month">
+	                    <option value="1">1</option>
+	                    <option value="2">2</option>
+	                    <option value="3">3</option>
+	                    <option value="4">4</option>
+	                    <option value="5">5</option>
+	                    <option value="6">6</option>
+	                    <option value="7">7</option>
+	                    <option value="8">8</option>
+	                    <option value="9">9</option>
+	                    <option value="10">10</option>
+	                    <option value="11">11</option>
+	                    <option value="12">12</option>
+	                </select>
+	                <input class="form-control col-4" type="day" placeholder="일" maxlength="2">
+	              </div>
             </div>
             <div class="form-group">
                 <label>이메일</label>
@@ -188,6 +191,9 @@ $(function(){
 	$('.address-mod-btn').click(function(){
         $('.address-box').show();
     })
+	$('.birth-mod-btn').click(function(){
+        $('.birth-box').show();
+    })   
 	/*
 	 $('form').submit(function(){
 	    

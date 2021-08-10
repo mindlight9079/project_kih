@@ -15,7 +15,10 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <style>
     *{
-      margin: 0; padding: 0;
+      margin: 0; padding: 0; color:black; text-decoration: none;
+    }
+    a{
+      color: black; text-decoration: none;
     }
     body{
       background-color: white; position: relative;
@@ -27,7 +30,7 @@
       padding: 50px; padding-top: 150px; background-color: white;  position:relative;
     }
     .book-top{
-      display: flex; overflow: hidden; margin-left: 40px;
+      display: flex; overflow: hidden; margin-left: 40px; width: 1000px;
     }
     .bookImg{
       width: 380px;
@@ -69,8 +72,12 @@
       width: 100px; height: 30px;
     }
     .cart, .buy{
-      width: 70px; height: 40px;
+      width: 80px; height: 40px; font-size: 12px; line-height: 40px;
     }
+    .cart a, .buy a{
+      margin: 0 auto;
+    }
+ 
     .middle-line{
       width: 1040px; height:2px; color: gainsboro;
     }
@@ -111,7 +118,7 @@
   <div class="container">
     <div class="book-top">
       <div class="bookImg">
-       <img src="소크라테스 익스프레스.jpg" alt="express">
+       <img src="<%=request.getContextPath()%>/resources/js/소크라테스 익스프레스.jpg" alt="express">
      </div>
      <div class="height-line"></div>
      <div class="title">
@@ -131,7 +138,7 @@
           <div class="amount">
             수량 <input type="number">
           </div>
-          <button class="cart">장바구니</button>
+          <button class="cart"><a href="<%=request.getContextPath()%>/buy/cart">장바구니</a></button>
           <button class="buy">바로구매</button>
         </div>
       </div>
