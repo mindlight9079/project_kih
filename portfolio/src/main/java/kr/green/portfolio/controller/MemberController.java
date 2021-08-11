@@ -70,7 +70,6 @@ public class MemberController {
 	@RequestMapping(value="/member/memberinfo", method=RequestMethod.POST)
 	public ModelAndView memberInfoPost (ModelAndView mv, MemberVO user, HttpServletRequest request) {
 		MemberVO sessionUser = memberService.getMemberInfo(request);
-		System.out.println(sessionUser);
 		if(sessionUser != null && sessionUser.getMe_id().equals(user.getMe_id())) {
 			MemberVO updateUser = memberService.updateMember(user);
 			if(updateUser !=null) {

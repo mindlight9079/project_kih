@@ -7,18 +7,18 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MYPAGE</title>
+  <title>PUBLISHERLIST</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <style>
     *{
-      margin: 0; padding: 0; border-radius: 5px;
+      margin: 0; padding: 0; border-radius: 5px; color: black; text-decoration: none; lis
     }
     a{
-     color: black; text-decoration:none;
-     }
+    	color: black; text-decoration: none;
+    }
     body{
       background-color: gainsboro;
     }
@@ -34,13 +34,16 @@
       width: 200px; height: 150px; border: 1px solid rgb(0, 104, 136); margin-top: 10px;
       background-color: white; font-weight: bold;
     }
+    .nav-bottom{
+      height: 300px;
+    }
     .nav{
       width: 200px;
     }
     .grade{
       text-align: center; margin-top: 10px; font-weight: bold; line-height: 50px;
     }
-    .normal{
+    .admin{
       background-color: rgb(0, 104, 136); width: 50px; height: 50px; 
       border-radius: 50%; margin: 0 auto; color: white;
     }
@@ -51,58 +54,60 @@
       display: flex; overflow: hidden;
     }
     .list{
-      margin-left: 20px; width:calc(100% - 220px); margin-top: 20px;
+      margin-left: 25px; width:calc(100% - 220px); margin-top: 20px;
+    }
+    .list-nav{
+      display: flex; list-style: none; cursor: pointer; font-weight: bold;
+    }
+    .list-nav li {
+      margin-right: 20px;
     }
     .table-bordered{
       width: 900px;
     }
-  
   </style>
 </head>
 <body>
     <div class="container">
-      <h2>마이페이지</h2>
+      <h2>관리페이지</h2>
         <div class="inner-container">
           <div class="nav">
             <div class="grade-box">   
-                <div class="grade">나의 등급 : <div class="normal">일반</div></div>   
+                <div class="grade">나의 등급 : <div class="admin">관리자</div></div>   
             </div>
-              <ul class="nav-bottom">
-                  <li class="order">주문내역</li>
-                  <li class="point"><a href="<%=request.getContextPath()%>/member/greenpoint">그린포인트</a></li>
-                  <li class="info"><a href="<%=request.getContextPath()%>/member/memberinfo">회원정보</a></li>
+          	<div class="nav-list">
+        	  <ul class="nav-bottom">
+            	  <li class="book-management">
+            	  <a href="<%=request.getContextPath()%>/admin/user/book">도서관리</a></li>
+              	  <li class="publisher-management"><a href="<%=request.getContextPath()%>/admin/user/publisher">출판사관리</a></li>
+                  <li class="books-management"><a href="<%=request.getContextPath()%>/admin/user/book">저자관리</a></li>
               </ul>      
+            </div>
           </div>
           <div class="list">
-            <h5> - 주문내역</h5>
+              <ul class="list-nav">
+                <li><a href="<%=request.getContextPath()%>/admin/user/booklist">책리스트</a></li>
+                <li><a href="<%=request.getContextPath()%>/admin/user/publisherlist">출판사리스트</a></li>
+                <li>저자리스트</li>
+              </ul>
             <table class="table table-bordered">
-              <thead>
-                <tr>
-                  <th>주문일자</th>
-                  <th>주문번호</th>
-                  <th>주문내역</th>
-                  <th>주문상태</th>
-                </tr>
-              </thead>
+	           <thead>
+	            <tr>
+	             <th>출판사번호</th>
+                 <th>출판사명</th>
+                 <th>전화번호</th>
+                 <th>대표자명</th>
+	            </tr>
+	          </thead>
               <tbody>
+              <c:forEach items="${publish}" var="publisher" varStatus="status">
                 <tr>
-                  <td>2021.07.25</td>
-                  <td>Y0210236502</td>
-                  <td>자바로 배우는 핵심 구조</td>
-                  <td>배송완료</td>
+                  <td>${publisher.pu_num}</td>
+                  <td><a href="<%=request.getContextPath()%>/admin/user/publisherdetails?pu_num=${publisher.pu_num}">${publisher.pu_name}</a></td>
+                  <td>${publisher.pu_phone}</td>
+                  <td>${publisher.pu_ceo}</td>
                 </tr>
-                <tr>
-                  <td>2021.07.25</td>
-                  <td>Y0210236502</td>
-                  <td>자바로 배우는 핵심 구조</td>
-                  <td>배송완료</td>
-                </tr>
-                <tr>
-                  <td>2021.07.25</td>
-                  <td>Y0210236502</td>
-                  <td>자바로 배우는 핵심 구조</td>
-                  <td>배송완료</td>
-                </tr>
+               </c:forEach>
               </tbody>
             </table>
           </div>

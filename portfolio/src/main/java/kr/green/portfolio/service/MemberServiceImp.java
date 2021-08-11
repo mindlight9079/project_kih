@@ -1,6 +1,7 @@
 package kr.green.portfolio.service;
 
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.regex.Pattern;
 
@@ -16,6 +17,7 @@ import org.springframework.web.util.WebUtils;
 
 import kr.green.portfolio.dao.MemberDAO;
 import kr.green.portfolio.vo.MemberVO;
+import kr.green.portfolio.vo.PublisherVO;
 
 @Service
 public class MemberServiceImp implements MemberService {
@@ -24,7 +26,7 @@ public class MemberServiceImp implements MemberService {
 	MemberDAO memberDao;
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
-	
+		
 	@Override
 	public MemberVO login(MemberVO user) {
 		if(user == null || user.getMe_id() == null) {
@@ -124,7 +126,6 @@ public class MemberServiceImp implements MemberService {
 
 	@Override
 	public MemberVO updateMember(MemberVO user) {
-		System.out.println(user);
 		if(user == null) {
 			return null;
 		}
@@ -168,6 +169,27 @@ public class MemberServiceImp implements MemberService {
 		if(memberDao.updateMember(dbUser) == 0)
 			return null;
 		return dbUser;
+	}
+
+	@Override
+	public boolean pubRegister(PublisherVO publisher) {
+		if(publisher == null)
+			return false;
+		memberDao.pubRegister(publisher);
+		return true;
+	}
+
+	@Override
+	public ArrayList<PublisherVO> getPublisherList() {
+		return memberDao.getPublisherList();
+	}
+
+	@Override
+	public PublisherVO getPublisher(Integer pu_num) {
+		if(pu_num == null)
+			return null;
+		PublisherVO publish = memberDao.getPublisher(pu_num);
+		return publish;
 	}
 	
 	

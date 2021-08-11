@@ -1,7 +1,10 @@
 package kr.green.portfolio.vo;
 
 import java.math.BigInteger;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
 
@@ -13,9 +16,13 @@ public class BookVO {
 	private String bk_au_writer;
 	private String bk_publish;
 	private int bk_page;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date bk_publish_date;
 	private String bk_mainImg;
-	private String bk_mainUpload;
-	private String bk_pu_num;
+	private int bk_pu_num;
 	
+	public String getDate() {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		return format.format(bk_publish_date);
+	}
 }

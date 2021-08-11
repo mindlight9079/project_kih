@@ -132,7 +132,7 @@
              <li><a href="<%=request.getContextPath()%>/buy/cart">CART</a></li>
             </c:if>
             <c:if test="${user.me_grade == 'ADMIN'}">
-             <li><a href="<%=request.getContextPath()%>/admin/user/book">MANAGEMENT</a></li>
+             <li><a href="<%=request.getContextPath()%>/admin/user/booklist">MANAGEMENT</a></li>
             </c:if>
         </ul>
         <i class="fas fa-search"></i>

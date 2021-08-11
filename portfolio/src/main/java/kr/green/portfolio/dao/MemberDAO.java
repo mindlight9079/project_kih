@@ -1,10 +1,12 @@
 package kr.green.portfolio.dao;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import org.apache.ibatis.annotations.Param;
 
 import kr.green.portfolio.vo.MemberVO;
+import kr.green.portfolio.vo.PublisherVO;
  
 public interface MemberDAO {
 	
@@ -19,5 +21,11 @@ public interface MemberDAO {
 	public MemberVO selectUserBySession(String me_session_id);
 
 	public int updateMember(MemberVO dbUser);
+
+	public void pubRegister(PublisherVO publisher);
+
+	public ArrayList<PublisherVO> getPublisherList();
+
+	public PublisherVO getPublisher(Integer pu_num);
 
 }

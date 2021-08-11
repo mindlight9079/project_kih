@@ -35,5 +35,15 @@
 			me_phone = #{me_phone}
 				where me_id = #{me_id}
 	</update>
+	<insert id="pubRegister">
+		insert into publisher(pu_name, pu_phone, pu_ceo)
+			values(#{pu_name}, #{pu_phone}, #{pu_ceo})
+	</insert>
+	<select id="getPublisherList" resultType = "kr.green.portfolio.vo.PublisherVO">
+		select * from publisher
+	</select>
+	<select id="getPublisher" resultType = "kr.green.portfolio.vo.PublisherVO">
+		select * from publisher where pu_num = #{pu_num}
+	</select>
 </mapper>
 

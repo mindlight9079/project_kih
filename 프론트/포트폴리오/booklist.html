@@ -11,7 +11,10 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <style>
     *{
-      margin: 0; padding: 0; border-radius: 5px; color: black; text-decoration: none;
+      margin: 0; padding: 0; border-radius: 5px; color: black; text-decoration: none; lis
+    }
+    a{
+    	color: black; text-decoration: none;
     }
     body{
       background-color: gainsboro;
@@ -27,6 +30,9 @@
     .grade-box, .nav-bottom{
       width: 200px; height: 150px; border: 1px solid rgb(0, 104, 136); margin-top: 10px;
       background-color: white; font-weight: bold;
+    }
+    .nav-bottom{
+      height: 300px;
     }
     .nav{
       width: 200px;
@@ -45,12 +51,17 @@
       display: flex; overflow: hidden;
     }
     .list{
-      margin-left: 20px; width:calc(100% - 220px); margin-top: 20px;
+      margin-left: 25px; width:calc(100% - 220px); margin-top: 20px;
+    }
+    .list-nav{
+      display: flex; list-style: none; cursor: pointer; font-weight: bold;
+    }
+    .list-nav li {
+      margin-right: 20px;
     }
     .table-bordered{
       width: 900px;
     }
-  
   </style>
 </head>
 <body>
@@ -61,40 +72,39 @@
             <div class="grade-box">   
                 <div class="grade">나의 등급 : <div class="admin">관리자</div></div>   
             </div>
-              <ul class="nav-bottom">
-                  <li class="book-management">도서관리</li>
+          	<div class="nav-list">
+        	  <ul class="nav-bottom">
+            	  <li class="book-management">
+            	  <a href="<%=request.getContextPath()%>/admin/user/book">도서관리</a></li>
+              	  <li class="publisher-management"><a href="<%=request.getContextPath()%>/admin/user/publisher">출판사관리</a></li>
+                  <li class="books-management"><a href="<%=request.getContextPath()%>/admin/user/book">저자관리</a></li>
               </ul>      
+            </div>
           </div>
           <div class="list">
-            <h5> - 책리스트</h5>
+              <ul class="list-nav">
+                <li>책리스트 </li>
+                <li>출판사리스트</li>
+                <li>저자리스트</li>
+              </ul>
             <table class="table table-bordered">
-              <thead>
-                <tr>
-                  <th>주문일자</th>
-                  <th>주문번호</th>
-                  <th>주문내역</th>
-                  <th>주문상태</th>
-                </tr>
-              </thead>
+	           <thead>
+	            <tr>
+               	 <th>ISBN</th>
+                 <th>책제목</th>
+                 <th>작가</th>
+                 <th>출판사명</th>
+	            </tr>
+	          </thead>
               <tbody>
+              <c:forEach items="${list}" var="book" varStatus="status">
                 <tr>
-                  <td>2021.07.25</td>
-                  <td>Y0210236502</td>
-                  <td>자바로 배우는 핵심 구조</td>
-                  <td>배송완료</td>
+                  <td>${book.bk_isbn}</td>
+                  <td><a href="<%=request.getContextPath()%>/admin/user/bookdetails?bk_isbn=${book.bk_isbn}">${book.bk_title}</a></td>
+                  <td>${book.bk_au_writer}</td>
+                  <td>${book.bk_publish}</td>
                 </tr>
-                <tr>
-                  <td>2021.07.25</td>
-                  <td>Y0210236502</td>
-                  <td>자바로 배우는 핵심 구조</td>
-                  <td>배송완료</td>
-                </tr>
-                <tr>
-                  <td>2021.07.25</td>
-                  <td>Y0210236502</td>
-                  <td>자바로 배우는 핵심 구조</td>
-                  <td>배송완료</td>
-                </tr>
+               </c:forEach>
               </tbody>
             </table>
           </div>
