@@ -63,7 +63,7 @@
       margin-right: 20px;
     }
     .table-bordered{
-      width: 900px;
+      width: 800px;
     }
   </style>
 </head>
