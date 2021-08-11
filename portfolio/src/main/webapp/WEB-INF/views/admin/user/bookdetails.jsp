@@ -27,43 +27,43 @@
 </style>
 </head>
 <body>
-    <form class="container" method="post" action="<%=request.getContextPath()%>/admin/user/bookdetails">
+    <form class="container" method="post" action="<%=request.getContextPath()%>/admin/user/bookdetails" enctype="multipart/form-data">
       <h1>BOOK DETAILS</h1>
          <div class="form-group">
             <label>ISBN</label>
-            <input type="text" class="form-control" value="${book.bk_isbn}">
+            <input type="text" class="form-control" value="${book.bk_isbn}" name="bk_isbn">
          </div>
          <div class="form-group">
             <label>도서명</label>
-            <input type="text" class="form-control" value="${book.bk_title}">
+            <input type="text" class="form-control" value="${book.bk_title}" name="bk_title">
          </div>
          <div class="form-group">
             <label>부도서명</label>
-            <input type="text" class="form-control" value="${book.bk_subtitle}">
+            <input type="text" class="form-control" value="${book.bk_subtitle}" name="bk_subtitle">
          </div>
          <div class="form-group">
             <label>저자</label>
-            <input type="text" class="form-control" value="${book.bk_au_writer}">
+            <input type="text" class="form-control" value="${book.bk_au_writer}" name="bk_au_writer">
          </div>
          <div class="form-group">
             <label>출판사명</label>
-            <input type="text" class="form-control" value="${book.bk_publish}">
+            <input type="text" class="form-control" value="${book.bk_publish}" name="bk_publish">
          </div>
          <div class="form-group">
             <label>쪽수</label>
-            <input type="text" class="form-control" value="${book.bk_page}">
+            <input type="text" class="form-control" value="${book.bk_page}" name="bk_page">
          </div>
          <div class="form-group">
             <label>출간일</label>
-            <input type="text" class="form-control" value="${book.date}">
+            <input type="text" class="form-control" value="${book.date}" name="bk_publish_date">
          </div>
          <div class="form-group">
             <label>메인이미지</label>
-           	<input type="file" class="form-control" name="file" value="">
+           	<input type="file" class="form-control" name="file" value="" name="bk_mainImg">
          </div>
          <div class="form-group">
             <label>출판사번호</label>
-            <input type="text" class="form-control" value="${book.bk_pu_num}">
+            <input type="text" class="form-control" value="${book.bk_pu_num}" name="bk_pu_num">
          </div>
         <button class="btn btn-primary col-12">수정</button>
     </form>

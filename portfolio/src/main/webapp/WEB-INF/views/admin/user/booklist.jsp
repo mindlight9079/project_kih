@@ -14,7 +14,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <style>
     *{
-      margin: 0; padding: 0; border-radius: 5px; color: black; text-decoration: none; lis
+      margin: 0; padding: 0; border-radius: 5px; color: black; text-decoration: none;
     }
     a{
     	color: black; text-decoration: none;

@@ -66,6 +66,7 @@ public class BookServiceImp implements BookService {
 		if(book == null) {
 			return null;
 		}
+		System.out.println(book);
 		BookVO dbBook = bookDao.getBook(book.getBk_isbn());
 		if(dbBook == null) {
 			return null;
