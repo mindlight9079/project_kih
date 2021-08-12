@@ -17,6 +17,7 @@ import org.springframework.web.util.WebUtils;
 
 import kr.green.portfolio.dao.MemberDAO;
 import kr.green.portfolio.pagination.Criteria;
+import kr.green.portfolio.vo.AuthorVO;
 import kr.green.portfolio.vo.MemberVO;
 import kr.green.portfolio.vo.PublisherVO;
 
@@ -192,7 +193,50 @@ public class MemberServiceImp implements MemberService {
 		PublisherVO publish = memberDao.getPublisher(pu_num);
 		return publish;
 	}
-	
-	
+
+	@Override
+	public boolean authRegister(AuthorVO author) {
+		if(author == null)
+			return false;
+		memberDao.authRegister(author);
+		return false;
+	}
+
+	@Override
+	public int getTotalCount(Criteria cri) {
+		return memberDao.getTotalCount(cri);
+	}
+
+	@Override
+	public ArrayList<AuthorVO> getAuthorList(Criteria cri) {
+		return memberDao.getAuthorList(cri);
+	}
+
+	@Override
+	public AuthorVO getAuthor(Integer au_num) {
+		if(au_num == null)
+			return null;
+		AuthorVO author = memberDao.getAuthor(au_num);
+		return author;
+	}
+
+	@Override
+	public PublisherVO updatePub(PublisherVO publisher) {
+		if(publisher == null) {
+			return null;
+		}
+		PublisherVO dbPub = memberDao.getPublisher(publisher.getPu_num());
+		if(dbPub == null) {
+			return null;
+		}
+		dbPub.setPu_num(publisher.getPu_num());
+		dbPub.setPu_name(publisher.getPu_name());
+		dbPub.setPu_phone(publisher.getPu_phone());
+		dbPub.setPu_ceo(publisher.getPu_ceo());
+		if(memberDao.updatePub(dbPub) == 0) {
+			return null;
+		}
+		return dbPub;
+	}
 
 }

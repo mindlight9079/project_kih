@@ -94,7 +94,7 @@
               <ul class="list-nav">
                 <li><a href="<%=request.getContextPath()%>/admin/user/booklist">책리스트</a></li>
                 <li><a href="<%=request.getContextPath()%>/admin/user/publisherlist">출판사리스트</a></li>
-                <li>저자리스트</li>
+                <li><a href="<%=request.getContextPath()%>/admin/user/authorlist">저자리스트</a></li>
               </ul>
             <table class="table table-bordered">
 	           <thead>

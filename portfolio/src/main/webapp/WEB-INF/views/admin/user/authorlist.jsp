@@ -7,7 +7,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BOOKLIST</title>
+  <title>AUTHORLIST</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -99,33 +99,35 @@
             <table class="table table-bordered">
 	           <thead>
 	            <tr>
-               	 <th>ISBN</th>
-                 <th>책제목</th>
-                 <th>작가</th>
-                 <th>출판사명</th>
+               	 <th>작가번호</th>
+                 <th>저자</th>
+                 <th>국가</th>
+                 <th>대표작</th>
+                 <th>생년월일</th>
 	            </tr>
 	          </thead>
               <tbody>
-              <c:forEach items="${list}" var="book" varStatus="status">
+              <c:forEach items="${author}" var="author" varStatus="status">
                 <tr>
-                  <td>${book.bk_isbn}</td>
-                  <td><a href="<%=request.getContextPath()%>/admin/user/bookdetails?bk_isbn=${book.bk_isbn}">${book.bk_title}</a></td>
-                  <td>${book.bk_au_writer}</td>
-                  <td>${book.bk_publish}</td>
+                  <td>${author.au_num}</td>
+                  <td><a href="<%=request.getContextPath()%>/admin/user/authordetails?au_num=${author.au_num}">${author.au_writer}</a></td>
+                  <td>${author.au_country}</td>
+                  <td>${author.au_title}</td>
+                  <td>${author.au_birth}</td>
                 </tr>
                </c:forEach>
               </tbody>
             </table>
 	            <ul class="pagination justify-content-center">
 					<c:if test="${pm.prev}">
-						<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/admin/user/booklist?page=${pm.startPage-1}">이전</a></li>
+						<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/admin/user/authorlist?page=${pm.startPage-1}">이전</a></li>
 					</c:if>
 					<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="index">
-						<li class="page-item <c:if test="${pm.criteria.page == index }">active</c:if>"><a class="page-link" href="<%=request.getContextPath()%>/admin/user/booklist?page=${index}">${index}</a></li>
+						<li class="page-item <c:if test="${pm.criteria.page == index }">active</c:if>"><a class="page-link" href="<%=request.getContextPath()%>/admin/user/authorlist?page=${index}">${index}</a></li>
 					</c:forEach>
 		
 					<c:if test="${pm.next}">
-						<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/admin/user/booklist?page=${pm.endPage+1}">다음</a></li>
+						<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/admin/user/authorlist?page=${pm.endPage+1}">다음</a></li>
 					</c:if>
 				</ul>
           </div>

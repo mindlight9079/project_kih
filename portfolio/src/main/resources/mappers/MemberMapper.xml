@@ -46,5 +46,27 @@
 	<select id="getPublisher" resultType = "kr.green.portfolio.vo.PublisherVO">
 		select * from publisher where pu_num = #{pu_num}
 	</select>
+	<insert id="authRegister">
+		insert into author (au_num, au_writer, au_country, au_title, au_contents, au_birth)
+			values(#{au_num}, #{au_writer}, #{au_country}, #{au_title}, #{au_contents}, #{au_birth})
+	</insert>
+	<select id="getTotalCount" resultType="int">
+		select count(*) from publisher
+	</select>
+	<select id="getAuthorList" resultType = "kr.green.portfolio.vo.AuthorVO">
+		select * from author
+			limit #{cri.pageStart}, #{cri.perPageNum}
+	</select>
+	<select id="getAuthor" resultType="kr.green.portfolio.vo.AuthorVO">
+		select * from author where au_num = #{au_num}
+	</select>
+	<update id="updatePub">
+		update publisher set
+			pu_num = #{pu_num},
+			pu_name = #{pu_name},
+			pu_phone = #{pu_phone},
+			pu_ceo = #{pu_ceo}
+			where pu_num = #{pu_num}
+	</update>
 </mapper>
 

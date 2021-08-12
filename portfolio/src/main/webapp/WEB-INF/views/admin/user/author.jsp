@@ -30,20 +30,16 @@
     <form class="container" method="post" action="<%=request.getContextPath()%>/admin/user/author">
       <h1>AUTHOR</h1>
          <div class="form-group">
-            <label>작가번호</label>
-            <input type="text" class="form-control" name="au_num">
-         </div>
-         <div class="form-group">
             <label>저자</label>
-            <input type="password" class="form-control" name="au_writer">
+            <input type="text" class="form-control" name="au_writer">
          </div>
          <div class="form-group">
             <label>국가</label>
-            <input type="password" class="form-control" name="au_country">
+            <input type="text" class="form-control" name="au_country">
          </div>
          <div class="form-group">
-            <label>작품명</label>
-            <input type="password" class="form-control" name="au_title">
+            <label>대표작</label>
+            <input type="text" class="form-control" name="au_title">
          </div>
          <div class="form-group">
             <label>작가소개</label>
