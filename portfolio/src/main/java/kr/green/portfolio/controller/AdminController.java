@@ -167,6 +167,16 @@ public class AdminController {
 		return mv;
 	}
 	
+	@RequestMapping(value="/admin/user/authordetails", method=RequestMethod.POST)
+	public ModelAndView modifyAuthPost(ModelAndView mv, AuthorVO author) {
+		AuthorVO dbAuth = memberService.getAuthor(author.getAu_num());
+		if(dbAuth != null && dbAuth.getAu_num() == author.getAu_num()) {
+			AuthorVO updateAuth = memberService.updateAuth(author);
+		}
+		mv.setViewName("redirect:/admin/user/authorlist");
+		return mv;
+	}
+	
 	
 	
 }

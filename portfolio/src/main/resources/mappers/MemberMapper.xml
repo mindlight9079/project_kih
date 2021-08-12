@@ -68,5 +68,15 @@
 			pu_ceo = #{pu_ceo}
 			where pu_num = #{pu_num}
 	</update>
+	<update id="updateAuth">
+		update author set
+			au_num = #{au_num},
+			au_writer = #{au_writer},
+			au_country = #{au_country},
+			au_title = #{au_title},
+			au_contents = #{au_contents},
+			au_birth = #{au_birth}
+				where au_num = #{au_num}
+	</update>
 </mapper>
 

@@ -40,4 +40,6 @@ public interface MemberDAO {
 
 	public int updatePub(PublisherVO dbPub);
 
+	public int updateAuth(AuthorVO dbAuth);
+
 }

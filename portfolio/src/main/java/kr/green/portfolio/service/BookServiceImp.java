@@ -29,7 +29,7 @@ public class BookServiceImp implements BookService {
 			return false;
 		String name;
 		try {
-			name = UploadFileUtils.uploadFile(uploadPath, file.getName(), file.getBytes());
+			name = UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes());
 			book.setBk_mainImg(name);
 			bookDao.getBookInfo(book);
 		} catch (Exception e) {
@@ -71,7 +71,7 @@ public class BookServiceImp implements BookService {
 		dbBook.setBk_pu_num(dbBook.getBk_pu_num());
 		String name;
 		try {
-			name = UploadFileUtils.uploadFile(uploadPath, file.getName(), file.getBytes());
+			name = UploadFileUtils.uploadFile(uploadPath,file.getOriginalFilename(), file.getBytes());
 			dbBook.setBk_mainImg(name);
 			bookDao.updateBook(dbBook);
 		} catch (Exception e) {

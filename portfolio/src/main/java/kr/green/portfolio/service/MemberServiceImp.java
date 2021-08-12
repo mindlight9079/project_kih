@@ -239,4 +239,22 @@ public class MemberServiceImp implements MemberService {
 		return dbPub;
 	}
 
+	@Override
+	public AuthorVO updateAuth(AuthorVO author) {
+		if(author == null)
+			return null;
+		AuthorVO dbAuth = memberDao.getAuthor(author.getAu_num());
+		if(dbAuth == null)	
+			return null;
+		dbAuth.setAu_num(author.getAu_num());
+		dbAuth.setAu_birth(author.getAu_birth());
+		dbAuth.setAu_contents(author.getAu_contents());
+		dbAuth.setAu_country(author.getAu_country());
+		dbAuth.setAu_title(author.getAu_title());
+		dbAuth.setAu_writer(author.getAu_writer());
+		if(memberDao.updateAuth(dbAuth) == 0)
+			return null;		
+		return dbAuth;
+	}
+
 }

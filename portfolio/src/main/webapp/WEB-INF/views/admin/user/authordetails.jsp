@@ -24,9 +24,9 @@
     h1{
         margin-bottom: 25px;
     }
-    div[name="au_contents"]{
-    	height: auto;
-    }
+ 	textarea[name="au_contents"]{
+ 		resize:none; height: 400px;
+ 	}
 </style>
 </head>
 <body>
@@ -50,7 +50,7 @@
          </div>
          <div class="form-group">
             <label>작가소개</label>
-            <div class="form-control" name="au_contents">${author.au_contents}</div>
+            <textarea class="form-control" name="au_contents">${author.au_contents}</textarea>
          </div>
           <div class="form-group">
             <label>생년월일</label>

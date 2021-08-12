@@ -45,6 +45,8 @@ public interface MemberService {
 
 	PublisherVO updatePub(PublisherVO publisher);
 
+	AuthorVO updateAuth(AuthorVO author);
+
 
 
 }
