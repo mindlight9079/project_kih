@@ -16,6 +16,7 @@
     rel="stylesheet"
     href="https://unpkg.com/swiper/swiper-bundle.min.css"
     />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/be5943d19e.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <style>
@@ -109,9 +110,88 @@
     .swiper-container-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction {
         left: -200px;
     }
+    
+    .side-bars{
+        width: 400px; height: 1280px; background-color: black; position: absolute; z-index: 10;
+        opacity: 80%; display: none;
+    }
+    .side-bars li{
+        color: white; margin-bottom: 20px; cursor: pointer; font-size: 20px;
+    }
+    .catagory-list{
+        position: absolute; top: 150px; left: 20px;
+    }
+    .subCatagory-list{
+        position: absolute; top: 150px; left: 200px;
+    }
+    .dome-list{
+        display: none;
+    }
+    .foreign-list, .ebook-list, .web-novel-list{
+        display: none;
+    }
+    .fa-times{
+        color: white; font-size: 30px; position: absolute; top: 20px; right: 20px;
+    }
 </style>
 </head>
 <body>
+    <div class="side-bars">
+        <i class="fas fa-times"></i>
+        <div class="catagory-list">
+            <ul>
+                <li class="domestic">국내도서</li>
+                <li class="foreign">외국도서</li>
+                <li class="ebook">ebook</li>
+                <li class="webNovel">웹소설/코믹</li>
+            </ul>
+        </div>
+        <div class="subCatagory-list">
+            <ul class="dome-list">
+                <li>소설/시</li>
+                <li>에세이</li>
+                <li>인문</li>
+                <li>역사</li>
+                <li>예술</li>
+                <li>종교</li>
+                <li>사회</li>
+                <li>과학</li>
+                <li>자기계발</li>
+                <li>국어와외국어</li>
+                <li>IT/모바일</li>
+            </ul>
+        </div>
+        <div class="subCatagory-list">
+            <ul class="foreign-list">
+                <li>문학</li>
+                <li>소설</li>
+                <li>경제/경영</li>
+                <li>인문/사회</li>
+                <li>예술</li>
+                <li>컴퓨터</li>
+                <li>자연과학</li>
+            </ul>
+        </div>
+        <div class="subCatagory-list">
+            <ul class="ebook-list">
+                <li>장르소설</li>
+                <li>소설</li>
+                <li>에세이/시</li>
+                <li>경제/경영</li>
+                <li>자기계발</li>
+                <li>인문/사회/정치</li>
+                <li>역사/종교</li>
+                <li>외국어</li>
+                <li>IT/모바일</li>
+            </ul>
+        </div>
+        <div class="subCatagory-list">
+            <ul class="web-novel-list">
+                <li>웹소설</li>
+                <li>웹툰</li>
+            </ul>
+        </div>
+    </div>
     <div class="main">
         <img class="bookstore animate__repeat-1	animate__fadeInDown animate__animated" src="<%=request.getContextPath()%>/resources/js/BOOKSTORE.png" alt="greenbookstore" >
         <p class="letter">Books makes you valuable</p>
@@ -273,6 +353,38 @@
         clickable: true,
         },
     });
+
+    $('.fa-bars').click(function(){
+        $('.side-bars').show();
+    })
+    $('.fa-times').click(function(){
+        $('.side-bars').hide();
+    })
+
+    $('.domestic').hover(function(){
+        $('.foreign-list').hide();
+        $('.ebook-list').hide();
+        $('.web-novel-list').hide();
+        $('.dome-list').show();
+    })
+    $('.foreign').hover(function(){
+        $('.dome-list').hide();
+        $('.ebook-list').hide();
+        $('.web-novel-list').hide();
+        $('.foreign-list').show();
+    })
+    $('.ebook').hover(function(){
+        $('.foreign-list').hide();
+        $('.dome-list').hide();
+        $('.web-novel-list').hide();
+        $('.ebook-list').show();
+    })
+    $('.webNovel').hover(function(){
+        $('.foreign-list').hide();
+        $('.dome-list').hide();
+        $('.ebook-list').hide();
+        $('.web-novel-list').show();
+    })
     </script>
 </body>
 </html>
