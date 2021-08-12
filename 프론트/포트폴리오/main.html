@@ -13,6 +13,7 @@
     rel="stylesheet"
     href="https://unpkg.com/swiper/swiper-bundle.min.css"
     />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/be5943d19e.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <style>
@@ -20,7 +21,7 @@
         margin: 0; padding: 0; text-decoration: none; list-style: none; color:black;
     }
     .main{
-        position:relative; background-image: url(<%=request.getContextPath()%>/resources/js/water.jpg); background-position: center center; height: 1280px; width: 100%; overflow: hidden;
+        position:relative; background-image: url(water.jpg); background-position: center center; height: 1280px; width: 100%; overflow: hidden;
         
     }
     .homeImg{
@@ -106,28 +107,79 @@
     .swiper-container-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction {
         left: -150px;
     }
+
+
+    .side-bars{
+        width: 400px; height: 1280px; background-color: black; position: absolute; z-index: 10;
+        opacity: 80%; display: none;
+    }
+    .side-bars li{
+        color: white; margin-bottom: 20px; cursor: pointer; font-size: 20px;
+    }
+    .catagory-list{
+        position: absolute; top: 150px; left: 20px;
+    }
+    .subCatagory-list{
+        position: absolute; top: 150px; left: 200px;
+    }
+    .dome-list{
+        display: none;
+    }
+    .fa-times{
+        color: white; font-size: 30px; position: absolute; top: 20px; right: 20px;
+    }
+
+    
 </style>
 </head>
 <body>
+
+    <div class="side-bars">
+        <i class="fas fa-times"></i>
+        <div class="catagory-list">
+            <ul>
+                <li class="domestic">국내도서</li>
+                <li>해외도서</li>
+                <li>ebook</li>
+                <li>웹소설/코믹</li>
+            </ul>
+        </div>
+        <div class="subCatagory-list">
+            <ul class="dome-list">
+                <li>소설/시</li>
+                <li>에세이</li>
+                <li>인문</li>
+                <li>역사</li>
+                <li>예술</li>
+                <li>종교</li>
+                <li>사회</li>
+                <li>과학</li>
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="main-area">
     <div class="main">
-        <img class="bookstore animate__repeat-1	animate__fadeInDown animate__animated" src="<%=request.getContextPath()%>/resources/js/BOOKSTORE.png" alt="greenbookstore" >
+        <img class="bookstore animate__repeat-1	animate__fadeInDown animate__animated" src="BOOKSTORE.png" alt="greenbookstore" >
         <p class="letter">Books makes you valuable</p>
     </div>   
     <i class="fas fa-bars"></i>
     <div class="menu">
         <ul>
         	<c:if test="${user == null}">
-            <li><a href="<%=request.getContextPath()%>/member/login">LOGIN</a></li>
-            <li><a href="<%=request.getContextPath()%>/member/signup">SIGNUP</a></li>
-            </c:if>
-            <c:if test="${user != null}">
-            <li><a href="<%=request.getContextPath()%>/member/logout">LOGOUT</a></li>
-            </c:if>
-            <li><a href="#">ORDERS</a></li>
-            <li><a href="<%=request.getContextPath()%>/member/mypage">MYPAGE</a></li>
-            <li><a href="<%=request.getContextPath()%>/buy/cart">CART</a></li>
-        </ul>
-        <i class="fas fa-search"></i>
+                <li><a href="<%=request.getContextPath()%>/member/login">LOGIN</a></li>
+                <li><a href="<%=request.getContextPath()%>/member/signup">SIGNUP</a></li>
+             </c:if>
+                <c:if test="${user != null}">
+                <li><a href="<%=request.getContextPath()%>/member/logout">LOGOUT</a></li>
+                </c:if>
+                <li><a href="#">ORDERS</a></li>
+                <li><a href="<%=request.getContextPath()%>/member/mypage">MYPAGE</a></li>
+                <li><a href="<%=request.getContextPath()%>/buy/cart">CART</a></li>
+         </ul>
+            <i class="fas fa-search"></i>
+        </div>
     </div>
     <div class="container" >
         <div class="choice">
@@ -265,6 +317,19 @@
         clickable: true,
         },
     });
+    
+    $('.fa-bars').click(function(){
+        $('.side-bars').show();
+    })
+    $('.fa-times').click(function(){
+        $('.side-bars').hide();
+    })
+  
+ 
+
+    $('.domestic').hover(function(){
+        $('.dome-list').show();
+    })
     </script>
 </body>
 </html>
