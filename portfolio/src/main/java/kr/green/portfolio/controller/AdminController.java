@@ -3,8 +3,6 @@ package kr.green.portfolio.controller;
 import java.math.BigInteger;
 import java.util.ArrayList;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.green.portfolio.pagination.Criteria;
+import kr.green.portfolio.pagination.PageMaker;
 import kr.green.portfolio.service.BookService;
 import kr.green.portfolio.service.MemberService;
 import kr.green.portfolio.vo.BookVO;
@@ -26,18 +26,34 @@ public class AdminController {
 	MemberService memberService;
 	
 	@RequestMapping(value="/admin/user/booklist")
-	public ModelAndView bookList(ModelAndView mv) {
-		ArrayList<BookVO> list = bookService.getBookList();
+	public ModelAndView bookList(ModelAndView mv, Criteria cri) {
+		PageMaker pm = new PageMaker();
+		cri.setPerPageNum(10);
+		pm.setCriteria(cri);
+		pm.setDisplayPageNum(5);
+		int totalCount = bookService.getTotalCount(cri);
+		pm.setTotalCount(totalCount);
+		pm.calcData();
+		ArrayList<BookVO> list = bookService.getBookList(cri);
 		mv.addObject("list",list);
+		mv.addObject("pm", pm);
 		mv.setViewName("/admin/user/booklist");
 		return mv;
 	}
 	
 	
 	@RequestMapping(value="/admin/user/publisherlist")
-	public ModelAndView PublisherList(ModelAndView mv) {
-		ArrayList<PublisherVO> publish = memberService.getPublisherList();
+	public ModelAndView PublisherList(ModelAndView mv, Criteria cri) {
+		PageMaker pm = new PageMaker();
+		cri.setPerPageNum(10);
+		pm.setCriteria(cri);
+		pm.setDisplayPageNum(5);
+		int totalCount = bookService.getTotalCount(cri);
+		pm.setTotalCount(totalCount);
+		pm.calcData();
+		ArrayList<PublisherVO> publish = memberService.getPublisherList(cri);
 		mv.addObject("publish", publish);
+		mv.addObject("pm",pm);
 		mv.setViewName("/admin/user/publisherlist");
 		return mv;
 	}
@@ -69,15 +85,12 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="/admin/user/bookdetails", method=RequestMethod.POST)
-	public ModelAndView modifyBookPost(ModelAndView mv, BookVO book, HttpServletRequest request) {
-		BookVO dbBook = bookService.getBookInfo(request);
+	public ModelAndView modifyBookPost(ModelAndView mv, BookVO book, MultipartFile file) {
+		BookVO dbBook = bookService.getBook(book.getBk_isbn());
 		if(dbBook != null && dbBook.getBk_isbn().equals(book.getBk_isbn())) {
-			BookVO updateBook = bookService.updateBook(book);
-			if(updateBook != null) {
-				request.getSession().setAttribute("book", updateBook);
-			}
+			BookVO updateBook = bookService.updateBook(book,file);
 		}
-		mv.setViewName("/admin/user/booklist");
+		mv.setViewName("redirect:/admin/user/booklist");
 		return mv;
 	}
 	
@@ -103,6 +116,23 @@ public class AdminController {
 			mv.setViewName("redirect:/admin/user/booklist");
 		} else {
 			mv.setViewName("redirect:/admin/user/publisher");
+		}
+		return mv;
+	}
+	
+	@RequestMapping(value="/admin/user/author", method=RequestMethod.GET)
+	public ModelAndView authorGet (ModelAndView mv) {
+		mv.setViewName("/admin/user/author");
+		return mv;
+	}
+	
+	@RequestMapping(value="/admin/user/author", method=RequestMethod.POST)
+	public ModelAndView authorPost(ModelAndView mv, AuthorVO author) {
+		boolean isAuthRegister = memberService.authRegister(author);
+		if(isAuthRegister) {
+			mv.setViewName("redirect:/admin/user/booklist");
+		} else {
+			mv.setViewName("redirect:/admin/user/author");
 		}
 		return mv;
 	}

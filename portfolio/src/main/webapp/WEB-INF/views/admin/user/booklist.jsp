@@ -34,6 +34,12 @@
       width: 200px; height: 150px; border: 1px solid rgb(0, 104, 136); margin-top: 10px;
       background-color: white; font-weight: bold;
     }
+    .grade-box{
+    	position:relative;
+    }
+    .nav-list{
+    	position: absolute; top: 270px;
+    }
     .nav-bottom{
       height: 300px;
     }
@@ -80,7 +86,7 @@
             	  <li class="book-management">
             	  <a href="<%=request.getContextPath()%>/admin/user/book">도서관리</a></li>
               	  <li class="publisher-management"><a href="<%=request.getContextPath()%>/admin/user/publisher">출판사관리</a></li>
-                  <li class="books-management"><a href="<%=request.getContextPath()%>/admin/user/book">저자관리</a></li>
+                  <li class="books-management"><a href="<%=request.getContextPath()%>/admin/user/author">저자관리</a></li>
               </ul>      
             </div>
           </div>
@@ -110,6 +116,18 @@
                </c:forEach>
               </tbody>
             </table>
+	            <ul class="pagination justify-content-center">
+					<c:if test="${pm.prev}">
+						<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/admin/user/booklist?page=${pm.startPage-1}">이전</a></li>
+					</c:if>
+					<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="index">
+						<li class="page-item <c:if test="${pm.criteria.page == index }">active</c:if>"><a class="page-link" href="<%=request.getContextPath()%>/admin/user/booklist?page=${index}">${index}</a></li>
+					</c:forEach>
+		
+					<c:if test="${pm.next}">
+						<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/admin/user/booklist?page=${pm.endPage+1}">다음</a></li>
+					</c:if>
+				</ul>
           </div>
       </div>
     </div>  

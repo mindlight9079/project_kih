@@ -34,6 +34,12 @@
       width: 200px; height: 150px; border: 1px solid rgb(0, 104, 136); margin-top: 10px;
       background-color: white; font-weight: bold;
     }
+    .grade-box{
+    	position:relative;
+    }
+    .nav-list{
+    	position: absolute; top: 270px;
+    }
     .nav-bottom{
       height: 300px;
     }
@@ -110,6 +116,18 @@
                </c:forEach>
               </tbody>
             </table>
+              <ul class="pagination justify-content-center">
+				<c:if test="${pm.prev}">
+					<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/admin/user/publisherlist?page=${pm.startPage-1}">이전</a></li>
+				</c:if>
+				<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="index">
+					<li class="page-item <c:if test="${pm.criteria.page == index }">active</c:if>"><a class="page-link" href="<%=request.getContextPath()%>/admin/user/publisherlist?page=${index}">${index}</a></li>
+				</c:forEach>
+	
+				<c:if test="${pm.next}">
+					<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/admin/user/publisherlist?page=${pm.endPage+1}">다음</a></li>
+				</c:if>
+			  </ul>
           </div>
       </div>
     </div>  

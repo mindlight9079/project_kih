@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.util.WebUtils;
 
 import kr.green.portfolio.dao.MemberDAO;
+import kr.green.portfolio.pagination.Criteria;
 import kr.green.portfolio.vo.MemberVO;
 import kr.green.portfolio.vo.PublisherVO;
 
@@ -180,8 +181,8 @@ public class MemberServiceImp implements MemberService {
 	}
 
 	@Override
-	public ArrayList<PublisherVO> getPublisherList() {
-		return memberDao.getPublisherList();
+	public ArrayList<PublisherVO> getPublisherList(Criteria cri) {
+		return memberDao.getPublisherList(cri);
 	}
 
 	@Override

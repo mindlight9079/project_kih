@@ -34,6 +34,12 @@
       width: 200px; height: 150px; border: 1px solid rgb(0, 104, 136); margin-top: 10px;
       background-color: white; font-weight: bold;
     }
+    .grade-box{
+    	position:relative;
+    }
+    .nav-list{
+    	position: absolute; top: 270px;
+    }
     .nav{
       width: 200px;
     }
@@ -67,11 +73,13 @@
             <div class="grade-box">   
                 <div class="grade">나의 등급 : <div class="normal">일반</div></div>   
             </div>
-              <ul class="nav-bottom">
-                  <li class="order">주문내역</li>
-                  <li class="point"><a href="<%=request.getContextPath()%>/member/greenpoint">그린포인트</a></li>
-                  <li class="info"><a href="<%=request.getContextPath()%>/member/memberinfo">회원정보</a></li>
-              </ul>      
+	            <div class="nav-list">
+	              <ul class="nav-bottom">
+	                  <li class="order">주문내역</li>
+	                  <li class="point"><a href="<%=request.getContextPath()%>/member/greenpoint">그린포인트</a></li>
+	                  <li class="info"><a href="<%=request.getContextPath()%>/member/memberinfo">회원정보</a></li>
+	              </ul>
+	            </div>      
           </div>
           <div class="list">
             <h5> - 주문내역</h5>
@@ -103,6 +111,79 @@
                   <td>자바로 배우는 핵심 구조</td>
                   <td>배송완료</td>
                 </tr>
+                 <tr>
+                  <td>2021.07.25</td>
+                  <td>Y0210236502</td>
+                  <td>자바로 배우는 핵심 구조</td>
+                  <td>배송완료</td>
+                </tr>
+                <tr>
+                  <td>2021.07.25</td>
+                  <td>Y0210236502</td>
+                  <td>자바로 배우는 핵심 구조</td>
+                  <td>배송완료</td>
+                </tr>
+                <tr>
+                  <td>2021.07.25</td>
+                  <td>Y0210236502</td>
+                  <td>자바로 배우는 핵심 구조</td>
+                  <td>배송완료</td>
+                </tr>
+                 <tr>
+                  <td>2021.07.25</td>
+                  <td>Y0210236502</td>
+                  <td>자바로 배우는 핵심 구조</td>
+                  <td>배송완료</td>
+                </tr>
+                <tr>
+                  <td>2021.07.25</td>
+                  <td>Y0210236502</td>
+                  <td>자바로 배우는 핵심 구조</td>
+                  <td>배송완료</td>
+                </tr>
+                <tr>
+                  <td>2021.07.25</td>
+                  <td>Y0210236502</td>
+                  <td>자바로 배우는 핵심 구조</td>
+                  <td>배송완료</td>
+                </tr>
+                 <tr>
+                  <td>2021.07.25</td>
+                  <td>Y0210236502</td>
+                  <td>자바로 배우는 핵심 구조</td>
+                  <td>배송완료</td>
+                </tr>
+                <tr>
+                  <td>2021.07.25</td>
+                  <td>Y0210236502</td>
+                  <td>자바로 배우는 핵심 구조</td>
+                  <td>배송완료</td>
+                </tr>
+                <tr>
+                  <td>2021.07.25</td>
+                  <td>Y0210236502</td>
+                  <td>자바로 배우는 핵심 구조</td>
+                  <td>배송완료</td>
+                </tr>
+                 <tr>
+                  <td>2021.07.25</td>
+                  <td>Y0210236502</td>
+                  <td>자바로 배우는 핵심 구조</td>
+                  <td>배송완료</td>
+                </tr>
+                <tr>
+                  <td>2021.07.25</td>
+                  <td>Y0210236502</td>
+                  <td>자바로 배우는 핵심 구조</td>
+                  <td>배송완료</td>
+                </tr>
+                <tr>
+                  <td>2021.07.25</td>
+                  <td>Y0210236502</td>
+                  <td>자바로 배우는 핵심 구조</td>
+                  <td>배송완료</td>
+                </tr>
+                
               </tbody>
             </table>
           </div>

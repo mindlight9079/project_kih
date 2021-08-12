@@ -4,14 +4,18 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.green.portfolio.dao.BookDAO">
 	<select id="getBookList" resultType="kr.green.portfolio.vo.BookVO">
-		select * from book 
+		select * from book
+			limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
 	<select id="getBook" resultType="kr.green.portfolio.vo.BookVO">
 		select * from book where bk_isbn = #{bk_isbn}
 	</select>
+	<select id="getTotalCount" resultType="int">
+		select count(*) from book
+	</select>
 	<insert id="getBookInfo" useGeneratedKeys="true" parameterType="kr.green.portfolio.vo.BookVO" keyProperty="bk_isbn">
-		insert into book(bk_isbn, bk_title, bk_subtitle, bk_au_writer, bk_publish, bk_page, bk_publish_date, bk_mainImg, bk_mainUpload, bk_pu_num)
-			values(#{bk_isbn}, #{bk_title}, #{bk_subtitle}, #{bk_au_writer}, #{bk_publish}, #{bk_page}, #{bk_publish_date}, #{bk_mainImg}, #{bk_mainUpload}, #{bk_pu_num})
+		insert into book(bk_isbn, bk_title, bk_subtitle, bk_au_writer, bk_publish, bk_page, bk_publish_date, bk_mainImg, bk_pu_num)
+			values(#{bk_isbn}, #{bk_title}, #{bk_subtitle}, #{bk_au_writer}, #{bk_publish}, #{bk_page}, #{bk_publish_date}, #{bk_mainImg}, #{bk_pu_num})
 	</insert>
 	<update id="updateBook">
 		update book set 
@@ -20,6 +24,7 @@
 			bk_subtitle= #{bk_subtitle},
 			bk_au_writer= #{bk_au_writer},
 			bk_publish = #{bk_publish},
+			bk_mainImg = #{bk_mainImg},
 			bk_page = #{bk_page},
 			bk_publish_date = #{bk_publish_date},
 			bk_pu_num = #{bk_pu_num}

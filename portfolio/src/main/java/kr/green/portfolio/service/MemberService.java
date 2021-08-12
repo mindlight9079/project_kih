@@ -6,6 +6,7 @@ import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.green.portfolio.pagination.Criteria;
 import kr.green.portfolio.vo.MemberVO;
 import kr.green.portfolio.vo.PublisherVO;
 
@@ -29,7 +30,7 @@ public interface MemberService {
 
 	boolean pubRegister(PublisherVO publisher);
 
-	ArrayList<PublisherVO> getPublisherList();
+	ArrayList<PublisherVO> getPublisherList(Criteria cri);
 
 	PublisherVO getPublisher(Integer pu_num);
 

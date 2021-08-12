@@ -27,7 +27,7 @@
 </style>
 </head>
 <body>
-    <form class="container">
+    <form class="container" method="post" action="<%=request.getContextPath()%>/admin/user/author">
       <h1>AUTHOR</h1>
          <div class="form-group">
             <label>작가번호</label>

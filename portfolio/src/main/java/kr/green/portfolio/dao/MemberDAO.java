@@ -5,6 +5,7 @@ import java.util.Date;
 
 import org.apache.ibatis.annotations.Param;
 
+import kr.green.portfolio.pagination.Criteria;
 import kr.green.portfolio.vo.MemberVO;
 import kr.green.portfolio.vo.PublisherVO;
  
@@ -24,7 +25,7 @@ public interface MemberDAO {
 
 	public void pubRegister(PublisherVO publisher);
 
-	public ArrayList<PublisherVO> getPublisherList();
+	public ArrayList<PublisherVO> getPublisherList(@Param("cri")Criteria cri);
 
 	public PublisherVO getPublisher(Integer pu_num);
 

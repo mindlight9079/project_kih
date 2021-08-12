@@ -59,7 +59,10 @@
          </div>
          <div class="form-group">
             <label>메인이미지</label>
-           	<input type="file" class="form-control" name="file" value="" name="bk_mainImg">
+            <c:if test="${book.bk_mainImg != null}">
+            <input type="text" class="form-control mb-2" value="${book.bk_title}" readonly>
+            </c:if>
+           	<input type="file" class="form-control" name="file">
          </div>
          <div class="form-group">
             <label>출판사번호</label>

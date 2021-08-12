@@ -41,6 +41,7 @@
 	</insert>
 	<select id="getPublisherList" resultType = "kr.green.portfolio.vo.PublisherVO">
 		select * from publisher
+			limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
 	<select id="getPublisher" resultType = "kr.green.portfolio.vo.PublisherVO">
 		select * from publisher where pu_num = #{pu_num}
