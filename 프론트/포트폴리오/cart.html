@@ -5,8 +5,90 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
+<style>
+    *{
+        padding:0; margin: 0;
+    }
+    .cartTr{
+        background-color: #f8f8f8
+    }
+    .cart-image{
+        width: 80px; height: 105px;
+    }
+    .cart-table{
+        margin-top: 200px;
+    }
+    input[name="amount"]{
+        width: 50px;
+    }
+    .order-btn{
+        font-size: 13px; width: 80px;
+    }
+    .cancel-btn{
+      font-size: 13px; width: 80px;
+    }
+    .cart-contents{
+        width: 650px;
+    }
+
+</style>
 <body>
-    
+    <div class="container">
+        <table class="table cart-table">
+            <thead>
+            <tr class="cartTr">
+                <th></th>
+                <th></th>
+                <th class="cart-contents">상품정보</th>
+                <th>수량</th>
+                <th>상품금액</th>
+                <th>주문</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><input type="checkbox" name="" id=""></td>
+                <td><img src="소크라테스 익스프레스.jpg" alt="cartImg" class="cart-image"></td>
+                <td >소크라테스 익스프레스 : 철학이 우리 인생에 스며드는 순간 </td>
+                <td><input type="number" name="amount" min="0" value="1"></td>
+                <td>18000원</td>
+                <td>
+                    <button type="button" class="btn btn-secondary order-btn mb-1">주문하기</button> <br>
+                    <button type="button" class="btn btn-secondary cancel-btn" >삭제</button>
+                </td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" name="" id=""></td>
+                <td><img src="소크라테스 익스프레스.jpg" alt="cartImg" class="cart-image"></td>
+                <td>
+                	
+[도서] 한 권으로 읽는 컴퓨터 구조와 프로그래밍 : 더 나은 소프트웨어 개발을 위한 하드웨어, 자료구조, 필수 알고리즘 등 프로그래머의 비밀 노트     
+                </td>
+                <td><input type="number" name="amount" min="0" value="1"></td>
+                <td>18000원</td>
+                <td>
+                    <button type="button" class="btn btn-secondary order-btn mb-1">주문하기</button> <br>
+                    <button type="button" class="btn btn-secondary cancel-btn" >삭제</button>
+                </td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" name="" id=""></td>
+                <td><img src="소크라테스 익스프레스.jpg" alt="cartImg" class="cart-image"></td>
+                <td>소크라테스 익스프레스 : 철학이 우리 인생에 스며드는 순간 </td>
+                <td><input type="number" name="amount" min="0" value="1"></td>
+                <td>18000원</td>
+                <td>
+                    <button type="button" class="btn btn-secondary order-btn mb-1">주문하기</button> <br>
+                    <button type="button" class="btn btn-secondary cancel-btn" >삭제</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>

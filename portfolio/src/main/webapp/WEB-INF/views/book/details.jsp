@@ -71,11 +71,8 @@
     .amount input{
       width: 100px; height: 30px;
     }
-    .cart, .buy{
-      width: 80px; height: 40px; font-size: 12px; line-height: 40px;
-    }
     .cart a, .buy a{
-      margin: 0 auto;
+      margin: 0 auto; color: white;
     }
  
     .middle-line{
@@ -138,8 +135,8 @@
           <div class="amount">
             수량 <input type="number" min="0">
           </div>
-          <button class="cart"><a href="<%=request.getContextPath()%>/buy/cart">장바구니</a></button>
-          <button class="buy">바로구매</button>
+          <button type="button" class="cart btn btn-secondary"><a href="<%=request.getContextPath()%>/buy/cart">장바구니</a></button>
+          <button type="button" class="buy btn btn-secondary">바로구매</button>
         </div>
       </div>
     </div>
