@@ -5,6 +5,20 @@
 <mapper namespace="kr.green.portfolio.dao.BookDAO">
 	<select id="getBookList" resultType="kr.green.portfolio.vo.BookVO">
 		select * from book
+			<if test="cri.type==0">
+				where (bk_isbn like concat('%',#{cri.search},'%')
+				or bk_title like concat('%',#{cri.search},'%')
+				or bk_subtitle like concat('%',#{cri.search},'%')
+				or bk_au_writer like concat('%',#{cri.search},'%')
+				or bk_publish like concat('%',#{cri.search},'%'))
+			</if>
+			<if test="cri.type==1">
+				where (bk_title like concat('%',#{cri.search},'%')
+				or bk_subtitle like concat('%',#{cri.search},'%'))
+			</if>
+			<if test="cri.type==2">
+				where bk_au_writer like concat('%',#{cri.search},'%')
+			</if>
 			limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
 	<select id="getBook" resultType="kr.green.portfolio.vo.BookVO">

@@ -41,6 +41,15 @@
 	</insert>
 	<select id="getPublisherList" resultType = "kr.green.portfolio.vo.PublisherVO">
 		select * from publisher
+			<if test="cri.type==0">
+				where (pu_num like concat('%',#{cri.search},'%')
+				or pu_name like concat('%',#{cri.search},'%')
+				or pu_phone like concat('%',#{cri.search},'%')
+				or pu_ceo like concat('%',#{cri.search},'%'))
+			</if>
+			<if test="cri.type==1">
+				where pu_name like concat('%',#{cri.search},'%')
+			</if>
 			limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
 	<select id="getPublisher" resultType = "kr.green.portfolio.vo.PublisherVO">
@@ -55,6 +64,21 @@
 	</select>
 	<select id="getAuthorList" resultType = "kr.green.portfolio.vo.AuthorVO">
 		select * from author
+			<if test="cri.type==0">
+				where (au_num like concat('%',#{cri.search},'%')
+				or au_writer like concat('%',#{cri.search},'%')
+				or au_country like concat('%',#{cri.search},'%')
+				or au_title like concat('%',#{cri.search},'%')
+				or au_contents like concat('%',#{cri.search},'%')
+				or au_birth like concat('%',#{cri.search},'%'))
+			</if>
+			<if test="cri.type==1">
+				where (au_title like concat('%',#{cri.search},'%')
+				or au_contents like concat('%',#{cri.search},'%'))
+			</if>
+			<if test="cri.type==2">
+				where au_writer like concat('%',#{cri.search},'%')
+			</if>
 			limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
 	<select id="getAuthor" resultType="kr.green.portfolio.vo.AuthorVO">

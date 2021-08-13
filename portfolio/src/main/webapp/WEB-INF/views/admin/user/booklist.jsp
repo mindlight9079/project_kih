@@ -71,15 +71,15 @@
     .list-nav li {
       margin-right: 20px;
     }
-    .table-bordered{
-      width: 800px;
+    .table-bordered, .search{
+      width: 850px;
     }
   </style>
 </head>
 <body>
     <div class="container">
       <h2>관리페이지</h2>
-      <i class="fas fa-home"></i>
+      <a href="<%=request.getContextPath()%>"><i class="fas fa-home"></i></a>
         <div class="inner-container">
           <div class="nav">
             <div class="grade-box">   
@@ -100,6 +100,19 @@
                 <li><a href="<%=request.getContextPath()%>/admin/user/publisherlist">출판사리스트</a></li>
                 <li><a href="<%=request.getContextPath()%>/admin/user/authorlist">저자리스트</a></li>
               </ul>
+              
+              <div class="search">
+              <form class="input-group float-right mb-3" action="<%=request.getContextPath()%>/admin/user/booklist">
+				<select class="form-control mr-2" name="type">
+					<option value="0" <c:if test="${pm.criteria.type == 0 }">selected</c:if>>전체</option>
+					<option value="1" <c:if test="${pm.criteria.type == 1 }">selected</c:if>>제목+내용</option>
+					<option value="2" <c:if test="${pm.criteria.type == 2 }">selected</c:if>>저자</option>
+				</select>
+				<input type="text" class="form-control mr-2" name="search" value="<c:out value="${pm.criteria.search}"/>">
+				<button class="btn btn-outline-primary">검색</button>
+		      </form>
+		      </div>
+		      		      
             <table class="table table-bordered">
 	           <thead>
 	            <tr>
@@ -122,14 +135,14 @@
             </table>
 	            <ul class="pagination justify-content-center">
 					<c:if test="${pm.prev}">
-						<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/admin/user/booklist?page=${pm.startPage-1}">이전</a></li>
+						<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/admin/user/booklist?page=${pm.startPage-1}&type=${pm.criteria.type}&search=${pm.criteria.search}">이전</a></li>
 					</c:if>
 					<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="index">
-						<li class="page-item <c:if test="${pm.criteria.page == index }">active</c:if>"><a class="page-link" href="<%=request.getContextPath()%>/admin/user/booklist?page=${index}">${index}</a></li>
+						<li class="page-item <c:if test="${pm.criteria.page == index }">active</c:if>"><a class="page-link" href="<%=request.getContextPath()%>/admin/user/booklist?page=${index}&type=${pm.criteria.type}&search=${pm.criteria.search}">${index}</a></li>
 					</c:forEach>
 		
 					<c:if test="${pm.next}">
-						<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/admin/user/booklist?page=${pm.endPage+1}">다음</a></li>
+						<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/admin/user/booklist?page=${pm.endPage+1}&type=${pm.criteria.type}&search=${pm.criteria.search}">다음</a></li>
 					</c:if>
 				</ul>
           </div>
