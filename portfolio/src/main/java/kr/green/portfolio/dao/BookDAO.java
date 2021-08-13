@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 import kr.green.portfolio.pagination.Criteria;
 import kr.green.portfolio.vo.BookVO;
+import kr.green.portfolio.vo.RegistrationVO;
 
 public interface BookDAO {
 
@@ -19,4 +20,14 @@ public interface BookDAO {
 	int updateBook(BookVO dbBook);
 
 	int getTotalCount(@Param("cri")Criteria cri);
+
+	void regiBook(RegistrationVO registration);
+
+	ArrayList<RegistrationVO> regiBookList(@Param("cri")Criteria cri);
+
+	RegistrationVO getRegiBook(Integer re_code);
+
+	void updateRegi(RegistrationVO dbRegi);
+
+	ArrayList<BookVO> getChoice();
 }

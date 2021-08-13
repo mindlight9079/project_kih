@@ -222,98 +222,23 @@
          Green's Choice
         <div class="line"></div>
         </div>
-        <div class="choiceImg">
-                <div class="swiper-container mySwiper">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <a class="contents" href="<%=request.getContextPath()%>/book/details">
-                            <img src="<%=request.getContextPath()%>/img/2021/08/12/eebb9683-11f3-43b8-94c7-4ac86522a79d_카인드.jpg" alt="bookImg">
-                                <div>카인드KIND</div>
-                                <div>도나 캐머런 저/허선영 역 |포레스트북스</div>
-                            </a>
-                        </div>
-                        <div class="swiper-slide">
-                            <a class="contents" href="<%=request.getContextPath()%>/book/details">
-                            <img src="<%=request.getContextPath()%>/resources/js/소크라테스 익스프레스.jpg" alt="bookImg">
-                                <div>소크라테스 익스프레스</div>
-                                <div>에릭 와이너 저/김하현 역 |어크로스</div>
-                            </a>
-                        </div>
-                        <div class="swiper-slide">
-                            <a class="contents" href="<%=request.getContextPath()%>/book/details">
-                            <img src="<%=request.getContextPath()%>/resources/js/소크라테스 익스프레스.jpg" alt="bookImg">
-                                <div>소크라테스 익스프레스</div>
-                                <div>에릭 와이너 저/김하현 역 |어크로스</div>
-                            </a>
-                        </div>
-                        <div class="swiper-slide">
-                            <a class="contents" href="<%=request.getContextPath()%>/book/details">
-                            <img src="<%=request.getContextPath()%>/resources/js/소크라테스 익스프레스.jpg" alt="bookImg">
-                                <div>소크라테스 익스프레스</div>
-                                <div>에릭 와이너 저/김하현 역 |어크로스</div>
-                            </a>
-                        </div>
-                        <div class="swiper-slide">
-                           <a class="contents" href="<%=request.getContextPath()%>/book/details">
-                            <img src="<%=request.getContextPath()%>/resources/js/소크라테스 익스프레스.jpg" alt="bookImg">
-                                <div>소크라테스 익스프레스</div>
-                                <div>에릭 와이너 저/김하현 역 |어크로스</div>
-                            </a>
-                        </div>
-                        <div class="swiper-slide">
-                           <a class="contents" href="<%=request.getContextPath()%>/book/details">
-                            <img src="<%=request.getContextPath()%>/resources/js/소크라테스 익스프레스.jpg" alt="bookImg">
-                                <div>소크라테스 익스프레스</div>
-                                <div>에릭 와이너 저/김하현 역 |어크로스</div>
-                            </a>
-                        </div>
-                         <div class="swiper-slide">
-                           <a class="contents" href="<%=request.getContextPath()%>/book/details">
-                            <img src="<%=request.getContextPath()%>/resources/js/소크라테스 익스프레스.jpg" alt="bookImg">
-                                <div>소크라테스 익스프레스</div>
-                                <div>에릭 와이너 저/김하현 역 |어크로스</div>
-                            </a>
-                        </div>
-                        <div class="swiper-slide">
-                           <a class="contents" href="<%=request.getContextPath()%>/book/details">
-                            <img src="<%=request.getContextPath()%>/resources/js/소크라테스 익스프레스.jpg" alt="bookImg">
-                                <div>소크라테스 익스프레스</div>
-                                <div>에릭 와이너 저/김하현 역 |어크로스</div>
-                            </a>
-                        </div>
-                        <div class="swiper-slide">
-                           <a class="contents" href="<%=request.getContextPath()%>/book/details">
-                            <img src="<%=request.getContextPath()%>/resources/js/소크라테스 익스프레스.jpg" alt="bookImg">
-                                <div>소크라테스 익스프레스</div>
-                                <div>에릭 와이너 저/김하현 역 |어크로스</div>
-                            </a>
-                        </div>
-                        <div class="swiper-slide">
-                           <a class="contents" href="<%=request.getContextPath()%>/book/details">
-                            <img src="<%=request.getContextPath()%>/resources/js/소크라테스 익스프레스.jpg" alt="bookImg">
-                                <div>소크라테스 익스프레스</div>
-                                <div>에릭 와이너 저/김하현 역 |어크로스</div>
-                            </a>
-                        </div>
-                        <div class="swiper-slide">
-                           <a class="contents" href="<%=request.getContextPath()%>/book/details">
-                            <img src="<%=request.getContextPath()%>/resources/js/소크라테스 익스프레스.jpg" alt="bookImg">
-                                <div>소크라테스 익스프레스</div>
-                                <div>에릭 와이너 저/김하현 역 |어크로스</div>
-                            </a>
-                        </div>
-                        <div class="swiper-slide">
-                           <a class="contents" href="<%=request.getContextPath()%>/book/details">
-                            <img src="<%=request.getContextPath()%>/resources/js/소크라테스 익스프레스.jpg" alt="bookImg">
-                                <div>소크라테스 익스프레스</div>
-                                <div>에릭 와이너 저/김하현 역 |어크로스</div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="swiper-pagination"></div>
-                </div>
-        </div>
-    </div>
+		<div class="choiceImg">
+			<div class="swiper-container mySwiper">
+				<div class="swiper-wrapper">
+				<c:forEach items="${bookChoice}" var="book" varStatus="status">
+					<div class="swiper-slide">
+						<a class="contents" href="<%=request.getContextPath()%>/book/details?re_code=${book.bk_isbn}">
+							<img src="<%=request.getContextPath()%>/img${book.bk_mainImg}" alt="bookImg">
+							<div>${book.bk_title}</div>
+							<div>${book.bk_au_writer}</div>
+						</a>
+					</div>
+				</c:forEach>
+				</div>
+				<div class="swiper-pagination"></div>
+			</div>
+		</div>
+	</div>
     <div class="container2">
         <div class="line2"></div>
         <div class="bookToday">

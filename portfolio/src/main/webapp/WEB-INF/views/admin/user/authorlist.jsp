@@ -91,6 +91,7 @@
             	  <a href="<%=request.getContextPath()%>/admin/user/book">도서관리</a></li>
               	  <li class="publisher-management"><a href="<%=request.getContextPath()%>/admin/user/publisher">출판사관리</a></li>
                   <li class="books-management"><a href="<%=request.getContextPath()%>/admin/user/author">저자관리</a></li>
+                  <li class="registration-management"><a href="<%=request.getContextPath()%>/admin/user/registration">판매가능서적관리</a></li>
               </ul>      
             </div>
           </div>          
@@ -99,6 +100,7 @@
                 <li><a href="<%=request.getContextPath()%>/admin/user/booklist">책리스트</a></li>
                 <li><a href="<%=request.getContextPath()%>/admin/user/publisherlist">출판사리스트</a></li>
                 <li><a href="<%=request.getContextPath()%>/admin/user/authorlist">저자리스트</a></li>
+                <li><a href="<%=request.getContextPath()%>/admin/user/registrationlist">판매가능서적</a></li>
               </ul>
               
            <div class="search">

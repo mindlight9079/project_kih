@@ -17,6 +17,7 @@ import kr.green.portfolio.service.MemberService;
 import kr.green.portfolio.vo.AuthorVO;
 import kr.green.portfolio.vo.BookVO;
 import kr.green.portfolio.vo.PublisherVO;
+import kr.green.portfolio.vo.RegistrationVO;
 
 @Controller
 public class AdminController {
@@ -177,6 +178,54 @@ public class AdminController {
 		return mv;
 	}
 	
+	@RequestMapping(value="/admin/user/registration", method=RequestMethod.GET)
+	public ModelAndView registrationGet(ModelAndView mv) {
+		mv.setViewName("/admin/user/registration");
+		return mv;
+	}
+	@RequestMapping(value="/admin/user/registration", method=RequestMethod.POST)
+	public ModelAndView registrationPost(ModelAndView mv, RegistrationVO registration) {
+		boolean isRegistration = bookService.regiBook(registration);
+		if(isRegistration) {
+			mv.setViewName("redirect:/admin/user/registrationlist");
+		} else {
+			mv.setViewName("redirect:/admin/user/registration");
+		}
+		return mv;
+	}
+	
+	@RequestMapping(value="/admin/user/registrationlist")
+	public ModelAndView regiBookList(ModelAndView mv, Criteria cri) {
+		PageMaker pm = new PageMaker();
+		cri.setPerPageNum(10);
+		pm.setCriteria(cri);
+		pm.setDisplayPageNum(5);
+		int totalCount = bookService.getTotalCount(cri);
+		pm.setTotalCount(totalCount);
+		pm.calcData();
+		ArrayList<RegistrationVO> regi = bookService.regiBookList(cri);
+		mv.addObject("regi", regi);
+		mv.addObject("pm", pm);
+		mv.setViewName("/admin/user/registrationlist");
+		return mv;
+	}
+	@RequestMapping(value="/admin/user/registrationdetails")
+	public ModelAndView registrationDetails(ModelAndView mv, Integer re_code) {
+		RegistrationVO regi = bookService.getRegiBook(re_code);
+		mv.addObject("regi", regi);
+		mv.setViewName("/admin/user/registrationdetails");
+		return mv;
+	}
+	
+	@RequestMapping(value="/admin/user/registrationdetails", method=RequestMethod.POST)
+	public ModelAndView regiBookPost(ModelAndView mv, RegistrationVO regi) {
+		RegistrationVO dbRegi = bookService.getRegiBook(regi.getRe_code());
+		if(dbRegi != null && dbRegi.getRe_code() == regi.getRe_code()) {
+			RegistrationVO updateRegi = bookService.updateRegi(regi);
+		}
+		mv.setViewName("redirect:/admin/user/registrationlist");
+		return mv;
+	}
 	
 	
 }

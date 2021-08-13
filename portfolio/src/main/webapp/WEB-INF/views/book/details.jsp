@@ -136,7 +136,7 @@
         </div>
         <div class="order-line">
           <div class="amount">
-            수량 <input type="number">
+            수량 <input type="number" min="0">
           </div>
           <button class="cart"><a href="<%=request.getContextPath()%>/buy/cart">장바구니</a></button>
           <button class="buy">바로구매</button>

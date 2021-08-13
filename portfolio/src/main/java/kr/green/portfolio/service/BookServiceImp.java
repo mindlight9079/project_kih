@@ -12,6 +12,7 @@ import kr.green.portfolio.dao.MemberDAO;
 import kr.green.portfolio.pagination.Criteria;
 import kr.green.portfolio.utils.UploadFileUtils;
 import kr.green.portfolio.vo.BookVO;
+import kr.green.portfolio.vo.RegistrationVO;
 
 @Service
 public class BookServiceImp implements BookService {
@@ -87,6 +88,52 @@ public class BookServiceImp implements BookService {
 	@Override
 	public int getTotalCount(Criteria cri) {
 		return bookDao.getTotalCount(cri);
-	}	
+	}
 
+	@Override
+	public boolean regiBook(RegistrationVO registration) {
+		if(registration == null)
+			return false;
+		bookDao.regiBook(registration);
+		return true;
+	}
+
+	@Override
+	public ArrayList<RegistrationVO> regiBookList(Criteria cri) {
+		return bookDao.regiBookList(cri);
+	}
+
+	@Override
+	public RegistrationVO getRegiBook(Integer re_code) {
+		if(re_code == null)
+			return null;
+		RegistrationVO regi = bookDao.getRegiBook(re_code);
+		return regi;
+	}
+
+	@Override
+	public RegistrationVO updateRegi(RegistrationVO regi) {
+		System.out.println(regi);
+		if(regi == null)
+			return null;
+		RegistrationVO dbRegi = bookDao.getRegiBook(regi.getRe_code());
+		if(dbRegi == null)
+			return null;
+		System.out.println(dbRegi);
+		dbRegi.setRe_amount(regi.getRe_amount());
+		dbRegi.setRe_bk_isbn(regi.getRe_bk_isbn());
+		dbRegi.setRe_catagory(regi.getRe_catagory());
+		dbRegi.setRe_code(regi.getRe_code());
+		dbRegi.setRe_contents(regi.getRe_contents());
+		dbRegi.setRe_price(regi.getRe_price());
+		dbRegi.setRe_title(regi.getRe_title());
+		dbRegi.setRe_choice(regi.getRe_choice());
+		bookDao.updateRegi(dbRegi);
+		return dbRegi;
+	}
+
+	@Override
+	public ArrayList<BookVO> getChoice() {
+		return bookDao.getChoice();
+	}	
 }
