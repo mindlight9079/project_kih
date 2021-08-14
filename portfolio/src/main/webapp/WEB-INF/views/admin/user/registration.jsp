@@ -56,6 +56,11 @@
             <label>수량</label>
             <input type="number" min="0" class="form-control" name="re_amount">
          </div>
+         <div class="form-group">
+            <label>그린초이스</label> <br>
+            N <input type="radio" value="N" name="re_choice">
+            Y <input type="radio" value="Y" name="re_choice">
+         </div>
         <button class="btn btn-primary col-12">등록</button>
     </form>
 </body>
