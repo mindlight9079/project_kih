@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+<script src="https://kit.fontawesome.com/be5943d19e.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -14,14 +15,14 @@
     *{
         padding:0; margin: 0;
     }
+    .container{
+        margin-top: 120px;
+    }
     .cartTr{
         background-color: #f8f8f8
     }
     .cart-image{
         width: 80px; height: 105px;
-    }
-    .cart-table{
-        margin-top: 200px;
     }
     input[name="amount"]{
         width: 50px;
@@ -35,7 +36,18 @@
     .cart-contents{
         width: 650px;
     }
-
+    .price-box{
+       background-color: #f8f8f8; margin-top: 30px; text-align: center; position:relative
+    }
+    .fa-plus{
+        position: absolute; top: 17px; left:calc(25% - 10px);
+    }
+    .fa-minus{
+        position: absolute; top:17px; left:calc(50% - 15px);
+    }
+    .fa-equals{
+        position: absolute; top:17px; left:calc(75% - 20px);
+    }
 </style>
 <body>
     <div class="container">
@@ -88,6 +100,29 @@
                 </td>
             </tr>
             </tbody>
+        </table>
+        <table class="table price-box">
+            <tr>
+                <td>
+                    총 상품금액
+                    <i class="fas fa-plus"></i>
+                </td>
+                <td>
+                    총 추가금액
+                    <i class="fas fa-minus"></i>
+                </td>
+                <td>
+                    총 할인금액
+                    <i class="fas fa-equals"></i>
+                </td>
+                <td>최종 결제금액</td>
+            </tr>
+            <tr>
+                <td>18000원</td>
+                <td>0원</td>
+                <td>0원</td>
+                <td>18000원</td>
+            </tr>
         </table>
     </div>
 </body>
