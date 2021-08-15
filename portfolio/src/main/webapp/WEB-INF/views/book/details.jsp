@@ -15,7 +15,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <style>
     *{
-      margin: 0; padding: 0; color:black; text-decoration: none;
+      margin: 0; padding: 0; color:black; text-decoration: none; list-style: none;
     }
     a{
       color: black; text-decoration: none;
@@ -71,8 +71,11 @@
     .amount input{
       width: 100px; height: 30px;
     }
+    .cart, .buy{
+      width: 80px; height: 40px; font-size: 12px; line-height: 40px;
+    }
     .cart a, .buy a{
-      margin: 0 auto; color: white;
+      margin: 0 auto;
     }
  
     .middle-line{
@@ -108,9 +111,89 @@
     .sub{
       margin-top: 40px;
     }
+    .side-bars{
+        width: 400px; height: 1280px; background-color: black; position: absolute; z-index: 10;
+        opacity: 80%; display: none; 
+    }
+    .side-bars li{
+        color: white; margin-bottom: 20px; cursor: pointer; font-size: 20px;
+    }
+    .catagory-list{
+        position: absolute; top: 150px; left: 20px;
+    }
+    .subCatagory-list{
+        position: absolute; top: 150px; left: 200px;
+    }
+    .dome-list{
+        display: none;
+    }
+    .foreign-list, .ebook-list, .web-novel-list{
+        display: none;
+    }
+    .fa-times{
+        color: white; font-size: 30px; position: absolute; top: 20px; right: 20px;
+    }
+    
   </style>
 </head>
 <body>
+  <div class="side-bars">
+    <i class="fas fa-times"></i>
+    <div class="catagory-list">
+        <ul>
+            <li class="domestic">국내도서</li>
+            <li class="foreign">외국도서</li>
+            <li class="ebook">ebook</li>
+            <li class="webNovel">웹소설/코믹</li>
+        </ul>
+    </div>
+    <div class="subCatagory-list">
+        <ul class="dome-list">
+            <li>소설/시</li>
+            <li>에세이</li>
+            <li>인문</li>
+            <li>역사</li>
+            <li>예술</li>
+            <li>종교</li>
+            <li>사회</li>
+            <li>과학</li>
+            <li>자기계발</li>
+            <li>국어와외국어</li>
+            <li>IT/모바일</li>
+        </ul>
+    </div>
+    <div class="subCatagory-list">
+        <ul class="foreign-list">
+            <li>문학</li>
+            <li>소설</li>
+            <li>경제/경영</li>
+            <li>인문/사회</li>
+            <li>예술</li>
+            <li>컴퓨터</li>
+            <li>자연과학</li>
+        </ul>
+    </div>
+    <div class="subCatagory-list">
+        <ul class="ebook-list">
+            <li>장르소설</li>
+            <li>소설</li>
+            <li>에세이/시</li>
+            <li>경제/경영</li>
+            <li>자기계발</li>
+            <li>인문/사회/정치</li>
+            <li>역사/종교</li>
+            <li>외국어</li>
+            <li>IT/모바일</li>
+        </ul>
+    </div>
+    <div class="subCatagory-list">
+        <ul class="web-novel-list">
+            <li>웹소설</li>
+            <li>웹툰</li>
+        </ul>
+    </div>
+</div>
+
   <i class="fas fa-bars"></i>
   <div class="container">
     <div class="book-top">
@@ -133,10 +216,10 @@
         </div>
         <div class="order-line">
           <div class="amount">
-            수량 <input type="number" min="0">
+            수량 <input type="number">
           </div>
-          <button type="button" class="cart btn btn-secondary"><a href="<%=request.getContextPath()%>/buy/cart">장바구니</a></button>
-          <button type="button" class="buy btn btn-secondary">바로구매</button>
+          <button class="cart"><a href="<%=request.getContextPath()%>/buy/cart">장바구니</a></button>
+          <button class="buy">바로구매</button>
         </div>
       </div>
     </div>
@@ -190,5 +273,38 @@
         </div>
     </div>
   </div>
+<script>
+    $('.fa-bars').click(function(){
+        $('.side-bars').show();
+    })
+    $('.fa-times').click(function(){
+        $('.side-bars').hide();
+    })
+
+    $('.domestic').hover(function(){
+        $('.foreign-list').hide();
+        $('.ebook-list').hide();
+        $('.web-novel-list').hide();
+        $('.dome-list').show();
+    })
+    $('.foreign').hover(function(){
+        $('.dome-list').hide();
+        $('.ebook-list').hide();
+        $('.web-novel-list').hide();
+        $('.foreign-list').show();
+    })
+    $('.ebook').hover(function(){
+        $('.foreign-list').hide();
+        $('.dome-list').hide();
+        $('.web-novel-list').hide();
+        $('.ebook-list').show();
+    })
+    $('.webNovel').hover(function(){
+        $('.foreign-list').hide();
+        $('.dome-list').hide();
+        $('.ebook-list').hide();
+        $('.web-novel-list').show();
+    })
+</script>
 </body>
 </html>
