@@ -26,12 +26,16 @@ public class BookController {
 	public ModelAndView detailsGet(ModelAndView mv, BigInteger re_bk_isbn) {
 		BookVO book = bookService.getBook(re_bk_isbn);
 		RegistrationVO regi = bookService.getRegi(re_bk_isbn);
-		ArrayList<AuthorVO> author = bookService.getAuthor(re_bk_isbn);
-		ArrayList<AuthorVO> subAuthor = bookService.getSubAuthor(re_bk_isbn);
+		ArrayList<AuthorVO> author = memberService.authorList(re_bk_isbn);
+		ArrayList<AuthorVO> subAuthor = memberService.subAuthorList(re_bk_isbn);
+		AuthorVO anAuthor = memberService.getAnAuthor(re_bk_isbn);
+		AuthorVO aSubAuthor = memberService.getASubAuthor(re_bk_isbn);
 		mv.addObject("regi", regi);
 		mv.addObject("book",book);
 		mv.addObject("author", author);
 		mv.addObject("subAuthor", subAuthor);
+		mv.addObject("anAuthor", anAuthor);
+		mv.addObject("aSubAuthor", aSubAuthor);
 		mv.setViewName("/book/details");
 		return mv;
 	}

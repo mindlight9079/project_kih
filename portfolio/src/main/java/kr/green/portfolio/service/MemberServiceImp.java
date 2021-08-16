@@ -1,6 +1,7 @@
 package kr.green.portfolio.service;
 
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.regex.Pattern;
@@ -295,6 +296,32 @@ public class MemberServiceImp implements MemberService {
 		if(memberDao.updateBooks(dbBooks) == 0)
 			return null;	
 		return dbBooks;
+	}
+	
+	@Override
+	public ArrayList<AuthorVO> authorList(BigInteger re_bk_isbn) {
+		return memberDao.authorList(re_bk_isbn);
+	}
+
+	@Override
+	public ArrayList<AuthorVO> subAuthorList(BigInteger re_bk_isbn) {
+		return memberDao.subAuthorList(re_bk_isbn);
+	}
+
+	@Override
+	public AuthorVO getAnAuthor(BigInteger re_bk_isbn) {
+		if(re_bk_isbn == null)
+			return null;
+		AuthorVO anAuthor = memberDao.getAnAuthor(re_bk_isbn);
+		return anAuthor;
+	}
+
+	@Override
+	public AuthorVO getASubAuthor(BigInteger re_bk_isbn) {
+		if(re_bk_isbn == null)
+			return null;
+		AuthorVO aSubAuthor = memberDao.getASubAuthor(re_bk_isbn);
+		return aSubAuthor;
 	}
 
 

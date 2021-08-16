@@ -37,9 +37,4 @@ public interface BookService {
 
 	RegistrationVO getRegi(BigInteger re_bk_isbn);
 
-	ArrayList<AuthorVO> getAuthor(BigInteger re_bk_isbn);
-
-	ArrayList<AuthorVO> getSubAuthor(BigInteger re_bk_isbn);
-
-
 }

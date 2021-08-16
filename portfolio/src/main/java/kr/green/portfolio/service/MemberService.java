@@ -1,5 +1,6 @@
 package kr.green.portfolio.service;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -55,6 +56,14 @@ public interface MemberService {
 	BooksVO getBooks(Integer bs_num);
 
 	BooksVO updateBooks(BooksVO books);
+	
+	ArrayList<AuthorVO> authorList(BigInteger re_bk_isbn);
+
+	ArrayList<AuthorVO> subAuthorList(BigInteger re_bk_isbn);
+
+	AuthorVO getAnAuthor(BigInteger re_bk_isbn);
+
+	AuthorVO getASubAuthor(BigInteger re_bk_isbn);
 
 
 }

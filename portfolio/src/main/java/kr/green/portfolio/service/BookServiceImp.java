@@ -146,14 +146,6 @@ public class BookServiceImp implements BookService {
 		return regi;
 	}
 
-	@Override
-	public ArrayList<AuthorVO> getAuthor(BigInteger re_bk_isbn) {
-		return bookDao.getAuthor(re_bk_isbn);
-	}
-
-	@Override
-	public ArrayList<AuthorVO> getSubAuthor(BigInteger re_bk_isbn) {
-		return bookDao.getSubAuthor(re_bk_isbn);
-	}
+	
 
 }

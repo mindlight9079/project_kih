@@ -206,7 +206,7 @@
         <p> ${book.bk_subtitle}</p>
         <div class="width-line"></div>
         <div class="title-bottom">
-            <div>${book.bk_au_writer} /  역 | ${book.bk_publish} | ${book.date}</div>
+            <div>${book.bk_au_writer} / ${aSubAuthor.au_writer} 역 | ${book.bk_publish} | ${book.date}</div>
             <div>
               판매가 | <h2>${regi.re_price}</h2>원
             </div>
@@ -247,7 +247,7 @@
         <div class="book-contents">
           <div class="catagory">
               <h6>카테고리 분류</h6>
-              <p>${author.au_country} > ${regi.re_catagory}</p>
+              <p>${anAuthor.au_country} > ${regi.re_catagory}</p>
           </div>
           <div class="introduce">
             <h4>책소개</h4>
@@ -256,20 +256,21 @@
           <div class="writer">
               <h4>저자소개</h4>
   
+        <c:forEach items="author" var="authList" varStatus="status">
            <div class="main">
-              <c:forEach items="author" var="auth" varStatus="status">
-	               <p>저자 | ${auth.au_writer}</p>
-	               <p>${auth.au_contents}</p>
-              </c:forEach>
-	        
+	               <p>저자 | ${authList.au_writer}</p>
+	               <p>${authList.au_contents}</p>
+	       </div>
+        </c:forEach>
+	       
+  		<c:forEach items="subAuthor" var="subList" varStatus="status">
+   		 <c:if test="${subList != null}">
            <div class="sub">
-      		<c:forEach items="subAuthor" var="sub" varStatus="status">
-      		 <c:if test="${sub != null}">
-                <p>역자 | ${sub.au_writer}</p>
-                <p>${sub.au_contents}</p>
-       	     </c:if>
-            </c:forEach>
+                <p>역자 | ${subList.au_writer}</p>
+                <p>${subList.au_contents}</p>
            </div>
+   	     </c:if>
+        </c:forEach>
            
           </div>
         </div>

@@ -1,5 +1,6 @@
 package kr.green.portfolio.dao;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -52,4 +53,12 @@ public interface MemberDAO {
 	public BooksVO getBooks(Integer bs_num);
 
 	public int updateBooks(BooksVO dbBooks);
+	
+	ArrayList<AuthorVO> authorList(BigInteger re_bk_isbn);
+
+	ArrayList<AuthorVO> subAuthorList(BigInteger re_bk_isbn);
+
+	public AuthorVO getAnAuthor(BigInteger re_bk_isbn);
+
+	public AuthorVO getASubAuthor(BigInteger re_bk_isbn);
 }

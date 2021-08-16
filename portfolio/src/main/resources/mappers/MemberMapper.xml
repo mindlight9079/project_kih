@@ -133,5 +133,21 @@
 			bs_au_num = #{bs_au_num}
 				where bs_num = #{bs_num}			
 	</update>
+	<select id="authorList" resultType="kr.green.portfolio.vo.AuthorVO">
+		select * from author join books on au_num = bs_au_num
+			where bs_bk_isbn = #{re_bk_isbn} and bs_part = '저자'
+	</select>
+	<select id="subAuthorList" resultType="kr.green.portfolio.vo.AuthorVO">
+		select * from author join books on au_num = bs_au_num
+			where bs_bk_isbn = #{re_bk_isbn} and bs_part = '역자'
+	</select>
+	<select id="getAnAuthor" resultType="kr.green.portfolio.vo.AuthorVO">
+		select * from author join books on au_num = bs_au_num
+			where bs_bk_isbn = #{re_bk_isbn} and bs_part = '저자' limit 1;
+	</select>
+	<select id="getASubAuthor" resultType="kr.green.portfolio.vo.AuthorVO">
+		select * from author join books on au_num = bs_au_num
+			where bs_bk_isbn = #{re_bk_isbn} and bs_part = '역자' limit 1;	
+	</select>
 </mapper>
 
