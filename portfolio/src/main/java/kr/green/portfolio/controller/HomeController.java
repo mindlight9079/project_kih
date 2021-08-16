@@ -1,5 +1,6 @@
 package kr.green.portfolio.controller;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.green.portfolio.service.BookService;
+import kr.green.portfolio.vo.AuthorVO;
 import kr.green.portfolio.vo.BookVO;
 
 /**
@@ -21,7 +23,7 @@ public class HomeController {
 	BookService bookService;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public ModelAndView home(ModelAndView mv) {
+	public ModelAndView home(ModelAndView mv, BigInteger re_bk_isbn) {
 		ArrayList<BookVO> bookChoice = bookService.getChoice();
 		mv.addObject("bookChoice", bookChoice);
 		mv.setViewName("/home");

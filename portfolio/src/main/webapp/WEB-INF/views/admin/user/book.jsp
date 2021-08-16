@@ -59,7 +59,7 @@
          </div>
          <div class="form-group">
             <label>메인이미지</label>
-           	<input type="file" class="form-control" name="file">
+           	<input type="file" class="form-control" name="file" id="image" accept="image/*" onchange="setThumbnail(event);" value="${book.bk_mainImg}">
          </div>
          <div class="form-group">
             <label>출판사번호</label>
@@ -67,5 +67,19 @@
          </div>
         <button class="btn btn-primary col-12">등록</button>
     </form>
+<script type="text/javascript">
+	function setThumbnail(event){
+		var reader = new FileReader();
+		
+		reader.onload = function(event){
+			var img = document.createElement("img");
+			img.setAttribute("src", event.target.result);
+			img.setAttribute("class", "col-lg-6");
+			document.querySelector("div#image_container").appendChild(img);
+		};
+		
+		reader.readAsDataURL(event.target.files[0]);
+	}
+</script>
 </body>
 </html>

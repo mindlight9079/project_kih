@@ -37,7 +37,7 @@ public interface BookDAO {
 
 	void booksRegi(BooksVO books);
 
-	AuthorVO getAuthor(BigInteger re_bk_isbn);
+	ArrayList<AuthorVO> getAuthor(BigInteger re_bk_isbn);
 
-	AuthorVO getSubAuthor(BigInteger re_bk_isbn);
+	ArrayList<AuthorVO> getSubAuthor(BigInteger re_bk_isbn);
 }

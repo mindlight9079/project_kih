@@ -230,7 +230,7 @@
 						<a class="contents" href="<%=request.getContextPath()%>/book/details?re_bk_isbn=${book.bk_isbn}">
 							<img src="<%=request.getContextPath()%>/img${book.bk_mainImg}" alt="bookImg">
 							<div>${book.bk_title}</div>
-							<div>${book.bk_au_writer}</div>
+							<div>${book.bk_au_writer} 저 | ${book.bk_publish}</div>
 						</a>
 					</div>
 				</c:forEach>

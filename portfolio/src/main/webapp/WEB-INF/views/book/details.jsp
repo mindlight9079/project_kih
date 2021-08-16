@@ -206,13 +206,14 @@
         <p> ${book.bk_subtitle}</p>
         <div class="width-line"></div>
         <div class="title-bottom">
-            <div>${book.bk_au_writer} <c:if test="${subAuthor != null}"> / ${subAuthor.au_writer} 역 </c:if>| ${book.bk_publish} | ${book.date}</div>
+            <div>${book.bk_au_writer} /  역 | ${book.bk_publish} | ${book.date}</div>
             <div>
               판매가 | <h2>${regi.re_price}</h2>원
             </div>
-            <div>그린 포인트 | 900원(5% 적립)</div>
+            <div>그린 포인트 | ${regi.re_price_point}원 (5% 적립)</div>
             <div>배송일정 | 서울시특별구 종로구 세정대로 기준</div>
-            <div>배송비 | 무료</div>
+            <div>배송비 |  <c:if test="${regi.re_price >= 10000}">무료</c:if><c:if test="${regi.re_price < 10000}">2500원</c:if></div>
+            <div>(10,000원 이상 구매시 배송비 무료)</div>
         </div>
         <div class="order-line">
           <div class="amount">
@@ -255,16 +256,21 @@
           <div class="writer">
               <h4>저자소개</h4>
   
-	             <div class="main">
-	               <p>저자 | ${author.au_writer}</p>
-	               <p>${author.au_contents}</p>
-	             </div>
-      		 <c:if test="${subAuthor != null}">
-              <div class="sub">
-                <p>역자 | ${subAuthor.au_writer}</p>
-                <p>${subAuthor.au_contents}</p>
-              </div>
+           <div class="main">
+              <c:forEach items="author" var="auth" varStatus="status">
+	               <p>저자 | ${auth.au_writer}</p>
+	               <p>${auth.au_contents}</p>
+              </c:forEach>
+	        
+           <div class="sub">
+      		<c:forEach items="subAuthor" var="sub" varStatus="status">
+      		 <c:if test="${sub != null}">
+                <p>역자 | ${sub.au_writer}</p>
+                <p>${sub.au_contents}</p>
        	     </c:if>
+            </c:forEach>
+           </div>
+           
           </div>
         </div>
     </div>

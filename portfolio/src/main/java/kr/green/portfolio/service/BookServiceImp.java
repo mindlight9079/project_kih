@@ -13,7 +13,6 @@ import kr.green.portfolio.pagination.Criteria;
 import kr.green.portfolio.utils.UploadFileUtils;
 import kr.green.portfolio.vo.AuthorVO;
 import kr.green.portfolio.vo.BookVO;
-import kr.green.portfolio.vo.BooksVO;
 import kr.green.portfolio.vo.RegistrationVO;
 
 @Service
@@ -148,24 +147,13 @@ public class BookServiceImp implements BookService {
 	}
 
 	@Override
-	public AuthorVO getAuthor(BigInteger re_bk_isbn) {
-		if(re_bk_isbn== null)
-			return null;
-		AuthorVO author = bookDao.getAuthor(re_bk_isbn);
-		return author;
+	public ArrayList<AuthorVO> getAuthor(BigInteger re_bk_isbn) {
+		return bookDao.getAuthor(re_bk_isbn);
 	}
 
 	@Override
-	public AuthorVO getSubAuthor(BigInteger re_bk_isbn) {
-		if(re_bk_isbn == null)
-			return null;
-		AuthorVO subAuthor = bookDao.getSubAuthor(re_bk_isbn);
-		return subAuthor;
+	public ArrayList<AuthorVO> getSubAuthor(BigInteger re_bk_isbn) {
+		return bookDao.getSubAuthor(re_bk_isbn);
 	}
-
-
-
-
-
 
 }

@@ -1,6 +1,7 @@
 package kr.green.portfolio.controller;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,8 +26,8 @@ public class BookController {
 	public ModelAndView detailsGet(ModelAndView mv, BigInteger re_bk_isbn) {
 		BookVO book = bookService.getBook(re_bk_isbn);
 		RegistrationVO regi = bookService.getRegi(re_bk_isbn);
-		AuthorVO author = bookService.getAuthor(re_bk_isbn);
-		AuthorVO subAuthor = bookService.getSubAuthor(re_bk_isbn);
+		ArrayList<AuthorVO> author = bookService.getAuthor(re_bk_isbn);
+		ArrayList<AuthorVO> subAuthor = bookService.getSubAuthor(re_bk_isbn);
 		mv.addObject("regi", regi);
 		mv.addObject("book",book);
 		mv.addObject("author", author);
