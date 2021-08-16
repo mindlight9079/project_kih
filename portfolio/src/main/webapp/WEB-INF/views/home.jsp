@@ -227,7 +227,7 @@
 				<div class="swiper-wrapper">
 				<c:forEach items="${bookChoice}" var="book" varStatus="status">
 					<div class="swiper-slide">
-						<a class="contents" href="<%=request.getContextPath()%>/book/details?re_code=${book.bk_isbn}">
+						<a class="contents" href="<%=request.getContextPath()%>/book/details?re_bk_isbn=${book.bk_isbn}">
 							<img src="<%=request.getContextPath()%>/img${book.bk_mainImg}" alt="bookImg">
 							<div>${book.bk_title}</div>
 							<div>${book.bk_au_writer}</div>

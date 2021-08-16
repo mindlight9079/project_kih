@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.green.portfolio.service.MemberService;
+import kr.green.portfolio.vo.AuthorVO;
 import kr.green.portfolio.vo.MemberVO;
 
 @Controller

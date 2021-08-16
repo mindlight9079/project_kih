@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 import kr.green.portfolio.pagination.Criteria;
 import kr.green.portfolio.vo.AuthorVO;
+import kr.green.portfolio.vo.BooksVO;
 import kr.green.portfolio.vo.MemberVO;
 import kr.green.portfolio.vo.PublisherVO;
  
@@ -42,4 +43,13 @@ public interface MemberDAO {
 
 	public int updateAuth(AuthorVO dbAuth);
 
+	public AuthorVO getAuthorInfo(String au_writer);
+
+	public void booksRegi(BooksVO books);
+
+	public ArrayList<BooksVO> getBooksList(@Param("cri")Criteria cri);
+
+	public BooksVO getBooks(Integer bs_num);
+
+	public int updateBooks(BooksVO dbBooks);
 }

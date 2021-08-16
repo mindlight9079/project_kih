@@ -7,7 +7,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BOOKLIST</title>
+  <title>BOOKSLIST</title>
 <script src="https://kit.fontawesome.com/be5943d19e.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -25,9 +25,9 @@
     }
     .container{
       background-color: rgb(0, 104, 136); width: 70%; height: 50px; margin: 0 auto;
-      margin-top: 50px; position: relative;
+      margin-top: 50px; position:relative;
     }
-	.fa-home{
+    .fa-home{
       position:absolute; right: 20px; font-size: 25px; top:13px; color: white; cursor: pointer;
     }
     .container h2 {
@@ -95,7 +95,7 @@
                   <li class="registration-management"><a href="<%=request.getContextPath()%>/admin/user/registration">판매가능서적관리</a></li>
               </ul>      
             </div>
-          </div>
+          </div>          
           <div class="list">
               <ul class="list-nav">
                 <li><a href="<%=request.getContextPath()%>/admin/user/booklist">책리스트</a></li>
@@ -105,48 +105,47 @@
                 <li><a href="<%=request.getContextPath()%>/admin/user/registrationlist">판매가능서적</a></li>
               </ul>
               
-              <div class="search">
-              <form class="input-group float-right mb-3" action="<%=request.getContextPath()%>/admin/user/booklist">
+           <div class="search">
+             <form class="input-group float-right mb-3" action="<%=request.getContextPath()%>/admin/user/bookslist">
 				<select class="form-control mr-2" name="type">
 					<option value="0" <c:if test="${pm.criteria.type == 0 }">selected</c:if>>전체</option>
-					<option value="1" <c:if test="${pm.criteria.type == 1 }">selected</c:if>>제목+내용</option>
-					<option value="2" <c:if test="${pm.criteria.type == 2 }">selected</c:if>>저자</option>
+					<option value="1" <c:if test="${pm.criteria.type == 1 }">selected</c:if>>이름+역할</option>
 				</select>
 				<input type="text" class="form-control mr-2" name="search" value="<c:out value="${pm.criteria.search}"/>">
 				<button class="btn btn-outline-primary">검색</button>
 		      </form>
-		      </div>
-		      		      
+	       </div>
+	       
             <table class="table table-bordered">
 	           <thead>
 	            <tr>
-               	 <th>ISBN</th>
-                 <th>책제목</th>
-                 <th>작가</th>
-                 <th>출판사명</th>
+               	 <th>저서번호</th>
+                 <th>이름</th>
+                 <th>ISBN</th>
+                 <th>역할</th>
 	            </tr>
 	          </thead>
               <tbody>
-              <c:forEach items="${list}" var="book" varStatus="status">
+              <c:forEach items="${books}" var="books" varStatus="status">
                 <tr>
-                  <td>${book.bk_isbn}</td>
-                  <td><a href="<%=request.getContextPath()%>/admin/user/bookdetails?bk_isbn=${book.bk_isbn}">${book.bk_title}</a></td>
-                  <td>${book.bk_au_writer}</td>
-                  <td>${book.bk_publish}</td>
+                  <td>${books.bs_num}</td>
+                  <td><a href="<%=request.getContextPath()%>/admin/user/booksdetails?bs_num=${books.bs_num}">${books.bs_name}</a></td>
+                  <td>${books.bs_bk_isbn}</td>
+                  <td>${books.bs_part}</td>
                 </tr>
                </c:forEach>
               </tbody>
             </table>
 	            <ul class="pagination justify-content-center">
 					<c:if test="${pm.prev}">
-						<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/admin/user/booklist?page=${pm.startPage-1}&type=${pm.criteria.type}&search=${pm.criteria.search}">이전</a></li>
+						<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/admin/user/bookslist?page=${pm.startPage-1}&type=${pm.criteria.type}&search=${pm.criteria.search}">이전</a></li>
 					</c:if>
 					<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="index">
-						<li class="page-item <c:if test="${pm.criteria.page == index }">active</c:if>"><a class="page-link" href="<%=request.getContextPath()%>/admin/user/booklist?page=${index}&type=${pm.criteria.type}&search=${pm.criteria.search}">${index}</a></li>
+						<li class="page-item <c:if test="${pm.criteria.page == index }">active</c:if>"><a class="page-link" href="<%=request.getContextPath()%>/admin/user/bookslist?page=${index}&type=${pm.criteria.type}&search=${pm.criteria.search}">${index}</a></li>
 					</c:forEach>
 		
 					<c:if test="${pm.next}">
-						<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/admin/user/booklist?page=${pm.endPage+1}&type=${pm.criteria.type}&search=${pm.criteria.search}">다음</a></li>
+						<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/admin/user/bookslist?page=${pm.endPage+1}&type=${pm.criteria.type}&search=${pm.criteria.search}">다음</a></li>
 					</c:if>
 				</ul>
           </div>

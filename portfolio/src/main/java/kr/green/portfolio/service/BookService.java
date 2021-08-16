@@ -8,7 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.green.portfolio.pagination.Criteria;
+import kr.green.portfolio.vo.AuthorVO;
 import kr.green.portfolio.vo.BookVO;
+import kr.green.portfolio.vo.BooksVO;
 import kr.green.portfolio.vo.RegistrationVO;
 
 public interface BookService {
@@ -32,4 +34,12 @@ public interface BookService {
 	RegistrationVO updateRegi(RegistrationVO regi);
 
 	ArrayList<BookVO> getChoice();
+
+	RegistrationVO getRegi(BigInteger re_bk_isbn);
+
+	AuthorVO getAuthor(BigInteger re_bk_isbn);
+
+	AuthorVO getSubAuthor(BigInteger re_bk_isbn);
+
+
 }

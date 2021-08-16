@@ -18,6 +18,7 @@ import org.springframework.web.util.WebUtils;
 import kr.green.portfolio.dao.MemberDAO;
 import kr.green.portfolio.pagination.Criteria;
 import kr.green.portfolio.vo.AuthorVO;
+import kr.green.portfolio.vo.BooksVO;
 import kr.green.portfolio.vo.MemberVO;
 import kr.green.portfolio.vo.PublisherVO;
 
@@ -256,5 +257,45 @@ public class MemberServiceImp implements MemberService {
 			return null;		
 		return dbAuth;
 	}
+
+	@Override
+	public boolean booksRegi(BooksVO books) {
+		if(books == null)
+			return false;
+		memberDao.booksRegi(books);
+		return true;
+	}
+
+	@Override
+	public ArrayList<BooksVO> getbooksList(Criteria cri) {
+		return memberDao.getBooksList(cri);
+	}
+
+	@Override
+	public BooksVO getBooks(Integer bs_num) {
+		if(bs_num == null)
+			return null;
+		BooksVO books = memberDao.getBooks(bs_num);
+		return books;
+	}
+
+	@Override
+	public BooksVO updateBooks(BooksVO books) {
+		System.out.println(books);
+		if(books == null)
+			return null;
+		BooksVO dbBooks = memberDao.getBooks(books.getBs_num());
+		if(dbBooks == null)
+			return null;
+		dbBooks.setBs_au_num(books.getBs_au_num());
+		dbBooks.setBs_bk_isbn(books.getBs_bk_isbn());
+		dbBooks.setBs_name(books.getBs_name());
+		dbBooks.setBs_num(books.getBs_num());
+		dbBooks.setBs_part(books.getBs_part());
+		if(memberDao.updateBooks(dbBooks) == 0)
+			return null;	
+		return dbBooks;
+	}
+
 
 }

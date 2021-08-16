@@ -87,5 +87,16 @@
 	<select id="getChoice" resultType="kr.green.portfolio.vo.BookVO">
 		select book.* from registration join book where re_bk_isbn = bk_isbn and re_choice = 'Y'
 	</select>
+	<select id="getRegi" resultType="kr.green.portfolio.vo.RegistrationVO">
+		select * from registration where re_bk_isbn = #{re_bk_isbn}
+	</select>
+	<select id="getAuthor" resultType="kr.green.portfolio.vo.AuthorVO">
+		select * from Author join books on au_num = bs_au_num
+			where bs_bk_isbn = #{re_bk_isbn} and bs_part = '저자'
+	</select>
+	<select id="getSubAuthor" resultType="kr.green.portfolio.vo.AuthorVO">
+		select * from Author join books on au_num = bs_au_num
+			where bs_bk_isbn = #{re_bk_isbn} and bs_part = '역자'
+	</select>
 </mapper>
 

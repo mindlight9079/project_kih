@@ -11,7 +11,9 @@ import kr.green.portfolio.dao.BookDAO;
 import kr.green.portfolio.dao.MemberDAO;
 import kr.green.portfolio.pagination.Criteria;
 import kr.green.portfolio.utils.UploadFileUtils;
+import kr.green.portfolio.vo.AuthorVO;
 import kr.green.portfolio.vo.BookVO;
+import kr.green.portfolio.vo.BooksVO;
 import kr.green.portfolio.vo.RegistrationVO;
 
 @Service
@@ -135,5 +137,35 @@ public class BookServiceImp implements BookService {
 	@Override
 	public ArrayList<BookVO> getChoice() {
 		return bookDao.getChoice();
-	}	
+	}
+
+	@Override
+	public RegistrationVO getRegi(BigInteger re_bk_isbn) {
+		if(re_bk_isbn == null)
+			return null;
+		RegistrationVO regi = bookDao.getRegi(re_bk_isbn);
+		return regi;
+	}
+
+	@Override
+	public AuthorVO getAuthor(BigInteger re_bk_isbn) {
+		if(re_bk_isbn== null)
+			return null;
+		AuthorVO author = bookDao.getAuthor(re_bk_isbn);
+		return author;
+	}
+
+	@Override
+	public AuthorVO getSubAuthor(BigInteger re_bk_isbn) {
+		if(re_bk_isbn == null)
+			return null;
+		AuthorVO subAuthor = bookDao.getSubAuthor(re_bk_isbn);
+		return subAuthor;
+	}
+
+
+
+
+
+
 }

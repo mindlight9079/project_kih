@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BOOKS</title>
+    <title>BOOKSDETAILS</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -42,25 +42,29 @@
 </style>
 </head>
 <body>
-    <form class="container" method="post" action="<%=request.getContextPath()%>/admin/user/books">
-      <h1>BOOKS</h1>
+    <form class="container" method="post" action="<%=request.getContextPath()%>/admin/user/booksdetails">
+      <h1>BOOKS DETAILS</h1>
+         <div class="form-group">
+            <label>저서번호</label>
+            <input type="text" class="form-control" name="bs_num" value="${books.bs_num}">
+         </div>
          <div class="form-group">
             <label>ISBN</label>
-            <input type="text" class="form-control" name="bs_bk_isbn">
+            <input type="text" class="form-control" name="bs_bk_isbn" value="${books.bs_bk_isbn}">
          </div>
          <div class="form-group">
             <label>역할</label>
-            <input type="text" class="form-control" name="bs_part">
+            <input type="text" class="form-control" name="bs_part" value="${books.bs_part}">
          </div>
          <div class="form-group">
             <label>이름</label>
-            <input type="text" class="form-control" name="bs_name">
+            <input type="text" class="form-control" name="bs_name" value="${books.bs_name}">
          </div>
          <div class="form-group">
             <label>작가번호</label>
-            <input type="text" class="form-control" name="bs_au_num">
+            <input type="text" class="form-control" name="bs_au_num" value="${books.bs_au_num}">
          </div>
-        <button class="btn btn-primary col-12">등록</button>
+        <button class="btn btn-primary col-12">수정</button>
     </form>
 </body>
 </html>

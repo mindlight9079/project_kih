@@ -16,6 +16,7 @@ import kr.green.portfolio.service.BookService;
 import kr.green.portfolio.service.MemberService;
 import kr.green.portfolio.vo.AuthorVO;
 import kr.green.portfolio.vo.BookVO;
+import kr.green.portfolio.vo.BooksVO;
 import kr.green.portfolio.vo.PublisherVO;
 import kr.green.portfolio.vo.RegistrationVO;
 
@@ -137,7 +138,7 @@ public class AdminController {
 	public ModelAndView authorPost(ModelAndView mv, AuthorVO author) {
 		boolean isAuthRegister = memberService.authRegister(author);
 		if(isAuthRegister) {
-			mv.setViewName("redirect:/admin/user/booklist");
+			mv.setViewName("redirect:/admin/user/authorlist");
 		} else {
 			mv.setViewName("redirect:/admin/user/author");
 		}
@@ -227,5 +228,52 @@ public class AdminController {
 		return mv;
 	}
 	
+	@RequestMapping(value="/admin/user/books", method=RequestMethod.GET)
+	public ModelAndView BooksGet(ModelAndView mv) {
+		mv.setViewName("/admin/user/books");
+		return mv;
+	}
+	@RequestMapping(value="/admin/user/books", method=RequestMethod.POST)
+	public ModelAndView BooksPost(ModelAndView mv, BooksVO books) {
+		boolean isBooksRegi = memberService.booksRegi(books);
+		if(isBooksRegi) {
+			mv.setViewName("redirect:/admin/user/bookslist");
+		} else {
+			mv.setViewName("redirect:/admin/user/books");
+		}
+		return mv;
+	}	
+	@RequestMapping(value="/admin/user/bookslist")
+	public ModelAndView booksList(ModelAndView mv, Criteria cri) {
+		PageMaker pm = new PageMaker();
+		cri.setPerPageNum(10);
+		pm.setCriteria(cri);
+		pm.setDisplayPageNum(5);
+		int totalCount = memberService.getTotalCount(cri);
+		pm.setTotalCount(totalCount);
+		pm.calcData();
+		ArrayList<BooksVO> books = memberService.getbooksList(cri);
+		mv.addObject("books",books);
+		mv.addObject("pm",pm);
+		mv.setViewName("/admin/user/bookslist");
+		return mv;
+	}
+	@RequestMapping(value="/admin/user/booksdetails")
+	public ModelAndView booksDetails(ModelAndView mv, Integer bs_num) {
+		BooksVO books = memberService.getBooks(bs_num);
+		mv.addObject("books", books);
+		mv.setViewName("/admin/user/booksdetails");
+		return mv;
+	}
+	
+	@RequestMapping(value="/admin/user/booksdetails", method=RequestMethod.POST)
+	public ModelAndView BooksDetailsPost(ModelAndView mv, BooksVO books) {
+		BooksVO dbBooks = memberService.getBooks(books.getBs_num());
+		if(dbBooks != null) {
+			BooksVO updateBooks = memberService.updateBooks(books);
+		}
+		mv.setViewName("redirect:/admin/user/bookslist");
+		return mv;
+	}
 	
 }

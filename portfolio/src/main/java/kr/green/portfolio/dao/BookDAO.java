@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import org.apache.ibatis.annotations.Param;
 
 import kr.green.portfolio.pagination.Criteria;
+import kr.green.portfolio.vo.AuthorVO;
 import kr.green.portfolio.vo.BookVO;
+import kr.green.portfolio.vo.BooksVO;
 import kr.green.portfolio.vo.RegistrationVO;
 
 public interface BookDAO {
@@ -30,4 +32,12 @@ public interface BookDAO {
 	void updateRegi(RegistrationVO dbRegi);
 
 	ArrayList<BookVO> getChoice();
+
+	RegistrationVO getRegi(BigInteger re_bk_isbn);
+
+	void booksRegi(BooksVO books);
+
+	AuthorVO getAuthor(BigInteger re_bk_isbn);
+
+	AuthorVO getSubAuthor(BigInteger re_bk_isbn);
 }

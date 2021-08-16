@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.green.portfolio.pagination.Criteria;
 import kr.green.portfolio.vo.AuthorVO;
+import kr.green.portfolio.vo.BooksVO;
 import kr.green.portfolio.vo.MemberVO;
 import kr.green.portfolio.vo.PublisherVO;
 
@@ -47,6 +48,13 @@ public interface MemberService {
 
 	AuthorVO updateAuth(AuthorVO author);
 
+	boolean booksRegi(BooksVO books);
+
+	ArrayList<BooksVO> getbooksList(Criteria cri);
+
+	BooksVO getBooks(Integer bs_num);
+
+	BooksVO updateBooks(BooksVO books);
 
 
 }
