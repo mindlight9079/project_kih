@@ -23,16 +23,15 @@ DROP TABLE IF EXISTS `books`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `books` (
-  `bs_num` int NOT NULL,
+  `bs_num` int NOT NULL AUTO_INCREMENT,
   `bs_bk_isbn` bigint NOT NULL,
-  `bs_au_num` int NOT NULL,
   `bs_part` varchar(50) NOT NULL,
+  `bs_name` varchar(50) NOT NULL,
+  `bs_au_num` int NOT NULL,
   PRIMARY KEY (`bs_num`),
-  KEY `bs_bk_isbn_idx` (`bs_bk_isbn`),
-  KEY `bs_au_num_idx` (`bs_au_num`),
-  CONSTRAINT `bs_au_num` FOREIGN KEY (`bs_au_num`) REFERENCES `author` (`au_num`),
-  CONSTRAINT `bs_bk_isbn` FOREIGN KEY (`bs_bk_isbn`) REFERENCES `book` (`bk_isbn`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `bs_au_num` (`bs_au_num`),
+  CONSTRAINT `books_ibfk_1` FOREIGN KEY (`bs_au_num`) REFERENCES `author` (`au_num`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,6 +40,7 @@ CREATE TABLE `books` (
 
 LOCK TABLES `books` WRITE;
 /*!40000 ALTER TABLE `books` DISABLE KEYS */;
+INSERT INTO `books` VALUES (1,119134732,'역자','허선영',4),(2,1190030926,'역자','김하현',5),(3,119134732,'저자','도나 캐머런',1),(4,1190030926,'저자','에릭 와이너',3),(5,1162243074,'저자','나동빈',6),(6,1189683881,'저자','안상순',7),(7,8954681573,'저자','강화길',9),(8,1166815781,'저자','게일 가젤',8),(9,1166815781,'역자','손현선',10),(10,1250231981,'저자','안나 로슬링 뢴룬드',11),(11,1250231981,'저자','올라 로슬링',12),(12,1250231981,'저자','한스 로슬링',13);
 /*!40000 ALTER TABLE `books` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-08-10 17:44:53
+-- Dump completed on 2021-08-16 17:54:03
