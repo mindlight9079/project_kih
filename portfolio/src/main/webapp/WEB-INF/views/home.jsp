@@ -188,7 +188,7 @@
             <c:if test="${user.me_grade != 'ADMIN'}">
            	 <li><a href="#">ORDERS</a></li>
            	 <li><a href="<%=request.getContextPath()%>/member/mypage">MYPAGE</a></li>
-             <li><a href="<%=request.getContextPath()%>/buy/cart">CART</a></li>
+             <li><a href="<%=request.getContextPath()%>/order/cart">CART</a></li>
             </c:if>
             <c:if test="${user.me_grade == 'ADMIN'}">
              <li><a href="<%=request.getContextPath()%>/admin/user/booklist">MANAGEMENT</a></li>

@@ -172,7 +172,6 @@
         </ul>
     </div>
 </div>
-
   <i class="fas fa-bars"></i>
   <div class="container">
     <div class="book-top">
@@ -206,7 +205,7 @@
           <div class="amount">
             수량 <input type="number" min="0" value="0" class="bookAmount">
           </div>
-          <a href="#" href2="<%=request.getContextPath()%>/order/cart"><button class="cart btn btn-info addCart-btn">장바구니</button></a>
+           <a href="#" href2="<%=request.getContextPath()%>/order/cart"><button class="cart btn btn-info addCart-btn">장바구니</button></a>
            <a href="<%=request.getContextPath()%>/order/cart"><button class="buy btn btn-secondary">바로구매</button></a>
         </div>
       </div>
@@ -258,9 +257,12 @@
            </div>
    	     </c:if>
         </c:forEach>
-           
+          
           </div>
         </div>
+        
+        <input type="hidden" value="${regi.re_code}" name="ca_re_code">
+        
     </div>
   </div>
 <script>
@@ -292,7 +294,7 @@ $(function(){
 				}
 			},
 			error : function(){
-				alert("카트 담기 실패")
+				alert("살려줘!")
 			}
 		})
 	})
