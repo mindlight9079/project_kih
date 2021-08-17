@@ -58,7 +58,9 @@ public interface MemberDAO {
 
 	ArrayList<AuthorVO> subAuthorList(BigInteger re_bk_isbn);
 
-	public AuthorVO getAnAuthor(BigInteger re_bk_isbn);
+	public int getTotalCountPublish(@Param("cri")Criteria cri);
 
-	public AuthorVO getASubAuthor(BigInteger re_bk_isbn);
+	public int getTotalCountAuthor(@Param("cri")Criteria cri);
+
+	public int getTotalCountBooks(@Param("cri")Criteria cri);
 }

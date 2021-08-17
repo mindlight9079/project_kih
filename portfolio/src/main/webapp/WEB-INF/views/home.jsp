@@ -127,7 +127,7 @@
     .dome-list{
         display: none;
     }
-    .foreign-list, .ebook-list, .web-novel-list{
+    .foreign-list{
         display: none;
     }
     .fa-times{
@@ -142,8 +142,6 @@
             <ul>
                 <li class="domestic">국내도서</li>
                 <li class="foreign">외국도서</li>
-                <li class="ebook">ebook</li>
-                <li class="webNovel">웹소설/코믹</li>
             </ul>
         </div>
         <div class="subCatagory-list">
@@ -170,25 +168,6 @@
                 <li>예술</li>
                 <li>컴퓨터</li>
                 <li>자연과학</li>
-            </ul>
-        </div>
-        <div class="subCatagory-list">
-            <ul class="ebook-list">
-                <li>장르소설</li>
-                <li>소설</li>
-                <li>에세이/시</li>
-                <li>경제/경영</li>
-                <li>자기계발</li>
-                <li>인문/사회/정치</li>
-                <li>역사/종교</li>
-                <li>외국어</li>
-                <li>IT/모바일</li>
-            </ul>
-        </div>
-        <div class="subCatagory-list">
-            <ul class="web-novel-list">
-                <li>웹소설</li>
-                <li>웹툰</li>
             </ul>
         </div>
     </div>
@@ -288,27 +267,11 @@
 
     $('.domestic').hover(function(){
         $('.foreign-list').hide();
-        $('.ebook-list').hide();
-        $('.web-novel-list').hide();
         $('.dome-list').show();
     })
     $('.foreign').hover(function(){
         $('.dome-list').hide();
-        $('.ebook-list').hide();
-        $('.web-novel-list').hide();
         $('.foreign-list').show();
-    })
-    $('.ebook').hover(function(){
-        $('.foreign-list').hide();
-        $('.dome-list').hide();
-        $('.web-novel-list').hide();
-        $('.ebook-list').show();
-    })
-    $('.webNovel').hover(function(){
-        $('.foreign-list').hide();
-        $('.dome-list').hide();
-        $('.ebook-list').hide();
-        $('.web-novel-list').show();
     })
     </script>
 </body>

@@ -201,14 +201,8 @@ public class MemberServiceImp implements MemberService {
 		if(author == null)
 			return false;
 		memberDao.authRegister(author);
-		return false;
+		return true;
 	}
-
-	@Override
-	public int getTotalCount(Criteria cri) {
-		return memberDao.getTotalCount(cri);
-	}
-
 	@Override
 	public ArrayList<AuthorVO> getAuthorList(Criteria cri) {
 		return memberDao.getAuthorList(cri);
@@ -221,7 +215,12 @@ public class MemberServiceImp implements MemberService {
 		AuthorVO author = memberDao.getAuthor(au_num);
 		return author;
 	}
-
+	
+	@Override
+	public int getTotalCountPublish(Criteria cri) {
+		return memberDao.getTotalCountPublish(cri);
+	}
+	
 	@Override
 	public PublisherVO updatePub(PublisherVO publisher) {
 		if(publisher == null) {
@@ -242,6 +241,11 @@ public class MemberServiceImp implements MemberService {
 	}
 
 	@Override
+	public int getTotalCountAuthor(Criteria cri) {
+		return memberDao.getTotalCountAuthor(cri);
+	}
+
+	@Override
 	public AuthorVO updateAuth(AuthorVO author) {
 		if(author == null)
 			return null;
@@ -251,7 +255,6 @@ public class MemberServiceImp implements MemberService {
 		dbAuth.setAu_num(author.getAu_num());
 		dbAuth.setAu_birth(author.getAu_birth());
 		dbAuth.setAu_contents(author.getAu_contents());
-		dbAuth.setAu_country(author.getAu_country());
 		dbAuth.setAu_title(author.getAu_title());
 		dbAuth.setAu_writer(author.getAu_writer());
 		if(memberDao.updateAuth(dbAuth) == 0)
@@ -309,20 +312,8 @@ public class MemberServiceImp implements MemberService {
 	}
 
 	@Override
-	public AuthorVO getAnAuthor(BigInteger re_bk_isbn) {
-		if(re_bk_isbn == null)
-			return null;
-		AuthorVO anAuthor = memberDao.getAnAuthor(re_bk_isbn);
-		return anAuthor;
+	public int getTotalCountBooks(Criteria cri) {
+		return memberDao.getTotalCountBooks(cri);
 	}
-
-	@Override
-	public AuthorVO getASubAuthor(BigInteger re_bk_isbn) {
-		if(re_bk_isbn == null)
-			return null;
-		AuthorVO aSubAuthor = memberDao.getASubAuthor(re_bk_isbn);
-		return aSubAuthor;
-	}
-
 
 }

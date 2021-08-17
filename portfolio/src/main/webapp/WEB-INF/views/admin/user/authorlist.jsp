@@ -122,7 +122,6 @@
 	            <tr>
                	 <th>작가번호</th>
                  <th>저자</th>
-                 <th>국가</th>
                  <th>대표작</th>
                  <th>생년월일</th>
 	            </tr>
@@ -132,7 +131,6 @@
                 <tr>
                   <td>${author.au_num}</td>
                   <td><a href="<%=request.getContextPath()%>/admin/user/authordetails?au_num=${author.au_num}">${author.au_writer}</a></td>
-                  <td>${author.au_country}</td>
                   <td>${author.au_title}</td>
                   <td>${author.au_birth}</td>
                 </tr>
@@ -146,7 +144,6 @@
 					<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="index">
 						<li class="page-item <c:if test="${pm.criteria.page == index }">active</c:if>"><a class="page-link" href="<%=request.getContextPath()%>/admin/user/authorlist?page=${index}&type=${pm.criteria.type}&search=${pm.criteria.search}">${index}</a></li>
 					</c:forEach>
-		
 					<c:if test="${pm.next}">
 						<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/admin/user/authorlist?page=${pm.endPage+1}&type=${pm.criteria.type}&search=${pm.criteria.search}">다음</a></li>
 					</c:if>

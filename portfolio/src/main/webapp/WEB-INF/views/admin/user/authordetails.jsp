@@ -41,10 +41,6 @@
             <input type="text" class="form-control" value="${author.au_writer}" name="au_writer">
          </div>
          <div class="form-group">
-            <label>국가</label>
-            <input type="text" class="form-control" value="${author.au_country}" name="au_country">
-         </div>
-         <div class="form-group">
             <label>대표작</label>
             <input type="text" class="form-control" value="${author.au_title}" name="au_title">
          </div>

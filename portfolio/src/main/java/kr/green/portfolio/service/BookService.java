@@ -37,4 +37,6 @@ public interface BookService {
 
 	RegistrationVO getRegi(BigInteger re_bk_isbn);
 
+	int getTotalCountRegi(Criteria cri);
+
 }

@@ -16,6 +16,7 @@ public class BookVO {
 	private String bk_au_writer;
 	private String bk_publish;
 	private int bk_page;
+	private String bk_country;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date bk_publish_date;
 	private String bk_mainImg;

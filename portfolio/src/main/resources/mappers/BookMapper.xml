@@ -10,6 +10,7 @@
 				or bk_title like concat('%',#{cri.search},'%')
 				or bk_subtitle like concat('%',#{cri.search},'%')
 				or bk_au_writer like concat('%',#{cri.search},'%')
+				or bk_country like concat('%',#{cri.search},'%')
 				or bk_publish like concat('%',#{cri.search},'%'))
 			</if>
 			<if test="cri.type==1">
@@ -28,8 +29,8 @@
 		select count(*) from book
 	</select>
 	<insert id="getBookInfo" useGeneratedKeys="true" parameterType="kr.green.portfolio.vo.BookVO" keyProperty="bk_isbn">
-		insert into book(bk_isbn, bk_title, bk_subtitle, bk_au_writer, bk_publish, bk_page, bk_publish_date, bk_mainImg, bk_pu_num)
-			values(#{bk_isbn}, #{bk_title}, #{bk_subtitle}, #{bk_au_writer}, #{bk_publish}, #{bk_page}, #{bk_publish_date}, #{bk_mainImg}, #{bk_pu_num})
+		insert into book(bk_isbn, bk_title, bk_subtitle, bk_au_writer, bk_publish, bk_page, bk_publish_date, bk_mainImg, bk_pu_num, bk_country)
+			values(#{bk_isbn}, #{bk_title}, #{bk_subtitle}, #{bk_au_writer}, #{bk_publish}, #{bk_page}, #{bk_publish_date}, #{bk_mainImg}, #{bk_pu_num}, #{bk_country})
 	</insert>
 	<update id="updateBook">
 		update book set 
@@ -41,12 +42,13 @@
 			bk_mainImg = #{bk_mainImg},
 			bk_page = #{bk_page},
 			bk_publish_date = #{bk_publish_date},
-			bk_pu_num = #{bk_pu_num}
+			bk_pu_num = #{bk_pu_num},
+			bk_country = #{bk_country}
 				where bk_isbn = #{bk_isbn}
 	</update>
 	<insert id="regiBook">
-		insert into registration(re_code, re_bk_isbn, re_title, re_price, re_amount, re_catagory, re_contents)
-			values(#{re_code}, #{re_bk_isbn}, #{re_title}, #{re_price}, #{re_amount}, #{re_catagory}, #{re_contents})
+		insert into registration(re_code, re_bk_isbn, re_title, re_price, re_amount, re_catagory, re_contents, re_choice)
+			values(#{re_code}, #{re_bk_isbn}, #{re_title}, #{re_price}, #{re_amount}, #{re_catagory}, #{re_contents}, #{re_choice})
 	</insert>
 	<select id="regiBookList" resultType="kr.green.portfolio.vo.RegistrationVO">
 		select * from registration
@@ -58,6 +60,7 @@
 				or re_amount like concat('%',#{cri.search},'%')
 				or re_catagory like concat('%',#{cri.search},'%')
 				or re_contents like concat('%',#{cri.search},'%')
+				or re_choice like concat('%',#{cri.search},'%')
 				)
 			</if>
 			<if test="cri.type==1">
@@ -68,6 +71,9 @@
 				where re_catagory like concat('%',#{cri.search},'%')
 			</if>
 			limit #{cri.pageStart}, #{cri.perPageNum}
+	</select>
+	<select id="getTotalCountRegi" resultType="int">
+		select count(*) from registration
 	</select>
 	<select id="getRegiBook" resultType="kr.green.portfolio.vo.RegistrationVO">
 		select * from registration where re_code = #{re_code}

@@ -37,10 +37,6 @@
             <input type="text" class="form-control" name="au_writer">
          </div>
          <div class="form-group">
-            <label>국가</label>
-            <input type="text" class="form-control" name="au_country">
-         </div>
-         <div class="form-group">
             <label>대표작</label>
             <input type="text" class="form-control" name="au_title">
          </div>

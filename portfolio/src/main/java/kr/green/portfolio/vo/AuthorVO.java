@@ -6,7 +6,6 @@ import lombok.Data;
 public class AuthorVO {
 	private int au_num;
 	private String au_writer;
-	private String au_country;
 	private String au_title;
 	private String au_contents;
 	private String au_birth;

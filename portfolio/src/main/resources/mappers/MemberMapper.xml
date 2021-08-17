@@ -35,6 +35,9 @@
 			me_phone = #{me_phone}
 				where me_id = #{me_id}
 	</update>
+	<select id="getTotalCountPublish" resultType="int">
+		select count(*) from publisher
+	</select>
 	<insert id="pubRegister">
 		insert into publisher(pu_name, pu_phone, pu_ceo)
 			values(#{pu_name}, #{pu_phone}, #{pu_ceo})
@@ -56,18 +59,14 @@
 		select * from publisher where pu_num = #{pu_num}
 	</select>
 	<insert id="authRegister">
-		insert into author (au_num, au_writer, au_country, au_title, au_contents, au_birth)
-			values(#{au_num}, #{au_writer}, #{au_country}, #{au_title}, #{au_contents}, #{au_birth})
+		insert into author (au_num, au_writer, au_title, au_contents, au_birth)
+			values(#{au_num}, #{au_writer}, #{au_title}, #{au_contents}, #{au_birth})
 	</insert>
-	<select id="getTotalCount" resultType="int">
-		select count(*) from publisher
-	</select>
 	<select id="getAuthorList" resultType = "kr.green.portfolio.vo.AuthorVO">
 		select * from author
 			<if test="cri.type==0">
 				where (au_num like concat('%',#{cri.search},'%')
 				or au_writer like concat('%',#{cri.search},'%')
-				or au_country like concat('%',#{cri.search},'%')
 				or au_title like concat('%',#{cri.search},'%')
 				or au_contents like concat('%',#{cri.search},'%')
 				or au_birth like concat('%',#{cri.search},'%'))
@@ -80,6 +79,9 @@
 				where au_writer like concat('%',#{cri.search},'%')
 			</if>
 			limit #{cri.pageStart}, #{cri.perPageNum}
+	</select>
+	<select id="getTotalCountAuthor" resultType="int">
+		select count(*) from author
 	</select>
 	<select id="getAuthor" resultType="kr.green.portfolio.vo.AuthorVO">
 		select * from author where au_num = #{au_num}
@@ -96,7 +98,6 @@
 		update author set
 			au_num = #{au_num},
 			au_writer = #{au_writer},
-			au_country = #{au_country},
 			au_title = #{au_title},
 			au_contents = #{au_contents},
 			au_birth = #{au_birth}
@@ -106,6 +107,9 @@
 		insert into books (bs_num, bs_bk_isbn, bs_part, bs_name, bs_au_num)
 			values(#{bs_num}, #{bs_bk_isbn}, #{bs_part}, #{bs_name}, #{bs_au_num})
 	</insert>
+	<select id="getTotalCountBooks" resultType="int">
+		select count(*) from books
+	</select>
 	<select id="getBooksList" resultType="kr.green.portfolio.vo.BooksVO">
 		select * from books
 			<if test="cri.type==0">
@@ -140,14 +144,6 @@
 	<select id="subAuthorList" resultType="kr.green.portfolio.vo.AuthorVO">
 		select * from author join books on au_num = bs_au_num
 			where bs_bk_isbn = #{re_bk_isbn} and bs_part = '역자'
-	</select>
-	<select id="getAnAuthor" resultType="kr.green.portfolio.vo.AuthorVO">
-		select * from author join books on au_num = bs_au_num
-			where bs_bk_isbn = #{re_bk_isbn} and bs_part = '저자' limit 1;
-	</select>
-	<select id="getASubAuthor" resultType="kr.green.portfolio.vo.AuthorVO">
-		select * from author join books on au_num = bs_au_num
-			where bs_bk_isbn = #{re_bk_isbn} and bs_part = '역자' limit 1;	
 	</select>
 </mapper>
 

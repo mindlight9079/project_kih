@@ -42,6 +42,10 @@
             <input type="text" class="form-control" value="${book.bk_subtitle}" name="bk_subtitle">
          </div>
          <div class="form-group">
+            <label>국가분류</label>
+            <input type="text" class="form-control" value="${book.bk_country}" name="bk_country">
+         </div>
+         <div class="form-group">
             <label>저자</label>
             <input type="text" class="form-control" value="${book.bk_au_writer}" name="bk_au_writer">
          </div>

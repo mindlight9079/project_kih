@@ -56,6 +56,7 @@ public class BookServiceImp implements BookService {
 
 	@Override
 	public BookVO updateBook(BookVO book, MultipartFile file) {
+		System.out.println(book);
 		if(book == null) {
 			return null;
 		}
@@ -70,16 +71,19 @@ public class BookServiceImp implements BookService {
 		dbBook.setBk_publish(book.getBk_publish());
 		dbBook.setBk_page(book.getBk_page());
 		dbBook.setBk_publish_date(book.getBk_publish_date());
-		dbBook.setBk_pu_num(dbBook.getBk_pu_num());
+		dbBook.setBk_pu_num(book.getBk_pu_num());
+		dbBook.setBk_country(book.getBk_country());
 		String name;
-		try {
-			name = UploadFileUtils.uploadFile(uploadPath,file.getOriginalFilename(), file.getBytes());
-			dbBook.setBk_mainImg(name);
-			bookDao.updateBook(dbBook);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}		
+		if(file != null && file.getOriginalFilename().length() != 0) {
+			try {
+				name = UploadFileUtils.uploadFile(uploadPath,file.getOriginalFilename(), file.getBytes());
+				dbBook.setBk_mainImg(name);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}		
+		}
 		if(bookDao.updateBook(dbBook) == 0) {
 			return null;
 		}
@@ -146,6 +150,9 @@ public class BookServiceImp implements BookService {
 		return regi;
 	}
 
-	
+	@Override
+	public int getTotalCountRegi(Criteria cri) {
+		return bookDao.getTotalCountRegi(cri);
+	}
 
 }

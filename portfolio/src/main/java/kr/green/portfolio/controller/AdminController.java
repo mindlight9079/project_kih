@@ -107,7 +107,7 @@ public class AdminController {
 		cri.setPerPageNum(10);
 		pm.setCriteria(cri);
 		pm.setDisplayPageNum(5);
-		int totalCount = memberService.getTotalCount(cri);
+		int totalCount = memberService.getTotalCountPublish(cri);
 		pm.setTotalCount(totalCount);
 		pm.calcData();
 		ArrayList<PublisherVO> publish = memberService.getPublisherList(cri);
@@ -151,7 +151,7 @@ public class AdminController {
 		cri.setPerPageNum(10);
 		pm.setCriteria(cri);
 		pm.setDisplayPageNum(5);
-		int totalCount = memberService.getTotalCount(cri);
+		int totalCount = memberService.getTotalCountAuthor(cri);
 		pm.setTotalCount(totalCount);
 		pm.calcData();
 		ArrayList<AuthorVO> author = memberService.getAuthorList(cri);
@@ -201,7 +201,7 @@ public class AdminController {
 		cri.setPerPageNum(10);
 		pm.setCriteria(cri);
 		pm.setDisplayPageNum(5);
-		int totalCount = bookService.getTotalCount(cri);
+		int totalCount = bookService.getTotalCountRegi(cri);
 		pm.setTotalCount(totalCount);
 		pm.calcData();
 		ArrayList<RegistrationVO> regi = bookService.regiBookList(cri);
@@ -249,7 +249,7 @@ public class AdminController {
 		cri.setPerPageNum(10);
 		pm.setCriteria(cri);
 		pm.setDisplayPageNum(5);
-		int totalCount = memberService.getTotalCount(cri);
+		int totalCount = memberService.getTotalCountBooks(cri);
 		pm.setTotalCount(totalCount);
 		pm.calcData();
 		ArrayList<BooksVO> books = memberService.getbooksList(cri);

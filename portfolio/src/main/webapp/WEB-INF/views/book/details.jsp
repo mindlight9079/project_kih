@@ -127,7 +127,7 @@
     .dome-list{
         display: none;
     }
-    .foreign-list, .ebook-list, .web-novel-list{
+    .foreign-list{
         display: none;
     }
     .fa-times{
@@ -143,8 +143,6 @@
         <ul>
             <li class="domestic">국내도서</li>
             <li class="foreign">외국도서</li>
-            <li class="ebook">ebook</li>
-            <li class="webNovel">웹소설/코믹</li>
         </ul>
     </div>
     <div class="subCatagory-list">
@@ -173,25 +171,6 @@
             <li>자연과학</li>
         </ul>
     </div>
-    <div class="subCatagory-list">
-        <ul class="ebook-list">
-            <li>장르소설</li>
-            <li>소설</li>
-            <li>에세이/시</li>
-            <li>경제/경영</li>
-            <li>자기계발</li>
-            <li>인문/사회/정치</li>
-            <li>역사/종교</li>
-            <li>외국어</li>
-            <li>IT/모바일</li>
-        </ul>
-    </div>
-    <div class="subCatagory-list">
-        <ul class="web-novel-list">
-            <li>웹소설</li>
-            <li>웹툰</li>
-        </ul>
-    </div>
 </div>
 
   <i class="fas fa-bars"></i>
@@ -206,7 +185,15 @@
         <p> ${book.bk_subtitle}</p>
         <div class="width-line"></div>
         <div class="title-bottom">
-            <div>${book.bk_au_writer} / ${aSubAuthor.au_writer} 역 | ${book.bk_publish} | ${book.date}</div>
+            <div>${book.bk_au_writer} 저
+            	<c:if test="${subAuthor.size() != 0}"> 
+	            	/ 
+	            	<c:forEach items="${subAuthor}" var="subList" varStatus="status">
+	            		${subList.au_writer} <c:if test="${status.index+1 != subAuthor.size() }">,</c:if>
+	            	</c:forEach>
+	            	역
+	             </c:if>
+             	| ${book.bk_publish} | ${book.date}</div>
             <div>
               판매가 | <h2>${regi.re_price}</h2>원
             </div>
@@ -247,7 +234,7 @@
         <div class="book-contents">
           <div class="catagory">
               <h6>카테고리 분류</h6>
-              <p>${anAuthor.au_country} > ${regi.re_catagory}</p>
+              <p>${book.bk_country} > ${regi.re_catagory}</p>
           </div>
           <div class="introduce">
             <h4>책소개</h4>
@@ -256,14 +243,14 @@
           <div class="writer">
               <h4>저자소개</h4>
   
-        <c:forEach items="author" var="authList" varStatus="status">
+        <c:forEach items="${author}" var="authList" varStatus="status">
            <div class="main">
 	               <p>저자 | ${authList.au_writer}</p>
 	               <p>${authList.au_contents}</p>
 	       </div>
         </c:forEach>
 	       
-  		<c:forEach items="subAuthor" var="subList" varStatus="status">
+  		<c:forEach items="${subAuthor}" var="subList" varStatus="status">
    		 <c:if test="${subList != null}">
            <div class="sub">
                 <p>역자 | ${subList.au_writer}</p>
@@ -286,27 +273,11 @@
 
     $('.domestic').hover(function(){
         $('.foreign-list').hide();
-        $('.ebook-list').hide();
-        $('.web-novel-list').hide();
         $('.dome-list').show();
     })
     $('.foreign').hover(function(){
         $('.dome-list').hide();
-        $('.ebook-list').hide();
-        $('.web-novel-list').hide();
         $('.foreign-list').show();
-    })
-    $('.ebook').hover(function(){
-        $('.foreign-list').hide();
-        $('.dome-list').hide();
-        $('.web-novel-list').hide();
-        $('.ebook-list').show();
-    })
-    $('.webNovel').hover(function(){
-        $('.foreign-list').hide();
-        $('.dome-list').hide();
-        $('.ebook-list').hide();
-        $('.web-novel-list').show();
     })
 </script>
 </body>

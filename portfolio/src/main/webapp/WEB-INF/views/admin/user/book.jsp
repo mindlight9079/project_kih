@@ -42,6 +42,10 @@
             <input type="text" class="form-control" name="bk_subtitle">
          </div>
          <div class="form-group">
+            <label>국가분류</label>
+            <input type="text" class="form-control" name="bk_country">
+         </div>
+         <div class="form-group">
             <label>저자</label>
             <input type="text" class="form-control" name="bk_au_writer">
          </div>
@@ -60,6 +64,7 @@
          <div class="form-group">
             <label>메인이미지</label>
            	<input type="file" class="form-control" name="file" id="image" accept="image/*" onchange="setThumbnail(event);" value="${book.bk_mainImg}">
+           	<div id="image_container"></div>
          </div>
          <div class="form-group">
             <label>출판사번호</label>

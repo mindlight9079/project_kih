@@ -39,8 +39,6 @@ public interface MemberService {
 
 	boolean authRegister(AuthorVO author);
 
-	int getTotalCount(Criteria cri);
-
 	ArrayList<AuthorVO> getAuthorList(Criteria cri);
 
 	AuthorVO getAuthor(Integer au_num);
@@ -61,9 +59,11 @@ public interface MemberService {
 
 	ArrayList<AuthorVO> subAuthorList(BigInteger re_bk_isbn);
 
-	AuthorVO getAnAuthor(BigInteger re_bk_isbn);
+	int getTotalCountPublish(Criteria cri);
 
-	AuthorVO getASubAuthor(BigInteger re_bk_isbn);
+	int getTotalCountAuthor(Criteria cri);
+
+	int getTotalCountBooks(Criteria cri);
 
 
 }
