@@ -42,7 +42,7 @@
       width: 580px;
     }
     .height-line{
-      width: 1px; height: 580px; background-color: gainsboro; margin-left:50px;
+      width: 1px; min-height: 580px; background-color: gainsboro; margin-left:50px;
     }
     .title h1{
       margin-left: 50px;
@@ -63,23 +63,23 @@
       display: inline;
     }
     .order-line{
-      display: flex; margin-left: 50px; line-height: 40px; padding: 10px; 
+      display: flex; margin-left: 50px; line-height: 40px; padding: 10px; margin-bottom: 35px; 
     }
     .order-line * {
       margin-right: 15px;
     }
-    .amount input{
-      width: 100px; height: 30px;
+    .amount input[type="number"]{
+      width: 100px; height: 30px; margin-right: 30px;
     }
-    .cart, .buy{
-      width: 80px; height: 40px; font-size: 12px; line-height: 40px;
-    }
+	.cart{
+		margin-right : -10px;
+	}
     .cart a, .buy a{
       margin: 0 auto;
     }
  
     .middle-line{
-      width: 1040px; height:2px; color: gainsboro;
+      min-width: 1040px; height:2px; color: gainsboro;
     }
     .book-bottom{
       padding: 10px 30px;
@@ -91,7 +91,7 @@
       margin-top: -0.7px;
     }
     .table-box th{
-      background-color: gainsboro; text-align: center;
+      background-color: #f8f8f8; text-align: center;
     }
     .catagory, .introduce{
       margin-top: 30px;
@@ -177,12 +177,12 @@
   <div class="container">
     <div class="book-top">
       <div class="bookImg">
-       <img src="<%=request.getContextPath()%>/img${book.bk_mainImg}" alt="book-image">
+       <img src="<%=request.getContextPath()%>/img${book.bk_mainImg}" alt="book-image" id="book-img">
      </div>
      <div class="height-line"></div>
      <div class="title">
-        <h1>${book.bk_title}</h1>
-        <p> ${book.bk_subtitle}</p>
+        <h1 class="bookTitle">${book.bk_title}</h1>
+        <p class="bookSubTitle"> ${book.bk_subtitle}</p>
         <div class="width-line"></div>
         <div class="title-bottom">
             <div>${book.bk_au_writer} 저
@@ -195,7 +195,7 @@
 	             </c:if>
              	| ${book.bk_publish} | ${book.date}</div>
             <div>
-              판매가 | <h2>${regi.re_price}</h2>원
+              판매가 | <h2 class="bookPrice">${regi.re_price}</h2>원
             </div>
             <div>그린 포인트 | ${regi.re_price_point}원 (5% 적립)</div>
             <div>배송일정 | 서울시특별구 종로구 세정대로 기준</div>
@@ -204,10 +204,10 @@
         </div>
         <div class="order-line">
           <div class="amount">
-            수량 <input type="number" min="0" value="0">
+            수량 <input type="number" min="0" value="0" class="bookAmount">
           </div>
-          <button class="cart"><a href="<%=request.getContextPath()%>/buy/cart">장바구니</a></button>
-          <button class="buy">바로구매</button>
+          <a href="#" href2="<%=request.getContextPath()%>/order/cart"><button class="cart btn btn-info addCart-btn">장바구니</button></a>
+           <a href="<%=request.getContextPath()%>/order/cart"><button class="buy btn btn-secondary">바로구매</button></a>
         </div>
       </div>
     </div>
@@ -264,7 +264,40 @@
     </div>
   </div>
 <script>
-    $('.fa-bars').click(function(){
+$(function(){
+	$('.addCart-btn').click(function(){
+		var title = $('.bookTitle').text();
+		var subTitle = $('.bookSubTitle').text();
+		var price = $('.bookPrice').text();
+		var amount = $('.bookAmount').val();
+		console.log(title);
+		console.log(subTitle);
+		console.log(price);
+		console.log(amount);
+		var data = {
+				title : title,
+				subTitle : subTitle,
+				price : price,
+				amount : amount
+		};
+		$.ajax({
+			url : "buy/cart",
+			type: "post",
+			data : data,
+			success : function(result){
+				if(result == 1){
+					alert("카트 담기 성공")
+				} else{
+					alert("회원만 사용할 수 있습니다.")
+				}
+			},
+			error : function(){
+				alert("카트 담기 실패")
+			}
+		})
+	})
+	
+	$('.fa-bars').click(function(){
         $('.side-bars').show();
     })
     $('.fa-times').click(function(){
@@ -279,6 +312,7 @@
         $('.dome-list').hide();
         $('.foreign-list').show();
     })
+})
 </script>
 </body>
 </html>

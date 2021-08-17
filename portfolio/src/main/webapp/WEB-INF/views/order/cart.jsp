@@ -1,3 +1,6 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -136,7 +139,7 @@
                 <td><input type="checkbox" name="bookCheck" checked></td>
                 <td><img src="소크라테스 익스프레스.jpg" alt="cartImg" class="cart-image"></td>
                 <td >소크라테스 익스프레스 : 철학이 우리 인생에 스며드는 순간 </td>
-                <td><input type="number" name="amount" min="0" value="1" class-="numBox"></td>
+                <td><input type="number" name="amount" min="0" value="1"></td>
                 <td>18000원</td>
                 <td>
                     <button type="button" class="btn btn-secondary order-btn mb-1">주문하기</button> <br>
