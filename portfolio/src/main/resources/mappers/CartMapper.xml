@@ -3,6 +3,9 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.green.portfolio.dao.CartDAO">
-	
+	<insert id="addCart">
+		insert into cart (ca_amount,ca_re_code, ca_me_id)
+			values (#{ca_amount},#{ca_re_code}, #{ca_me_id})
+	</insert>
 </mapper>
 

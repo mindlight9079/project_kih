@@ -203,9 +203,9 @@
         </div>
         <div class="order-line">
           <div class="amount">
-            수량 <input type="number" min="0" value="0" class="bookAmount">
+            수량 <input type="number" min="0" value="1" class="bookAmount">
           </div>
-           <a href="#" href2="<%=request.getContextPath()%>/order/cart"><button class="cart btn btn-info addCart-btn">장바구니</button></a>
+           <a href="#"><button class="cart btn btn-info addCart-btn">장바구니</button></a>
            <a href="<%=request.getContextPath()%>/order/cart"><button class="buy btn btn-secondary">바로구매</button></a>
         </div>
       </div>
@@ -261,43 +261,43 @@
           </div>
         </div>
         
-        <input type="hidden" value="${regi.re_code}" name="ca_re_code">
+           <input type="hidden" value="${regi.re_code}" class="code">
         
     </div>
   </div>
 <script>
 $(function(){
+	var contextPath = '<%=request.getContextPath()%>';
+	var user = '${user==null?'':user.me_id}';
 	$('.addCart-btn').click(function(){
-		var title = $('.bookTitle').text();
-		var subTitle = $('.bookSubTitle').text();
-		var price = $('.bookPrice').text();
+		if(user == ''){
+			alert('회원만 사용 가능합니다.');
+			return;
+		}
+		var isGo = confirm("장바구니로 이동하겠습니까?");
+		if(isGo){
+			location.href= '<%=request.getContextPath()%>/order/cart'
+		}
 		var amount = $('.bookAmount').val();
-		console.log(title);
-		console.log(subTitle);
-		console.log(price);
-		console.log(amount);
+		var code = $('.code').val();
 		var data = {
-				title : title,
-				subTitle : subTitle,
-				price : price,
-				amount : amount
+			ca_amount : amount,
+			ca_re_code : code
 		};
 		$.ajax({
-			url : "buy/cart",
-			type: "post",
+			url : contextPath + '/order/cart',
+			type: 'post',
 			data : data,
 			success : function(result){
-				if(result == 1){
-					alert("카트 담기 성공")
-				} else{
-					alert("회원만 사용할 수 있습니다.")
-				}
+				alert("카트 담기 성공")
 			},
 			error : function(){
-				alert("살려줘!")
+				alert("카트 담기 실패")
 			}
 		})
 	})
+	
+
 	
 	$('.fa-bars').click(function(){
         $('.side-bars').show();
