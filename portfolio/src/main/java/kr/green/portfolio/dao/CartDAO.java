@@ -9,5 +9,8 @@ public interface CartDAO {
 
 	void addCart(CartVO cart);
 
-	ArrayList<CartVO> getCartList(String me_id);	
+	ArrayList<CartVO> getCartList(String me_id);
+
+	void deleteCart(CartVO cart);
+
 }

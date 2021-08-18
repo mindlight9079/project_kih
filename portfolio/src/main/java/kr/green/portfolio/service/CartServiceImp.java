@@ -30,4 +30,11 @@ public class CartServiceImp implements CartService {
 		return cartDao.getCartList(member.getMe_id());
 	}
 
+	@Override
+	public void deleteCart(CartVO cart) {
+		cart.setCa_valid("D");
+		cartDao.deleteCart(cart);		
+	}
+
+
 }

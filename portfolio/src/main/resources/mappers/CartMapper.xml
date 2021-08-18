@@ -10,7 +10,12 @@
 	<select id="getCartList" resultType="kr.green.portfolio.vo.CartVO">
 		select cart.*, bk_mainImg as ca_mainImg, re_title as ca_title, bk_subtitle as ca_subTitle, re_price as ca_price from cart 
 			join registration on ca_re_code = re_code 
-    		join book on bk_isbn = re_bk_isbn where ca_me_id = #{me_id};
+    		join book on bk_isbn = re_bk_isbn where ca_me_id = #{me_id} and ca_valid = 'I';
 	</select>
+	<update id="deleteCart">
+		update cart set
+			ca_valid = #{ca_valid}
+			where ca_me_id = #{ca_me_id} and ca_re_code = #{ca_re_code}
+	</update>
 </mapper>
 

@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,7 +25,7 @@ public class CartController {
 	@Autowired
 	BookService bookService;
 	
-	@RequestMapping(value="order/cart")
+	@RequestMapping(value="/order/cart")
 	public ModelAndView getCartList (ModelAndView mv, HttpSession session) {
 		MemberVO member = (MemberVO)session.getAttribute("user");
 		ArrayList<CartVO> cartList = cartService.getCartList(member);
@@ -33,10 +34,27 @@ public class CartController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="order/cart", method=RequestMethod.POST)
+	@RequestMapping(value="/order/cart", method=RequestMethod.POST)
 	public void addCart(CartVO cart, HttpSession session) {
 		MemberVO member = (MemberVO)session.getAttribute("user");
 		cart.setCa_me_id(member.getMe_id());
 		cartService.addCart(cart);
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/order/cart/delete", method=RequestMethod.POST)
+	public int deleteCart(@RequestBody CartVO cart, HttpSession session) {
+		MemberVO member = (MemberVO)session.getAttribute("user");
+		String userId = member.getMe_id();
+		System.out.println(cart);
+		int result = 0;
+	
+		if(member != null) {
+			cart.setCa_me_id(userId);
+			cartService.deleteCart(cart);
+			result = 1;
+		}
+		return result;
+	}
+
 }

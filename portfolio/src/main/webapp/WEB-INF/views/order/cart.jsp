@@ -39,7 +39,7 @@
     .order-btn{
         font-size: 13px; width: 80px;
     }
-    .cancel-btn{
+    .delete-btn{
       font-size: 13px; width: 80px;
     }
     .cart-contents{
@@ -132,20 +132,21 @@
             </tr>
             </thead>
             <tbody>
-            
-	           <c:forEach items="${cartList}" var="cart" varStatus="status">
-	            
+               <c:forEach items="${cartList}" var="cart" varStatus="status"> 
+                 <c:if test="${cart != null}">
 	            <tr>
 	                <td><input type="checkbox" name="bookCheck" checked></td>
 	                <td><img  src="<%=request.getContextPath()%>/img${cart.ca_mainImg}" alt="cartImg" class="cart-image"></td>
 	                <td >${cart.ca_title}<c:if test="${cart.ca_subTitle != ''}"> : ${cart.ca_subTitle}</c:if></td>
 	                <td><input type="number" name="amount" class="amount" min="0" value="${cart.ca_amount}"></td>
+
 	                <td>${cart.ca_price}원 <input type="hidden" value="${cart.ca_price}" class="price"/></td>
 	                <td>
 	                    <button type="button" class="btn btn-secondary order-btn mb-1">주문하기</button> <br>
-	                    <button type="button" class="btn btn-secondary cancel-btn" >삭제</button>
+	                    <button type="button" class="btn btn-secondary delete-btn" data-cartNum="${cart.ca_re_code}" >삭제</button>
 	                </td>
 	            </tr>
+		          </c:if>
 	           </c:forEach>
             </tbody>
         </table>
@@ -194,6 +195,30 @@ var totalCount = 0;
         $('.dome-list').hide();
         $('.foreign-list').show();
     })
+    
+var contextPath = '<%=request.getContextPath()%>';
+$('.delete-btn').click(function(){
+	var carNum = $(this).attr('data-cartNum');
+	console.log(carNum)
+	var data = {
+			ca_re_code : carNum
+	};
+	var obj = $(this);
+   	$.ajax({
+		url : contextPath + '/order/cart/delete',
+		type : 'post',
+		data : JSON.stringify(data),
+		contentType : 'application/json; charset=utf-8',
+		success:function(result){
+			if(result == 1){
+				alert("삭제되었습니다.")
+				obj.parents('tr').remove();
+			}else{
+				alert("삭제에 실패했습니다.")
+			}
+		}
+   	})
+})
 </script>
 </body>
 </html>

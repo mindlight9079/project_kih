@@ -288,6 +288,7 @@ $(function(){
 			url : contextPath + '/order/cart',
 			type: 'post',
 			data : data,
+			contentType : 'application/json; charset=utf-8',
 			success : function(result){
 				alert("카트 담기 성공")
 			},

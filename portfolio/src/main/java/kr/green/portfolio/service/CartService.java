@@ -12,4 +12,8 @@ public interface CartService {
 
 	ArrayList<CartVO> getCartList(MemberVO member);
 
+	void deleteCart(CartVO cart);
+
+
+
 }
