@@ -1,5 +1,7 @@
 package kr.green.portfolio.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +13,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.green.portfolio.service.BookService;
 import kr.green.portfolio.service.CartService;
-import kr.green.portfolio.vo.BookVO;
 import kr.green.portfolio.vo.CartVO;
 import kr.green.portfolio.vo.MemberVO;
 
@@ -24,9 +25,10 @@ public class CartController {
 	BookService bookService;
 	
 	@RequestMapping(value="order/cart")
-	public ModelAndView cartGet(ModelAndView mv) {
-		
-		mv.setViewName("order/cart");
+	public ModelAndView getCartList (ModelAndView mv, HttpSession session) {
+		MemberVO member = (MemberVO)session.getAttribute("user");
+		ArrayList<CartVO> cartList = cartService.getCartList(member);
+		mv.addObject("cartList", cartList);
 		return mv;
 	}
 	

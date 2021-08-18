@@ -176,7 +176,7 @@
   <div class="container">
     <div class="book-top">
       <div class="bookImg">
-       <img src="<%=request.getContextPath()%>/img${book.bk_mainImg}" alt="book-image" id="book-img">
+       <img src="<%=request.getContextPath()%>/img${book.bk_mainImg}" alt="book-image">
      </div>
      <div class="height-line"></div>
      <div class="title">

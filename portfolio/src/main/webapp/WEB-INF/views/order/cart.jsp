@@ -49,13 +49,10 @@
        background-color: #f8f8f8; margin-top: 30px; text-align: center; position:relative
     }
     .fa-plus{
-        position: absolute; top: 17px; left:calc(25% - 10px);
-    }
-    .fa-minus{
-        position: absolute; top:17px; left:calc(50% - 15px);
+        position: absolute; top: 17px; left:calc(100% / 3 - 10px);
     }
     .fa-equals{
-        position: absolute; top:17px; left:calc(75% - 20px);
+        position: absolute; top:17px; right:calc(100% / 3 - 10px);
     }
     
     .side-bars{
@@ -135,42 +132,21 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td><input type="checkbox" name="bookCheck" checked></td>
-                <td><img src="소크라테스 익스프레스.jpg" alt="cartImg" class="cart-image"></td>
-                <td >소크라테스 익스프레스 : 철학이 우리 인생에 스며드는 순간 </td>
-                <td><input type="number" name="amount" min="0" value="${cart.ca_re_code}"></td>
-                <td>18000원</td>
-                <td>
-                    <button type="button" class="btn btn-secondary order-btn mb-1">주문하기</button> <br>
-                    <button type="button" class="btn btn-secondary cancel-btn" >삭제</button>
-                </td>
-            </tr>
-            <tr>
-                <td><input type="checkbox" name="bookCheck" checked></td>
-                <td><img src="소크라테스 익스프레스.jpg" alt="cartImg" class="cart-image"></td>
-                <td>
-                	
-[도서] 한 권으로 읽는 컴퓨터 구조와 프로그래밍 : 더 나은 소프트웨어 개발을 위한 하드웨어, 자료구조, 필수 알고리즘 등 프로그래머의 비밀 노트     
-                </td>
-                <td><input type="number" name="amount" min="0" value="1"></td>
-                <td>18000원</td>
-                <td>
-                    <button type="button" class="btn btn-secondary order-btn mb-1">주문하기</button> <br>
-                    <button type="button" class="btn btn-secondary cancel-btn" >삭제</button>
-                </td>
-            </tr>
-            <tr>
-                <td><input type="checkbox" name="bookCheck" checked></td>
-                <td><img src="소크라테스 익스프레스.jpg" alt="cartImg" class="cart-image"></td>
-                <td>소크라테스 익스프레스 : 철학이 우리 인생에 스며드는 순간 </td>
-                <td><input type="number" name="amount" min="0" value="1"></td>
-                <td>18000원</td>
-                <td>
-                    <button type="button" class="btn btn-secondary order-btn mb-1">주문하기</button> <br>
-                    <button type="button" class="btn btn-secondary cancel-btn" >삭제</button>
-                </td>
-            </tr>
+            
+	           <c:forEach items="${cartList}" var="cart" varStatus="status">
+	            
+	            <tr>
+	                <td><input type="checkbox" name="bookCheck" checked></td>
+	                <td><img  src="<%=request.getContextPath()%>/img${cart.ca_mainImg}" alt="cartImg" class="cart-image"></td>
+	                <td >${cart.ca_title}<c:if test="${cart.ca_subTitle != ''}"> : ${cart.ca_subTitle}</c:if></td>
+	                <td><input type="number" name="amount" class="amount" min="0" value="${cart.ca_amount}"></td>
+	                <td>${cart.ca_price}원 <input type="hidden" value="${cart.ca_price}" class="price"/></td>
+	                <td>
+	                    <button type="button" class="btn btn-secondary order-btn mb-1">주문하기</button> <br>
+	                    <button type="button" class="btn btn-secondary cancel-btn" >삭제</button>
+	                </td>
+	            </tr>
+	           </c:forEach>
             </tbody>
         </table>
         <table class="table price-box">
@@ -181,17 +157,12 @@
                 </td>
                 <td>
                     총 추가금액
-                    <i class="fas fa-minus"></i>
-                </td>
-                <td>
-                    총 할인금액
-                    <i class="fas fa-equals"></i>
+                <i class="fas fa-equals"></i>
                 </td>
                 <td>최종 결제금액</td>
             </tr>
             <tr>
-                <td>18000원</td>
-                <td>0원</td>
+                <td class="totalCount">원</td>
                 <td>0원</td>
                 <td>18000원</td>
             </tr>
@@ -202,6 +173,12 @@
         </div>
     </div>
 <script>
+var totalCount = 0;
+	$('.price').each(function(){
+		var qty = $(this).parent().prev().find('.amount').val();
+		totalCount += parseInt($(this).val())*qty;
+	})
+	$('.totalCount').text(totalCount);
     $('.fa-bars').click(function(){
         $('.side-bars').show();
     })
