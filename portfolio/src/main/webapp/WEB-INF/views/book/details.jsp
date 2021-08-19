@@ -269,6 +269,7 @@
 $(function(){
 	var contextPath = '<%=request.getContextPath()%>';
 	var user = '${user==null?'':user.me_id}';
+	var result = 0;
 	$('.addCart-btn').click(function(){
 		if(user == ''){
 			alert('회원만 사용 가능합니다.');
@@ -287,13 +288,12 @@ $(function(){
 		$.ajax({
 			url : contextPath + '/order/cart',
 			type: 'post',
-			data : data,
+			data : JSON.stringify(data),
 			contentType : 'application/json; charset=utf-8',
 			success : function(result){
-				alert("카트 담기 성공")
-			},
-			error : function(){
-				alert("카트 담기 실패")
+				if(result == 1){
+					alert("카트 담기 성공")
+				}
 			}
 		})
 	})

@@ -35,10 +35,15 @@ public class CartController {
 	
 	@ResponseBody
 	@RequestMapping(value="/order/cart", method=RequestMethod.POST)
-	public void addCart(CartVO cart, HttpSession session) {
+	public int addCart(CartVO cart, HttpSession session) {
 		MemberVO member = (MemberVO)session.getAttribute("user");
-		cart.setCa_me_id(member.getMe_id());
-		cartService.addCart(cart);
+		int result = 0;
+		if(member != null) {
+			cart.setCa_me_id(member.getMe_id());
+			cartService.addCart(cart);
+			result = 1;
+		}
+		return result;
 	}
 	
 	@ResponseBody
