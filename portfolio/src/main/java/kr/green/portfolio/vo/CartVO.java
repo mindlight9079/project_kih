@@ -12,7 +12,9 @@ public class CartVO {
 	private String ca_mainImg;
 	private String ca_title;
 	private String ca_subTitle;
-	private int ca_price;
+	private int ca_price;	
 	
-	
+	public int getCa_total_price(){
+		return ca_price * ca_amount;
+	}
 }

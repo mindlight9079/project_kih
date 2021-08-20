@@ -16,6 +16,7 @@ import kr.green.portfolio.service.BookService;
 import kr.green.portfolio.service.CartService;
 import kr.green.portfolio.vo.CartVO;
 import kr.green.portfolio.vo.MemberVO;
+import kr.green.portfolio.vo.RegistrationVO;
 
 @Controller
 public class CartController {
@@ -26,7 +27,7 @@ public class CartController {
 	BookService bookService;
 	
 	@RequestMapping(value="/order/cart")
-	public ModelAndView getCartList (ModelAndView mv, HttpSession session) {
+	public ModelAndView getCartList (ModelAndView mv, HttpSession session, Integer ca_re_code) {
 		MemberVO member = (MemberVO)session.getAttribute("user");
 		ArrayList<CartVO> cartList = cartService.getCartList(member);
 		mv.addObject("cartList", cartList);
@@ -35,13 +36,13 @@ public class CartController {
 	
 	@ResponseBody
 	@RequestMapping(value="/order/cart", method=RequestMethod.POST)
-	public int addCart(CartVO cart, HttpSession session) {
+	public String addCart(@RequestBody CartVO cart, HttpSession session) {
 		MemberVO member = (MemberVO)session.getAttribute("user");
-		int result = 0;
+		String result = "0";
 		if(member != null) {
 			cart.setCa_me_id(member.getMe_id());
 			cartService.addCart(cart);
-			result = 1;
+			result = "1";
 		}
 		return result;
 	}
@@ -51,7 +52,6 @@ public class CartController {
 	public int deleteCart(@RequestBody CartVO cart, HttpSession session) {
 		MemberVO member = (MemberVO)session.getAttribute("user");
 		String userId = member.getMe_id();
-		System.out.println(cart);
 		int result = 0;
 	
 		if(member != null) {
@@ -61,5 +61,29 @@ public class CartController {
 		}
 		return result;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/order/cart/update", method=RequestMethod.POST)
+	public String updateCart(@RequestBody CartVO cart, HttpSession session) {
+		MemberVO member = (MemberVO)session.getAttribute("user");
+		String userId = member.getMe_id();
+		int amount = cart.getCa_amount();
+		String result = "0";
+		if(member != null) {
+			cart.setCa_me_id(userId);
+			cart.setCa_amount(amount);
+			cartService.updateCart(cart);
+			result = "1";
+		}
+		return result;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/order/cart/stock")
+	public RegistrationVO stockCheck(@RequestBody CartVO cart, HttpSession session) {
+		RegistrationVO regi = bookService.getRegiBook(cart.getCa_re_code());
+		return regi;
+	}
+	
 
 }

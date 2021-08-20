@@ -262,6 +262,7 @@
         </div>
         
            <input type="hidden" value="${regi.re_code}" class="code">
+           <input type="hidden" value="${regi.re_amount}" class="stockAmount">
         
     </div>
   </div>
@@ -269,15 +270,11 @@
 $(function(){
 	var contextPath = '<%=request.getContextPath()%>';
 	var user = '${user==null?'':user.me_id}';
-	var result = 0;
+	var result = '0';
 	$('.addCart-btn').click(function(){
 		if(user == ''){
 			alert('회원만 사용 가능합니다.');
 			return;
-		}
-		var isGo = confirm("장바구니로 이동하겠습니까?");
-		if(isGo){
-			location.href= '<%=request.getContextPath()%>/order/cart'
 		}
 		var amount = $('.bookAmount').val();
 		var code = $('.code').val();
@@ -291,14 +288,40 @@ $(function(){
 			data : JSON.stringify(data),
 			contentType : 'application/json; charset=utf-8',
 			success : function(result){
-				if(result == 1){
+				if(result == '1'){
 					alert("카트 담기 성공")
+				}
+				var isGo = confirm("장바구니로 이동하겠습니까?");
+				if(isGo){
+					location.href= '<%=request.getContextPath()%>/order/cart'
+				}
+			}
+		})
+	})
+	var stockAmount = $('.stockAmount').val();
+	$('.bookAmount').change(function(){
+		var code = $('.code').val();
+		var amount = $(this).val();
+		var data = {
+			ca_re_code : code,
+			ca_amount : amount
+		};
+		var obj = $(this);
+		$.ajax({
+			url : contextPath + '/order/cart/stock',
+			type: 'post',
+			data : JSON.stringify(data),
+			contentType : 'application/json; charset=utf-8',
+			dataType : 'json',
+			success : function(result){
+				if(result.re_amount < amount){
+					alert('재고량이 부족합니다.');
+					obj.val(result.re_amount)
 				}
 			}
 		})
 	})
 	
-
 	
 	$('.fa-bars').click(function(){
         $('.side-bars').show();

@@ -19,7 +19,13 @@ public class CartServiceImp implements CartService {
 
 	@Override
 	public void addCart(CartVO cart) {
-		cartDao.addCart(cart);
+		CartVO dbCart = cartDao.selectCart(cart.getCa_me_id(), cart.getCa_re_code());
+		if(dbCart != null) {
+			 dbCart.setCa_amount(cart.getCa_amount());
+			 cartDao.updateCart(cart);
+		} else {
+			cartDao.addCart(cart);
+		}
 	}
 
 	@Override
@@ -35,5 +41,9 @@ public class CartServiceImp implements CartService {
 		cartDao.deleteCart(cart);		
 	}
 
-
+	@Override
+	public void updateCart(CartVO cart) {
+		cartDao.updateCart(cart);
+		
+	}
 }

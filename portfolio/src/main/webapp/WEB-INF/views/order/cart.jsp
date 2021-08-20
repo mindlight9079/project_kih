@@ -135,12 +135,11 @@
                <c:forEach items="${cartList}" var="cart" varStatus="status"> 
                  <c:if test="${cart != null}">
 	            <tr>
-	                <td><input type="checkbox" name="bookCheck" checked></td>
+	                <td><input type="checkbox" name="bookCheck"></td>
 	                <td><img  src="<%=request.getContextPath()%>/img${cart.ca_mainImg}" alt="cartImg" class="cart-image"></td>
-	                <td >${cart.ca_title}<c:if test="${cart.ca_subTitle != ''}"> : ${cart.ca_subTitle}</c:if></td>
+	                <td >${cart.ca_title} <input type="hidden" value="${cart.ca_re_code}" class="codeNum"><c:if test="${cart.ca_subTitle != ''}"> : ${cart.ca_subTitle}</c:if></td>
 	                <td><input type="number" name="amount" class="amount" min="0" value="${cart.ca_amount}"></td>
-
-	                <td>${cart.ca_price}원 <input type="hidden" value="${cart.ca_price}" class="price"/></td>
+	                <td>${cart.ca_total_price}원 <input type="hidden" value="${cart.ca_price}" class="price"/></td>
 	                <td>
 	                    <button type="button" class="btn btn-secondary order-btn mb-1">주문하기</button> <br>
 	                    <button type="button" class="btn btn-secondary delete-btn" data-cartNum="${cart.ca_re_code}" >삭제</button>
@@ -160,12 +159,14 @@
                     총 추가금액
                 <i class="fas fa-equals"></i>
                 </td>
-                <td>최종 결제금액</td>
+                <td>
+                	최종 결제금액
+                </td>
             </tr>
             <tr>
-                <td class="totalCount">원</td>
-                <td>0원</td>
-                <td>18000원</td>
+                <td class="totalCount"></td>
+                <td class="addPrice"></td>
+                <td class="finalCount"></td>
             </tr>
         </table>
         <div class="btn-box">
@@ -174,12 +175,41 @@
         </div>
     </div>
 <script>
-var totalCount = 0;
-	$('.price').each(function(){
+function getTotalCount(){
+	var totalCount = 0;	
+	$('.price').each(function(){			
 		var qty = $(this).parent().prev().find('.amount').val();
-		totalCount += parseInt($(this).val())*qty;
+		if($(this).parents('tr').find('[name=bookCheck]').prop('checked'))
+			totalCount += parseInt($(this).val())*qty;
 	})
-	$('.totalCount').text(totalCount);
+	$('.totalCount').text(totalCount+"원");
+
+	var total = $('.totalCount').text();
+	var num = parseInt(total.replace(/[^0-9]/g,''));
+	if(num >= 10000){
+		$('.addPrice').text('0원');		
+	} else if(num < 10000){
+		$('.addPrice').text('2500원');
+	}
+	var addPrice = $('.addPrice').text();
+	var addNum = parseInt(addPrice.replace(/[^0-9]/g,''));
+	var finalCount = num+addNum;
+	$('.finalCount').text(finalCount+"원");
+}
+
+	$('.order-btn').click(function(){
+		$('[name=bookCheck]').prop('checked',false)
+		$(this).parents('tr').find('[name=bookCheck]').prop('checked',true)
+		getTotalCount();	
+	})
+	
+	$('[name=bookCheck]').prop('checked',true);
+	getTotalCount();
+
+	$('input[name=bookCheck]').click(function(){
+		getTotalCount();		
+	})
+
     $('.fa-bars').click(function(){
         $('.side-bars').show();
     })
@@ -198,10 +228,9 @@ var totalCount = 0;
     
 var contextPath = '<%=request.getContextPath()%>';
 $('.delete-btn').click(function(){
-	var carNum = $(this).attr('data-cartNum');
-	console.log(carNum)
+	var cartNum = $(this).attr('data-cartNum');
 	var data = {
-			ca_re_code : carNum
+			ca_re_code : cartNum
 	};
 	var obj = $(this);
    	$.ajax({
@@ -213,11 +242,33 @@ $('.delete-btn').click(function(){
 			if(result == 1){
 				alert("삭제되었습니다.")
 				obj.parents('tr').remove();
+				location.reload();
 			}else{
 				alert("삭제에 실패했습니다.")
 			}
 		}
    	})
+})
+
+$('.amount').change(function(){
+	var amount = $(this).val();
+	var codeNum =$(this).parent().prev().find('.codeNum').val();
+	var data = {
+		ca_amount : amount,
+		ca_re_code : codeNum
+	};
+	$.ajax({
+		url : contextPath + '/order/cart/update',
+		type : 'post',
+		data : JSON.stringify(data),
+		contentType : 'application/json; charset=utf-8',
+		success:function(result){
+			if(result == '1'){
+				alert("수량이 수정되었습니다.")
+				location.reload();
+			}
+		}
+	})
 })
 </script>
 </body>
