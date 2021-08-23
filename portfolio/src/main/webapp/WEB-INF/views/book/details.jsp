@@ -206,7 +206,7 @@
             수량 <input type="number" min="0" value="1" class="bookAmount">
           </div>
            <a href="#"><button class="cart btn btn-info addCart-btn">장바구니</button></a>
-           <a href="<%=request.getContextPath()%>/order/cart"><button class="buy btn btn-secondary">바로구매</button></a>
+          <a href="<%=request.getContextPath()%>/order/payment" class="btn-buy"><button class="buy btn btn-secondary ">바로구매</button></a>
         </div>
       </div>
     </div>
@@ -337,6 +337,10 @@ $(function(){
     $('.foreign').hover(function(){
         $('.dome-list').hide();
         $('.foreign-list').show();
+    })
+    $('.btn-buy').click(function(){
+//    	<%=request.getContextPath()%>/order/payment
+$(this).attr('href','<%=request.getContextPath()%>/order/payment?isbn=')
     })
 })
 </script>

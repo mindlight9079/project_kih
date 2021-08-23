@@ -120,6 +120,7 @@
     </div>
     <i class="fas fa-bars"></i>
     <div class="container">
+	<form action="<%=request.getContextPath()%>/order/payment">
         <table class="table cart-table">
             <thead>
             <tr class="cartTr">
@@ -135,13 +136,13 @@
                <c:forEach items="${cartList}" var="cart" varStatus="status"> 
                  <c:if test="${cart != null}">
 	            <tr>
-	                <td><input type="checkbox" name="bookCheck"></td>
+	                <td><input type="checkbox" name="ca_num" value="${cart.ca_num}"></td>
 	                <td><img  src="<%=request.getContextPath()%>/img${cart.ca_mainImg}" alt="cartImg" class="cart-image"></td>
 	                <td >${cart.ca_title} <input type="hidden" value="${cart.ca_re_code}" class="codeNum"><c:if test="${cart.ca_subTitle != ''}"> : ${cart.ca_subTitle}</c:if></td>
 	                <td><input type="number" name="amount" class="amount" min="0" value="${cart.ca_amount}"></td>
 	                <td>${cart.ca_total_price}원 <input type="hidden" value="${cart.ca_price}" class="price"/></td>
 	                <td>
-	                    <button type="button" class="btn btn-secondary order-btn mb-1">주문하기</button> <br>
+	                 	<a href="<%=request.getContextPath()%>/order/payment?ca_num=${cart.ca_num}"><button type="button" class="btn btn-secondary order-btn mb-1">주문하기</button></a><br>
 	                    <button type="button" class="btn btn-secondary delete-btn" data-cartNum="${cart.ca_re_code}" >삭제</button>
 	                </td>
 	            </tr>
@@ -170,16 +171,32 @@
             </tr>
         </table>
         <div class="btn-box">
-            <button class="btn btn btn-info">주문하기</button>
-            <button class="btn btn-secondary">쇼핑계속하기</button>
+            <button class="btn btn btn-info orderList-btn">주문하기</button>
+            <a href="<%=request.getContextPath()%>/"><button type="button" class="btn btn-secondary">쇼핑계속하기</button></a>
         </div>
-    </div>
+    </form>
+	</div>
 <script>
+$('.fa-bars').click(function(){
+    $('.side-bars').show();
+})
+$('.fa-times').click(function(){
+    $('.side-bars').hide();
+})
+
+$('.domestic').hover(function(){
+    $('.foreign-list').hide();
+    $('.dome-list').show();
+})
+$('.foreign').hover(function(){
+    $('.dome-list').hide();
+    $('.foreign-list').show();
+})
 function getTotalCount(){
 	var totalCount = 0;	
 	$('.price').each(function(){			
 		var qty = $(this).parent().prev().find('.amount').val();
-		if($(this).parents('tr').find('[name=bookCheck]').prop('checked'))
+		if($(this).parents('tr').find('[name=ca_num]').prop('checked'))
 			totalCount += parseInt($(this).val())*qty;
 	})
 	$('.totalCount').text(totalCount+"원");
@@ -195,36 +212,13 @@ function getTotalCount(){
 	var addNum = parseInt(addPrice.replace(/[^0-9]/g,''));
 	var finalCount = num+addNum;
 	$('.finalCount').text(finalCount+"원");
-}
-
-	$('.order-btn').click(function(){
-		$('[name=bookCheck]').prop('checked',false)
-		$(this).parents('tr').find('[name=bookCheck]').prop('checked',true)
-		getTotalCount();	
-	})
-	
-	$('[name=bookCheck]').prop('checked',true);
+}	
+	$('[name=ca_num]').prop('checked',true);
 	getTotalCount();
 
-	$('input[name=bookCheck]').click(function(){
+	$('input[name=ca_num]').click(function(){
 		getTotalCount();		
 	})
-
-    $('.fa-bars').click(function(){
-        $('.side-bars').show();
-    })
-    $('.fa-times').click(function(){
-        $('.side-bars').hide();
-    })
-
-    $('.domestic').hover(function(){
-        $('.foreign-list').hide();
-        $('.dome-list').show();
-    })
-    $('.foreign').hover(function(){
-        $('.dome-list').hide();
-        $('.foreign-list').show();
-    })
     
 var contextPath = '<%=request.getContextPath()%>';
 $('.delete-btn').click(function(){
@@ -270,6 +264,15 @@ $('.amount').change(function(){
 		}
 	})
 })
+
+$('.order-btn').click(function(){
+	$('[name=ca_num]').prop('checked',false)
+	$(this).parents('tr').find('[name=ca_num]').prop('checked',true)
+	getTotalCount();
+})
+
+
+
 </script>
 </body>
 </html>

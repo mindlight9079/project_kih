@@ -1,6 +1,7 @@
 package kr.green.portfolio.service;
 
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,6 @@ import org.springframework.stereotype.Service;
 import kr.green.portfolio.dao.CartDAO;
 import kr.green.portfolio.vo.CartVO;
 import kr.green.portfolio.vo.MemberVO;
-import kr.green.portfolio.vo.RegistrationVO;
 
 @Service
 public class CartServiceImp implements CartService {
@@ -46,4 +46,32 @@ public class CartServiceImp implements CartService {
 		cartDao.updateCart(cart);
 		
 	}
+
+	@Override
+	public ArrayList<CartVO> getPaymentList(Integer[] ca_num, MemberVO member) {
+		if(ca_num == null && member == null)
+			return null;
+		ArrayList<CartVO> list = new ArrayList<CartVO>();
+		for(Integer tmp : ca_num) {
+			list.add(cartDao.getPayment(tmp, member));
+		}
+		return list;
+	}
+
+	@Override
+	public ArrayList<CartVO> getPaymentList(BigInteger isbn, Integer amount) {
+		if(isbn == null && amount == null) {
+			return null;
+		}
+		return cartDao.getPaymentList(isbn, amount);		
+	}
+
+	@Override
+	public CartVO paymentList(BigInteger re_bk_isbn) {
+		if(re_bk_isbn == null)
+			return null;
+		return cartDao.paymentList(re_bk_isbn);
+	}
+
+	
 }

@@ -1,10 +1,10 @@
 package kr.green.portfolio.service;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 
 import kr.green.portfolio.vo.CartVO;
 import kr.green.portfolio.vo.MemberVO;
-import kr.green.portfolio.vo.RegistrationVO;
 
 public interface CartService {
 
@@ -15,4 +15,14 @@ public interface CartService {
 	void deleteCart(CartVO cart);
 
 	void updateCart(CartVO cart);
+
+	ArrayList<CartVO> getPaymentList(Integer[] ca_num, MemberVO member);
+
+	ArrayList<CartVO> getPaymentList(BigInteger isbn, Integer amount);
+
+	CartVO paymentList(BigInteger re_bk_isbn);
+
+
+
+
 }

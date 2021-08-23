@@ -17,4 +17,6 @@ public class CartVO {
 	public int getCa_total_price(){
 		return ca_price * ca_amount;
 	}
+	
+
 }

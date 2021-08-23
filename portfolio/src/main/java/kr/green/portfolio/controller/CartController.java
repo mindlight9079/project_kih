@@ -1,5 +1,6 @@
 package kr.green.portfolio.controller;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
@@ -85,5 +86,18 @@ public class CartController {
 		return regi;
 	}
 	
+	@RequestMapping(value="/order/payment")
+	public ModelAndView getPayment (ModelAndView mv, HttpSession session, Integer[] ca_num, BigInteger isbn, Integer amount) {
+		MemberVO member = (MemberVO)session.getAttribute("user");
+		ArrayList<CartVO> paymentList = null;
+		if(ca_num != null && ca_num.length != 0)
+			paymentList = cartService.getPaymentList(ca_num, member);
+		else {
+			paymentList = cartService.getPaymentList(isbn, amount);
+		}
+		mv.addObject("paymentList", paymentList);
+		mv.addObject("member",member);
+		return mv;
+	}
 
 }
