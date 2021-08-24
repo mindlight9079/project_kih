@@ -18,6 +18,7 @@ public class RegistrationVO {
 	private String re_catagory;
 	private String re_contents;
 	private String re_choice;
+	private int re_sales;
 	public int getRe_price_point() {
 		return (int)(re_price*0.05);
 	}

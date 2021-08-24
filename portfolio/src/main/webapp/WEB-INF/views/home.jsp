@@ -80,8 +80,8 @@
     .choiceImg img{
         width: 250px; height: 393px; margin: 20px;  margin: 80px 60px 20px;
     }
-    .contents div{
-        text-align: center;
+    .contents span{
+        text-align: center; display: block;
     }
     .contents2{
         position: absolute; top: calc(50% - 300px); left:calc(50% - 1370px / 2); display: flex;
@@ -93,14 +93,24 @@
         text-align: center; width: 800px; font-size: 30px; padding: 60px 0 0 60px;
     }
     .contents3 img{
-        width: 150px; margin-right: 60px;
+        width: 150px; height: 220px;
     }
     .container3{
-        position: relative;
+       height: 1000px;
     }
     .contents3{
-        position: absolute; display: flex; top: 250px; left:calc(50% - 1095px / 2);
+        top: 250px; left:calc(50% - 1390px / 2); width: 80%; height: 100%; margin: 0 auto;
     }
+    .bsContents{
+        text-align: center; font-size: 14px; display:block;
+    }
+    .bsBook{
+        text-align: center; float:left; width: 20%; margin-top: 80px; cursor: pointer;
+    }
+    .bsNum{
+        font-size: 30px; font-family:Georgia, 'Times New Roman', Times, serif ; display: block;
+    }
+        
     .container2::after{
         display: block; content: ''; clear: both;
     }
@@ -110,6 +120,7 @@
     .swiper-container-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction {
         left: -200px;
     }
+    
     
     .side-bars{
         width: 400px; height: 1280px; background-color: black; position: absolute; z-index: 10;
@@ -132,6 +143,22 @@
     }
     .fa-times{
         color: white; font-size: 30px; position: absolute; top: 20px; right: 20px;
+    }
+    
+    .search-box{
+        width:100%; height: 1280px; background-color: black; position: absolute; z-index: 15;
+        opacity: 80%; top: 0px; right:0; display: flex; display: none;
+    }
+    [name="search"]{
+        width: 500px; height: 100px; position: absolute; top:300px; left: calc(50% - 250px);
+        opacity: 100%; font-size: 30px; padding: 15px; box-sizing: border-box; border-radius: 20px;
+    }
+    .search-icon{
+        font-size: 40px; z-index: 20; 
+        text-align: center; line-height: 50px; position:absolute; top: 315px; left :calc(50% + 185px);
+    }
+    .x-btn{
+        position: absolute; top: 25px; right: 35px;
     }
 </style>
 </head>
@@ -194,8 +221,13 @@
              <li><a href="<%=request.getContextPath()%>/admin/user/booklist">MANAGEMENT</a></li>
             </c:if>
         </ul>
-        <i class="fas fa-search"></i>
+        <i class="fas fa-search sm-search"></i>
     </div>
+       <div class="search-box">
+           <i class="fas fa-times x-btn"></i>
+           <input type="text" name="search" placeholder="search">
+           <i class="fas fa-search search-icon"></i>
+   	   </div>
     <div class="container" >
         <div class="choice">
          Green's Choice
@@ -208,8 +240,8 @@
 					<div class="swiper-slide">
 						<a class="contents" href="<%=request.getContextPath()%>/book/details?re_bk_isbn=${book.bk_isbn}">
 							<img src="<%=request.getContextPath()%>/img${book.bk_mainImg}" alt="bookImg">
-							<div>${book.bk_title}</div>
-							<div>${book.bk_au_writer} 저 | ${book.bk_publish}</div>
+							<span>${book.bk_title}</span>
+ 							<span>${book.bk_au_writer} 저 | ${book.bk_publish}</span>
 						</a>
 					</div>
 				</c:forEach>
@@ -241,11 +273,15 @@
         <div class="line"></div>
         </div>
     <div class="contents3">
-        <span>1</span><img src="소크라테스 익스프레스.jpg" alt="express">
-        <span>2</span><img src="소크라테스 익스프레스.jpg" alt="express">
-        <span>3</span><img src="소크라테스 익스프레스.jpg" alt="express">
-        <span>4</span><img src="소크라테스 익스프레스.jpg" alt="express">
-        <span>5</span><img src="소크라테스 익스프레스.jpg" alt="express">
+    <c:forEach items="${registration}" var="regi" varStatus="status">
+        <div class="bsBook">
+   		<a href="<%=request.getContextPath()%>/book/details?re_bk_isbn=${regi.bk_isbn}">
+            <span class="bsNum">${status.count}</span>
+            <img src="<%=request.getContextPath()%>/img${regi.bk_mainImg}" alt="express"/>
+            <span class="bsContents"><span>${regi.bk_title}</span><br><span>${regi.bk_au_writer} 저 | ${regi.bk_publish}</span></span>
+        </a>
+        </div>
+    </c:forEach>
     </div>
     </div>
 <script>
@@ -272,6 +308,14 @@
     $('.foreign').hover(function(){
         $('.dome-list').hide();
         $('.foreign-list').show();
+    })
+    
+    $('.sm-search').click(function(){
+        $('.search-box').show();
+        $('[name="search"]').val('');
+    })
+    $('.x-btn').click(function(){
+        $('.search-box').hide();
     })
     </script>
 </body>

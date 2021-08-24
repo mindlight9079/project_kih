@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.green.portfolio.service.BookService;
-import kr.green.portfolio.vo.AuthorVO;
 import kr.green.portfolio.vo.BookVO;
+import kr.green.portfolio.vo.RegistrationVO;
 
 /**
  * Handles requests for the application home page.
@@ -25,7 +25,9 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView home(ModelAndView mv, BigInteger re_bk_isbn) {
 		ArrayList<BookVO> bookChoice = bookService.getChoice();
+		ArrayList<BookVO> registration = bookService.getRegiSale();
 		mv.addObject("bookChoice", bookChoice);
+		mv.addObject("registration", registration);
 		mv.setViewName("/home");
 		return mv;
 	}

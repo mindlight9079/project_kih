@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>DETAILS</title>
     <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
@@ -72,10 +72,10 @@
         display:flex; position: absolute; top:220px; left: calc(50% - 1480px / 2);
     }
     .swiper-container{
-        width: 1903px ; height: 650px;
+        width: 1903px ; height: 680px;
     }
     .choiceImg img{
-        width: 250px; margin: 20px;  margin: 80px 60px 20px;
+        width: 250px; height: 393px; margin: 20px;  margin: 80px 60px 20px;
     }
     .contents div{
         text-align: center;
@@ -89,14 +89,20 @@
     .bookContents{
         text-align: center; width: 800px; font-size: 30px; padding: 60px 0 0 60px;
     }
-    .contents3 img{
-        width: 150px; margin-right: 60px;
+    .contents3 img, .contents4 img{
+        width: 150px; margin: 0 auto;
     }
     .container3{
         position: relative;
     }
-    .contents3{
-        position: absolute; display: flex; top: 250px; left:calc(50% - 1095px / 2);
+    .contents3, .contents4{
+        position: absolute; display: flex; top: 250px; left:calc(50% - 1390px / 2); 
+    }
+    .contents3 *, .contents4 *{
+        margin: 0 20px;
+    }
+    .contents4{
+        position: absolute; display: flex; top: 600px;
     }
     .container2::after{
         display: block; content: ''; clear: both;
@@ -105,10 +111,20 @@
         flex-shrink:initial;
     }
     .swiper-container-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction {
-        left: -150px;
+        left: -200px;
     }
 
+    .bsContents{
+        text-align: center; font-size: 14px;
+    }
+    .bsBook1{
+        text-align: center;
+    }
+    .bsNum{
+        font-size: 30px; font-family:Georgia, 'Times New Roman', Times, serif ;
+    }
 
+    
     .side-bars{
         width: 400px; height: 1280px; background-color: black; position: absolute; z-index: 10;
         opacity: 80%; display: none;
@@ -125,25 +141,40 @@
     .dome-list{
         display: none;
     }
-    .foreign-list, .ebook-list, .web-novel-list{
+    .foreign-list{
         display: none;
     }
     .fa-times{
         color: white; font-size: 30px; position: absolute; top: 20px; right: 20px;
     }
-    
+
+
+    .search-box{
+        width:100%; height: 1280px; background-color: black; position: absolute; z-index: 15;
+        opacity: 80%; top: 0px; right:0; display: flex; display: none;
+    }
+    [name="search"]{
+        width: 500px; height: 100px; position: absolute; top:300px; left: calc(50% - 250px);
+        opacity: 100%; font-size: 30px; padding: 15px; box-sizing: border-box; border-radius: 20px;
+    }
+    .search-icon{
+        font-size: 40px; z-index: 20; 
+        text-align: center; line-height: 50px; position:absolute; top: 315px; left :calc(50% + 185px);
+    }
+    .x-btn{
+        position: absolute; top: 25px; right: 35px;
+    }
+
+
 </style>
 </head>
 <body>
-
     <div class="side-bars">
         <i class="fas fa-times"></i>
         <div class="catagory-list">
             <ul>
                 <li class="domestic">국내도서</li>
                 <li class="foreign">외국도서</li>
-                <li class="ebook">ebook</li>
-                <li class="webNovel">웹소설/코믹</li>
             </ul>
         </div>
         <div class="subCatagory-list">
@@ -172,29 +203,7 @@
                 <li>자연과학</li>
             </ul>
         </div>
-        <div class="subCatagory-list">
-            <ul class="ebook-list">
-                <li>장르소설</li>
-                <li>소설</li>
-                <li>에세이/시</li>
-                <li>경제/경영</li>
-                <li>자기계발</li>
-                <li>인문/사회/정치</li>
-                <li>역사/종교</li>
-                <li>외국어</li>
-                <li>IT/모바일</li>
-            </ul>
-        </div>
-        <div class="subCatagory-list">
-            <ul class="web-novel-list">
-                <li>웹소설</li>
-                <li>웹툰</li>
-            </ul>
-        </div>
     </div>
-
-
-    <div class="main-area">
     <div class="main">
         <img class="bookstore animate__repeat-1	animate__fadeInDown animate__animated" src="BOOKSTORE.png" alt="greenbookstore" >
         <p class="letter">Books makes you valuable</p>
@@ -203,116 +212,52 @@
     <div class="menu">
         <ul>
         	<c:if test="${user == null}">
-                <li><a href="<%=request.getContextPath()%>/member/login">LOGIN</a></li>
-                <li><a href="<%=request.getContextPath()%>/member/signup">SIGNUP</a></li>
-             </c:if>
-                <c:if test="${user != null}">
-                <li><a href="<%=request.getContextPath()%>/member/logout">LOGOUT</a></li>
-                </c:if>
-                <li><a href="#">ORDERS</a></li>
-                <li><a href="<%=request.getContextPath()%>/member/mypage">MYPAGE</a></li>
-                <li><a href="<%=request.getContextPath()%>/buy/cart">CART</a></li>
-         </ul>
-            <i class="fas fa-search"></i>
-        </div>
+            <li><a href="<%=request.getContextPath()%>/member/login">LOGIN</a></li>
+            <li><a href="<%=request.getContextPath()%>/member/signup">SIGNUP</a></li>
+            </c:if>
+            <c:if test="${user != null}">
+            <li><a href="<%=request.getContextPath()%>/member/logout">LOGOUT</a></li>
+            </c:if>
+            <c:if test="${user.me_grade != 'ADMIN'}">
+           	 <li><a href="#">ORDERS</a></li>
+           	 <li><a href="<%=request.getContextPath()%>/member/mypage">MYPAGE</a></li>
+             <li><a href="<%=request.getContextPath()%>/order/cart">CART</a></li>
+            </c:if>
+            <c:if test="${user.me_grade == 'ADMIN'}">
+             <li><a href="<%=request.getContextPath()%>/admin/user/booklist">MANAGEMENT</a></li>
+            </c:if>
+        </ul>
+
+        <i class="fas fa-search sm-search"></i>
     </div>
+    <div class="search-box">
+            <i class="fas fa-times x-btn"></i>
+            <input type="text" name="search" placeholder="search">
+            <i class="fas fa-search search-icon"></i>
+    </div>
+
     <div class="container" >
         <div class="choice">
          Green's Choice
         <div class="line"></div>
         </div>
-        <div class="choiceImg">
-                <div class="swiper-container mySwiper">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <a class="contents" href="<%=request.getContextPath()%>/book/details">
-                            <img src="소크라테스 익스프레스.jpg" alt="express">
-                                <div>소크라테스 익스프레스</div>
-                                <div>에릭 와이너 저/김하현 역 |어크로스</div>
-                            </a>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="contents">
-                                <img src="소크라테스 익스프레스.jpg" alt="express">
-                                    <div>소크라테스 익스프레스</div>
-                                    <div>에릭 와이너 저/김하현 역 |어크로스</div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="contents">
-                                <img src="소크라테스 익스프레스.jpg" alt="express">
-                                    <div>소크라테스 익스프레스</div>
-                                    <div>에릭 와이너 저/김하현 역 |어크로스</div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="contents">
-                                <img src="소크라테스 익스프레스.jpg" alt="express">
-                                    <div>소크라테스 익스프레스</div>
-                                    <div>에릭 와이너 저/김하현 역 |어크로스</div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="contents">
-                                <img src="소크라테스 익스프레스.jpg" alt="express">
-                                    <div>소크라테스 익스프레스</div>
-                                    <div>에릭 와이너 저/김하현 역 |어크로스</div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="contents">
-                                <img src="소크라테스 익스프레스.jpg" alt="express">
-                                    <div>소크라테스 익스프레스</div>
-                                    <div>에릭 와이너 저/김하현 역 |어크로스</div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="contents">
-                                <img src="소크라테스 익스프레스.jpg" alt="express">
-                                    <div>소크라테스 익스프레스</div>
-                                    <div>에릭 와이너 저/김하현 역 |어크로스</div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="contents">
-                                <img src="소크라테스 익스프레스.jpg" alt="express">
-                                    <div>소크라테스 익스프레스</div>
-                                    <div>에릭 와이너 저/김하현 역 |어크로스</div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="contents">
-                                <img src="소크라테스 익스프레스.jpg" alt="express">
-                                    <div>소크라테스 익스프레스</div>
-                                    <div>에릭 와이너 저/김하현 역 |어크로스</div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="contents">
-                                <img src="소크라테스 익스프레스.jpg" alt="express">
-                                    <div>소크라테스 익스프레스</div>
-                                    <div>에릭 와이너 저/김하현 역 |어크로스</div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="contents">
-                                <img src="소크라테스 익스프레스.jpg" alt="express">
-                                    <div>소크라테스 익스프레스</div>
-                                    <div>에릭 와이너 저/김하현 역 |어크로스</div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="contents">
-                                <img src="소크라테스 익스프레스.jpg" alt="express">
-                                    <div>소크라테스 익스프레스</div>
-                                    <div>에릭 와이너 저/김하현 역 |어크로스</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-pagination"></div>
-                </div>
-        </div>
-    </div>
+		<div class="choiceImg">
+			<div class="swiper-container mySwiper">
+				<div class="swiper-wrapper">
+				<c:forEach items="${bookChoice}" var="book" varStatus="status">
+					<div class="swiper-slide">
+						<a class="contents" href="<%=request.getContextPath()%>/book/details?re_bk_isbn=${book.bk_isbn}">
+							<img src="<%=request.getContextPath()%>/img${book.bk_mainImg}" alt="bookImg">
+							<div>${book.bk_title}</div>
+							<div>${book.bk_au_writer} 저 | ${book.bk_publish}</div>
+						</a>
+					</div>
+				</c:forEach>
+				</div>
+				<div class="swiper-pagination"></div>
+			</div>
+		</div>
+	</div>
     <div class="container2">
         <div class="line2"></div>
         <div class="bookToday">
@@ -336,11 +281,48 @@
         <div class="line"></div>
         </div>
     <div class="contents3">
-        <span>1</span><img src="소크라테스 익스프레스.jpg" alt="express">
-        <span>2</span><img src="소크라테스 익스프레스.jpg" alt="express">
-        <span>3</span><img src="소크라테스 익스프레스.jpg" alt="express">
-        <span>4</span><img src="소크라테스 익스프레스.jpg" alt="express">
-        <span>5</span><img src="소크라테스 익스프레스.jpg" alt="express">
+        <div class="bsBook1">
+            <div class="bsNum">1</div><img src="소크라테스 익스프레스.jpg" alt="express">
+            <div class="bsContents"><div>소크라테스 익스프레스</div><div>에릭와이너 저 | 현대문학</div></div>
+        </div>
+        <div class="bsBook1">
+            <div class="bsNum">2</div><img src="소크라테스 익스프레스.jpg" alt="express">
+            <div class="bsContents"><div>소크라테스 익스프레스</div><div>에릭와이너 저 | 현대문학</div></div>
+        </div>
+        <div class="bsBook1">
+            <div class="bsNum">3</div><img src="소크라테스 익스프레스.jpg" alt="express">
+            <div class="bsContents"><div>소크라테스 익스프레스</div><div>에릭와이너 저 | 현대문학</div></div>
+        </div>
+        <div class="bsBook1">
+            <div class="bsNum">4</div><img src="소크라테스 익스프레스.jpg" alt="express">
+            <div class="bsContents"><div>소크라테스 익스프레스</div><div>에릭와이너 저 | 현대문학</div></div>
+        </div>
+        <div class="bsBook1">
+            <div class="bsNum">5</div><img src="소크라테스 익스프레스.jpg" alt="express">
+            <div class="bsContents"><div>소크라테스 익스프레스</div><div>에릭와이너 저 | 현대문학</div></div>
+        </div>   
+    </div>
+    <div class="contents4">
+        <div class="bsBook1">
+            <div class="bsNum">6</div><img src="소크라테스 익스프레스.jpg" alt="express">
+            <div class="bsContents"><div>소크라테스 익스프레스</div><div>에릭와이너 저 | 현대문학</div></div>
+        </div>
+        <div class="bsBook1">
+            <div class="bsNum">7</div><img src="소크라테스 익스프레스.jpg" alt="express">
+            <div class="bsContents"><div>소크라테스 익스프레스</div><div>에릭와이너 저 | 현대문학</div></div>
+        </div>
+        <div class="bsBook1">
+            <div class="bsNum">8</div><img src="소크라테스 익스프레스.jpg" alt="express">
+            <div class="bsContents"><div>소크라테스 익스프레스</div><div>에릭와이너 저 | 현대문학</div></div>
+        </div>
+        <div class="bsBook1">
+            <div class="bsNum">9</div><img src="소크라테스 익스프레스.jpg" alt="express">
+            <div class="bsContents"><div>소크라테스 익스프레스</div><div>에릭와이너 저 | 현대문학</div></div>
+        </div>
+        <div class="bsBook1">
+            <div class="bsNum">10</div><img src="소크라테스 익스프레스.jpg" alt="express">
+            <div class="bsContents"><div>소크라테스 익스프레스</div><div>에릭와이너 저 | 현대문학</div></div>
+        </div>   
     </div>
     </div>
 <script>
@@ -352,7 +334,7 @@
         clickable: true,
         },
     });
-    
+
     $('.fa-bars').click(function(){
         $('.side-bars').show();
     })
@@ -362,27 +344,19 @@
 
     $('.domestic').hover(function(){
         $('.foreign-list').hide();
-        $('.ebook-list').hide();
-        $('.web-novel-list').hide();
         $('.dome-list').show();
     })
     $('.foreign').hover(function(){
         $('.dome-list').hide();
-        $('.ebook-list').hide();
-        $('.web-novel-list').hide();
         $('.foreign-list').show();
     })
-    $('.ebook').hover(function(){
-        $('.foreign-list').hide();
-        $('.dome-list').hide();
-        $('.web-novel-list').hide();
-        $('.ebook-list').show();
+
+    $('.sm-search').click(function(){
+        $('.search-box').show();
+        $('[name="search"]').val('');
     })
-    $('.webNovel').hover(function(){
-        $('.foreign-list').hide();
-        $('.dome-list').hide();
-        $('.ebook-list').hide();
-        $('.web-novel-list').show();
+    $('.x-btn').click(function(){
+        $('.search-box').hide();
     })
     </script>
 </body>

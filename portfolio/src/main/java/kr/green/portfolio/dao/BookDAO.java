@@ -39,4 +39,6 @@ public interface BookDAO {
 
 	int getTotalCountRegi(@Param("cri")Criteria cri);
 
+	ArrayList<BookVO> getRegiSale();
+
 }

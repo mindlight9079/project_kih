@@ -39,4 +39,6 @@ public interface BookService {
 
 	int getTotalCountRegi(Criteria cri);
 
+	ArrayList<BookVO> getRegiSale();
+
 }

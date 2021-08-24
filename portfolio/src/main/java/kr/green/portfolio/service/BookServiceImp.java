@@ -155,4 +155,9 @@ public class BookServiceImp implements BookService {
 		return bookDao.getTotalCountRegi(cri);
 	}
 
+	@Override
+	public ArrayList<BookVO> getRegiSale() {
+		return bookDao.getRegiSale();
+	}
+
 }

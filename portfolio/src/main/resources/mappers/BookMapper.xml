@@ -91,10 +91,13 @@
 				where re_code = #{re_code}
 	</update>
 	<select id="getChoice" resultType="kr.green.portfolio.vo.BookVO">
-		select book.* from registration join book where re_bk_isbn = bk_isbn and re_choice = 'Y'
+		select book.* from registration join book on re_bk_isbn = bk_isbn and re_choice = 'Y'
 	</select>
 	<select id="getRegi" resultType="kr.green.portfolio.vo.RegistrationVO">
 		select * from registration where re_bk_isbn = #{re_bk_isbn}
+	</select>
+	<select id="getRegiSale" resultType="kr.green.portfolio.vo.BookVO">
+		select * from registration join book on re_bk_isbn = bk_isbn order by re_sales desc limit 0,10
 	</select>
 </mapper>
 
