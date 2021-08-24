@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CART</title>
+    <title>CATAGORY</title>
 <script src="https://kit.fontawesome.com/be5943d19e.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -19,7 +19,7 @@
       font-size: 35px; position: absolute; top:20px; left:15px; cursor: pointer;
     }
     .container{
-        margin-top: 120px;
+        margin-top: 120px; overflow: hidden;
     }    
     .side-bars{
         width: 400px; height: 1280px; background-color: black; position: absolute; z-index: 10;
@@ -44,6 +44,7 @@
         color: white; font-size: 30px; position: absolute; top: 20px; right: 20px; 
     }
 
+
     h1{
         font-weight: bold;
     }
@@ -57,11 +58,14 @@
     .table{
         margin-top: 50px;
     }
+    input[name="checkList"]{
+        width: 20px; height: 20px;
+    }
     .catagoryImg{
         width: 200px; height: 315px;
     }
     .cataTitle{
-        font-weight: bold;
+        font-weight: bold; margin-bottom: 20px;
     }
     .cataContents{
         width: 650px;
@@ -73,6 +77,16 @@
         max-height: 200px; overflow: hidden; margin-top: 20px;
         display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
     }
+    input[name="cataAmount"]{
+        width: 80px; margin-right: 35px; height: 40px;
+    }
+    .cataBottom{
+        display: flex; margin-top: 40px; line-height: 40px;
+    }
+    .cataBottom *{
+        margin-right: 10px;
+    }
+    
 
 </style>
 <body>
@@ -138,12 +152,16 @@
                         스며들어 가는 열락의 소리다이것은 피어나기 전인 유소년에게서 구하지 못할 바이며 시들어 가는 노년에게서 구하지 못할 바이며 오직 우리 청춘에서만 구할 수 있는 것이다 청춘은 인생의 황금시대다 우리는 이 황금시대의 가치를 충분히 발휘하기
                         스며들어 가는 열락의 소리다이것은 피어나기 전인 유소년에게서 구하지 못할 바이며 시들어 가는 노년에게서 구하지 못할 바이며 오직 우리 청춘에서만 구할 수 있는 것이다 청춘은 인생의 황금시대다 우리는 이 황금시대의 가치를 충분히 발휘하기
                     </div>
+                    <div class="cataBottom">
+                        수량 &nbsp&nbsp <input type="number" name="cataAmount"  min="0" value="1"> <br>
+                        <button type="button" class="btn btn-info">장바구니</button> <br>
+                        <button type="button" class="btn btn-secondary" >바로구매</button>
+                    </div>
                 </td>
                 <td>
-                    <input type="checkbox" name="Check" id="">
+                    <input type="checkbox" name="checkList" id="">
                 </td>
             </tr>
-
 
         </table>
     </div>
