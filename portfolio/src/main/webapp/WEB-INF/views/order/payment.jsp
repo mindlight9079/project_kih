@@ -183,7 +183,9 @@
 	                <td><img src="<%=request.getContextPath()%>/img${payment.ca_mainImg}" alt="cartImg" class="cart-image"></td>
 	                <td >${payment.ca_title}</td>
 	                <td class="price">${payment.ca_price}원</td>
-	                <td class="amount">${payment.ca_amount}</td>
+	                <td class="amount">
+	                	<c:if test="${payment.ca_amount != null}">${payment.ca_amount}</c:if>
+	                </td>
 	                <td >${payment.ca_total_price}원</td>
 	                <td>8/23일 도착예정</td>
 	            </tr>
@@ -220,10 +222,10 @@
                 <td>최종 결제금액</td>
             </tr>
             <tr>
-                <td class="totalCount">18000원</td>
-                <td class="addPrice">0원</td>
+                <td class="totalCount"></td>
+                <td class="addPrice"></td>
                 <td>0원</td>
-                <td class="finalCount">18000원</td>
+                <td class="finalCount"></td>
             </tr>
         </table>
         <div class="pointView">
@@ -255,26 +257,26 @@
                 <tr>
                     <th>배송지</th>
                     <td class="shipping">
-                        <label><input type="radio" name="ship_addr" checked>최근배송지</label>
-                        <label><input type="radio" name="ship_addr">회원정보동일</label>
-                        <label><input type="radio" name="ship_addr">새로입력</label>
+                        <label><input type="radio" name="ship_addr" class="recentAddr">최근배송지</label>
+                        <label><input type="radio" name="ship_addr" class="memberAddr" checked>회원정보동일</label>
+                        <label><input type="radio" name="ship_addr" class="newAddr">새로입력</label>
                     </td>
                 </tr>
                 <tr>
                     <th>이름</th>
-                    <td><input type="text" value="${member.me_name}"></td>
+                    <td><input type="text" value="${member.me_name}" class="name"></td>
                 </tr>
                 <tr>
                     <th>배송주소</th>
                     <td class="home-addr">
-                        도로명주소 <input type="text" value=" ${member.me_address}"> <br>
-                        지번주소 <input type="text" value="${member.me_jAddress}">
+                        도로명주소 <input type="text" value=" ${member.me_address}" class="doroAddr"> <br>
+                        지번주소 <input type="text" value="${member.me_jAddress}" class="jibunAddr">
                     </td>
                 </tr>
                 <tr>
                     <th>휴대폰</th>
                     <td>
-                        <input type="text" value="${member.me_phone}">
+                        <input type="text" value="${member.me_phone}" class="phone">
                     </td>
                 </tr>
             </table>
@@ -284,15 +286,15 @@
                     <hr>
                     <tr>
                         <th>이름</th>
-                        <td><input type="text"></td>
+                        <td><input type="text" value="${member.me_name}"></td>
                     </tr>
                     <tr>
                         <th>휴대폰</th>
-                        <td><input type="text"></td>
+                        <td><input type="text" value="${member.me_phone}"></td>
                     </tr>
                     <tr>
                         <th>이메일</th>
-                        <td><input type="text"></td>
+                        <td><input type="text" value="${member.me_email}"></td>
                     </tr>
                 </table>
             </div> 
@@ -344,6 +346,16 @@
 	var totalPoint = hasPoint+basicPoint;
 	$('.totalPoint').text(totalPoint);
 	
+	$('.newAddr').click(function(){
+		$('.deli-addr input').val('');
+	})
+	
+	$('.memberAddr').click(function(){
+		$('.name').val('${member.me_name}');
+		$('.doroAddr').val('${member.me_address}');
+		$('.jibunAddr').val('${member.me_jAddress}');
+		$('.phone').val('${member.me_phone}');
+	})
 	
 </script>
 </body>

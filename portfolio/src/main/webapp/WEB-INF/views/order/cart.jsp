@@ -194,10 +194,10 @@ $('.foreign').hover(function(){
 })
 function getTotalCount(){
 	var totalCount = 0;	
-	$('.price').each(function(){			
-		var qty = $(this).parent().prev().find('.amount').val();
-		if($(this).parents('tr').find('[name=ca_num]').prop('checked'))
-			totalCount += parseInt($(this).val())*qty;
+	$('.price').each(function(){
+			var qty = $(this).parent().prev().find('.amount').val();
+			if($(this).parents('tr').find('[name=ca_num]').prop('checked'))
+				totalCount += parseInt($(this).val())*qty;
 	})
 	$('.totalCount').text(totalCount+"원");
 

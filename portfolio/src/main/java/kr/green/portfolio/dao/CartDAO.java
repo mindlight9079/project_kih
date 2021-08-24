@@ -24,9 +24,4 @@ public interface CartDAO {
 
 	ArrayList<CartVO> getPaymentList(@Param("isbn")BigInteger isbn, @Param("amount")Integer amount);
 
-	CartVO paymentList(BigInteger re_bk_isbn);
-
-
-
-
 }

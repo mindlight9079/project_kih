@@ -65,13 +65,5 @@ public class CartServiceImp implements CartService {
 		}
 		return cartDao.getPaymentList(isbn, amount);		
 	}
-
-	@Override
-	public CartVO paymentList(BigInteger re_bk_isbn) {
-		if(re_bk_isbn == null)
-			return null;
-		return cartDao.paymentList(re_bk_isbn);
-	}
-
 	
 }

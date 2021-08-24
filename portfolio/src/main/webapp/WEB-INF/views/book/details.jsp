@@ -338,9 +338,14 @@ $(function(){
         $('.dome-list').hide();
         $('.foreign-list').show();
     })
-    $('.btn-buy').click(function(){
-//    	<%=request.getContextPath()%>/order/payment
-$(this).attr('href','<%=request.getContextPath()%>/order/payment?isbn=')
+    $('.btn-buy').click(function(e){
+    	var amount = $('.bookAmount').val();
+    	var isbn = '${book.bk_isbn}';
+
+		if(parseInt(amount) <= 0){
+			e.preventDefault();
+		} else
+		$(this).attr('href','<%=request.getContextPath()%>/order/payment?isbn='+isbn+'&amount='+amount)
     })
 })
 </script>

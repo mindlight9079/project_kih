@@ -20,9 +20,4 @@ public interface CartService {
 
 	ArrayList<CartVO> getPaymentList(BigInteger isbn, Integer amount);
 
-	CartVO paymentList(BigInteger re_bk_isbn);
-
-
-
-
 }

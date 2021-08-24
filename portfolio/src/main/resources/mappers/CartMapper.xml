@@ -31,14 +31,9 @@
     			join book on bk_isbn = re_bk_isbn where ca_me_id = #{member.me_id} and ca_num = #{ca_num} and ca_valid = 'I';
 	</select>
 	<select id="getPaymentList" resultType="kr.green.portfolio.vo.CartVO">
-			select cart.*, bk_mainImg as ca_mainImg, re_title as ca_title, bk_subtitle as ca_subTitle, re_price as ca_price from cart 
-				join registration on ca_re_code = re_code 
-    			join book on bk_isbn = re_bk_isbn where re_bk_isbn=#{re_bk_isbn} and ca_amount = #{ca_amount} and ca_valid = 'I';
-	</select>
-	<select id="paymentList" resultType="kr.green.portfolio.vo.CartVO">
-		select * from cart join registration on ca_re_code = re_code where re_bk_isbn = #{re_bk_isbn}
+			select re_title as ca_title, #{amount} as ca_amount, bk_mainImg as ca_mainImg, re_price as ca_price 
+			from registration join book on bk_isbn = re_bk_isbn where re_bk_isbn=#{isbn}
 	</select>
 
-	
 </mapper>
 
