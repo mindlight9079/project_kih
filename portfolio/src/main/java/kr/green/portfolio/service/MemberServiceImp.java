@@ -316,4 +316,12 @@ public class MemberServiceImp implements MemberService {
 		return memberDao.getTotalCountBooks(cri);
 	}
 
+	@Override
+	public ArrayList<BooksVO> booksList(String re_catagory, Criteria cri) {
+		if(re_catagory == null)
+			return null;
+		return memberDao.booksList(re_catagory, cri);
+	}
+
+
 }

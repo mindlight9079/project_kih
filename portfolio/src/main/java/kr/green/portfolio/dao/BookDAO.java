@@ -41,4 +41,14 @@ public interface BookDAO {
 
 	ArrayList<BookVO> getRegiSale();
 
+	ArrayList<BookVO> getRegistration(@Param("re_catagory") String re_catagory, @Param("cri")Criteria cri);
+
+	ArrayList<RegistrationVO> getRegiBookList(@Param("re_catagory")String re_catagory, @Param("cri")Criteria cri);
+
+	int getTotalCatagory(@Param("re_catagory") String re_catagory, @Param("cri") Criteria cri);
+
+	void getBasicSort(String re_catagory);
+
+
+
 }

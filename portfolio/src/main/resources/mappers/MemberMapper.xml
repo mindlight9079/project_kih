@@ -145,5 +145,10 @@
 		select * from author join books on au_num = bs_au_num
 			where bs_bk_isbn = #{re_bk_isbn} and bs_part = '역자'
 	</select>
+	<select id="booksList" resultType="kr.green.portfolio.vo.BooksVO">
+		select * from books join registration on re_bk_isbn = bs_bk_isbn where re_catagory = #{re_catagory} and bs_part='역자'
+		 limit #{cri.pageStart}, #{cri.perPageNum}
+	</select>
+
 </mapper>
 

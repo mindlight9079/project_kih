@@ -93,17 +93,17 @@
         </div>
         <div class="subCatagory-list">
             <ul class="dome-list">
-                <li>소설/시</li>
-                <li>에세이</li>
-                <li>인문</li>
-                <li>역사</li>
-                <li>예술</li>
-                <li>종교</li>
-                <li>사회</li>
-                <li>과학</li>
-                <li>자기계발</li>
-                <li>국어와외국어</li>
-                <li>IT/모바일</li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=소설/시">소설/시</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=에세이">에세이</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=인문">인문</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=역사">역사</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=예술">예술</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=종교">종교</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=사회">사회</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=과학">과학</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=자기계발">자기계발</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=국어와외국어">국어와외국어</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=IT/모바일">IT/모바일</a></li>
             </ul>
         </div>
         <div class="subCatagory-list">
@@ -183,7 +183,6 @@ $('.fa-bars').click(function(){
 $('.fa-times').click(function(){
     $('.side-bars').hide();
 })
-
 $('.domestic').hover(function(){
     $('.foreign-list').hide();
     $('.dome-list').show();
@@ -200,7 +199,6 @@ function getTotalCount(){
 				totalCount += parseInt($(this).val())*qty;
 	})
 	$('.totalCount').text(totalCount+"원");
-
 	var total = $('.totalCount').text();
 	var num = parseInt(total.replace(/[^0-9]/g,''));
 	if(num >= 10000){
@@ -215,7 +213,6 @@ function getTotalCount(){
 }	
 	$('[name=ca_num]').prop('checked',true);
 	getTotalCount();
-
 	$('input[name=ca_num]').click(function(){
 		getTotalCount();		
 	})
@@ -243,7 +240,6 @@ $('.delete-btn').click(function(){
 		}
    	})
 })
-
 $('.amount').change(function(){
 	var amount = $(this).val();
 	var codeNum =$(this).parent().prev().find('.codeNum').val();
@@ -264,15 +260,11 @@ $('.amount').change(function(){
 		}
 	})
 })
-
 $('.order-btn').click(function(){
 	$('[name=ca_num]').prop('checked',false)
 	$(this).parents('tr').find('[name=ca_num]').prop('checked',true)
 	getTotalCount();
 })
-
-
-
 </script>
 </body>
 </html>

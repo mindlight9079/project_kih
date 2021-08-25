@@ -41,4 +41,13 @@ public interface BookService {
 
 	ArrayList<BookVO> getRegiSale();
 
+	ArrayList<BookVO> getRegistration(String re_catagory, Criteria cri);
+
+	ArrayList<RegistrationVO> getRegiBookList(String re_catagory, Criteria cri);
+
+	int getTotalCountCatagory(String re_catagory, Criteria cri);
+
+	void getBasicSort(String re_catagory);
+
+
 }

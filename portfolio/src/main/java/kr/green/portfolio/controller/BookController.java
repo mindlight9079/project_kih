@@ -5,15 +5,20 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.green.portfolio.pagination.Criteria;
+import kr.green.portfolio.pagination.PageMaker;
 import kr.green.portfolio.service.BookService;
 import kr.green.portfolio.service.CartService;
 import kr.green.portfolio.service.MemberService;
 import kr.green.portfolio.vo.AuthorVO;
 import kr.green.portfolio.vo.BookVO;
-import kr.green.portfolio.vo.CartVO;
+import kr.green.portfolio.vo.BooksVO;
 import kr.green.portfolio.vo.RegistrationVO;
 
 @Controller
@@ -39,4 +44,37 @@ public class BookController {
 		mv.setViewName("/book/details");
 		return mv;
 	}
+	
+	@RequestMapping(value="/book/catagory")
+	public ModelAndView catagoryGet (ModelAndView mv, String re_catagory, Criteria cri) {
+		PageMaker pm = new PageMaker();
+		cri.setPerPageNum(5);
+		pm.setCriteria(cri);
+		pm.setDisplayPageNum(5);
+		int totalCount = bookService.getTotalCountCatagory(re_catagory, cri);
+		pm.setTotalCount(totalCount);
+		pm.calcData();
+		ArrayList<BookVO> registration = bookService.getRegistration(re_catagory, cri);
+		ArrayList<BooksVO> books = memberService.booksList(re_catagory, cri);
+		ArrayList<RegistrationVO> regist = bookService.getRegiBookList(re_catagory, cri);
+		mv.addObject("registration", registration);
+		mv.addObject("books", books);
+		mv.addObject("regist", regist);
+		mv.addObject("pm", pm);
+		mv.setViewName("/book/catagory");
+		return mv;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/book/catagory", method=RequestMethod.POST)
+	public String basicSort(String re_catagory) {
+		System.out.println(re_catagory);
+		String result = "FAIL";
+		if(re_catagory != null) {
+			bookService.getBasicSort(re_catagory);
+			result = "OK";
+		}
+		return result;
+	}
+	
 }

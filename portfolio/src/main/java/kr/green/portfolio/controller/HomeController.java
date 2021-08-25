@@ -28,7 +28,7 @@ public class HomeController {
 		ArrayList<BookVO> registration = bookService.getRegiSale();
 		mv.addObject("bookChoice", bookChoice);
 		mv.addObject("registration", registration);
-		mv.setViewName("/home");
+		mv.setViewName("/main/home");
 		return mv;
 	}
 		

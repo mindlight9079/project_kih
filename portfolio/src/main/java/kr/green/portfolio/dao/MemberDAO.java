@@ -63,4 +63,7 @@ public interface MemberDAO {
 	public int getTotalCountAuthor(@Param("cri")Criteria cri);
 
 	public int getTotalCountBooks(@Param("cri")Criteria cri);
+
+	public ArrayList<BooksVO> booksList(@Param("re_catagory")String re_catagory, @Param("cri")Criteria cri);
+
 }

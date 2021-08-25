@@ -160,4 +160,29 @@ public class BookServiceImp implements BookService {
 		return bookDao.getRegiSale();
 	}
 
+	@Override
+	public ArrayList<BookVO> getRegistration(String re_catagory, Criteria cri) {
+		if(re_catagory == null)
+			return null;
+		return bookDao.getRegistration(re_catagory, cri);
+	}
+
+	@Override
+	public ArrayList<RegistrationVO> getRegiBookList(String re_catagory, Criteria cri) {
+		if(re_catagory == null)
+			return null;
+		return bookDao.getRegiBookList(re_catagory, cri);
+	}
+
+	@Override
+	public int getTotalCountCatagory(String re_catagory, Criteria cri) {
+		return bookDao.getTotalCatagory(re_catagory, cri);
+	}
+
+	@Override
+	public void getBasicSort(String re_catagory) {
+		bookDao.getBasicSort(re_catagory);
+		
+	}
+
 }

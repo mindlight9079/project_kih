@@ -65,5 +65,8 @@ public interface MemberService {
 
 	int getTotalCountBooks(Criteria cri);
 
+	ArrayList<BooksVO> booksList(String re_catagory, Criteria cri);
+
+
 
 }
