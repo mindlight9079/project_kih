@@ -107,6 +107,12 @@
 		<if test="cri.sort == 'popular'">
 			order by re_sales desc
 		</if>
+		<if test="cri.sort == 'highPrice'">
+			order by re_price desc
+		</if>
+		<if test="cri.sort == 'lowPrice'">
+			order by re_price asc
+		</if>
 		limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
 	<select id="getRegiBookList" resultType="kr.green.portfolio.vo.RegistrationVO">

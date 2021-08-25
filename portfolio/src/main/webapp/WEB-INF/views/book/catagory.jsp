@@ -95,8 +95,8 @@
     .cataBottom *{
         margin-right: 5px;
     }
-    .viewList{
-    	cursor: pointer;
+    .viewList a{
+    	cursor: pointer; color: black;
     }
     
 
@@ -149,10 +149,10 @@
             	<a href="<%=request.getContextPath()%>/book/catagory?re_catagory=${pm.criteria.re_catagory}&sort=popular">인기순</a>
             </li>
             <li>
-            	높은가격순
+            	<a href="<%=request.getContextPath()%>/book/catagory?re_catagory=${pm.criteria.re_catagory}&sort=highPrice">높은가격순</a>
             </li>
             <li>
-            	낮은가격순
+            	<a href="<%=request.getContextPath()%>/book/catagory?re_catagory=${pm.criteria.re_catagory}&sort=lowPrice">낮은가격순</a>
             </li>
         </ul>
         <table class="table">
