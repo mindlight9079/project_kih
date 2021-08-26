@@ -67,6 +67,8 @@ public interface MemberService {
 
 	ArrayList<BooksVO> booksList(String re_catagory, Criteria cri);
 
+	int getTotalCountGreenPoint(Criteria cri);
+
 
 
 }

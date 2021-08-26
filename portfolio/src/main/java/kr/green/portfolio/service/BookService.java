@@ -49,5 +49,7 @@ public interface BookService {
 
 	void getBasicSort(String re_catagory);
 
+	BookVO getBookToday();
+
 
 }

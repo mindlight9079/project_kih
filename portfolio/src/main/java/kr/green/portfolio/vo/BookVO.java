@@ -21,6 +21,7 @@ public class BookVO {
 	private Date bk_publish_date;
 	private String bk_mainImg;
 	private int bk_pu_num;
+	private String bk_contents;
 	
 	public String getDate() {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");

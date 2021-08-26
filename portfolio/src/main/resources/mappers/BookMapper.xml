@@ -101,6 +101,12 @@
 	</select>
 	<select id="getRegistration" resultType="kr.green.portfolio.vo.BookVO">
 		select * from registration join book on re_bk_isbn = bk_isbn where re_catagory = #{re_catagory}
+		<if test="cri.country == '국내/해외'">
+			and (bk_country = "국내" or bk_country = "해외")
+		</if>
+		<if test="cri.country == '외국'">
+			and bk_country = "외국"
+		</if>
 		<if test="cri.sort == 'basic'">
 			order by re_title asc
 		</if>
@@ -117,7 +123,6 @@
 	</select>
 	<select id="getRegiBookList" resultType="kr.green.portfolio.vo.RegistrationVO">
 		select * from registration join book on re_bk_isbn = bk_isbn where re_catagory = #{re_catagory}
-		
 		limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
 	<select id="getTotalCatagory" resultType="int">
@@ -126,6 +131,9 @@
 	</select>
 	<select id="getBasicSort" resultType="kr.green.portfolio.vo.RegistrationVO">
 		select * from registration where re_catagory = #{re_catagory} order by re_title asc;
+	</select>
+	<select id="getBookToday" resultType="kr.green.portfolio.vo.BookVO">
+		select *, re_contents as bk_contents from book join registration on bk_isbn = re_bk_isbn where re_choice = 'N' order by rand() limit 1
 	</select>
 	
 </mapper>

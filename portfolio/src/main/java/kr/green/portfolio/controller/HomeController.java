@@ -26,8 +26,10 @@ public class HomeController {
 	public ModelAndView home(ModelAndView mv, BigInteger re_bk_isbn) {
 		ArrayList<BookVO> bookChoice = bookService.getChoice();
 		ArrayList<BookVO> registration = bookService.getRegiSale();
+		BookVO bookToday = bookService.getBookToday();
 		mv.addObject("bookChoice", bookChoice);
 		mv.addObject("registration", registration);
+		mv.addObject("bookToday", bookToday);
 		mv.setViewName("/main/home");
 		return mv;
 	}

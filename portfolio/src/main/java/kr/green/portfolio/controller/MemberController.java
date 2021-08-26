@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.green.portfolio.pagination.Criteria;
+import kr.green.portfolio.pagination.PageMaker;
 import kr.green.portfolio.service.MemberService;
 import kr.green.portfolio.vo.AuthorVO;
 import kr.green.portfolio.vo.MemberVO;
@@ -82,7 +84,15 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="/member/greenpoint", method=RequestMethod.GET)
-	public ModelAndView greenpointGet (ModelAndView mv) {
+	public ModelAndView greenpointGet (ModelAndView mv, Criteria cri) {
+		PageMaker pm = new PageMaker();
+		cri.setPerPageNum(10);
+		pm.setCriteria(cri);
+		pm.setDisplayPageNum(5);
+		int totalCount = memberService.getTotalCountGreenPoint(cri);
+		pm.setTotalCount(totalCount);
+		pm.calcData();
+		mv.addObject("pm", pm);
 		mv.setViewName("/member/greenpoint");
 		return mv;
 	}

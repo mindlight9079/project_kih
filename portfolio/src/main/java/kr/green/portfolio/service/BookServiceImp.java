@@ -185,4 +185,9 @@ public class BookServiceImp implements BookService {
 		
 	}
 
+	@Override
+	public BookVO getBookToday() {
+		return bookDao.getBookToday();
+	}
+
 }

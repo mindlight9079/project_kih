@@ -66,4 +66,6 @@ public interface MemberDAO {
 
 	public ArrayList<BooksVO> booksList(@Param("re_catagory")String re_catagory, @Param("cri")Criteria cri);
 
+	public int getTotalCountGreenPoint(@Param("cri") Criteria cri);
+
 }

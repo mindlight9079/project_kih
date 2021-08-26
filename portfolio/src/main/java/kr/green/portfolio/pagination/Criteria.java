@@ -13,6 +13,7 @@ public class Criteria {
 	private String search;
 	private String re_catagory;
 	private String sort;
+	private String country;
 	
 	public Criteria() {
 		this.page = 1;
@@ -21,6 +22,7 @@ public class Criteria {
 		this.type = 0;
 		re_catagory = "";
 		sort = "basic";
+		country = "";
 	}
 	
 	/* 쿼리문에서 limit에 사용되는 인덱스를 계산하는 getter */

@@ -64,6 +64,9 @@
         font-size: 40px; font-family:Georgia, 'Times New Roman', Times, serif ; margin: 130px 0 0 80px;
         display: flex;
     }
+    .todayImg{
+    	width: 450px; height: 650px; margin-top: 100px; box-shadow :2px 2px 2px 2px; 
+    }
     .bookToday{
        position: absolute; right: 140px; display: flex;
     }
@@ -92,7 +95,10 @@
         width: 450px;
     }
     .bookContents{
-        text-align: center; width: 800px; font-size: 30px; padding: 60px 0 0 60px;
+        width: 800px; font-size: 30px; margin-left: 150px; height: 770px; margin-top: 85px;
+    }
+    .bk_contents{
+    overflow: hidden; text-overflow:ellipsis; word-wrap:break-word;  display: -webkit-box; -webkit-line-clamp:15;  -webkit-box-orient: vertical;  
     }
     .contents3 img{
         width: 150px; height: 220px;
@@ -112,7 +118,9 @@
     .bsNum{
         font-size: 30px; font-family:Georgia, 'Times New Roman', Times, serif ; display: block;
     }
-        
+    .todayBook{
+    	padding:0; margin-bottom: 30px; 
+    } 
     .container2::after{
         display: block; content: ''; clear: both;
     }
@@ -121,6 +129,9 @@
     }
     .swiper-container-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction {
         left: -200px;
+    }
+    .swiper-horizontal>.swiper-pagination-bullets, .swiper-pagination-bullets.swiper-pagination-horizontal, .swiper-pagination-custom, .swiper-pagination-fraction {
+    	left: -10%;
     }
     
     
@@ -140,7 +151,7 @@
     .dome-list{
         display: none;
     }
-    .dome-list *{
+    .dome-list *, .foreign-list *{
     	color: white;
     }
     .foreign-list{
@@ -159,7 +170,7 @@
         opacity: 100%; font-size: 30px; padding: 15px; box-sizing: border-box; border-radius: 20px;
     }
     .search-icon{
-        font-size: 40px; z-index: 20; 
+        font-size: 40px; z-index: 20; cursor: pointer;
         text-align: center; line-height: 50px; position:absolute; top: 315px; left :calc(50% + 185px);
     }
     .x-btn{
@@ -178,28 +189,28 @@
         </div>
         <div class="subCatagory-list">
             <ul class="dome-list">
-                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=소설/시">소설/시</a></li>
-                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=에세이">에세이</a></li>
-                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=인문">인문</a></li>
-                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=역사">역사</a></li>
-                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=예술">예술</a></li>
-                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=종교">종교</a></li>
-                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=사회">사회</a></li>
-                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=과학">과학</a></li>
-                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=자기계발">자기계발</a></li>
-                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=국어와외국어">국어와외국어</a></li>
-                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=IT/모바일">IT/모바일</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=소설/시&country=국내/해외">소설/시</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=에세이&country=국내/해외">에세이</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=인문&country=국내/해외">인문</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=역사&country=국내/해외">역사</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=예술&country=국내/해외">예술</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=종교&country=국내/해외">종교</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=사회&country=국내/해외">사회</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=과학&country=국내/해외">과학</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=자기계발&country=국내/해외">자기계발</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=국어와외국어&country=국내/해외">국어와외국어</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=IT/모바일&country=국내/해외">IT/모바일</a></li>
             </ul>
         </div>
         <div class="subCatagory-list">
             <ul class="foreign-list">
-                <li>문학</li>
-                <li>소설</li>
-                <li>경제/경영</li>
-                <li>인문/사회</li>
-                <li>예술</li>
-                <li>컴퓨터</li>
-                <li>자연과학</li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=문학&country=외국">문학</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=소설&country=외국">소설</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=경제/경영&country=외국">경제/경영</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=인문/사회&country=외국">인문/사회</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=예술&country=외국">예술</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=컴퓨터&country=외국">컴퓨터</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=자연과학&country=외국">자연과학</a></li>         
             </ul>
         </div>
     </div>
@@ -261,15 +272,13 @@
             Book Today
         </div>
         <div class="contents2">
-        <img src="소크라테스 익스프레스.jpg" alt="express">
-        <div class="bookContents">
-            " 대중을 품에 안고 그들에게 밝은 길을 찾아 주며 그들을 행복스럽고 평화스러운 곳으로 인도하겠다는 커다란 이상을 품었기 때문이다 그러므로 그들은 길지 아니한 목숨을 사는가 싶이 살았으며 그들의 그림자는 천고에 사라지지 않는 것이다 이것은 "
-
-            로 그들은 길지 아니한 목숨을 사는가 싶이 살았으며 그들의 그림자는 천고에 사라지지 않는 것이다 이것은
-            " 대중을 품에 안고 그들에게 밝은 길을 찾아 주며 그들을 행복스럽고 평화스러운 곳으로 인도하겠다는 커다란 이상을 품었기 때문이다 그러므로 그들은 길지 아니한 목숨을 사는가 싶이 살았으며 그들의 그림자는 천고에 사라지지 않는 것이다 이것은 "
-
-            로 그들은 길지 아니한 목숨을 사는가 싶이 살았으며 그들의 그림자는 천고에 사라지지 않는 것이다 이것은
-        </div>
+	        <a href="<%=request.getContextPath()%>/book/details?re_bk_isbn=${bookToday.bk_isbn}"><img src="<%=request.getContextPath()%>/img${bookToday.bk_mainImg}" alt="todayImg" class="todayImg"></a>
+	      	<div class="bookContents">
+	        <h2 class="todayBook">오늘의 책 ></h2>
+	       		 <div class="bk_contents">
+	        	  "${bookToday.bk_contents}"
+	        	 </div>
+	        </div>
         </div>
     </div>
     <div class="container3">
@@ -319,6 +328,9 @@
     })
     $('.x-btn').click(function(){
         $('.search-box').hide();
+    })
+    $('.search-icon').click(function(){
+    	
     })
     </script>
 </body>

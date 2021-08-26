@@ -49,6 +49,8 @@ public interface BookDAO {
 
 	void getBasicSort(String re_catagory);
 
+	BookVO getBookToday();
+
 
 
 }
