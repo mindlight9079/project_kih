@@ -65,5 +65,16 @@ public class CartServiceImp implements CartService {
 		}
 		return cartDao.getPaymentList(isbn, amount);		
 	}
+
+	@Override
+	public void getCartRegister(BigInteger[] checkList, Integer[] cataAmount, String ca_me_id) {
+		if(checkList == null && ca_me_id == null )
+			return;
+		for(int i = 0 ;i < checkList.length; i++) {
+			cartDao.getCartRegister(checkList[i],cataAmount[i],ca_me_id);
+		}
+	}
+
+
 	
 }

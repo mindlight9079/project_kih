@@ -65,16 +65,9 @@ public class BookController {
 		return mv;
 	}
 	
-	@ResponseBody
-	@RequestMapping(value="/book/catagory", method=RequestMethod.POST)
-	public String basicSort(String re_catagory) {
-		System.out.println(re_catagory);
-		String result = "FAIL";
-		if(re_catagory != null) {
-			bookService.getBasicSort(re_catagory);
-			result = "OK";
-		}
-		return result;
+	@RequestMapping(value="/book/search")
+	public ModelAndView getSearch(ModelAndView mv) {
+		mv.setViewName("/book/search");
+		return mv;
 	}
-	
 }

@@ -100,4 +100,12 @@ public class CartController {
 		return mv;
 	}
 
+	@RequestMapping(value="/order/cartRegister", method=RequestMethod.POST )
+	public ModelAndView getCartList (ModelAndView mv, BigInteger[] checkList, Integer[] cataAmount, HttpSession session) {
+		MemberVO member = (MemberVO)session.getAttribute("user");
+		String ca_me_id = member.getMe_id();
+		cartService.getCartRegister(checkList, cataAmount, ca_me_id);
+		mv.setViewName("redirect:/order/cart");
+		return mv;
+	}
 }

@@ -53,7 +53,6 @@
         color: white; font-size: 30px; position: absolute; top: 20px; right: 20px; 
     }
 
-
     h1{
         font-weight: bold;
     }
@@ -65,7 +64,7 @@
         margin:0 30px 0 15px;
     }
     .table{
-        margin-top: 50px;
+        margin-top: 5px;
     }
     input[name="checkList"]{
         width: 20px; height: 20px;
@@ -98,7 +97,15 @@
     .viewList a{
     	cursor: pointer; color: black;
     }
-    
+    .btn-part{
+    	display: flex; margin-left: 910px;
+    }
+    .btn-part button{
+     	margin-left: 7px;
+    }
+    .allUnChecked-btn{
+    	display: none;
+    }
 
 </style>
 <body>
@@ -155,6 +162,12 @@
             	<a href="<%=request.getContextPath()%>/book/catagory?re_catagory=${pm.criteria.re_catagory}&sort=lowPrice">낮은가격순</a>
             </li>
         </ul>
+    <form action="<%=request.getContextPath()%>/order/cartRegister" method="post">
+        <div class="btn-part">
+ 			<button class="btn btn-secondary addAllCart-btn">장바구니</button>
+ 			<button type="button" class="btn btn-secondary allChecked-btn">전체선택</button> 
+ 			<button type="button" class="btn btn-secondary allUnChecked-btn">전체해제</button>
+ 		</div>
         <table class="table">
         <c:forEach items="${registration}" var="book" varStatus="status">
             <tr>
@@ -165,7 +178,7 @@
                 </td>
                 <td class="cataContents">
                 	<a href="<%=request.getContextPath()%>/book/details?re_bk_isbn=${book.bk_isbn}">
-                    <span class="cataTitle">${book.bk_title}</span>
+                    <span class="cataTitle">${book.bk_title}</span><c:if test="${book.bk_subtitle != ''}"><span> : ${book.bk_subtitle}</span></c:if>
                     </a>
                     <div>
                         ${book.bk_au_writer} 저 
@@ -197,11 +210,12 @@
                     </c:forEach>
                 </td>
                 <td>
-                    <input type="checkbox" name="checkList">
+                    <input type="checkbox" name="checkList" value="${book.bk_isbn}">
                 </td>
             </tr>
 		</c:forEach>
         </table>
+     </form>
       <ul class="pagination justify-content-center">
 		  <c:if test="${pm.prev}">
 		    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/book/catagory?re_catagory=${pm.startPage-1}">이전</a></li>
@@ -229,6 +243,18 @@
     $('.foreign').hover(function(){
         $('.dome-list').hide();
         $('.foreign-list').show();
+    })
+    
+    $('.allChecked-btn').click(function(){
+    	$(this).hide();
+    	$('.allUnChecked-btn').show();
+    	$('input[name=checkList]').prop('checked',true);
+    	
+    })
+    $('.allUnChecked-btn').click(function(){
+    	$(this).hide();
+    	$('.allChecked-btn').show();
+    	$('input[name=checkList]').prop('checked',false);
     })
     
     $('.btn-buy').click(function(e){
@@ -269,32 +295,9 @@
 				}
 			}
 		})
-	})
-	
+	})	
 	var catagory = $('.catagory').val();
-	$('.titleCatagory').text(catagory);
-	
-	
-
-	$('.basicSort').click(function(){
-		var catagory = $('.catagory').val();
-		console.log(catagory)
-	var data = {
-		re_catagory : catagory
-	}
-	$.ajax({
-		url : contextPath + '/book/catagory',
-		type: 'post',
-		data : data,
-		success : function(result){
-		   if(result == "OK"){
-			   console.log("기본순")
-		   }
-		}
-	})
-	
-	})
-	
+	$('.titleCatagory').text(catagory);	
 </script>
 </body>
 </html>

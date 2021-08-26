@@ -24,4 +24,6 @@ public interface CartDAO {
 
 	ArrayList<CartVO> getPaymentList(@Param("isbn")BigInteger isbn, @Param("amount")Integer amount);
 
+	void getCartRegister(@Param("tmp")BigInteger tmp, @Param("cataAmount") Integer cataAmount, @Param("ca_me_id")String ca_me_id);
+
 }

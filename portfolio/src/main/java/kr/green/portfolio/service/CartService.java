@@ -20,4 +20,6 @@ public interface CartService {
 
 	ArrayList<CartVO> getPaymentList(BigInteger isbn, Integer amount);
 
+	void getCartRegister(BigInteger[] checkList, Integer[] cataAmount, String ca_me_id);
+
 }

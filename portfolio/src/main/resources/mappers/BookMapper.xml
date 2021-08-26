@@ -129,9 +129,6 @@
 		select count(*) from registration join book on re_bk_isbn = bk_isbn
 		join books on bs_bk_isbn = bk_isbn where re_catagory = #{re_catagory}
 	</select>
-	<select id="getBasicSort" resultType="kr.green.portfolio.vo.RegistrationVO">
-		select * from registration where re_catagory = #{re_catagory} order by re_title asc;
-	</select>
 	<select id="getBookToday" resultType="kr.green.portfolio.vo.BookVO">
 		select *, re_contents as bk_contents from book join registration on bk_isbn = re_bk_isbn where re_choice = 'N' order by rand() limit 1
 	</select>

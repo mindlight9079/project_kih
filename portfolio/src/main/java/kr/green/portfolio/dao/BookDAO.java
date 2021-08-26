@@ -9,6 +9,7 @@ import kr.green.portfolio.pagination.Criteria;
 import kr.green.portfolio.vo.AuthorVO;
 import kr.green.portfolio.vo.BookVO;
 import kr.green.portfolio.vo.BooksVO;
+import kr.green.portfolio.vo.CartVO;
 import kr.green.portfolio.vo.RegistrationVO;
 
 public interface BookDAO {
@@ -47,9 +48,9 @@ public interface BookDAO {
 
 	int getTotalCatagory(@Param("re_catagory") String re_catagory, @Param("cri") Criteria cri);
 
-	void getBasicSort(String re_catagory);
-
 	BookVO getBookToday();
+
+
 
 
 

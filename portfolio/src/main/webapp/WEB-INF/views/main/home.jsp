@@ -239,11 +239,13 @@
         </ul>
         <i class="fas fa-search sm-search"></i>
     </div>
-       <div class="search-box">
-           <i class="fas fa-times x-btn"></i>
-           <input type="text" name="search" placeholder="search">
-           <i class="fas fa-search search-icon"></i>
-   	   </div>
+	    <form method="post" action="<%=request.getContextPath()%>/book/search">
+	       <div class="search-box">
+	           <i class="fas fa-times x-btn"></i>
+	           <input type="text" name="search" placeholder="search" value="<c:out value="${pm.criteria.search}"/>">
+	           <button><i class="fas fa-search search-icon"></i></button>
+	   	   </div>
+	   	</form>
     <div class="container" >
         <div class="choice">
          Green's Choice
@@ -329,9 +331,7 @@
     $('.x-btn').click(function(){
         $('.search-box').hide();
     })
-    $('.search-icon').click(function(){
-    	
-    })
+
     </script>
 </body>
 </html>

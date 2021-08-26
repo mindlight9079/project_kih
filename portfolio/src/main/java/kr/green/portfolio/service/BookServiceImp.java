@@ -13,6 +13,7 @@ import kr.green.portfolio.pagination.Criteria;
 import kr.green.portfolio.utils.UploadFileUtils;
 import kr.green.portfolio.vo.AuthorVO;
 import kr.green.portfolio.vo.BookVO;
+import kr.green.portfolio.vo.CartVO;
 import kr.green.portfolio.vo.RegistrationVO;
 
 @Service
@@ -180,14 +181,10 @@ public class BookServiceImp implements BookService {
 	}
 
 	@Override
-	public void getBasicSort(String re_catagory) {
-		bookDao.getBasicSort(re_catagory);
-		
-	}
-
-	@Override
 	public BookVO getBookToday() {
 		return bookDao.getBookToday();
 	}
+
+
 
 }
