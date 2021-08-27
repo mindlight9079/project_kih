@@ -185,6 +185,10 @@ public class BookServiceImp implements BookService {
 		return bookDao.getBookToday();
 	}
 
+	@Override
+	public ArrayList<BookVO> getSearch(Criteria cri) {
+		return bookDao.getSearch(cri);
+	}
 
 
 }

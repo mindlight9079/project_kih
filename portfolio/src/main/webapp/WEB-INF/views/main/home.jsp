@@ -242,7 +242,7 @@
 	    <form method="post" action="<%=request.getContextPath()%>/book/search">
 	       <div class="search-box">
 	           <i class="fas fa-times x-btn"></i>
-	           <input type="text" name="search" placeholder="search" value="<c:out value="${pm.criteria.search}"/>">
+	           <input type="text" name="search" placeholder="search">
 	           <button><i class="fas fa-search search-icon"></i></button>
 	   	   </div>
 	   	</form>

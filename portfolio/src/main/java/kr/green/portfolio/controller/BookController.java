@@ -5,10 +5,7 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.green.portfolio.pagination.Criteria;
@@ -19,6 +16,7 @@ import kr.green.portfolio.service.MemberService;
 import kr.green.portfolio.vo.AuthorVO;
 import kr.green.portfolio.vo.BookVO;
 import kr.green.portfolio.vo.BooksVO;
+import kr.green.portfolio.vo.CartVO;
 import kr.green.portfolio.vo.RegistrationVO;
 
 @Controller
@@ -66,7 +64,9 @@ public class BookController {
 	}
 	
 	@RequestMapping(value="/book/search")
-	public ModelAndView getSearch(ModelAndView mv) {
+	public ModelAndView getSearch(ModelAndView mv, Criteria cri) {
+		ArrayList<BookVO> bookSearch = bookService.getSearch(cri);
+		mv.addObject("bookSearch", bookSearch);
 		mv.setViewName("/book/search");
 		return mv;
 	}

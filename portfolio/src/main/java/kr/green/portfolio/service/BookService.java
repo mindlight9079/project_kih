@@ -50,6 +50,9 @@ public interface BookService {
 
 	BookVO getBookToday();
 
+	ArrayList<BookVO> getSearch(Criteria cri);
+
+
 
 
 

@@ -187,7 +187,7 @@
             <c:forEach items="${paymentList}" var="payment" varStatus="status">
 	            <tr>
 	                <td><img src="<%=request.getContextPath()%>/img${payment.ca_mainImg}" alt="cartImg" class="cart-image"></td>
-	                <td >${payment.ca_title}</td>
+	                <td >${payment.ca_title} <c:if test="${payment.ca_subTitle != null && payment.ca_subTitle != ''}"> : ${payment.ca_subTitle}</c:if></td>
 	                <td class="price">${payment.ca_price}원</td>
 	                <td class="amount">
 	                	<c:if test="${payment.ca_amount != null}">${payment.ca_amount}</c:if>

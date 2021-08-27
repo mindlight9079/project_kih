@@ -50,6 +50,9 @@ public interface BookDAO {
 
 	BookVO getBookToday();
 
+	ArrayList<BookVO> getSearch(@Param("cri")Criteria cri);
+
+
 
 
 
