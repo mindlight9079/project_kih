@@ -104,13 +104,18 @@
     .author-name{
         font-weight: bold;
     }
+    .author-name a{
+    	color: black;
+    }
     .author-box{
         border-top: 1px solid #dee2e6; border-bottom: 1px solid #dee2e6;
     }
     .author-box th{
         width: 100px; background-color:#f8f8f8;
     }
-
+	.author-box td, .author-box th{
+		border: none;
+	} 
 </style>
 <body>
     <div class="side-bars">
@@ -218,23 +223,25 @@
 				</c:if>
 			</ul>
         <table class="table author-box">
-        <c:forEach items="${booksSearch}" var="books" varStatus="status">
-        <c:if test="${books != ''}">
-            <tr class="author-name">
-                <th>작가  </th>
-                <td>${books.bs_name}</td>
-            </tr>
-            <tr class="masterpiece">
-                <th>대표작  </th>
-                <td>${books.bs_title}</td>
-            </tr>
-            <tr class="authorIntro">
-                <th>작가소개  </th>
-                <td>
-                    <div>${books.bs_contents}</div>
-            </tr>
-         </c:if>
-         </c:forEach>
+	        <c:forEach items="${booksSearch}" var="books" varStatus="status">
+	        <c:if test="${books != ''}">
+        	<tbody>
+	            <tr class="author-name">
+	                <th>작가</th>
+	                <td><a href="<%=request.getContextPath()%>/member/authorintro?bs_num=${books.bs_num}" name="bs_num">${books.bs_name}</a></td>
+	            </tr>
+	            <tr class="masterpiece">
+	                <th>대표작  </th>
+	                <td>${books.bs_title}</td>
+	            </tr>
+	            <tr class="authorIntro">
+	                <th>작가소개  </th>
+	                <td>
+	                    <div>${books.bs_contents}</div>
+	            </tr>
+        	 </tbody>
+	         </c:if>
+	         </c:forEach>
         </table>
     </div>
     <script>

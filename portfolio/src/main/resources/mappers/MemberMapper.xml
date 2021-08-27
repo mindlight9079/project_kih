@@ -161,5 +161,10 @@
 				or au_contents like concat('%',#{cri.search},'%'))
 			limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
+	<select id="getAuthorIntro" resultType="kr.green.portfolio.vo.BooksVO">
+		select *,au_title as bs_title, au_contents as bs_contents, au_birth as bs_birth
+			from books join author on bs_au_num = au_num
+			  where bs_num = #{bs_num}
+	</select>
 </mapper>
 

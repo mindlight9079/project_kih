@@ -333,5 +333,13 @@ public class MemberServiceImp implements MemberService {
 		return memberDao.getBooksSearch(cri);
 	}
 
+	@Override
+	public BooksVO getAuthorIntro(Integer bs_num) {
+		if(bs_num == null) {
+			return null;
+		}
+		return memberDao.getAuthorIntro(bs_num);
+	}
+
 
 }

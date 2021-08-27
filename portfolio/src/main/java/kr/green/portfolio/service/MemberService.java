@@ -71,6 +71,8 @@ public interface MemberService {
 
 	ArrayList<BooksVO> getBooksSearch(Criteria cri);
 
+	BooksVO getAuthorIntro(Integer bs_num);
+
 
 
 }

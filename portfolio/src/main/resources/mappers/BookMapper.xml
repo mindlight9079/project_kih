@@ -159,5 +159,9 @@
 				</if>
 			limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
+	<select id="getBookAuthor" resultType="kr.green.portfolio.vo.BookVO">
+		select * from book join books on bk_isbn = bs_bk_isbn
+			where bs_num = #{bs_num}
+	</select>
 </mapper>
 

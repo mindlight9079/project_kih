@@ -196,6 +196,14 @@ public class BookServiceImp implements BookService {
 		return bookDao.getTotalCountSearch(cri);
 	}
 
+	@Override
+	public ArrayList<BookVO> getBookAuthor(Integer bs_num) {
+		if(bs_num == null) {
+			return null;
+		}
+		return bookDao.getBookAuthor(bs_num);
+	}
+
 
 
 }

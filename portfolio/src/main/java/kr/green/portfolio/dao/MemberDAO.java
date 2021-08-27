@@ -70,4 +70,6 @@ public interface MemberDAO {
 
 	public ArrayList<BooksVO> getBooksSearch(@Param("cri") Criteria cri);
 
+	public BooksVO getAuthorIntro(Integer bs_num);
+
 }

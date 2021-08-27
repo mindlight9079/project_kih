@@ -1,5 +1,7 @@
 package kr.green.portfolio.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -14,14 +16,18 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.green.portfolio.pagination.Criteria;
 import kr.green.portfolio.pagination.PageMaker;
+import kr.green.portfolio.service.BookService;
 import kr.green.portfolio.service.MemberService;
-import kr.green.portfolio.vo.AuthorVO;
+import kr.green.portfolio.vo.BookVO;
+import kr.green.portfolio.vo.BooksVO;
 import kr.green.portfolio.vo.MemberVO;
 
 @Controller
 public class MemberController {
 	@Autowired
 	MemberService memberService;
+	@Autowired
+	BookService bookService;
 	
 	@RequestMapping(value="/member/login", method=RequestMethod.GET)
 	public ModelAndView loginGet(ModelAndView mv) {
@@ -109,4 +115,15 @@ public class MemberController {
 		mv.setViewName("redirect:/");
 		return mv;
 	}
+	
+	@RequestMapping(value="/member/authorintro")
+	public ModelAndView getAuthorIntro(ModelAndView mv, Integer bs_num) {
+		BooksVO author = memberService.getAuthorIntro(bs_num);
+		ArrayList<BookVO> bookList = bookService.getBookAuthor(bs_num);
+		mv.addObject("author", author);
+		mv.addObject("bookList", bookList);
+		mv.setViewName("/member/authorintro");
+		return mv;
+	}
+	
 }

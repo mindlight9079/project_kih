@@ -54,6 +54,8 @@ public interface BookService {
 
 	int getTotalCountSearch(Criteria cri);
 
+	ArrayList<BookVO> getBookAuthor(Integer bs_num);
+
 
 
 

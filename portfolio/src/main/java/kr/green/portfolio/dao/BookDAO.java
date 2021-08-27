@@ -54,6 +54,8 @@ public interface BookDAO {
 
 	int getTotalCountSearch(@Param("cri") Criteria cri);
 
+	ArrayList<BookVO> getBookAuthor(Integer bs_num);
+
 
 
 

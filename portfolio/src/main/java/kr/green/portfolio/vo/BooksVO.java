@@ -17,5 +17,6 @@ public class BooksVO {
 	private String bs_au_num;
 	private String bs_title;
 	private String bs_contents;
-	private Date bs_birth;
+	private String bs_birth;
+	private String bs_mainImg;
 }

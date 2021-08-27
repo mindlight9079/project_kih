@@ -51,7 +51,7 @@
     .fa-bars{
         font-size: 35px; position: absolute; top:20px; left:15px; cursor: pointer;
     }
-    .menu::after{
+    .menu ul::after{
         content: ''; clear: both; display: block;
     }
     .container, .container2, .container3{
@@ -114,6 +114,9 @@
     }
     .bsBook{
         text-align: center; float:left; width: 20%; margin-top: 80px; cursor: pointer;
+    }
+    .contents3::after{
+    	display: block; content: ''; clear: both;
     }
     .bsNum{
         font-size: 30px; font-family:Georgia, 'Times New Roman', Times, serif ; display: block;
