@@ -71,8 +71,15 @@ public class CartServiceImp implements CartService {
 		if(checkList == null && ca_me_id == null )
 			return;
 		for(int i = 0 ;i < checkList.length; i++) {
-			cartDao.getCartRegister(checkList[i],cataAmount[i],ca_me_id);
-		}
+			CartVO dbCart = cartDao.seletCartRegister(checkList[i],ca_me_id);
+			System.out.println(dbCart);
+			if(dbCart != null) {
+				 dbCart.setCa_amount(cataAmount[i]);
+				 cartDao.updateCartRegister(dbCart.getCa_num(),cataAmount[i]);
+			} else {				
+				cartDao.getCartRegister(checkList[i],cataAmount[i],ca_me_id);
+			}
+		}	
 	}
 
 

@@ -295,7 +295,19 @@
 				}
 			}
 		})
-	})	
+	})
+	
+	$('.addAllCart-btn').click(function(){
+		if(user == ''){
+			alert('회원만 사용 가능합니다.');
+			return false;
+		}
+		if($('input[name=checkList]:checked').length == 0){
+			alert('선택된 상품이 없습니다.')
+			return false;
+		}i
+	})
+	
 	var catagory = $('.catagory').val();
 	$('.titleCatagory').text(catagory);	
 </script>

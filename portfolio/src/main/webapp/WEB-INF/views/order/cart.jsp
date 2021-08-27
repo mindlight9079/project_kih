@@ -268,6 +268,18 @@ $('.order-btn').click(function(){
 	$(this).parents('tr').find('[name=ca_num]').prop('checked',true)
 	getTotalCount();
 })
+
+var user = '${user==null?'':user.me_id}';
+$('.orderList-btn').click(function(){
+	if(user == ''){
+		alert('회원만 사용 가능합니다.');
+	 	return false;
+	}
+	if($('input[name=ca_num]:checked').length == 0){
+		alert('선택된 상품이 없습니다.')
+		return false;
+	}	
+})
 </script>
 </body>
 </html>
