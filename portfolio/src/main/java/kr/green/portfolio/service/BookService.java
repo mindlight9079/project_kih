@@ -52,6 +52,9 @@ public interface BookService {
 
 	ArrayList<BookVO> getSearch(Criteria cri);
 
+	int getTotalCountSearch(Criteria cri);
+
+
 
 
 

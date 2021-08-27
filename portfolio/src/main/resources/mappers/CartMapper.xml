@@ -36,7 +36,7 @@
 	</select>
 	<insert id="getCartRegister">
 			insert into cart (ca_amount,ca_re_code, ca_me_id)
-			select #{integer}, re_code, #{ca_me_id} from registration where re_bk_isbn = ${bigInteger}
+			select #{integer}, re_code, #{ca_me_id} from registration where re_bk_isbn = #{bigInteger}
 	</insert>
 	<select id="seletCartRegister" resultType="kr.green.portfolio.vo.CartVO" >
 		select * from book join registration on bk_isbn = re_bk_isbn

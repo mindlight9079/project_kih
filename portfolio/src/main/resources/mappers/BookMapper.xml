@@ -132,6 +132,10 @@
 	<select id="getBookToday" resultType="kr.green.portfolio.vo.BookVO">
 		select *, re_contents as bk_contents from book join registration on bk_isbn = re_bk_isbn where re_choice = 'N' order by rand() limit 1
 	</select>
+	<select id="getTotalCountSearch" resultType="int">
+		select count(*) from book join books on bk_isbn = bs_bk_isbn 
+			join registration on bk_isbn = re_bk_isbn
+	</select>
 	<select id="getSearch" resultType="kr.green.portfolio.vo.BookVO">
 		select *, re_contents as bk_contents, re_price as bk_price from book join registration on bk_isbn = re_bk_isbn
 		where (bk_isbn like concat('%',#{cri.search},'%')
@@ -141,7 +145,19 @@
 				or bk_country like concat('%',#{cri.search},'%')
 				or re_contents like concat('%',#{cri.search},'%')
 				or bk_publish like concat('%',#{cri.search},'%'))
+				<if test="cri.sort == 'basic'">
+					order by re_title asc
+				</if>
+				<if test="cri.sort == 'popular'">
+					order by re_sales desc
+				</if>
+				<if test="cri.sort == 'highPrice'">
+					order by re_price desc
+				</if>
+				<if test="cri.sort == 'lowPrice'">
+					order by re_price asc
+				</if>
+			limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
-	
 </mapper>
 

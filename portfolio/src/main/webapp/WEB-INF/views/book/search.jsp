@@ -16,7 +16,10 @@
 </head>
 <style>
     *{
-        padding:0; margin: 0; list-style: none;
+        padding:0; margin: 0; list-style: none; color:black;
+    }
+    a:hover{
+    	color: rgb(0, 104, 136);
     }
     .fa-bars{
       font-size: 35px; position: absolute; top:20px; left:15px; cursor: pointer;
@@ -40,6 +43,9 @@
     .dome-list{
         display: none;
     }
+    .dome-list *, .foreign-list *{
+    	color: white;
+    }
     .foreign-list{
         display: none;
     }
@@ -53,7 +59,10 @@
     }
     .viewList{
         width: 500px; height: 50px; background-color:#f8f8f8; display: flex; font-size: 17px;
-        line-height: 50px; font-weight: 600;
+        line-height: 50px; font-weight: 600; 
+    }
+    .viewList a{
+    	color: black;
     }
     .viewList li{
         margin:0 30px 0 15px;
@@ -65,7 +74,7 @@
         width: 200px; height: 315px;
     }
     .cataTitle{
-        font-weight: bold; margin-bottom: 20px;
+         font-weight: bold; margin-bottom: 20px; font-size: 30px;
     }
     .cataContents{
         width: 650px;
@@ -113,29 +122,29 @@
             </ul>
         </div>
         <div class="subCatagory-list">
-            <ul class="dome-list">
-                <li>소설/시</li>
-                <li>에세이</li>
-                <li>인문</li>
-                <li>역사</li>
-                <li>예술</li>
-                <li>종교</li>
-                <li>사회</li>
-                <li>과학</li>
-                <li>자기계발</li>
-                <li>국어와외국어</li>
-                <li>IT/모바일</li>
+			<ul class="dome-list">
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=소설/시&country=국내/해외">소설/시</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=에세이&country=국내/해외">에세이</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=인문&country=국내/해외">인문</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=역사&country=국내/해외">역사</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=예술&country=국내/해외">예술</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=종교&country=국내/해외">종교</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=사회&country=국내/해외">사회</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=과학&country=국내/해외">과학</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=자기계발&country=국내/해외">자기계발</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=국어와외국어&country=국내/해외">국어와외국어</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=IT/모바일&country=국내/해외">IT/모바일</a></li>
             </ul>
         </div>
         <div class="subCatagory-list">
             <ul class="foreign-list">
-                <li>문학</li>
-                <li>소설</li>
-                <li>경제/경영</li>
-                <li>인문/사회</li>
-                <li>예술</li>
-                <li>컴퓨터</li>
-                <li>자연과학</li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=문학&country=외국">문학</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=소설&country=외국">소설</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=경제/경영&country=외국">경제/경영</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=인문/사회&country=외국">인문/사회</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=예술&country=외국">예술</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=컴퓨터&country=외국">컴퓨터</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=자연과학&country=외국">자연과학</a></li>         
             </ul>
         </div>
     </div>
@@ -143,21 +152,41 @@
     <div class="container">
         <div class="search-result" >| 검색결과</div>
         <ul class="viewList">
-            <li>기본순</li>
-            <li>인기순</li>
-            <li>높은가격순</li>
-            <li>낮은가격순</li>
+            <li>
+            	<a href="<%=request.getContextPath()%>/book/search?search=${pm.criteria.search}">기본순</a>
+            </li>
+            <li>
+            	<a href="<%=request.getContextPath()%>/book/search?search=${pm.criteria.search}&sort=popular">인기순</a>
+            </li>
+            <li>
+            	<a href="<%=request.getContextPath()%>/book/search?search=${pm.criteria.search}&sort=highPrice">높은가격순</a>
+            </li>
+            <li>
+            	<a href="<%=request.getContextPath()%>/book/search?search=${pm.criteria.search}&sort=lowPrice">낮은가격순</a>
+            </li>
         </ul>
         <table class="table">
         <c:forEach items="${bookSearch}" var="book" varStatus="status">
             <tr>
                 <td>
+                 <a href="<%=request.getContextPath()%>/book/details?re_bk_isbn=${book.bk_isbn}">
                     <img src="<%=request.getContextPath()%>/img${book.bk_mainImg}" alt="searchImg" class="searchImg">
+                 </a>
                 </td>
                 <td class="cataContents">
-                    <h3 class="cataTitle">${book.bk_title}</h3> <span>${book.bk_subtitle}</span>
+               	    <a href="<%=request.getContextPath()%>/book/details?re_bk_isbn=${book.bk_isbn}">
+                    <span class="cataTitle">${book.bk_title}</span>
+                    </a>
+                    <c:if test="${book.bk_subtitle != ''}"><span> : ${book.bk_subtitle}</span></c:if>
                     <div>
-                        ${book.bk_au_writer} 저/손현선 역 | ${book.bk_publish} | ${book.date}
+                        ${book.bk_au_writer} 저
+                        <c:forEach items="${booksSearch}" var="books" varStatus="status">
+                        <c:if test="${books.bs_part == '역자' && books.bs_bk_isbn == book.bk_isbn}">
+                        / ${books.bs_name}
+                        역 
+                        </c:if>
+                        </c:forEach>
+                        | ${book.bk_publish} | ${book.date}
                     </div>
                     <span class="pricePart">
                         <span> 판매가&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;</span><span class="cataPrice"> &nbsp;${book.bk_price}원</span>
@@ -177,21 +206,35 @@
             </tr>
         </c:forEach>
         </table>
+            <ul class="pagination justify-content-center">
+				<c:if test="${pm.prev}">
+					<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/book/search?&page=${pm.startPage-1}&search=${pm.criteria.search}&sort=${pm.criteria.sort}">이전</a></li>
+				</c:if>
+				<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="index">
+					<li class="page-item <c:if test="${pm.criteria.page == index }">active</c:if>"><a class="page-link" href="<%=request.getContextPath()%>/book/search?search=${pm.criteria.search}&sort=${pm.criteria.sort}&page=${index}">${index}</a></li>
+				</c:forEach>
+				<c:if test="${pm.next}">
+					<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/book/search?page=${pm.endPage+1}&search=${pm.criteria.search}&sort=${pm.criteria.sort}">다음</a></li>
+				</c:if>
+			</ul>
         <table class="table author-box">
+        <c:forEach items="${booksSearch}" var="books" varStatus="status">
+        <c:if test="${books != ''}">
             <tr class="author-name">
                 <th>작가  </th>
-                <td>알베르 카뮈</td>
+                <td>${books.bs_name}</td>
             </tr>
             <tr class="masterpiece">
                 <th>대표작  </th>
-                <td>이방인</td>
+                <td>${books.bs_title}</td>
             </tr>
             <tr class="authorIntro">
                 <th>작가소개  </th>
                 <td>
-                    <div>그 모든 것에 항거하며 인간의 부조리와 자유로운 인생을 깊이 고민한 작가이자 철학자. 1913년 프랑스 식민지였던 알제리 몽드비에서 가난한 노동자의 둘째 아들로 태어났다. 알사스 출신의 농업 노동자였던 아버지가 1차 세계대전 중 전사하고, 청각 장애인 어머니와 할머니와 함께 가난 속에서 자란 카뮈는 유년 시절의 기억과 가난, 알제리의 빛나는 자연과 알제 서민가의 일상은 카뮈 작품의 뿌리에 내밀하게 엉기어 있다. 구역의 공립 학교에서 L. 제르맹이라는 훌륭한 스승을 만났다. “나는 자유를 빈곤 속에서 배웠다.”라고 하기도 했는데, 알제리에서 보낸 유년기는 그가 작가적 양분을 공급받는 데 영향을 미쳤을 것이라 여겨진다. 그의 도움으로 장학금을 받고 1923년 프랑스 중등학교 리세에 입학했고, 이후 알제리 대학에 입학했으나 1930년 폐결핵으로 자퇴를 했다. 결핵 발병으로 누구보다 좋아했던 축구를 포기했다.</div>
-                </td>
+                    <div>${books.bs_contents}</div>
             </tr>
+         </c:if>
+         </c:forEach>
         </table>
     </div>
     <script>

@@ -13,6 +13,7 @@ import kr.green.portfolio.pagination.Criteria;
 import kr.green.portfolio.utils.UploadFileUtils;
 import kr.green.portfolio.vo.AuthorVO;
 import kr.green.portfolio.vo.BookVO;
+import kr.green.portfolio.vo.BooksVO;
 import kr.green.portfolio.vo.CartVO;
 import kr.green.portfolio.vo.RegistrationVO;
 
@@ -189,6 +190,12 @@ public class BookServiceImp implements BookService {
 	public ArrayList<BookVO> getSearch(Criteria cri) {
 		return bookDao.getSearch(cri);
 	}
+
+	@Override
+	public int getTotalCountSearch(Criteria cri) {
+		return bookDao.getTotalCountSearch(cri);
+	}
+
 
 
 }

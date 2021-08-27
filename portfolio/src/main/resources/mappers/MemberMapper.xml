@@ -152,5 +152,14 @@
 	<select id="getTotalCountGreenPoint" resultType="int">
 		select count(*) from member
 	</select>
+	<select id="getBooksSearch" resultType="kr.green.portfolio.vo.BooksVO">
+		select *,au_title as bs_title, au_contents as bs_contents, au_birth as bs_birth
+		 from books join author on bs_au_num = au_num
+		 	where (bs_bk_isbn like concat('%',#{cri.search},'%')
+				or bs_name like concat('%',#{cri.search},'%')
+				or au_title like concat ('%',#{cri.search},'%')
+				or au_contents like concat('%',#{cri.search},'%'))
+			limit #{cri.pageStart}, #{cri.perPageNum}
+	</select>
 </mapper>
 

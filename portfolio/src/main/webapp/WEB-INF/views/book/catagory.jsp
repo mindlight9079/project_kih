@@ -148,7 +148,6 @@
     <div class="container">
         <h1 class="titleCatagory"></h1>
         <ul class="viewList">
-       
             <li class="basicSort">
             	<a href="<%=request.getContextPath()%>/book/catagory?re_catagory=${pm.criteria.re_catagory}">기본순</a>
             </li>
@@ -178,8 +177,9 @@
                 </td>
                 <td class="cataContents">
                 	<a href="<%=request.getContextPath()%>/book/details?re_bk_isbn=${book.bk_isbn}">
-                    <span class="cataTitle">${book.bk_title}</span><c:if test="${book.bk_subtitle != ''}"><span> : ${book.bk_subtitle}</span></c:if>
+                    <span class="cataTitle">${book.bk_title}</span>
                     </a>
+                    <c:if test="${book.bk_subtitle != ''}"><span> : ${book.bk_subtitle}</span></c:if>
                     <div>
                         ${book.bk_au_writer} 저 
             		<c:forEach items="${books}" var="subAuthor" varStatus="status">
@@ -218,13 +218,13 @@
      </form>
       <ul class="pagination justify-content-center">
 		  <c:if test="${pm.prev}">
-		    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/book/catagory?re_catagory=${pm.startPage-1}">이전</a></li>
+		    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/book/catagory?re_catagory=${pm.startPage-1}&sort=${pm.criteria.sort}">이전</a></li>
 		  </c:if>
 		  <c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="index">
-		    <li class="page-item <c:if test="${pm.criteria.page == index}">active</c:if>"><a class="page-link"href="<%=request.getContextPath()%>/book/catagory?re_catagory=${pm.criteria.re_catagory}&page=${index}">${index}</a></li>
+		    <li class="page-item <c:if test="${pm.criteria.page == index}">active</c:if>"><a class="page-link"href="<%=request.getContextPath()%>/book/catagory?re_catagory=${pm.criteria.re_catagory}&sort=${pm.criteria.sort}&page=${index}">${index}</a></li>
 		  </c:forEach>
 		  <c:if test="${pm.next}">
-		    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/book/catagory?re_catagory=${pm.endPage+1}">다음</a></li>
+		    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/book/catagory?re_catagory=${pm.endPage+1}&sort=${pm.criteria.sort}">다음</a></li>
 		  </c:if>
 	  </ul>
     </div>

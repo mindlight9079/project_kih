@@ -69,6 +69,8 @@ public interface MemberService {
 
 	int getTotalCountGreenPoint(Criteria cri);
 
+	ArrayList<BooksVO> getBooksSearch(Criteria cri);
+
 
 
 }

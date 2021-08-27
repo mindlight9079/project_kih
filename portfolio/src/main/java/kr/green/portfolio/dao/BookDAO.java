@@ -52,6 +52,8 @@ public interface BookDAO {
 
 	ArrayList<BookVO> getSearch(@Param("cri")Criteria cri);
 
+	int getTotalCountSearch(@Param("cri") Criteria cri);
+
 
 
 

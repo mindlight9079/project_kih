@@ -328,5 +328,10 @@ public class MemberServiceImp implements MemberService {
 		return memberDao.getTotalCountGreenPoint(cri);
 	}
 
+	@Override
+	public ArrayList<BooksVO> getBooksSearch(Criteria cri) {
+		return memberDao.getBooksSearch(cri);
+	}
+
 
 }

@@ -68,4 +68,6 @@ public interface MemberDAO {
 
 	public int getTotalCountGreenPoint(@Param("cri") Criteria cri);
 
+	public ArrayList<BooksVO> getBooksSearch(@Param("cri") Criteria cri);
+
 }

@@ -65,8 +65,18 @@ public class BookController {
 	
 	@RequestMapping(value="/book/search")
 	public ModelAndView getSearch(ModelAndView mv, Criteria cri) {
+		PageMaker pm = new PageMaker();
+		cri.setPerPageNum(5);
+		pm.setCriteria(cri);
+		pm.setDisplayPageNum(5);
+		int totalCount = bookService.getTotalCountSearch(cri);
+		pm.setTotalCount(totalCount);
+		pm.calcData();
 		ArrayList<BookVO> bookSearch = bookService.getSearch(cri);
+		ArrayList<BooksVO> booksSearch = memberService.getBooksSearch(cri);
 		mv.addObject("bookSearch", bookSearch);
+		mv.addObject("booksSearch", booksSearch);
+		mv.addObject("pm", pm);
 		mv.setViewName("/book/search");
 		return mv;
 	}
