@@ -16,32 +16,34 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `order`
+-- Table structure for table `cart`
 --
 
-DROP TABLE IF EXISTS `order`;
+DROP TABLE IF EXISTS `cart`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `order` (
-  `or_num` int NOT NULL,
-  `or_me_id` varchar(50) NOT NULL,
-  `or_date` datetime NOT NULL,
-  `or_address` longtext NOT NULL,
-  `or_state` varchar(30) NOT NULL,
-  `or_receiver` varchar(50) NOT NULL,
-  PRIMARY KEY (`or_num`),
-  KEY `or_me_id` (`or_me_id`),
-  CONSTRAINT `order_ibfk_1` FOREIGN KEY (`or_me_id`) REFERENCES `member` (`me_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `cart` (
+  `ca_num` int NOT NULL AUTO_INCREMENT,
+  `ca_amount` int NOT NULL,
+  `ca_re_code` int NOT NULL,
+  `ca_me_id` varchar(50) NOT NULL,
+  `ca_valid` varchar(1) NOT NULL DEFAULT 'I',
+  PRIMARY KEY (`ca_num`),
+  KEY `ca_re_code` (`ca_re_code`),
+  KEY `ca_me_id` (`ca_me_id`),
+  CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`ca_re_code`) REFERENCES `registration` (`re_code`),
+  CONSTRAINT `cart_ibfk_2` FOREIGN KEY (`ca_me_id`) REFERENCES `member` (`me_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `order`
+-- Dumping data for table `cart`
 --
 
-LOCK TABLES `order` WRITE;
-/*!40000 ALTER TABLE `order` DISABLE KEYS */;
-/*!40000 ALTER TABLE `order` ENABLE KEYS */;
+LOCK TABLES `cart` WRITE;
+/*!40000 ALTER TABLE `cart` DISABLE KEYS */;
+INSERT INTO `cart` VALUES (64,1,4,'qwe123','I'),(65,1,16,'qwe123','I'),(66,1,24,'qwe123','I'),(67,1,3,'qwe123','I'),(68,1,13,'qwe123','I'),(69,1,20,'qwe123','I');
+/*!40000 ALTER TABLE `cart` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -53,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-08-27 13:06:24
+-- Dump completed on 2021-08-27 13:06:23
