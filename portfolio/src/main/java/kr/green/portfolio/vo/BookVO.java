@@ -23,6 +23,7 @@ public class BookVO {
 	private int bk_pu_num;
 	private String bk_contents;
 	private int bk_price;
+	private int bk_code;
 	
 	public String getDate() {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");

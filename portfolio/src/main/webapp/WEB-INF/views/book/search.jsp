@@ -86,7 +86,7 @@
         max-height: 200px; overflow: hidden; margin-top: 20px;
         display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
     }
-    input[name="cataAmount"]{
+    input[name="searchAmount"]{
         width: 80px; margin-right: 35px; height: 40px;
     }
     .cataBottom{
@@ -203,9 +203,11 @@
                        ${book.bk_contents}
                     </div>
                     <div class="cataBottom">
-                        수량 &nbsp;&nbsp; <input type="number" name="cataAmount"  min="0" value="1"> <br>
-                        <button type="button" class="btn btn-info">장바구니</button> <br>
-                        <button type="button" class="btn btn-secondary" >바로구매</button>
+                    	<input type="hidden" value="${book.bk_isbn}" class="isbn">
+                    	<input type="hidden" value="${book.bk_code}" class="code">
+                        수량 &nbsp;&nbsp; <input type="number" name="searchAmount"  min="0" value="1"> <br>
+                        <a href="#" class="addCart-btn"><button class="btn btn-info">장바구니</button></a> <br>
+                        <a href="<%=request.getContextPath()%>/order/payment" class="btn-buy"><button class="btn btn-secondary" >바로구매</button></a>
                     </div>
                 </td>
                 <td>
@@ -247,22 +249,66 @@
 	         </c:forEach>
         </table>
     </div>
-    <script>
-        $('.fa-bars').click(function(){
-            $('.side-bars').show();
-        })
-        $('.fa-times').click(function(){
-            $('.side-bars').hide();
-        })
-        
-        $('.domestic').hover(function(){
-            $('.foreign-list').hide();
-            $('.dome-list').show();
-        })
-        $('.foreign').hover(function(){
-            $('.dome-list').hide();
-            $('.foreign-list').show();
-        })
-    </script>
+<script>
+$(function(){
+  $('.fa-bars').click(function(){
+      $('.side-bars').show();
+  })
+  $('.fa-times').click(function(){
+      $('.side-bars').hide();
+  })
+  
+  $('.domestic').hover(function(){
+      $('.foreign-list').hide();
+      $('.dome-list').show();
+  })
+  $('.foreign').hover(function(){
+      $('.dome-list').hide();
+      $('.foreign-list').show();
+  })
+  
+   $('.btn-buy').click(function(e){
+   	var amount = $(this).parent().find('input[name=searchAmount]').val();
+   	var isbn = $(this).parent().find('.isbn').val();
+	if(parseInt(amount) <= 0){
+		e.preventDefault();
+	} else
+	$(this).attr('href','<%=request.getContextPath()%>/order/payment?isbn='+isbn+'&amount='+amount)
+   })
+   
+    var contextPath = '<%=request.getContextPath()%>';
+	var user = '${user==null?'':user.me_id}';
+	var result = '0';
+	$('.addCart-btn').click(function(){
+		if(user == ''){
+			alert('회원만 사용 가능합니다.');
+			return;
+		}
+		var amount = $(this).parent().find('input[name=searchAmount]').val();
+		var code = $(this).parent().find('.code').val();
+		var data = {
+			ca_amount : amount,
+			ca_re_code : code
+		};
+		$.ajax({
+			url : contextPath + '/order/cart',
+			type: 'post',
+			data : JSON.stringify(data),
+			contentType : 'application/json; charset=utf-8',
+			success : function(result){
+				if(result == '1'){
+					alert("카트 담기 성공")
+				}
+				var isGo = confirm("장바구니로 이동하겠습니까?");
+				if(isGo){
+					location.href= '<%=request.getContextPath()%>/order/cart'
+				}
+			}
+		})
+	})
+   
+   
+})
+</script>
 </body>
 </html>

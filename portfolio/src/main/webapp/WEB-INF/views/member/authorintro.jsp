@@ -18,6 +18,9 @@
     *{
         padding:0; margin: 0; list-style: none; color:black;
     }
+	a:hover{
+		color: rgb(0, 104, 136);
+	}
     .fa-bars{
       font-size: 35px; position: absolute; top:20px; left:15px; cursor: pointer;
     }
@@ -39,6 +42,9 @@
     }
     .dome-list{
         display: none;
+    }
+    .dome-list *, .foreign-list *{
+    	color: white;
     }
     .foreign-list{
         display: none;
@@ -81,29 +87,29 @@
             </ul>
         </div>
         <div class="subCatagory-list">
-            <ul class="dome-list">
-                <li>소설/시</li>
-                <li>에세이</li>
-                <li>인문</li>
-                <li>역사</li>
-                <li>예술</li>
-                <li>종교</li>
-                <li>사회</li>
-                <li>과학</li>
-                <li>자기계발</li>
-                <li>국어와외국어</li>
-                <li>IT/모바일</li>
+			<ul class="dome-list">
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=소설/시&country=국내/해외">소설/시</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=에세이&country=국내/해외">에세이</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=인문&country=국내/해외">인문</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=역사&country=국내/해외">역사</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=예술&country=국내/해외">예술</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=종교&country=국내/해외">종교</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=사회&country=국내/해외">사회</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=과학&country=국내/해외">과학</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=자기계발&country=국내/해외">자기계발</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=국어와외국어&country=국내/해외">국어와외국어</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=IT/모바일&country=국내/해외">IT/모바일</a></li>
             </ul>
         </div>
         <div class="subCatagory-list">
             <ul class="foreign-list">
-                <li>문학</li>
-                <li>소설</li>
-                <li>경제/경영</li>
-                <li>인문/사회</li>
-                <li>예술</li>
-                <li>컴퓨터</li>
-                <li>자연과학</li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=문학&country=외국">문학</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=소설&country=외국">소설</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=경제/경영&country=외국">경제/경영</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=인문/사회&country=외국">인문/사회</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=예술&country=외국">예술</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=컴퓨터&country=외국">컴퓨터</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=자연과학&country=외국">자연과학</a></li>         
             </ul>
         </div>
     </div>
@@ -116,8 +122,10 @@
                 <td class="authorWork">
                 	<c:forEach items="${bookList}" var="book" varStatus="status">
                     <div class="work">
+                  	  <a class="contents" href="<%=request.getContextPath()%>/book/details?re_bk_isbn=${book.bk_isbn}">
                         <img src="<%=request.getContextPath()%>/img${book.bk_mainImg}" alt="authorImg" class="authorImg"> <br>
                         <span>${book.bk_title}</span>
+                   	  </a>
                     </div> 
                     </c:forEach>
                 </td>

@@ -137,7 +137,7 @@
 			join registration on bk_isbn = re_bk_isbn
 	</select>
 	<select id="getSearch" resultType="kr.green.portfolio.vo.BookVO">
-		select *, re_contents as bk_contents, re_price as bk_price from book join registration on bk_isbn = re_bk_isbn
+		select *, re_contents as bk_contents, re_price as bk_price, re_code as bk_code from book join registration on bk_isbn = re_bk_isbn
 		where (bk_isbn like concat('%',#{cri.search},'%')
 				or bk_title like concat('%',#{cri.search},'%')
 				or bk_subtitle like concat('%',#{cri.search},'%')
