@@ -20,6 +20,12 @@
     a{
     	color: black; text-decoration: none;
     }
+    a:hover{
+    	color: rgb(0, 104, 136);
+    }
+	.list-nav li a.current {
+		color:  rgb(0, 104, 136);
+	}
     body{
       background-color: gainsboro;
     }
@@ -99,7 +105,7 @@
           <div class="list">
               <ul class="list-nav">
                 <li><a href="<%=request.getContextPath()%>/admin/user/booklist">책리스트</a></li>
-                <li><a href="<%=request.getContextPath()%>/admin/user/publisherlist">출판사리스트</a></li>
+                <li><a href="<%=request.getContextPath()%>/admin/user/publisherlist" class="current">출판사리스트</a></li>
                 <li><a href="<%=request.getContextPath()%>/admin/user/authorlist">저자리스트</a></li>
                 <li><a href="<%=request.getContextPath()%>/admin/user/bookslist">저서리스트</a></li>
                 <li><a href="<%=request.getContextPath()%>/admin/user/registrationlist">판매가능서적</a></li>

@@ -98,6 +98,9 @@
     .search-result {
         font-size: 18px; font-weight: bold;
     }
+    .search-result span{
+    	color: rgb(0, 104, 136);
+    }
     .authorIntro td div{
        overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
     }
@@ -155,7 +158,7 @@
     </div>
     <i class="fas fa-bars"></i>
     <div class="container">
-        <div class="search-result" >| 검색결과</div>
+        <div class="search-result" >| "<span>${pm.criteria.search}</span>" 검색결과</div>
         <ul class="viewList">
             <li>
             	<a href="<%=request.getContextPath()%>/book/search?search=${pm.criteria.search}">기본순</a>
