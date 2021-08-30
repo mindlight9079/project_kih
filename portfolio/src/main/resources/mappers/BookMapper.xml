@@ -163,5 +163,11 @@
 		select * from book join books on bk_isbn = bs_bk_isbn
 			where bs_num = #{bs_num}
 	</select>
+	<update id="updateAmount">
+		update registration set
+			re_amount = re_amount-#{pr_amount},
+			re_sales = re_sales+#{pr_amount}
+				where re_code = #{integer}
+	</update>
 </mapper>
 

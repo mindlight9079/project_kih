@@ -25,7 +25,7 @@
       font-size: 35px; position: absolute; top:20px; left:15px; cursor: pointer;
     }
     .container{
-        margin-top: 120px;
+        margin-top: 120px; margin-bottom: 120px;
     }
     .cartTr{
         background-color: #f8f8f8

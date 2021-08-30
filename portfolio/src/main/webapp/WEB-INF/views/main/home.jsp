@@ -137,7 +137,10 @@
     	left: -10%;
     }
     
-    
+    .bestImg{
+    	border: 1px solid gray; 
+    }
+        
     .side-bars{
         width: 400px; height: 1280px; background-color: black; position: absolute; z-index: 10;
         opacity: 80%; display: none;
@@ -296,7 +299,7 @@
         <div class="bsBook">
    		<a href="<%=request.getContextPath()%>/book/details?re_bk_isbn=${regi.bk_isbn}">
             <span class="bsNum">${status.count}</span>
-            <img src="<%=request.getContextPath()%>/img${regi.bk_mainImg}" alt="express"/>
+            <img src="<%=request.getContextPath()%>/img${regi.bk_mainImg}" alt="bestImg" class="bestImg"/>
             <span class="bsContents"><span>${regi.bk_title}</span><br><span>${regi.bk_au_writer} 저 | ${regi.bk_publish}</span></span>
         </a>
         </div>

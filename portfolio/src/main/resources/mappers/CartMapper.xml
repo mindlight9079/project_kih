@@ -31,7 +31,7 @@
     			join book on bk_isbn = re_bk_isbn where ca_me_id = #{member.me_id} and ca_num = #{ca_num} and ca_valid = 'I';
 	</select>
 	<select id="getPaymentList" resultType="kr.green.portfolio.vo.CartVO">
-		select re_title as ca_title, #{amount} as ca_amount, bk_mainImg as ca_mainImg, re_price as ca_price , bk_subtitle as ca_subTitle
+		select re_title as ca_title, #{amount} as ca_amount, bk_mainImg as ca_mainImg, re_price as ca_price , bk_subtitle as ca_subTitle, bk_isbn as ca_isbn
 			from registration join book on bk_isbn = re_bk_isbn where re_bk_isbn=#{isbn}
 	</select>
 	<insert id="getCartRegister">
@@ -47,6 +47,13 @@
 			ca_amount = #{integer}
 				where ca_num = #{ca_num}
 	</update>
-
+	<insert id="insertPayFinished">
+		insert into `order` (or_num, or_me_id, or_receiver, or_payment)
+			values (#{order.or_num}, #{order.or_me_id}, #{order.or_receiver}, #{finalCount})
+	</insert>
+	<insert id="insertParticulars">
+		insert into particulars (pr_or_num, pr_bk_isbn, pr_payment, pr_deli_date, pr_amount, pr_pa_num, pr_deli_price)
+			select
+	</insert>
 </mapper>
 

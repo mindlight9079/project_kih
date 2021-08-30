@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 import kr.green.portfolio.vo.CartVO;
 import kr.green.portfolio.vo.MemberVO;
+import kr.green.portfolio.vo.OrderVO;
 
 public interface CartDAO {
 
@@ -30,6 +31,9 @@ public interface CartDAO {
 
 	void getCartRegister(@Param("bigInteger") BigInteger bigInteger, @Param("integer") Integer integer, @Param("ca_me_id") String ca_me_id);
 
+	void insertPayFinished(@Param("order")OrderVO order, @Param("finalCount") BigInteger finalCount);
+
+	void insertParticulars(@Param("or_num") String or_num, @Param("integer") Integer integer, @Param("pr_amount") Integer pr_amount);
 
 
 }

@@ -15,8 +15,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.green.portfolio.service.BookService;
 import kr.green.portfolio.service.CartService;
+import kr.green.portfolio.service.MemberService;
 import kr.green.portfolio.vo.CartVO;
 import kr.green.portfolio.vo.MemberVO;
+import kr.green.portfolio.vo.OrderVO;
 import kr.green.portfolio.vo.RegistrationVO;
 
 @Controller
@@ -26,6 +28,8 @@ public class CartController {
 	CartService cartService;
 	@Autowired
 	BookService bookService;
+	@Autowired
+	MemberService memberService;
 		
 	@RequestMapping(value="/order/cart")
 	public ModelAndView getCartList (ModelAndView mv, HttpSession session, Integer ca_re_code) {
@@ -106,6 +110,22 @@ public class CartController {
 		String ca_me_id = member.getMe_id();
 		cartService.getCartRegister(checkList, cataAmount, ca_me_id);
 		mv.setViewName("redirect:/order/cart");
+		return mv;
+	}
+	
+	@RequestMapping(value="/order/payfinished", method=RequestMethod.POST)
+	public ModelAndView payFinished (ModelAndView mv, HttpSession session, OrderVO order, Integer[] ca_re_code, BigInteger finalCount, Integer[] pr_amount) {
+		MemberVO member = (MemberVO)session.getAttribute("user");
+		if(member != null && member.getMe_id().equals(order.getOr_me_id())) {
+			cartService.insertPayFinished(order, finalCount);			
+//			for(int i = 0; i<ca_re_code.length; i++) {
+//				System.out.println(ca_re_code[i]);
+//			}
+//			System.out.println("jj : "+order.getOr_num());
+			
+			cartService.insertParticulars(order.getOr_num(), ca_re_code, pr_amount);
+		}
+		mv.setViewName("/order/payfinished");
 		return mv;
 	}
 }

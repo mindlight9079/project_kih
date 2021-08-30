@@ -3,15 +3,10 @@ package kr.green.portfolio.service;
 import java.math.BigInteger;
 import java.util.ArrayList;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.green.portfolio.pagination.Criteria;
-import kr.green.portfolio.vo.AuthorVO;
 import kr.green.portfolio.vo.BookVO;
-import kr.green.portfolio.vo.BooksVO;
-import kr.green.portfolio.vo.CartVO;
 import kr.green.portfolio.vo.RegistrationVO;
 
 public interface BookService {
@@ -55,10 +50,5 @@ public interface BookService {
 	int getTotalCountSearch(Criteria cri);
 
 	ArrayList<BookVO> getBookAuthor(Integer bs_num);
-
-
-
-
-
 
 }

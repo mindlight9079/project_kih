@@ -171,142 +171,155 @@
     </div>
     <i class="fas fa-bars"></i>
     <div class="container">
-        <h6>| 상품확인</h6>
-        <table class="table cart-table">
-            <thead>
-            <tr class="cartTr">
-                <th></th>
-                <th class="cart-contents">상품정보</th>
-                <th>금액</th>
-                <th>수량</th>
-                <th>합계</th>
-                <th>배송일</th>
-            </tr>
-            </thead>
-            <tbody>
-            <c:forEach items="${paymentList}" var="payment" varStatus="status">
-	            <tr>
-	                <td><img src="<%=request.getContextPath()%>/img${payment.ca_mainImg}" alt="cartImg" class="cart-image"></td>
-	                <td >${payment.ca_title} <c:if test="${payment.ca_subTitle != null && payment.ca_subTitle != ''}"> : ${payment.ca_subTitle}</c:if></td>
-	                <td class="price">${payment.ca_price}원</td>
-	                <td class="amount">
-	                	<c:if test="${payment.ca_amount != null}">${payment.ca_amount}</c:if>
-	                </td>
-	                <td >${payment.ca_total_price}원</td>
-	                <td>8/23일 도착예정</td>
+	    <form action="<%=request.getContextPath()%>/order/payfinished" method="post">
+	        <h6>| 상품확인</h6>
+	        <table class="table cart-table">
+	            <thead>
+	            <tr class="cartTr">
+	                <th></th>
+	                <th class="cart-contents">상품정보</th>
+	                <th>금액</th>
+	                <th>수량</th>
+	                <th>합계</th>
+	                <th>배송일</th>
 	            </tr>
-            </c:forEach>
-            </tbody>
-        </table>
-        <table class="table">
-          <tr>
-            <th rowspan="2" class="tableRow">배송일</th>
-            <td>
-              배송지
-              <div>도로명 : ${member.me_address}</div>
-              <div>지번  : ${member.me_jAddress}</div>
-            </td>
-          </tr>
-          <tr>
-            <td>배송일정</td>
-          </tr>
-        </table>
-        <table class="table price-box">
-            <tr>
-                <td>
-                    총 상품금액
-                    <i class="fas fa-plus"></i>
-                </td>
-                <td>
-                    총 추가금액
-                    <i class="fas fa-minus"></i>
-                </td>
-                <td>
-                    총 할인금액
-                    <i class="fas fa-equals"></i>
-                </td>
-                <td>최종 결제금액</td>
-            </tr>
-            <tr>
-                <td class="totalCount"></td>
-                <td class="addPrice"></td>
-                <td>0원</td>
-                <td class="finalCount"></td>
-            </tr>
-        </table>
-        <div class="pointView">
-            <table class="table point">
-                <tbody>
-                    <tr>
-                        <th>그린포인트</th>
-                        <td>
-                            <div class="text">${member.me_point}</div>
-                            <div>그린포인트 5000원 이상이면 그린머니로 환전가능합니다.</div>
-                        </td>
-                    </tr>
-                </tbody>                
-            </table>
-            <ul class="collectPoint">
-                <h4>적립혜택</h4>
-                <hr>
-                <li>기보유 포인트 <span class="hasPoint">${member.me_point}</span></li>
-                <hr>
-                <li>기본적립 포인트<span class="basicPoint"></span></li>
-                <hr>
-                <li>총 예상 포인트<span class="totalPoint"></span></li>
-            </ul>
-        </div>
-        <br>
-        <h6>| 배송주소</h6>
-        <div class="address">
-            <table class="table deli-addr">
-                <tr>
-                    <th>배송지</th>
-                    <td class="shipping">
-                        <label><input type="radio" name="ship_addr" class="recentAddr">최근배송지</label>
-                        <label><input type="radio" name="ship_addr" class="memberAddr" checked>회원정보동일</label>
-                        <label><input type="radio" name="ship_addr" class="newAddr">새로입력</label>
-                    </td>
-                </tr>
-                <tr>
-                    <th>이름</th>
-                    <td><input type="text" value="${member.me_name}" class="name"></td>
-                </tr>
-                <tr>
-                    <th>배송주소</th>
-                    <td class="home-addr">
-                        도로명주소 <input type="text" value=" ${member.me_address}" class="doroAddr"> <br>
-                        지번주소 <input type="text" value="${member.me_jAddress}" class="jibunAddr">
-                    </td>
-                </tr>
-                <tr>
-                    <th>휴대폰</th>
-                    <td>
-                        <input type="text" value="${member.me_phone}" class="phone">
-                    </td>
-                </tr>
-            </table>
-            <div class="client">
-                <table class="table orderInfo">
-                    <h4>주문고객</h4>
-                    <hr>
-                    <tr>
-                        <th>이름</th>
-                        <td><input type="text" value="${member.me_name}"></td>
-                    </tr>
-                    <tr>
-                        <th>휴대폰</th>
-                        <td><input type="text" value="${member.me_phone}"></td>
-                    </tr>
-                    <tr>
-                        <th>이메일</th>
-                        <td><input type="text" value="${member.me_email}"></td>
-                    </tr>
-                </table>
-            </div> 
-        </div>
-        <br>
-        <h6>| 결제방법</h6>
+	            </thead>
+	            <tbody>
+	            <c:forEach items="${paymentList}" var="payment" varStatus="status">
+		            <tr>
+		                <td>
+		                	<img src="<%=request.getContextPath()%>/img${payment.ca_mainImg}" alt="cartImg" class="cart-image">
+		                	<input type="hidden" value="${payment.ca_re_code}" name="ca_re_code">
+		                </td>
+		                <td >${payment.ca_title} <c:if test="${payment.ca_subTitle != null && payment.ca_subTitle != ''}"> : ${payment.ca_subTitle}</c:if></td>
+		                <td class="price">${payment.ca_price}원</td>
+		                <td class="amount">
+		                	<c:if test="${payment.ca_amount != null}">${payment.ca_amount}</c:if>
+							<input type="hidden" value="${payment.ca_amount}" name="pr_amount">
+		                </td>
+		                <td >${payment.ca_total_price}원</td>
+		                <td>8/23일 도착예정</td>
+		            </tr>
+	            </c:forEach>
+	            </tbody>
+	        </table>
+	        <table class="table">
+	          <tr>
+	            <th rowspan="2" class="tableRow">배송일</th>
+	            <td>
+	              배송지
+	              <div>도로명 : ${member.me_address}</div>
+	              <div>지번  : ${member.me_jAddress}</div>
+	            </td>
+	          </tr>
+	          <tr>
+	            <td>배송일정</td>
+	          </tr>
+	        </table>
+	        <table class="table price-box">
+	            <tr>
+	                <td>
+	                    총 상품금액
+	                    <i class="fas fa-plus"></i>
+	                </td>
+	                <td>
+	                    총 추가금액
+	                    <i class="fas fa-minus"></i>
+	                </td>
+	                <td>
+	                    총 할인금액
+	                    <i class="fas fa-equals"></i>
+	                </td>
+	                <td>최종 결제금액</td>
+	            </tr>
+	            <tr>
+	                <td class="totalCount"></td>
+	                <td class="addPrice"></td>
+	                <td>0원</td>
+	                <td class="finalCount"></td>
+	            </tr>
+	        </table>
+	        <input type="hidden" name="finalCount">
+	        <div class="pointView">
+	            <table class="table point">
+	                <tbody>
+	                    <tr>
+	                        <th>그린포인트</th>
+	                        <td>
+	                            <div class="text">${member.me_point}</div>
+	                            <div>그린포인트 5000원 이상이면 그린머니로 환전가능합니다.</div>
+	                        </td>
+	                    </tr>
+	                </tbody>                
+	            </table>
+	            <ul class="collectPoint">
+	                <h4>적립혜택</h4>
+	                <hr>
+	                <li>기보유 포인트 <span class="hasPoint">${member.me_point}</span></li>
+	                <hr>
+	                <li>기본적립 포인트<span class="basicPoint"></span></li>
+	                <hr>
+	                <li>총 예상 포인트<span class="totalPoint"></span></li>
+	            </ul>
+	        </div>
+	        <br>
+	        <h6>| 배송주소</h6>
+	        <div class="address">
+	            <table class="table deli-addr">
+	                <tr>
+	                    <th>배송지</th>
+	                    <td class="shipping">
+	                        <label><input type="radio" name="ship_addr" class="recentAddr">최근배송지</label>
+	                        <label><input type="radio" name="ship_addr" class="memberAddr" checked>회원정보동일</label>
+	                        <label><input type="radio" name="ship_addr" class="newAddr">새로입력</label>
+	                    </td>
+	                </tr>
+	                <tr>
+	                    <th>이름</th>
+	                    <td>
+	                    	<input type="text" value="${member.me_name}" class="name" name="or_receiver">
+	                    	<input type="hidden" value="${member.me_id}" name="or_me_id">
+	                    </td>
+	                    
+	                </tr>
+	                <tr>
+	                    <th>배송주소</th>
+	                    <td class="home-addr">
+	                        도로명주소 <input type="text" value=" ${member.me_address}" class="doroAddr"> <br>
+	                        지번주소 <input type="text" value="${member.me_jAddress}" class="jibunAddr">
+	                    </td>
+	                </tr>
+	                <tr>
+	                    <th>휴대폰</th>
+	                    <td>
+	                        <input type="text" value="${member.me_phone}" class="phone">
+	                    </td>
+	                </tr>
+	            </table>
+	            <div class="client">
+	                <table class="table orderInfo">
+	                    <h4>주문고객</h4>
+	                    <hr>
+	                    <tr>
+	                        <th>이름</th>
+	                        <td><input type="text" value="${member.me_name}"></td>
+	                    </tr>
+	                    <tr>
+	                        <th>휴대폰</th>
+	                        <td><input type="text" value="${member.me_phone}"></td>
+	                    </tr>
+	                    <tr>
+	                        <th>이메일</th>
+	                        <td><input type="text" value="${member.me_email}"></td>
+	                    </tr>
+	                </table>
+	            </div> 
+	  
+	        </div>
+	        <br>
+	        <h6>| 결제방법</h6>
+	        <button class="payment-btn btn btn-info">결제하기</button>
+	    </form>
     </div>
 <script>
     $('.fa-bars').click(function(){
@@ -344,6 +357,7 @@
 	var addNum = parseInt(addPrice.replace(/[^0-9]/g,''));
 	var finalCount = num+addNum;
 	$('.finalCount').text(finalCount+"원");
+	$('[name=finalCount]').val(finalCount);
 	
 	var basicPoint = parseInt($('.totalCount').text())*0.05;
 	$('.basicPoint').text(basicPoint);

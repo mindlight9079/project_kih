@@ -7,15 +7,19 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.green.portfolio.dao.BookDAO;
 import kr.green.portfolio.dao.CartDAO;
 import kr.green.portfolio.vo.CartVO;
 import kr.green.portfolio.vo.MemberVO;
+import kr.green.portfolio.vo.OrderVO;
 
 @Service
 public class CartServiceImp implements CartService {
 
 	@Autowired
 	CartDAO cartDao;
+	@Autowired
+	BookDAO bookDao;
 
 	@Override
 	public void addCart(CartVO cart) {
@@ -81,6 +85,20 @@ public class CartServiceImp implements CartService {
 		}
 	}
 
+	@Override
+	public void insertPayFinished(OrderVO order, BigInteger finalCount) {
+		order.setOr_num(order.setOr_random_num());
+		System.out.println(finalCount);
+		cartDao.insertPayFinished(order, finalCount);
+	}
 
-	
+	@Override
+	public void insertParticulars(String or_num, Integer[] ca_re_code, Integer[] pr_amount) {
+		if(or_num == null && ca_re_code == null)
+			return;
+		for(int i = 0; i < ca_re_code.length; i++) {
+			bookDao.updateAmount(ca_re_code[i], pr_amount[i]);
+			cartDao.insertParticulars(or_num, ca_re_code[i],pr_amount[i]);
+		}
+	}
 }

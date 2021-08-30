@@ -16,7 +16,6 @@ import kr.green.portfolio.service.MemberService;
 import kr.green.portfolio.vo.AuthorVO;
 import kr.green.portfolio.vo.BookVO;
 import kr.green.portfolio.vo.BooksVO;
-import kr.green.portfolio.vo.CartVO;
 import kr.green.portfolio.vo.RegistrationVO;
 
 @Controller

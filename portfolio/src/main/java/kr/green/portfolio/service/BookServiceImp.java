@@ -11,10 +11,7 @@ import kr.green.portfolio.dao.BookDAO;
 import kr.green.portfolio.dao.MemberDAO;
 import kr.green.portfolio.pagination.Criteria;
 import kr.green.portfolio.utils.UploadFileUtils;
-import kr.green.portfolio.vo.AuthorVO;
 import kr.green.portfolio.vo.BookVO;
-import kr.green.portfolio.vo.BooksVO;
-import kr.green.portfolio.vo.CartVO;
 import kr.green.portfolio.vo.RegistrationVO;
 
 @Service
@@ -126,7 +123,6 @@ public class BookServiceImp implements BookService {
 		RegistrationVO dbRegi = bookDao.getRegiBook(regi.getRe_code());
 		if(dbRegi == null)
 			return null;
-		System.out.println(dbRegi);
 		dbRegi.setRe_amount(regi.getRe_amount());
 		dbRegi.setRe_bk_isbn(regi.getRe_bk_isbn());
 		dbRegi.setRe_catagory(regi.getRe_catagory());
@@ -203,7 +199,4 @@ public class BookServiceImp implements BookService {
 		}
 		return bookDao.getBookAuthor(bs_num);
 	}
-
-
-
 }
