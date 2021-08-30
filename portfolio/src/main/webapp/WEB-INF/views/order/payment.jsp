@@ -318,6 +318,7 @@
 	        </div>
 	        <br>
 	        <h6>| 결제방법</h6>
+	        <button id="apibtn">KakaoPay</button>
 	        <button class="payment-btn btn btn-info">결제하기</button>
 	    </form>
     </div>
@@ -375,6 +376,21 @@
 		$('.doroAddr').val('${member.me_address}');
 		$('.jibunAddr').val('${member.me_jAddress}');
 		$('.phone').val('${member.me_phone}');
+	})
+	
+	$('#apibtn').click(function(){
+		$.ajax({
+			url:'/order/payment/kakaopay',
+			dataType: 'json',
+			success:function(data){
+				var box = data.next_redirect_pc_url;
+				window.open(box);
+			},
+			error:function(error){
+				alert(error);
+			}
+		})
+		
 	})
 	
 </script>
