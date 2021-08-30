@@ -23,21 +23,19 @@ DROP TABLE IF EXISTS `particulars`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `particulars` (
-  `pr_num` int NOT NULL,
-  `pr_or_num` int NOT NULL,
+  `pr_num` int NOT NULL AUTO_INCREMENT,
+  `pr_or_num` varchar(20) NOT NULL,
   `pr_bk_isbn` bigint NOT NULL,
-  `pr_payment` int NOT NULL,
   `pr_deli_date` datetime NOT NULL,
   `pr_amount` int NOT NULL,
   `pr_pa_num` int NOT NULL,
-  `pr_delie_price` int NOT NULL,
   PRIMARY KEY (`pr_num`),
   KEY `de_bk_isbn_idx` (`pr_bk_isbn`),
-  KEY `particulars_ibfk_1` (`pr_or_num`),
   KEY `particulars_ibfk_3` (`pr_pa_num`),
+  KEY `pr_or_num_idx` (`pr_or_num`),
   CONSTRAINT `de_bk_isbn` FOREIGN KEY (`pr_bk_isbn`) REFERENCES `book` (`bk_isbn`),
-  CONSTRAINT `particulars_ibfk_1` FOREIGN KEY (`pr_or_num`) REFERENCES `order` (`or_num`),
-  CONSTRAINT `particulars_ibfk_3` FOREIGN KEY (`pr_pa_num`) REFERENCES `payment` (`pa_num`)
+  CONSTRAINT `particulars_ibfk_3` FOREIGN KEY (`pr_pa_num`) REFERENCES `payment` (`pa_num`),
+  CONSTRAINT `pr_or_num` FOREIGN KEY (`pr_or_num`) REFERENCES `order` (`or_num`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -59,4 +57,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-08-27 13:06:24
+-- Dump completed on 2021-08-30 17:27:57
