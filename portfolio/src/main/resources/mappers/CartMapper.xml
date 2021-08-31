@@ -8,7 +8,7 @@
 			values (#{ca_amount},#{ca_re_code}, #{ca_me_id})
 	</insert>
 	<select id="getCartList" resultType="kr.green.portfolio.vo.CartVO">
-		select cart.*, bk_mainImg as ca_mainImg, re_title as ca_title, bk_subtitle as ca_subTitle, re_price as ca_price from cart 
+		select cart.*, bk_mainImg as ca_mainImg, re_title as ca_title, bk_subtitle as ca_subTitle, re_price as ca_price, re_amount as ca_re_amount from cart 
 			join registration on ca_re_code = re_code 
     		join book on bk_isbn = re_bk_isbn where ca_me_id = #{me_id} and ca_valid = 'I';
 	</select>

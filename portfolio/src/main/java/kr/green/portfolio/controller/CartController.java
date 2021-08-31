@@ -139,4 +139,49 @@ public class CartController {
 		return mv;
 	}
 	
+	@RequestMapping("/order/kakaopay")
+	@ResponseBody
+	public String kakaopay() {
+		try {
+			URL address = new URL("https://kapi.kakao.com/v1/payment/ready");
+			try {
+				HttpURLConnection serverConnect = (HttpURLConnection) address.openConnection();
+				serverConnect.setRequestMethod("POST");
+				serverConnect.setRequestProperty("Authorization", "KakaoAK 740e4771a6bc8cb24fc7999d91ff3218");
+				serverConnect.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+				serverConnect.setDoOutput(true);
+				OutputStream giver = serverConnect.getOutputStream();
+				String parameter = "cid=TC0ONETIME" // 가맹점 코드
+						+ "&partner_order_id=partner_order_id" // 가맹점 주문번호
+						+ "&partner_user_id=partner_user_id" // 가맹점 회원 id
+						+ "&item_name=초코파이" // 상품명
+						+ "&quantity=1" // 상품 수량
+						+ "&total_amount=5000" // 총 금액
+						+ "&vat_amount=200" // 부가세
+						+ "&tax_free_amount=0" // 상품 비과세 금액
+						+ "&approval_url=http://localhost:8000/" // 결제 성공 시
+						+ "&fail_url=http://localhost:8000/" // 결제 실패 시
+						+ "&cancel_url=http://localhost:8000/"; // 결제 취소 시
+				DataOutputStream dataGive = new DataOutputStream(giver);
+				dataGive.writeBytes(parameter);
+				dataGive.close();				
+				int result = serverConnect.getResponseCode();
+				InputStream taker;
+				if(result == 200) {
+					taker = serverConnect.getInputStream();
+				} else {
+					taker = serverConnect.getErrorStream();
+				}
+				InputStreamReader reader = new InputStreamReader(taker);
+				BufferedReader change = new BufferedReader(reader);
+				return change.readLine();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		return "{\"result\":\"NO\"}"; 
+	}
+	
 }

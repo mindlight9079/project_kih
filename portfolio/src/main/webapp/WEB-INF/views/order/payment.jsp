@@ -394,8 +394,10 @@
             </div>
 	        <button class="payment-btn btn btn-info">결제하기</button>
 	    </form>
+	    <button id="apibtn">카카오페이</button>
     </div>
 <script>
+$(function(){
     $('.fa-bars').click(function(){
         $('.side-bars').show();
     })
@@ -457,10 +459,27 @@
 	$('.deli-date').text(more+" 도착예정");
 	$('.green-deli').text(more);
 
-
-
+	var contextPath = '<%=request.getContextPath()%>';
+	
+	$('#apibtn').click(function(){
+		$.ajax({
+			url: contextPath+'/order/kakaopay',
+			dataType: 'json',
+			data : JSON.stringify(data),
+			contentType : 'application/json; charset=utf-8',
+			success:function(data){
+				var box = data.next_redirect_pc_url;
+				window.open(box);
+			},
+			error:function(error){
+				alert(error);
+			}
+		})
+	})
 
 	
+	
+})
 </script>
 </body>
 </html>

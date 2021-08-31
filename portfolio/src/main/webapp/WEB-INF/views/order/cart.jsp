@@ -194,6 +194,7 @@
 	                	 <button type="button" class="decreaseQuantity minus"><i class="fas fa-minus"></i></button>
 	               	 	 <input type="text" name="amount" class="amount" min="0" value="${cart.ca_amount}" readonly>
 	               	 	 <button type ="button" class="increaseQuantity plus"><i class="fas fa-plus"></i></button>
+	               	 	 <input type="hidden" value="${cart.ca_re_amount}" name="ca_re_amount">
 	                </td>
 	                <td>${cart.ca_total_price}원 <input type="hidden" value="${cart.ca_price}" class="price"/></td>
 	                <td>
@@ -326,9 +327,15 @@ $('.amount').change(function(){
 		ca_re_code : codeNum
 	};
 	var obj = $(this);
+	var re_amount = $(this).parent().find('input[name=ca_re_amount]').val()
 	if(amount <=0){
 		alert('1개 이상 구매 가능합니다.');
 		obj.val(amount = '1');
+		return false;
+	}
+	if(re_amount < amount){
+		alert('재고량이 부족합니다.');
+		obj.val(re_amount)
 		return false;
 	}
 	$.ajax({

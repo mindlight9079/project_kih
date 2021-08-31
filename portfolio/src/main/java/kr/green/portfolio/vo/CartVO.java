@@ -16,6 +16,7 @@ public class CartVO {
 	private String ca_subTitle;
 	private int ca_price;	
 	private BigInteger ca_isbn;
+	private int ca_re_amount;
 	
 	public int getCa_total_price(){
 		return ca_price * ca_amount;
