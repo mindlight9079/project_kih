@@ -34,7 +34,7 @@
         width: 80px; height: 105px;
     }
     input[name="amount"]{
-        width: 50px;
+        width: 35px; text-align: center;
     }
     .order-btn{
         font-size: 13px; width: 80px;
@@ -48,7 +48,7 @@
     .price-box{
        background-color: #f8f8f8; margin-top: 30px; text-align: center; position:relative
     }
-    .fa-plus{
+    .pricePlus{
         position: absolute; top: 17px; left:calc(100% / 3 - 10px);
     }
     .fa-equals{
@@ -83,6 +83,34 @@
     .btn-box{
       text-align: center; margin-top: 40px;
     }
+
+   .menu {
+        display: flex; position: absolute; top: 15px; right: 30px; z-index: 12; 
+    }
+    .menu a{
+     	color: black;
+     }
+	.menu a:hover{
+		color: rgb(0, 104, 136);
+	}
+    .menu ul li{
+        float: left; padding: 10px;  font-size: 20px;  font-family:sans-serif; font-weight: bold;  cursor: pointer;
+    }
+  	.menu ul::after{
+        content: ''; clear: both; display: block;
+    }
+    
+    .minus, .plus {
+    	width:30px; height: 30px;  line-height: 30px; background-color: #f8f8f8; border: 1px solid gray;
+    
+    }
+    .fas {
+   		text-align: center;
+    }
+    .amount-box{
+    	display: flex;
+    }
+    
     
 </style>
 <body>
@@ -122,6 +150,26 @@
         </div>
     </div>
     <i class="fas fa-bars"></i>
+     <div class="menu">
+        <ul>
+        	<c:if test="${user == null}">
+            <li><a href="<%=request.getContextPath()%>/member/login">LOGIN</a></li>
+            <li><a href="<%=request.getContextPath()%>/member/signup">SIGNUP</a></li>
+            </c:if>
+            <c:if test="${user != null}">
+            <li><a href="<%=request.getContextPath()%>/member/logout">LOGOUT</a></li>
+            </c:if>
+            <c:if test="${user.me_grade != 'ADMIN'}">
+           	 <li><a href="#">ORDERS</a></li>
+           	 <li><a href="<%=request.getContextPath()%>/member/mypage">MYPAGE</a></li>
+             <li><a href="<%=request.getContextPath()%>/order/cart">CART</a></li>
+             <li><a href="<%=request.getContextPath()%>/">HOME</a></li>
+            </c:if>
+            <c:if test="${user.me_grade == 'ADMIN'}">
+             <li><a href="<%=request.getContextPath()%>/admin/user/booklist">MANAGEMENT</a></li>
+            </c:if>
+        </ul>
+    </div>
     <div class="container">
 	<form action="<%=request.getContextPath()%>/order/payment">
         <table class="table cart-table">
@@ -142,7 +190,11 @@
 	                <td><input type="checkbox" name="ca_num" value="${cart.ca_num}"></td>
 	                <td><img  src="<%=request.getContextPath()%>/img${cart.ca_mainImg}" alt="cartImg" class="cart-image"></td>
 	                <td >${cart.ca_title} <input type="hidden" value="${cart.ca_re_code}" class="codeNum"><c:if test="${cart.ca_subTitle != ''}"> : ${cart.ca_subTitle}</c:if></td>
-	                <td><input type="number" name="amount" class="amount" min="0" value="${cart.ca_amount}"></td>
+	                <td class="amount-box">
+	                	 <button type="button" class="decreaseQuantity minus"><i class="fas fa-minus"></i></button>
+	               	 	 <input type="text" name="amount" class="amount" min="0" value="${cart.ca_amount}" readonly>
+	               	 	 <button type ="button" class="increaseQuantity plus"><i class="fas fa-plus"></i></button>
+	                </td>
 	                <td>${cart.ca_total_price}원 <input type="hidden" value="${cart.ca_price}" class="price"/></td>
 	                <td>
 	                 	<a href="<%=request.getContextPath()%>/order/payment?ca_num=${cart.ca_num}"><button type="button" class="btn btn-secondary order-btn mb-1">주문하기</button></a><br>
@@ -157,7 +209,7 @@
             <tr>
                 <td>
                     총 상품금액
-                    <i class="fas fa-plus"></i>
+                    <i class="fas fa-plus pricePlus"></i>
                 </td>
                 <td>
                     총 추가금액
@@ -214,6 +266,8 @@ function getTotalCount(){
 	var finalCount = num+addNum;
 	$('.finalCount').text(finalCount+"원");
 }	
+
+
 	$('[name=ca_num]').prop('checked',true);
 	getTotalCount();
 	$('input[name=ca_num]').click(function(){
@@ -243,6 +297,27 @@ $('.delete-btn').click(function(){
 		}
    	})
 })
+
+    $('.decreaseQuantity').click(function(e){
+       	e.preventDefault();
+       	var stat = $(this).parent().find('.amount').val();
+       	var num = parseInt(stat);
+       	num--;
+      
+       		$(this).parent().find('.amount').val(num);
+       		$(this).parent().find('.amount').change();
+     });
+    	
+     $('.increaseQuantity').click(function(e){
+        e.preventDefault();
+        var stat = $(this).parent().find('.amount').val();
+        var num = parseInt(stat);
+        num++;
+
+        	$(this).parent().find('.amount').val(num);
+        	$(this).parent().find('.amount').change();
+     });
+     
 $('.amount').change(function(){
 	var amount = $(this).val();
 	var codeNum =$(this).parent().prev().find('.codeNum').val();
@@ -250,6 +325,12 @@ $('.amount').change(function(){
 		ca_amount : amount,
 		ca_re_code : codeNum
 	};
+	var obj = $(this);
+	if(amount <=0){
+		alert('1개 이상 구매 가능합니다.');
+		obj.val(amount = '1');
+		return false;
+	}
 	$.ajax({
 		url : contextPath + '/order/cart/update',
 		type : 'post',

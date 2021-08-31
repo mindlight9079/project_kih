@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,16 +17,16 @@
 </head>
 <style>
     *{
-        padding:0; margin: 0; list-style: none;
+        padding:0; margin: 0; list-style: none; color: black;
     }
-    .subCatagory-list a:hover {
+    .subCatagory-list a:hover, .menu a:hover {
     	color: rgb(0, 104, 136); text-decoration: underline;
     }
     .fa-bars{
       font-size: 35px; position: absolute; top:20px; left:15px; cursor: pointer;
     }
     .container{
-        margin-top: 120px;
+        margin-top: 120px; margin-bottom: 120px;
     }
     .cartTr{
         background-color: #f8f8f8
@@ -103,9 +104,6 @@
         margin: 0 10px;
     }
   
-
-
-
     .side-bars{
         width: 400px; height: 1280px; background-color: black; position: absolute; z-index: 10;
         opacity: 80%; display: none; top:0px;
@@ -131,6 +129,50 @@
     .fa-times{
         color: white; font-size: 30px; position: absolute; top: 20px; right: 20px;
     }
+    .fa-exclamation-triangle{
+    	color: rgb(0, 104, 136);
+    }
+	.caution{
+		font-size: 13px;
+	}
+    .pay-method{
+        height: 70px; width: 100%;
+        display: flex; border: 1px solid #dee2e6;
+    }
+    .pay-method li{
+        width: calc(100% / 3); text-align: center; line-height: 70px;
+        border-right: 1px solid #dee2e6;  cursor: pointer;
+    }
+    .pay-method li:last-child{
+        border-right: none;
+    }
+    .doubleCheck{
+        color: gray; text-align: center; font-size: 14px;
+    }
+    .agree{
+        color: black;
+    }
+    .payment-btn{
+       margin-left: calc(50% - 32px); margin-top: 7px;
+    }
+  	.deli-date, .green-deli, .total, .doro, .finalCount, .totalPoint {
+  		font-weight: 600;
+  	}
+    
+   .menu {
+        display: flex; position: absolute; top: 15px; right: 30px; z-index: 12; 
+    }
+    .menu a{
+     	color: black;
+     }
+
+    .menu ul li{
+        float: left; padding: 10px;  font-size: 20px;  font-family:sans-serif; font-weight: bold;  cursor: pointer;
+    }
+  	.menu ul::after{
+        content: ''; clear: both; display: block;
+    }
+    
     
 </style>
 <body>
@@ -170,6 +212,26 @@
         </div>
     </div>
     <i class="fas fa-bars"></i>
+     <div class="menu">
+        <ul>
+        	<c:if test="${user == null}">
+            <li><a href="<%=request.getContextPath()%>/member/login">LOGIN</a></li>
+            <li><a href="<%=request.getContextPath()%>/member/signup">SIGNUP</a></li>
+            </c:if>
+            <c:if test="${user != null}">
+            <li><a href="<%=request.getContextPath()%>/member/logout">LOGOUT</a></li>
+            </c:if>
+            <c:if test="${user.me_grade != 'ADMIN'}">
+           	 <li><a href="#">ORDERS</a></li>
+           	 <li><a href="<%=request.getContextPath()%>/member/mypage">MYPAGE</a></li>
+             <li><a href="<%=request.getContextPath()%>/order/cart">CART</a></li>
+             <li><a href="<%=request.getContextPath()%>/">HOME</a></li>
+            </c:if>
+            <c:if test="${user.me_grade == 'ADMIN'}">
+             <li><a href="<%=request.getContextPath()%>/admin/user/booklist">MANAGEMENT</a></li>
+            </c:if>
+        </ul>
+    </div>
     <div class="container">
 	    <form action="<%=request.getContextPath()%>/order/payfinished" method="post">
 	        <h6>| 상품확인</h6>
@@ -197,8 +259,8 @@
 		                	<c:if test="${payment.ca_amount != null}">${payment.ca_amount}</c:if>
 							<input type="hidden" value="${payment.ca_amount}" name="pr_amount">
 		                </td>
-		                <td >${payment.ca_total_price}원</td>
-		                <td>8/23일 도착예정</td>
+		                <td class="total" >${payment.ca_total_price}원</td>
+		                <td class="deli-date"></td>
 		            </tr>
 	            </c:forEach>
 	            </tbody>
@@ -208,12 +270,15 @@
 	            <th rowspan="2" class="tableRow">배송일</th>
 	            <td>
 	              배송지
-	              <div>도로명 : ${member.me_address}</div>
+	              <div class="doro">도로명 : ${member.me_address}</div>
 	              <div>지번  : ${member.me_jAddress}</div>
 	            </td>
 	          </tr>
 	          <tr>
-	            <td>배송일정</td>
+	            <td>
+	            	그린배송 : <span class="green-deli"></span> 도착예정
+	            	<div class="caution"><i class="fas fa-exclamation-triangle"></i> 날씨나 택배사 사정에 따라 배송이 지연될 수 있습니다</div>
+	            	</td>
 	          </tr>
 	        </table>
 	        <table class="table price-box">
@@ -318,7 +383,15 @@
 	        </div>
 	        <br>
 	        <h6>| 결제방법</h6>
-	        <button id="apibtn">KakaoPay</button>
+            <ul class="pay-method">
+                <li>카카오페이</li>
+                <li>네이버페이</li>
+                <li>카드</li>
+            </ul>
+            <div class="doubleCheck">
+                주문하실 상품, 가격, 배송정보, 할인정보 등을 확인하였으며, 구매에 동의하시겠습니까?
+                <label class="agree"><input type="checkbox" name="agree-btn"> 동의합니다.(전자상거래법 제 8조 제2항)</label>
+            </div>
 	        <button class="payment-btn btn btn-info">결제하기</button>
 	    </form>
     </div>
@@ -377,21 +450,16 @@
 		$('.jibunAddr').val('${member.me_jAddress}');
 		$('.phone').val('${member.me_phone}');
 	})
-	
-	$('#apibtn').click(function(){
-		$.ajax({
-			url:'/order/payment/kakaopay',
-			dataType: 'json',
-			success:function(data){
-				var box = data.next_redirect_pc_url;
-				window.open(box);
-			},
-			error:function(error){
-				alert(error);
-			}
-		})
-		
-	})
+
+	var now = new Date();
+	now.setDate(now.getDate()+2)
+	var more = now.toISOString().substring(0,10);
+	$('.deli-date').text(more+" 도착예정");
+	$('.green-deli').text(more);
+
+
+
+
 	
 </script>
 </body>

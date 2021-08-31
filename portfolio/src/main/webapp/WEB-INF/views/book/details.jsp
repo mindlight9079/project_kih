@@ -20,7 +20,7 @@
     a{
       color: black; text-decoration: none;
     }
-    .subCatagory-list a:hover {
+    .subCatagory-list a:hover, .menu a:hover {
     	color: rgb(0, 104, 136); text-decoration: underline;
     }
     body{
@@ -71,11 +71,11 @@
     .order-line * {
       margin-right: 15px;
     }
-    .amount input[type="number"]{
-      width: 100px; height: 30px; margin-right: 30px;
+    .amount input[type="text"]{
+      width: 47px; height: 32px; margin-right: -5px; text-align: center;
     }
 	.cart{
-		margin-right : -10px;
+	  margin-right : -10px;
 	}
     .cart a, .buy a{
       margin: 0 auto;
@@ -140,6 +140,27 @@
         color: white; font-size: 30px; position: absolute; top: 20px; right: 20px;
     }
     
+    .minus, .plus {
+    	width:30px; height: 30px;  line-height: 30px; background-color: #f8f8f8; border: 1px solid gray;
+    	margin-right: -5px;
+    }
+    .plus{
+    	margin-right: 15px;
+    }
+    .fas {
+   		text-align: center; margin-right :0;
+    }
+    
+   .menu {
+        display: flex; position: absolute; top: 15px; right: 30px; z-index: 12;
+    }
+    .menu ul li{
+        float: left; padding: 10px;  font-size: 20px;  font-family:sans-serif; font-weight: bold;  cursor: pointer;
+    }
+  	.menu ul::after{
+        content: ''; clear: both; display: block;
+    }
+
   </style>
 </head>
 <body>
@@ -179,6 +200,26 @@
     </div>
 </div>
   <i class="fas fa-bars"></i>
+     <div class="menu">
+        <ul>
+        	<c:if test="${user == null}">
+            <li><a href="<%=request.getContextPath()%>/member/login">LOGIN</a></li>
+            <li><a href="<%=request.getContextPath()%>/member/signup">SIGNUP</a></li>
+            </c:if>
+            <c:if test="${user != null}">
+            <li><a href="<%=request.getContextPath()%>/member/logout">LOGOUT</a></li>
+            </c:if>
+            <c:if test="${user.me_grade != 'ADMIN'}">
+           	 <li><a href="#">ORDERS</a></li>
+           	 <li><a href="<%=request.getContextPath()%>/member/mypage">MYPAGE</a></li>
+             <li><a href="<%=request.getContextPath()%>/order/cart">CART</a></li>
+             <li><a href="<%=request.getContextPath()%>/">HOME</a></li>
+            </c:if>
+            <c:if test="${user.me_grade == 'ADMIN'}">
+             <li><a href="<%=request.getContextPath()%>/admin/user/booklist">MANAGEMENT</a></li>
+            </c:if>
+        </ul>
+    </div>
   <div class="container">
     <div class="book-top">
       <div class="bookImg">
@@ -209,7 +250,10 @@
         </div>
         <div class="order-line">
           <div class="amount">
-            수량 <input type="number" min="0" value="1" class="bookAmount">
+             수량 &nbsp;
+             <button type="button" id="decreaseQuantity" class="minus"><i class="fas fa-minus"></i></button>
+             <input type="text" value="1" class="bookAmount" readonly>
+             <button type ="button" id="increaseQuantity" class="plus"><i class="fas fa-plus"></i></button>
           </div>
            <a href="#"><button class="cart btn btn-info addCart-btn">장바구니</button></a>
           <a href="<%=request.getContextPath()%>/order/payment" class="btn-buy"><button class="buy btn btn-secondary ">바로구매</button></a>
@@ -304,7 +348,30 @@ $(function(){
 			}
 		})
 	})
+	
 	var stockAmount = $('.stockAmount').val();
+	
+    $('#decreaseQuantity').click(function(e){
+       	e.preventDefault();
+       	var stat = $('.bookAmount').val();
+       	var num = parseInt(stat);
+       	num--;
+      
+        	$('.bookAmount').val(num);
+        	$('.bookAmount').change();
+     });
+    	
+     $('#increaseQuantity').click(function(e){
+        e.preventDefault();
+        var stat = $('.bookAmount').val();
+        var num = parseInt(stat);
+        num++;
+
+        	$('.bookAmount').val(num);
+        	$('.bookAmount').change();
+     });
+
+	
 	$('.bookAmount').change(function(){
 		var code = $('.code').val();
 		var amount = $(this).val();
@@ -313,6 +380,11 @@ $(function(){
 			ca_amount : amount
 		};
 		var obj = $(this);
+		if(amount <=0){
+			alert('1개 이상 구매 가능합니다.');
+			obj.val(amount = '1');
+			return false;
+		}
 		$.ajax({
 			url : contextPath + '/order/cart/stock',
 			type: 'post',
@@ -353,6 +425,9 @@ $(function(){
 		} else
 		$(this).attr('href','<%=request.getContextPath()%>/order/payment?isbn='+isbn+'&amount='+amount)
     })
+    
+
+	 
 })
 </script>
 </body>

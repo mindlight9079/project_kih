@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -138,39 +139,4 @@ public class CartController {
 		return mv;
 	}
 	
-	@RequestMapping("/order/payment/kakaopay")
-	@ResponseBody
-	public String kakaopay() {
-		try {
-			URL address = new URL("https://kapi.kakao.com/v1/payment/ready");
-			try {
-				HttpURLConnection serverConnect = (HttpURLConnection) address.openConnection();
-				serverConnect.setRequestMethod("POST");
-				serverConnect.setRequestProperty("Authorization", "KakaoAK 740e4771a6bc8cb24fc7999d91ff3218");
-				serverConnect.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
-				serverConnect.setDoOutput(true);
-				String parameter ="cid=TC0ONETIME&partner_order_id=partner_order_id&partner_user_id=partner_user_id&item_name=greenBookStore&total_amount=2200&vat_amount=200&tax_free_amount=0&approval_url=http://localhost:8080/portfolio/order/payFinished/success&fail_url=http://localhost:8080/portfolio/order/payment/fail&cancel_url=http://localhost:8080/portfolio/order/payment/cancel";
-				OutputStream giver = serverConnect.getOutputStream();
-				DataOutputStream dataGive = new DataOutputStream(giver);
-				dataGive.writeBytes(parameter);
-				dataGive.close();
-				
-				int result = serverConnect.getResponseCode();
-				InputStream taker;
-				if(result == 200) {
-					taker = serverConnect.getInputStream();
-				} else {
-					taker = serverConnect.getErrorStream();
-				}
-				InputStreamReader reader = new InputStreamReader(taker);
-				BufferedReader change = new BufferedReader(reader);
-				return change.readLine();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
-		return "{\"result\":\"NO\"}"; 
-	}
 }
