@@ -63,5 +63,7 @@
 			or_state = #{or_state}
 				where or_num = #{or_num}
 	</update>
+	<insert id="insertPayment">
+	</insert>
 </mapper>
 

@@ -30,5 +30,7 @@ public interface CartService {
 
 	void getOrder(String partner_order_id);
 
+//	void insertPayment(String tid, String payment_method_type, String me_name, String partner_order_id, Integer point);
+
 
 }

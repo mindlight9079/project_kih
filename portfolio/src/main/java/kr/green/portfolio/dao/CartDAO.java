@@ -39,5 +39,7 @@ public interface CartDAO {
 
 	void updateOrder(OrderVO order);
 
+//	void insertPayment(@Param("tid")String tid, @Param("payment_method_type") String payment_method_type, @Param("me_name")String me_name, @Param("partner_order_id")String partner_order_id, @Param("point") Integer point);
+
 
 }

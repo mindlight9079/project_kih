@@ -112,4 +112,11 @@ public class CartServiceImp implements CartService {
 			cartDao.updateOrder(order);
 		}
 	}
+
+//	@Override
+//	public void insertPayment(String tid, String payment_method_type, String me_name, String partner_order_id, Integer point) {
+//		if(tid == null && payment_method_type == null && me_name == null & partner_order_id == null && point == null)
+//			return;
+//		cartDao.insertPayment(tid, payment_method_type, me_name, partner_order_id, point);
+//	}
 }

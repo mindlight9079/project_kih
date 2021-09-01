@@ -180,12 +180,15 @@ public class CartController {
 				JSONParser parser = new JSONParser();
 				Object obj = parser.parse( res );
 				JSONObject jsonObj = (JSONObject) obj;
-				String approved_at =(String) jsonObj.get("approved_at");
-			
-				System.out.println(res);
+//				String approved_at = (String) jsonObj.get("approved_at");
+//				String payment_method_type = (String) jsonObj.get("payment_method_type");
+//				Integer point =(Integer) jsonObj.get("point");
+				
 				
 				cartService.getOrder(partner_order_id);
 				
+//				String me_name = ((MemberVO)request.getSession().getAttribute("user")).getMe_name();
+//				cartService.insertPayment(tid, payment_method_type, me_name, partner_order_id, point);
 				
 				
 			} catch (IOException e) {
