@@ -26,7 +26,7 @@ CREATE TABLE `order` (
   `or_num` varchar(20) NOT NULL,
   `or_me_id` varchar(50) NOT NULL,
   `or_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `or_state` varchar(30) NOT NULL DEFAULT '결제완료',
+  `or_state` varchar(30) NOT NULL DEFAULT '결제승인중',
   `or_receiver` varchar(50) NOT NULL,
   `or_payment` int NOT NULL,
   PRIMARY KEY (`or_num`),
@@ -41,7 +41,7 @@ CREATE TABLE `order` (
 
 LOCK TABLES `order` WRITE;
 /*!40000 ALTER TABLE `order` DISABLE KEYS */;
-INSERT INTO `order` VALUES ('2021083022','qwe123','2021-08-30 17:22:39','결제완료','임꺽정',15000),('2021083040','qwe123','2021-08-30 17:21:42','결제완료','임꺽정',124800),('2021083077','qwe123','2021-08-30 17:20:19','결제완료','임꺽정',124800),('202108308','qwe123','2021-08-30 17:22:23','결제완료','임꺽정',15000),('2021083090','qwe123','2021-08-30 16:41:02','결제완료','임꺽정',36000),('2021083094','qwe123','2021-08-30 16:34:24','결제완료','임꺽정',106800);
+INSERT INTO `order` VALUES ('2021090152','qwe123','2021-09-01 17:24:02','결제완료','임꺽정',124800);
 /*!40000 ALTER TABLE `order` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -54,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-08-30 17:27:56
+-- Dump completed on 2021-09-01 17:32:27

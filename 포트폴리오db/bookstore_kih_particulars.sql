@@ -28,13 +28,10 @@ CREATE TABLE `particulars` (
   `pr_bk_isbn` bigint NOT NULL,
   `pr_deli_date` datetime NOT NULL,
   `pr_amount` int NOT NULL,
-  `pr_pa_num` int NOT NULL,
   PRIMARY KEY (`pr_num`),
   KEY `de_bk_isbn_idx` (`pr_bk_isbn`),
-  KEY `particulars_ibfk_3` (`pr_pa_num`),
   KEY `pr_or_num_idx` (`pr_or_num`),
   CONSTRAINT `de_bk_isbn` FOREIGN KEY (`pr_bk_isbn`) REFERENCES `book` (`bk_isbn`),
-  CONSTRAINT `particulars_ibfk_3` FOREIGN KEY (`pr_pa_num`) REFERENCES `payment` (`pa_num`),
   CONSTRAINT `pr_or_num` FOREIGN KEY (`pr_or_num`) REFERENCES `order` (`or_num`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -57,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-08-30 17:27:57
+-- Dump completed on 2021-09-01 17:32:26

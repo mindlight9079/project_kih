@@ -27,7 +27,10 @@ CREATE TABLE `payment` (
   `pa_methods` varchar(30) NOT NULL,
   `pa_name` varchar(50) NOT NULL,
   `pa_point` int NOT NULL,
-  PRIMARY KEY (`pa_num`)
+  `pa_or_num` varchar(20) NOT NULL,
+  PRIMARY KEY (`pa_num`),
+  KEY `pa_or_num_idx` (`pa_or_num`),
+  CONSTRAINT `pa_or_num` FOREIGN KEY (`pa_or_num`) REFERENCES `order` (`or_num`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -49,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-08-30 17:27:56
+-- Dump completed on 2021-09-01 17:32:26
