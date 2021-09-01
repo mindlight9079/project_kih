@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import kr.green.portfolio.vo.CartVO;
 import kr.green.portfolio.vo.MemberVO;
 import kr.green.portfolio.vo.OrderVO;
+import kr.green.portfolio.vo.PaymentVO;
 
 public interface CartService {
 
@@ -23,9 +24,11 @@ public interface CartService {
 
 	void getCartRegister(BigInteger[] checkList, Integer[] cataAmount, String ca_me_id);
 
-	void insertPayFinished(OrderVO order, BigInteger finalCount);
+	void insertPayFinished(OrderVO order);
 
 	void insertParticulars(String or_num, Integer[] ca_re_code, Integer[] pr_amount);
+
+	void getOrder(String partner_order_id);
 
 
 }

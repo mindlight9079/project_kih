@@ -31,9 +31,13 @@ public interface CartDAO {
 
 	void getCartRegister(@Param("bigInteger") BigInteger bigInteger, @Param("integer") Integer integer, @Param("ca_me_id") String ca_me_id);
 
-	void insertPayFinished(@Param("order")OrderVO order, @Param("finalCount") BigInteger finalCount);
+	void insertPayFinished(OrderVO order);
 
 	void insertParticulars(@Param("or_num") String or_num, @Param("integer") Integer integer, @Param("pr_amount") Integer pr_amount);
+
+	OrderVO getOrder(String partner_order_id);
+
+	void updateOrder(OrderVO order);
 
 
 }

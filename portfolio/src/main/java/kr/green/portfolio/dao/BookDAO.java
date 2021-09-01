@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import kr.green.portfolio.pagination.Criteria;
 import kr.green.portfolio.vo.BookVO;
 import kr.green.portfolio.vo.BooksVO;
+import kr.green.portfolio.vo.OrderVO;
 import kr.green.portfolio.vo.RegistrationVO;
 
 public interface BookDAO {
@@ -55,6 +56,7 @@ public interface BookDAO {
 	ArrayList<BookVO> getBookAuthor(Integer bs_num);
 
 	void updateAmount(@Param("integer") Integer integer, @Param("pr_amount") Integer pr_amount);
+
 
 
 

@@ -12,6 +12,7 @@ import kr.green.portfolio.dao.CartDAO;
 import kr.green.portfolio.vo.CartVO;
 import kr.green.portfolio.vo.MemberVO;
 import kr.green.portfolio.vo.OrderVO;
+import kr.green.portfolio.vo.PaymentVO;
 
 @Service
 public class CartServiceImp implements CartService {
@@ -86,10 +87,9 @@ public class CartServiceImp implements CartService {
 	}
 
 	@Override
-	public void insertPayFinished(OrderVO order, BigInteger finalCount) {
+	public void insertPayFinished(OrderVO order) {
 		order.setOr_num(order.setOr_random_num());
-		System.out.println(finalCount);
-		cartDao.insertPayFinished(order, finalCount);
+		cartDao.insertPayFinished(order);
 	}
 
 	@Override
@@ -99,6 +99,17 @@ public class CartServiceImp implements CartService {
 		for(int i = 0; i < ca_re_code.length; i++) {
 			bookDao.updateAmount(ca_re_code[i], pr_amount[i]);
 			cartDao.insertParticulars(or_num, ca_re_code[i],pr_amount[i]);
+		}
+	}
+
+	@Override
+	public void getOrder(String partner_order_id) {
+		if(partner_order_id == null)
+			return;
+		OrderVO order = cartDao.getOrder(partner_order_id);
+		if(order.getOr_num().equals(partner_order_id)) {
+			order.setOr_state("결제완료");
+			cartDao.updateOrder(order);
 		}
 	}
 }

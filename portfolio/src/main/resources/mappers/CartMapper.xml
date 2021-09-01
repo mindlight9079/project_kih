@@ -49,11 +49,19 @@
 	</update>
 	<insert id="insertPayFinished">
 		insert into `order` (or_num, or_me_id, or_receiver, or_payment)
-			values (#{order.or_num}, #{order.or_me_id}, #{order.or_receiver}, #{finalCount})
+			values (#{or_num}, #{or_me_id}, #{or_receiver}, #{or_payment})
 	</insert>
 	<insert id="insertParticulars">
 		insert into particulars (pr_or_num, pr_bk_isbn, pr_deli_date, pr_amount, pr_pa_num, pr_deli_price)
 			select #{or_num}, bk_isbn, from registration where 
 	</insert>
+	<select id="getOrder" resultType="kr.green.portfolio.vo.OrderVO">
+		select * from `order` where or_num = #{partner_order_id}
+	</select>
+	<update id="updateOrder">
+		update `order` set
+			or_state = #{or_state}
+				where or_num = #{or_num}
+	</update>
 </mapper>
 

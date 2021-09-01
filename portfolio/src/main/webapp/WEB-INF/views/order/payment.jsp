@@ -140,7 +140,7 @@
         display: flex; border: 1px solid #dee2e6;
     }
     .pay-method li{
-        width: calc(100% / 3); text-align: center; line-height: 70px;
+        width: calc(100% / 2); text-align: center; line-height: 70px;
         border-right: 1px solid #dee2e6;  cursor: pointer;
     }
     .pay-method li:last-child{
@@ -382,11 +382,11 @@
 	  
 	        </div>
 	        <br>
+	        
 	        <h6>| 결제방법</h6>
             <ul class="pay-method">
-                <li>카카오페이</li>
-                <li>네이버페이</li>
-                <li>카드</li>
+                <li><label><input type="checkbox" name="pay" value="kakao">카카오페이</label></li>
+                <li><label><input type="checkbox" name="pay" value="card">카드</label></li>
             </ul>
             <div class="doubleCheck">
                 주문하실 상품, 가격, 배송정보, 할인정보 등을 확인하였으며, 구매에 동의하시겠습니까?
@@ -394,7 +394,6 @@
             </div>
 	        <button class="payment-btn btn btn-info">결제하기</button>
 	    </form>
-	    <button id="apibtn">카카오페이</button>
     </div>
 <script>
 $(function(){
@@ -459,26 +458,44 @@ $(function(){
 	$('.deli-date').text(more+" 도착예정");
 	$('.green-deli').text(more);
 
-	var contextPath = '<%=request.getContextPath()%>';
-	
-	$('#apibtn').click(function(){
-		$.ajax({
-			url: contextPath+'/order/kakaopay',
-			dataType: 'json',
-			data : JSON.stringify(data),
-			contentType : 'application/json; charset=utf-8',
-			success:function(data){
-				var box = data.next_redirect_pc_url;
-				window.open(box);
-			},
-			error:function(error){
-				alert(error);
-			}
-		})
+	var contextPath = '<%=request.getContextPath()%>';	
+	$('.payment-btn').click(function(){
+		if($('[name=pay]:checked').length == 0){
+			alert('결제 방법을 선택하세요.')
+			return false;
+		}
+		if($('[name=pay]:checked').val() == 'kakao'){
+			var or_me_id = $('[name=or_me_id]').val();
+			var or_receiver = $('[name=or_receiver]').val();
+			var finalCount = $('[name=finalCount]').val();
+			console.log(or_me_id);
+			console.log(or_receiver);
+			console.log(finalCount);
+			var data = {
+					or_me_id : or_me_id,
+					or_receiver : or_receiver,
+					or_payment : finalCount
+				};
+			$.ajax({
+				async: false,
+				url: contextPath+'/order/kakaopay',
+				type : "post",
+				dataType: 'json',
+				data : JSON.stringify(data),
+				contentType : 'application/json; charset=utf-8',
+				success:function(data){
+					console.log(data)
+					var box = data.next_redirect_pc_url;
+					window.open(box);
+				},
+				error:function(error){
+					alert(error);
+				}
+			})
+			return false;
+		}
 	})
 
-	
-	
 })
 </script>
 </body>
