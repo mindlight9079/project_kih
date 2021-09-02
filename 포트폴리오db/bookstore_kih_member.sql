@@ -41,16 +41,6 @@ CREATE TABLE `member` (
   PRIMARY KEY (`me_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='		';
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `member`
---
-
-LOCK TABLES `member` WRITE;
-/*!40000 ALTER TABLE `member` DISABLE KEYS */;
-INSERT INTO `member` VALUES ('abc123','길동이','$2a$10$yaxmVHWXBYq3c6ftiX7UROBvrkAQZMCAnPh8IY5K1B4hOgnLJ5YTy','F','1993년3월12일','01012345678','13485,경기 성남시 분당구 판교로 20  (판교동, 판교원마을3단지아파트)','홍길동','9302201234567','abc123@hanmail.net',0,'ADMIN','13485,경기 성남시 분당구 판교동 629  (판교동, 판교원마을3단지아파트)','none','2021-08-30 09:38:28'),('qwe123','꺽정이','$2a$10$prsKV/jh2.GmpQ7V5U0Ly.wo2cJBWDGuBO8o9pGLY66Qr05gdOgQe','M','1990년10월19일','01011112222','06267,서울 강남구 남부순환로 2609  (도곡동)','임꺽정','9010191111111','qwe123@naver.com',0,'NORMAL','06267,서울 강남구 도곡동 957-14  (도곡동)','CB1E403FC98789FD78DE35530BC327B0','2021-09-06 00:00:00');
-/*!40000 ALTER TABLE `member` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -61,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-09-01 17:32:26
+-- Dump completed on 2021-09-02 17:48:31
