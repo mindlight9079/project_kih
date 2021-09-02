@@ -11,6 +11,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -32,7 +33,6 @@ import kr.green.portfolio.service.MemberService;
 import kr.green.portfolio.vo.CartVO;
 import kr.green.portfolio.vo.MemberVO;
 import kr.green.portfolio.vo.OrderVO;
-import kr.green.portfolio.vo.PaymentVO;
 import kr.green.portfolio.vo.RegistrationVO;
 
 
@@ -129,16 +129,12 @@ public class CartController {
 	}
 	
 	@RequestMapping(value="/order/payfinished", method=RequestMethod.POST)
-	public ModelAndView payFinished (ModelAndView mv, HttpSession session, OrderVO order, Integer[] ca_re_code, Integer[] pr_amount, PaymentVO payment ) throws ParseException {
+	public ModelAndView payFinishedPost (ModelAndView mv, HttpSession session, String partner_order_id, BigInteger[] isbn, String or_deliver, Integer[] pr_amount, Integer me_point) {
 		MemberVO member = (MemberVO)session.getAttribute("user");
-		if(member != null && member.getMe_id().equals(order.getOr_me_id())) {
-			cartService.insertPayFinished(order);			
-//			for(int i = 0; i<ca_re_code.length; i++) {
-//				System.out.println(ca_re_code[i]);
-//			}
-//			System.out.println("jj : "+order.getOr_num());
-			cartService.insertParticulars(order.getOr_num(), ca_re_code, pr_amount);	
-		}		
+		String userId = member.getMe_id();
+		memberService.updatePoint(userId, me_point);
+		cartService.insertParticulars(partner_order_id, isbn, or_deliver, pr_amount);
+		bookService.updateAmount(isbn, pr_amount);
 		mv.setViewName("/order/payfinished");
 		return mv;
 	}
@@ -161,7 +157,7 @@ public class CartController {
 				String parameter = "cid=TC0ONETIME" // 가맹점 코드
 						+ "&partner_order_id="+partner_order_id// 가맹점 주문번호
 						+ "&partner_user_id="+partner_user_id // 가맹점 회원 id
-						+ "&tid="+tid // 상품명
+						+ "&tid="+tid
 						+ "&pg_token="+pg_token;
 				DataOutputStream dataGive = new DataOutputStream(giver);
 				dataGive.writeBytes(parameter);
@@ -177,18 +173,20 @@ public class CartController {
 				InputStreamReader reader = new InputStreamReader(taker);
 				BufferedReader change = new BufferedReader(reader);
 				String res = change.readLine();
-				JSONParser parser = new JSONParser();
-				Object obj = parser.parse( res );
-				JSONObject jsonObj = (JSONObject) obj;
-//				String approved_at = (String) jsonObj.get("approved_at");
-//				String payment_method_type = (String) jsonObj.get("payment_method_type");
-//				Integer point =(Integer) jsonObj.get("point");
 				
+				JSONObject jsonObj = stringToJson(res);
+				String approved_at = (String) jsonObj.get("approved_at");
+				String payment_method_type = (String) jsonObj.get("payment_method_type");
+				
+				JSONObject amount = (JSONObject) jsonObj.get("amount");
+				Long point = (Long) amount.get("point");
+
+				System.out.println(res);
 				
 				cartService.getOrder(partner_order_id);
-				
-//				String me_name = ((MemberVO)request.getSession().getAttribute("user")).getMe_name();
-//				cartService.insertPayment(tid, payment_method_type, me_name, partner_order_id, point);
+								
+				String me_name = ((MemberVO)request.getSession().getAttribute("user")).getMe_name();
+				cartService.insertPayment(tid, payment_method_type, me_name, partner_order_id, point, approved_at);
 				
 				
 			} catch (IOException e) {
@@ -197,6 +195,7 @@ public class CartController {
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
+		mv.addObject("partner_order_id", partner_order_id);
 		mv.setViewName("/order/payfinished");
 		return mv; 
 	}
@@ -256,6 +255,17 @@ public class CartController {
 			e.printStackTrace();
 		}
 		return "{\"result\":\"NO\"}"; 
+	}
+	private JSONObject stringToJson(String res) {
+		JSONParser parser = new JSONParser();
+		Object obj = null;
+		try {
+			obj = parser.parse( res );
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		JSONObject jsonObj = (JSONObject) obj;
+		return jsonObj;
 	}
 	
 }

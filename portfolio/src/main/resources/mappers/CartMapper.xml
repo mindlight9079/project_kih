@@ -26,7 +26,7 @@
 		select * from cart where ca_me_id = #{ca_me_id} and ca_re_code = #{ca_re_code} and ca_valid="I"
 	</select>
 	<select id="getPayment" resultType="kr.green.portfolio.vo.CartVO">
-		select cart.*, bk_mainImg as ca_mainImg, re_title as ca_title, bk_subtitle as ca_subTitle, re_price as ca_price from cart 
+		select cart.*, bk_mainImg as ca_mainImg, re_title as ca_title, bk_subtitle as ca_subTitle, re_price as ca_price,  bk_isbn as ca_isbn from cart 
 				join registration on ca_re_code = re_code 
     			join book on bk_isbn = re_bk_isbn where ca_me_id = #{member.me_id} and ca_num = #{ca_num} and ca_valid = 'I';
 	</select>
@@ -48,12 +48,8 @@
 				where ca_num = #{ca_num}
 	</update>
 	<insert id="insertPayFinished">
-		insert into `order` (or_num, or_me_id, or_receiver, or_payment)
-			values (#{or_num}, #{or_me_id}, #{or_receiver}, #{or_payment})
-	</insert>
-	<insert id="insertParticulars">
-		insert into particulars (pr_or_num, pr_bk_isbn, pr_deli_date, pr_amount, pr_pa_num, pr_deli_price)
-			select #{or_num}, bk_isbn, from registration where 
+		insert into `order` (or_num, or_me_id, or_receiver, or_payment, or_deliver)
+			values (#{or_num}, #{or_me_id}, #{or_receiver}, #{or_payment}, #{or_deliver})
 	</insert>
 	<select id="getOrder" resultType="kr.green.portfolio.vo.OrderVO">
 		select * from `order` where or_num = #{partner_order_id}
@@ -64,6 +60,12 @@
 				where or_num = #{or_num}
 	</update>
 	<insert id="insertPayment">
+		insert into payment (pa_num, pa_methods, pa_name, pa_or_num, pa_point, pa_approved)
+			values(#{tid}, #{payment_method_type}, #{me_name}, #{partner_order_id}, #{point}, #{approved_at})
+	</insert>
+	<insert id="insertParticulars">
+		insert into particulars (pr_or_num, pr_bk_isbn, pr_deli_date, pr_amount)
+			values(#{partner_order_id}, #{bigInteger}, #{or_deliver}, #{integer})
 	</insert>
 </mapper>
 

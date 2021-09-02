@@ -98,6 +98,7 @@ public class MemberController {
 		int totalCount = memberService.getTotalCountGreenPoint(cri);
 		pm.setTotalCount(totalCount);
 		pm.calcData();
+		
 		mv.addObject("pm", pm);
 		mv.setViewName("/member/greenpoint");
 		return mv;

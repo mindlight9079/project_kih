@@ -199,4 +199,16 @@ public class BookServiceImp implements BookService {
 		}
 		return bookDao.getBookAuthor(bs_num);
 	}
+
+	@Override
+	public void updateAmount(BigInteger[] isbn, Integer[] pr_amount) {
+		if(isbn == null && pr_amount == null)
+			return;
+		for(int i=0; i<isbn.length; i++) {
+			bookDao.updateAmount(isbn[i], pr_amount[i]);
+		}
+		
+	}
+
+
 }

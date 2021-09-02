@@ -14,14 +14,17 @@ public class OrderVO {
 	private String or_state;
 	private String or_receiver;
 	private BigInteger or_payment;
+	private int or_deliver;
 	
 	public String setOr_random_num() {
 		java.util.Date now = new java.util.Date();
-		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+		SimpleDateFormat format = new SimpleDateFormat("yyyyMMddhhssmm");
 		String wdate = format.format(now);
 		int min = 0;
 		int max = 100;
 		int order_num = (int)(Math.random()*(max-min+1)+min);
 		return wdate+order_num;
 	}
+	
+	
 }

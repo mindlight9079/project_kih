@@ -12,7 +12,6 @@ import kr.green.portfolio.dao.CartDAO;
 import kr.green.portfolio.vo.CartVO;
 import kr.green.portfolio.vo.MemberVO;
 import kr.green.portfolio.vo.OrderVO;
-import kr.green.portfolio.vo.PaymentVO;
 
 @Service
 public class CartServiceImp implements CartService {
@@ -93,16 +92,6 @@ public class CartServiceImp implements CartService {
 	}
 
 	@Override
-	public void insertParticulars(String or_num, Integer[] ca_re_code, Integer[] pr_amount) {
-		if(or_num == null && ca_re_code == null)
-			return;
-		for(int i = 0; i < ca_re_code.length; i++) {
-			bookDao.updateAmount(ca_re_code[i], pr_amount[i]);
-			cartDao.insertParticulars(or_num, ca_re_code[i],pr_amount[i]);
-		}
-	}
-
-	@Override
 	public void getOrder(String partner_order_id) {
 		if(partner_order_id == null)
 			return;
@@ -113,10 +102,20 @@ public class CartServiceImp implements CartService {
 		}
 	}
 
-//	@Override
-//	public void insertPayment(String tid, String payment_method_type, String me_name, String partner_order_id, Integer point) {
-//		if(tid == null && payment_method_type == null && me_name == null & partner_order_id == null && point == null)
-//			return;
-//		cartDao.insertPayment(tid, payment_method_type, me_name, partner_order_id, point);
-//	}
+	@Override
+	public void insertPayment(String tid, String payment_method_type, String me_name, String partner_order_id, Long point, String approved_at) {
+		if(tid == null && payment_method_type == null && me_name == null & partner_order_id == null && point == null && approved_at == null)
+			return;
+		cartDao.insertPayment(tid, payment_method_type, me_name, partner_order_id, point, approved_at);
+	}
+
+	@Override
+	public void insertParticulars(String partner_order_id, BigInteger[] isbn, String or_deliver, Integer[] pr_amount) {
+		if(partner_order_id == null && isbn == null && or_deliver == null && pr_amount == null)
+			return;
+		for(int i=0; i<isbn.length; i++) {
+			cartDao.insertParticulars(partner_order_id, isbn[i], or_deliver, pr_amount[i]);
+		}
+			
+	}
 }

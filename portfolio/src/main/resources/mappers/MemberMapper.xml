@@ -166,5 +166,10 @@
 			from books join author on bs_au_num = au_num
 			  where bs_num = #{bs_num}
 	</select>
+	<update id="updatePoint">
+		update member set
+			me_point = #{me_point}
+				where me_id = #{userId}
+	</update>
 </mapper>
 

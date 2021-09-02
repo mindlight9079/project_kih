@@ -51,4 +51,7 @@ public interface BookService {
 
 	ArrayList<BookVO> getBookAuthor(Integer bs_num);
 
+	void updateAmount(BigInteger[] isbn, Integer[] pr_amount);
+
+
 }

@@ -2,6 +2,7 @@ package kr.green.portfolio.service;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Date;
 
 import kr.green.portfolio.vo.CartVO;
 import kr.green.portfolio.vo.MemberVO;
@@ -26,11 +27,11 @@ public interface CartService {
 
 	void insertPayFinished(OrderVO order);
 
-	void insertParticulars(String or_num, Integer[] ca_re_code, Integer[] pr_amount);
-
 	void getOrder(String partner_order_id);
 
-//	void insertPayment(String tid, String payment_method_type, String me_name, String partner_order_id, Integer point);
+	void insertPayment(String tid, String payment_method_type, String me_name, String partner_order_id, Long point, String approved_at);
+
+	void insertParticulars(String partner_order_id, BigInteger[] isbn, String or_deliver, Integer[] pr_amount);
 
 
 }

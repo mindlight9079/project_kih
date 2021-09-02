@@ -233,7 +233,7 @@
         </ul>
     </div>
     <div class="container">
-	    <form action="<%=request.getContextPath()%>/order/payfinished" method="post">
+	    <form action="<%=request.getContextPath()%>/order/payfinished" method="post" id="a">
 	        <h6>| 상품확인</h6>
 	        <table class="table cart-table">
 	            <thead>
@@ -251,17 +251,17 @@
 		            <tr>
 		                <td>
 		                	<img src="<%=request.getContextPath()%>/img${payment.ca_mainImg}" alt="cartImg" class="cart-image">
-		                	<input type="hidden" value="${payment.ca_re_code}" name="ca_re_code">
+		                	<input type="hidden" value="${payment.ca_isbn}" name="isbn">
 		                </td>
 		                <td >${payment.ca_title} <c:if test="${payment.ca_subTitle != null && payment.ca_subTitle != ''}"> : ${payment.ca_subTitle}</c:if></td>
 		                <td class="price">${payment.ca_price}원</td>
 		                <td class="amount">
 		                	<c:if test="${payment.ca_amount != null}">${payment.ca_amount}</c:if>
-							<input type="hidden" value="${payment.ca_amount}" name="pr_amount">
 		                </td>
 		                <td class="total" >${payment.ca_total_price}원</td>
 		                <td class="deli-date"></td>
 		            </tr>
+			        <input type="hidden" name="pr_amount" value="${payment.ca_amount}">
 	            </c:forEach>
 	            </tbody>
 	        </table>
@@ -276,7 +276,9 @@
 	          </tr>
 	          <tr>
 	            <td>
-	            	그린배송 : <span class="green-deli"></span> 도착예정
+	            	그린배송 :
+	            	<span class="green-deli"></span> 도착예정
+	            	<input type="hidden" name="or_deliver">
 	            	<div class="caution"><i class="fas fa-exclamation-triangle"></i> 날씨나 택배사 사정에 따라 배송이 지연될 수 있습니다</div>
 	            	</td>
 	          </tr>
@@ -305,6 +307,7 @@
 	            </tr>
 	        </table>
 	        <input type="hidden" name="finalCount">
+	        <input type="hidden" name="addPrice">
 	        <div class="pointView">
 	            <table class="table point">
 	                <tbody>
@@ -324,7 +327,7 @@
 	                <hr>
 	                <li>기본적립 포인트<span class="basicPoint"></span></li>
 	                <hr>
-	                <li>총 예상 포인트<span class="totalPoint"></span></li>
+	                <li>총 예상 포인트<span class="totalPoint"></span><input type="hidden" name="me_point"></li>
 	            </ul>
 	        </div>
 	        <br>
@@ -392,9 +395,11 @@
                 주문하실 상품, 가격, 배송정보, 할인정보 등을 확인하였으며, 구매에 동의하시겠습니까?
                 <label class="agree"><input type="checkbox" name="agree-btn"> 동의합니다.(전자상거래법 제 8조 제2항)</label>
             </div>
+            <input type="hidden" id="partner_order_id" name="partner_order_id">
 	        <button class="payment-btn btn btn-info">결제하기</button>
 	    </form>
     </div>
+   
 <script>
 $(function(){
     $('.fa-bars').click(function(){
@@ -428,11 +433,14 @@ $(function(){
 	} else if(num < 10000){
 		$('.addPrice').text('2500원');
 	}
+	
 	var addPrice = $('.addPrice').text();
 	var addNum = parseInt(addPrice.replace(/[^0-9]/g,''));
 	var finalCount = num+addNum;
 	$('.finalCount').text(finalCount+"원");
 	$('[name=finalCount]').val(finalCount);
+	
+	$('[name=addPrice]').val(addNum);	
 	
 	var basicPoint = parseInt($('.totalCount').text())*0.05;
 	$('.basicPoint').text(basicPoint);
@@ -440,6 +448,8 @@ $(function(){
 	var hasPoint = parseInt($('.hasPoint').text());
 	var totalPoint = hasPoint+basicPoint;
 	$('.totalPoint').text(totalPoint);
+	
+	$('[name=me_point]').val(totalPoint);
 	
 	$('.newAddr').click(function(){
 		$('.deli-addr input').val('');
@@ -457,6 +467,7 @@ $(function(){
 	var more = now.toISOString().substring(0,10);
 	$('.deli-date').text(more+" 도착예정");
 	$('.green-deli').text(more);
+	$('[name=or_deliver]').val(more);
 
 	var contextPath = '<%=request.getContextPath()%>';	
 	$('.payment-btn').click(function(){
@@ -464,17 +475,20 @@ $(function(){
 			alert('결제 방법을 선택하세요.')
 			return false;
 		}
+		if($('[name=agree-btn]:checked').length == 0){
+			alert('주문 내용 확인 후 동의하셔야 구매가 가능합니다.');
+			return false;
+		}
 		if($('[name=pay]:checked').val() == 'kakao'){
 			var or_me_id = $('[name=or_me_id]').val();
 			var or_receiver = $('[name=or_receiver]').val();
 			var finalCount = $('[name=finalCount]').val();
-			console.log(or_me_id);
-			console.log(or_receiver);
-			console.log(finalCount);
+			var or_deliver = $('[name=addPrice]').val();	
 			var data = {
 					or_me_id : or_me_id,
 					or_receiver : or_receiver,
-					or_payment : finalCount
+					or_payment : finalCount,
+					or_deliver : or_deliver
 				};
 			$.ajax({
 				async: false,
@@ -486,7 +500,7 @@ $(function(){
 				success:function(data){
 					console.log(data)
 					var box = data.next_redirect_pc_url;
-					window.open(box);
+					a = window.open(box);
 				},
 				error:function(error){
 					alert(error);
@@ -497,6 +511,8 @@ $(function(){
 	})
 
 })
+var a;
+a.trigger('change')
 </script>
 </body>
 </html>

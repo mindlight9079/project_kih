@@ -340,6 +340,13 @@ public class MemberServiceImp implements MemberService {
 		}
 		return memberDao.getAuthorIntro(bs_num);
 	}
+	
+	@Override
+	public void updatePoint(String userId, Integer me_point) {
+		if(userId == null && me_point == null)
+			return;
+		memberDao.updatePoint(userId, me_point);		
+	}
 
 
 }

@@ -2,6 +2,7 @@ package kr.green.portfolio.dao;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -33,13 +34,13 @@ public interface CartDAO {
 
 	void insertPayFinished(OrderVO order);
 
-	void insertParticulars(@Param("or_num") String or_num, @Param("integer") Integer integer, @Param("pr_amount") Integer pr_amount);
-
 	OrderVO getOrder(String partner_order_id);
 
 	void updateOrder(OrderVO order);
 
-//	void insertPayment(@Param("tid")String tid, @Param("payment_method_type") String payment_method_type, @Param("me_name")String me_name, @Param("partner_order_id")String partner_order_id, @Param("point") Integer point);
+	void insertPayment(@Param("tid")String tid, @Param("payment_method_type") String payment_method_type, @Param("me_name")String me_name, @Param("partner_order_id")String partner_order_id, @Param("point") Long point, @Param("approved_at") String approved_at);
+
+	void insertParticulars(@Param("partner_order_id")String partner_order_id, @Param("bigInteger") BigInteger bigInteger, @Param("or_deliver") String or_deliver, @Param("integer") Integer integer);
 
 
 }

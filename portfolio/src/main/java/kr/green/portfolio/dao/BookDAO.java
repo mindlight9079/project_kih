@@ -55,13 +55,6 @@ public interface BookDAO {
 
 	ArrayList<BookVO> getBookAuthor(Integer bs_num);
 
-	void updateAmount(@Param("integer") Integer integer, @Param("pr_amount") Integer pr_amount);
-
-
-
-
-
-
-
+	void updateAmount(@Param("bigInteger") BigInteger bigInteger, @Param("integer") Integer integer);
 
 }
