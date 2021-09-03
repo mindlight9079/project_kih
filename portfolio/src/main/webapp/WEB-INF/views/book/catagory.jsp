@@ -86,10 +86,10 @@
         display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
     }
     input[name="cataAmount"]{
-        width: 80px; margin-right: 35px; height: 40px;
+        width: 47px; margin-right: -1px; height: 30px;
     }
     .cataBottom{
-        display: flex; margin-top: 40px; line-height: 40px;
+        display: flex; margin-top: 40px; line-height: 41px;
     }
     .cataBottom *{
         margin-right: 5px;
@@ -105,6 +105,21 @@
     }
     .allUnChecked-btn{
     	display: none;
+    }
+
+    .minus, .plus {
+    	width:30px; height: 30px;  line-height: 30px; background-color: #f8f8f8; border: 1px solid gray;
+    	margin-right: -1px;
+    }
+    .plus{
+    	margin-right: 15px;
+    }
+    .fas {
+   		text-align: center; margin-right :0;
+    }
+    
+    .amount-box{
+    	width: 166px; height: 41px; display: flex; line-height: 41px;
     }
 
 </style>
@@ -199,7 +214,12 @@
                         ${regi.re_contents}
                     </div>
                     <div class="cataBottom">
-                        수량 &nbsp;&nbsp; <input type="number" name="cataAmount"  min="0" value="1"> <br>
+                       	<div class="amount-box">
+	                        수량 &nbsp;&nbsp; 
+			           		<button type="button" id="decreaseQuantity" class="minus"><i class="fas fa-minus"></i></button>
+	                        <input type="text" name="cataAmount" class="cataAmount" value="1" readonly> <br>
+	        			    <button type ="button" id="increaseQuantity" class="plus"><i class="fas fa-plus"></i></button>
+	        			</div>
                       <a href="#" class="addCart-btn"><button type="button" class="btn btn-info ">장바구니</button></a> <br>
 	                  <input type="hidden" value="${regi.re_code}" class="code">
                       <a href="<%=request.getContextPath()%>/order/payment" class="btn-buy"><button class="btn btn-secondary ">바로구매</button></a>
@@ -310,6 +330,8 @@
 	
 	var catagory = $('.catagory').val();
 	$('.titleCatagory').text(catagory);	
+	
+
 </script>
 </body>
 </html>
