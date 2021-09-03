@@ -97,99 +97,32 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>2021.07.25</td>
-                  <td>Y0210236502</td>
-                  <td>자바로 배우는 핵심 구조</td>
-                  <td>배송완료</td>
-                </tr>
-                <tr>
-                  <td>2021.07.25</td>
-                  <td>Y0210236502</td>
-                  <td>자바로 배우는 핵심 구조</td>
-                  <td>배송완료</td>
-                </tr>
-                <tr>
-                  <td>2021.07.25</td>
-                  <td>Y0210236502</td>
-                  <td>자바로 배우는 핵심 구조</td>
-                  <td>배송완료</td>
-                </tr>
-                 <tr>
-                  <td>2021.07.25</td>
-                  <td>Y0210236502</td>
-                  <td>자바로 배우는 핵심 구조</td>
-                  <td>배송완료</td>
-                </tr>
-                <tr>
-                  <td>2021.07.25</td>
-                  <td>Y0210236502</td>
-                  <td>자바로 배우는 핵심 구조</td>
-                  <td>배송완료</td>
-                </tr>
-                <tr>
-                  <td>2021.07.25</td>
-                  <td>Y0210236502</td>
-                  <td>자바로 배우는 핵심 구조</td>
-                  <td>배송완료</td>
-                </tr>
-                 <tr>
-                  <td>2021.07.25</td>
-                  <td>Y0210236502</td>
-                  <td>자바로 배우는 핵심 구조</td>
-                  <td>배송완료</td>
-                </tr>
-                <tr>
-                  <td>2021.07.25</td>
-                  <td>Y0210236502</td>
-                  <td>자바로 배우는 핵심 구조</td>
-                  <td>배송완료</td>
-                </tr>
-                <tr>
-                  <td>2021.07.25</td>
-                  <td>Y0210236502</td>
-                  <td>자바로 배우는 핵심 구조</td>
-                  <td>배송완료</td>
-                </tr>
-                 <tr>
-                  <td>2021.07.25</td>
-                  <td>Y0210236502</td>
-                  <td>자바로 배우는 핵심 구조</td>
-                  <td>배송완료</td>
-                </tr>
-                <tr>
-                  <td>2021.07.25</td>
-                  <td>Y0210236502</td>
-                  <td>자바로 배우는 핵심 구조</td>
-                  <td>배송완료</td>
-                </tr>
-                <tr>
-                  <td>2021.07.25</td>
-                  <td>Y0210236502</td>
-                  <td>자바로 배우는 핵심 구조</td>
-                  <td>배송완료</td>
-                </tr>
-                 <tr>
-                  <td>2021.07.25</td>
-                  <td>Y0210236502</td>
-                  <td>자바로 배우는 핵심 구조</td>
-                  <td>배송완료</td>
-                </tr>
-                <tr>
-                  <td>2021.07.25</td>
-                  <td>Y0210236502</td>
-                  <td>자바로 배우는 핵심 구조</td>
-                  <td>배송완료</td>
-                </tr>
-                <tr>
-                  <td>2021.07.25</td>
-                  <td>Y0210236502</td>
-                  <td>자바로 배우는 핵심 구조</td>
-                  <td>배송완료</td>
-                </tr>
-                
+	             <c:forEach items="${orderList}" var="order" varStatus="status">
+	               <tr>
+	                 <td>${order.orDate}</td>
+	                 <td><a href="<%=request.getContextPath()%>/member/mypagedetails?or_num=${order.or_num}">${order.or_num}</a></td>
+	                 <td>
+	                 	${order.or_title}
+	                 	<c:if test="${order.or_re_title > 1}">
+	                 	외 ${order.or_re_title -1} 권
+	                 	</c:if>
+	                 </td>
+	                 <td>${order.or_state}</td>
+	               </tr>                
+	              </c:forEach>
               </tbody>
             </table>
+	            <ul class="pagination justify-content-center">
+					<c:if test="${pm.prev}">
+						<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/member/mypage?page=${pm.startPage-1}">이전</a></li>
+					</c:if>
+					<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="index">
+						<li class="page-item <c:if test="${pm.criteria.page == index }">active</c:if>"><a class="page-link" href="<%=request.getContextPath()%>/member/mypage?page=${index}">${index}</a></li>
+					</c:forEach>
+					<c:if test="${pm.next}">
+						<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/member/mypage?page=${pm.endPage+1}">다음</a></li>
+					</c:if>
+				</ul>
           </div>
       </div>
     </div>  

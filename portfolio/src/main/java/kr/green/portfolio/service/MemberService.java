@@ -73,7 +73,8 @@ public interface MemberService {
 
 	BooksVO getAuthorIntro(Integer bs_num);
 
-	void updatePoint(String userId, Integer me_point);
+	int getTotalCountMyPage(Criteria cri);
+
 
 
 

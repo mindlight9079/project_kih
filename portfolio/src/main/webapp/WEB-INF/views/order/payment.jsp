@@ -325,9 +325,9 @@
 	                <hr>
 	                <li>기보유 포인트 <span class="hasPoint">${member.me_point}</span></li>
 	                <hr>
-	                <li>기본적립 포인트<span class="basicPoint"></span></li>
+	                <li>기본적립 포인트<span class="basicPoint"></span><input type="hidden" name="or_green_point"></li>
 	                <hr>
-	                <li>총 예상 포인트<span class="totalPoint"></span><input type="hidden" name="me_point"></li>
+	                <li>총 예상 포인트<span class="totalPoint"></span></li>
 	            </ul>
 	        </div>
 	        <br>
@@ -444,12 +444,13 @@ $(function(){
 	
 	var basicPoint = parseInt($('.totalCount').text())*0.05;
 	$('.basicPoint').text(basicPoint);
+	$('[name=or_green_point]').val(basicPoint);
 	
 	var hasPoint = parseInt($('.hasPoint').text());
 	var totalPoint = hasPoint+basicPoint;
 	$('.totalPoint').text(totalPoint);
 	
-	$('[name=me_point]').val(totalPoint);
+
 	
 	$('.newAddr').click(function(){
 		$('.deli-addr input').val('');
@@ -484,11 +485,14 @@ $(function(){
 			var or_receiver = $('[name=or_receiver]').val();
 			var finalCount = $('[name=finalCount]').val();
 			var or_deliver = $('[name=addPrice]').val();	
+			var or_green_point = $('[name=or_green_point]').val();
+			
 			var data = {
 					or_me_id : or_me_id,
 					or_receiver : or_receiver,
 					or_payment : finalCount,
-					or_deliver : or_deliver
+					or_deliver : or_deliver,
+					or_green_point : or_green_point
 				};
 			$.ajax({
 				async: false,

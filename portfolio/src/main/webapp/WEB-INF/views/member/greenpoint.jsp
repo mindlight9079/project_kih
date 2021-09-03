@@ -93,12 +93,14 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>2021.07.27</td>
-                  <td>주문에 의한 그린포인트 부여</td>
-                  <td>Y0210236502</td>
-                  <td>900원</td>
-                </tr>
+             	<c:forEach items="${greenPoint}" var="green" varStatus = "status">
+	                <tr class="point-box">
+	                  <td>${green.orDate}</td>
+	                  <td class="greenContents"></td>
+	                  <td>${green.or_num}</td>
+	                  <td class="gr_point">${green.or_green_point}</td>
+	                </tr>
+                </c:forEach>
               </tbody>
             </table>
            	<ul class="pagination justify-content-center">
@@ -116,4 +118,19 @@
       </div>
     </div>  
 </body>
+<script>
+$(function(){
+	$('.point-box').each(function(){
+		var point = $(this).find('.gr_point').text();
+		if(point >= 0){
+			$(this).find('.greenContents').text("주문에 의한 그린포인트 부여");
+		} else if(point < 0){
+			$(this).find('.greenContents').text("그린 포인트를 그린 머니로 전환");
+		}
+	})
+	
+	
+	
+})
+</script>
 </html>

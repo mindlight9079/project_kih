@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import kr.green.portfolio.dao.BookDAO;
 import kr.green.portfolio.dao.CartDAO;
+import kr.green.portfolio.pagination.Criteria;
 import kr.green.portfolio.vo.CartVO;
 import kr.green.portfolio.vo.MemberVO;
 import kr.green.portfolio.vo.OrderVO;
@@ -118,4 +119,32 @@ public class CartServiceImp implements CartService {
 		}
 			
 	}
+
+	@Override
+	public ArrayList<OrderVO> selectOrder(String me_id) {
+		if(me_id == null)
+			return null;
+		return cartDao.selectOrder(me_id);
+	}
+
+	@Override
+	public void updateValid(String me_id, BigInteger[] isbn) {
+		if(me_id == null && isbn == null)
+			return;
+		for(int i=0; i<isbn.length; i++) {
+			cartDao.updateValid(me_id, isbn[i]);
+		}
+		
+	}
+
+	@Override
+	public ArrayList<OrderVO> selectOrderList(String me_id, Criteria cri) {
+		if(me_id == null)
+			return null;	
+		return cartDao.selectOrderList(me_id, cri);
+	}
+
+
+
+
 }

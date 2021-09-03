@@ -15,6 +15,9 @@ public class OrderVO {
 	private String or_receiver;
 	private BigInteger or_payment;
 	private int or_deliver;
+	private int or_green_point;
+	private String or_title;
+	private int or_re_title;
 	
 	public String setOr_random_num() {
 		java.util.Date now = new java.util.Date();
@@ -24,6 +27,11 @@ public class OrderVO {
 		int max = 100;
 		int order_num = (int)(Math.random()*(max-min+1)+min);
 		return wdate+order_num;
+	}
+	
+	public String getOrDate() {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		return format.format(or_date);
 	}
 	
 	

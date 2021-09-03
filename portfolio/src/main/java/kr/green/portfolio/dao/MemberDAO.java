@@ -72,6 +72,7 @@ public interface MemberDAO {
 
 	public BooksVO getAuthorIntro(Integer bs_num);
 
-	public void updatePoint(@Param("userId")String userId, @Param("me_point") Integer me_point);
+	public int getTotalCountMyPage(@Param("cri") Criteria cri);
+
 
 }

@@ -129,13 +129,12 @@ public class CartController {
 	}
 	
 	@RequestMapping(value="/order/payfinished", method=RequestMethod.POST)
-	public ModelAndView payFinishedPost (ModelAndView mv, HttpSession session, String partner_order_id, BigInteger[] isbn, String or_deliver, Integer[] pr_amount, Integer me_point) {
+	public ModelAndView payFinishedPost (ModelAndView mv, HttpSession session, String partner_order_id, BigInteger[] isbn, String or_deliver, Integer[] pr_amount) {
 		MemberVO member = (MemberVO)session.getAttribute("user");
-		String userId = member.getMe_id();
-		memberService.updatePoint(userId, me_point);
 		cartService.insertParticulars(partner_order_id, isbn, or_deliver, pr_amount);
 		bookService.updateAmount(isbn, pr_amount);
-		mv.setViewName("/order/payfinished");
+		cartService.updateValid(member.getMe_id(), isbn);
+		mv.setViewName("redirect:/");
 		return mv;
 	}
 	
@@ -189,6 +188,7 @@ public class CartController {
 				cartService.insertPayment(tid, payment_method_type, me_name, partner_order_id, point, approved_at);
 				
 				
+				
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -203,6 +203,7 @@ public class CartController {
 	@RequestMapping("/order/kakaopay")
 	@ResponseBody
 	public String kakaopay(HttpServletRequest request, HttpSession session, @RequestBody OrderVO order) throws ParseException {
+		System.out.println(order);
 		MemberVO member = (MemberVO)session.getAttribute("user");
 		if(member != null && member.getMe_id().equals(order.getOr_me_id())) {
 			cartService.insertPayFinished(order);	

@@ -12,5 +12,6 @@ public class ParticularsVO {
 	private String pr_or_num;
 	private BigInteger pr_bk_isbn;
 	private Date pr_deli_date;
-	private int pr_amount;	
+	private int pr_amount;
+	
 }
