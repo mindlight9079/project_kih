@@ -30,6 +30,7 @@ CREATE TABLE `order` (
   `or_receiver` varchar(50) NOT NULL,
   `or_payment` int NOT NULL,
   `or_deliver` int NOT NULL DEFAULT '0',
+  `or_green_point` int NOT NULL,
   PRIMARY KEY (`or_num`),
   KEY `or_me_id` (`or_me_id`),
   CONSTRAINT `order_ibfk_1` FOREIGN KEY (`or_me_id`) REFERENCES `member` (`me_id`)
@@ -42,7 +43,7 @@ CREATE TABLE `order` (
 
 LOCK TABLES `order` WRITE;
 /*!40000 ALTER TABLE `order` DISABLE KEYS */;
-INSERT INTO `order` VALUES ('2021090203045152','qwe123','2021-09-02 15:51:04','결제완료','임꺽정',138800,0),('2021090203324512','qwe123','2021-09-02 15:45:32','결제완료','임꺽정',138800,0),('2021090204161741','qwe123','2021-09-02 16:17:16','결제완료','임꺽정',15000,0),('2021090204223720','qwe123','2021-09-02 16:37:22','결제완료','임꺽정',138800,0),('2021090204253519','qwe123','2021-09-02 16:35:25','결제완료','임꺽정',138800,0),('2021090204382536','qwe123','2021-09-02 16:25:38','결제완료','임꺽정',138800,0),('2021090204571546','qwe123','2021-09-02 16:15:57','결제완료','임꺽정',12000,0);
+INSERT INTO `order` VALUES ('2021090304353248','qwe123','2021-09-03 16:32:35','구매확정','임꺽정',31000,0,1550),('2021090304403425','qwe123','2021-09-03 16:34:40','결제완료','임꺽정',27500,0,1375),('2021090304453093','qwe123','2021-09-03 16:30:45','구매확정','임꺽정',27800,0,1390),('2021090304503380','qwe123','2021-09-03 16:33:50','구매확정','임꺽정',34000,0,1700);
 /*!40000 ALTER TABLE `order` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -55,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-09-03  9:15:27
+-- Dump completed on 2021-09-03 17:50:34
