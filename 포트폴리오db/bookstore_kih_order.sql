@@ -35,6 +35,16 @@ CREATE TABLE `order` (
   CONSTRAINT `order_ibfk_1` FOREIGN KEY (`or_me_id`) REFERENCES `member` (`me_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `order`
+--
+
+LOCK TABLES `order` WRITE;
+/*!40000 ALTER TABLE `order` DISABLE KEYS */;
+INSERT INTO `order` VALUES ('2021090203045152','qwe123','2021-09-02 15:51:04','결제완료','임꺽정',138800,0),('2021090203324512','qwe123','2021-09-02 15:45:32','결제완료','임꺽정',138800,0),('2021090204161741','qwe123','2021-09-02 16:17:16','결제완료','임꺽정',15000,0),('2021090204223720','qwe123','2021-09-02 16:37:22','결제완료','임꺽정',138800,0),('2021090204253519','qwe123','2021-09-02 16:35:25','결제완료','임꺽정',138800,0),('2021090204382536','qwe123','2021-09-02 16:25:38','결제완료','임꺽정',138800,0),('2021090204571546','qwe123','2021-09-02 16:15:57','결제완료','임꺽정',12000,0);
+/*!40000 ALTER TABLE `order` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -45,4 +55,4 @@ CREATE TABLE `order` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-09-02 17:48:30
+-- Dump completed on 2021-09-03  9:15:27
