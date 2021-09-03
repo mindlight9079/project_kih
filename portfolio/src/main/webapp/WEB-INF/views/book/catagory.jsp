@@ -18,7 +18,7 @@
     *{
         padding:0; margin: 0; text-decoration: none; list-style: none; color:black;
     }
-    a:hover{
+    a:hover, .menu a:hover {
     	color: rgb(0, 104, 136);
     }
     .fa-bars{
@@ -86,13 +86,13 @@
         display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
     }
     input[name="cataAmount"]{
-        width: 47px; margin-right: -1px; height: 30px;
+        width: 47px; margin-right: -1px; height: 30px; text-align: center;
     }
     .cataBottom{
-        display: flex; margin-top: 40px; line-height: 41px;
+        display: flex; margin: 40px 0;
     }
     .cataBottom *{
-        margin-right: 5px;
+        margin-right: 2px;
     }
     .viewList a{
     	cursor: pointer; color: black;
@@ -112,16 +112,28 @@
     	margin-right: -1px;
     }
     .plus{
-    	margin-right: 15px;
+    	margin-right: 37px;
     }
     .fas {
    		text-align: center; margin-right :0;
     }
-    
     .amount-box{
-    	width: 166px; height: 41px; display: flex; line-height: 41px;
+    	display: flex; line-height: 30px; margin-top: 4px;
     }
-
+    
+    .menu {
+        display: flex; position: absolute; top: 15px; right: 30px; z-index: 12;
+    }
+    .menu ul li{
+        float: left; padding: 10px;  font-size: 20px;  font-family:sans-serif; font-weight: bold;  cursor: pointer;
+    }
+  	.menu ul::after{
+        content: ''; clear: both; display: block;
+    }
+    .menu a{
+    	color: black;
+    }
+   
 </style>
 <body>
     <div class="side-bars">
@@ -160,6 +172,26 @@
         </div>
     </div>
     <i class="fas fa-bars"></i>
+      <div class="menu">
+        <ul>
+        	<c:if test="${user == null}">
+            <li><a href="<%=request.getContextPath()%>/member/login">LOGIN</a></li>
+            <li><a href="<%=request.getContextPath()%>/member/signup">SIGNUP</a></li>
+            </c:if>
+            <c:if test="${user != null}">
+            <li><a href="<%=request.getContextPath()%>/member/logout">LOGOUT</a></li>
+            </c:if>
+            <c:if test="${user.me_grade != 'ADMIN'}">
+           	 <li><a href="#">ORDERS</a></li>
+           	 <li><a href="<%=request.getContextPath()%>/member/mypage">MYPAGE</a></li>
+             <li><a href="<%=request.getContextPath()%>/order/cart">CART</a></li>
+             <li><a href="<%=request.getContextPath()%>/">HOME</a></li>
+            </c:if>
+            <c:if test="${user.me_grade == 'ADMIN'}">
+             <li><a href="<%=request.getContextPath()%>/admin/user/booklist">MANAGEMENT</a></li>
+            </c:if>
+        </ul>
+    </div>
     <div class="container">
         <h1 class="titleCatagory"></h1>
         <ul class="viewList">
@@ -214,14 +246,14 @@
                         ${regi.re_contents}
                     </div>
                     <div class="cataBottom">
-                       	<div class="amount-box">
+                    	<div class="amount-box">
 	                        수량 &nbsp;&nbsp; 
-			           		<button type="button" id="decreaseQuantity" class="minus"><i class="fas fa-minus"></i></button>
+			           		<button type="button" class="decreaseQuantity minus"><i class="fas fa-minus"></i></button>
 	                        <input type="text" name="cataAmount" class="cataAmount" value="1" readonly> <br>
-	        			    <button type ="button" id="increaseQuantity" class="plus"><i class="fas fa-plus"></i></button>
-	        			</div>
+	        			    <button type ="button" class="increaseQuantity plus"><i class="fas fa-plus"></i></button>
+	 	                    <input type="hidden" value="${regi.re_code}" class="code">
+	        			 </div>
                       <a href="#" class="addCart-btn"><button type="button" class="btn btn-info ">장바구니</button></a> <br>
-	                  <input type="hidden" value="${regi.re_code}" class="code">
                       <a href="<%=request.getContextPath()%>/order/payment" class="btn-buy"><button class="btn btn-secondary ">바로구매</button></a>
 				      <input type="hidden" value="${book.bk_isbn}" class="isbn">
 				      <input type="hidden" value="${regi.re_catagory}" class="catagory">
@@ -331,7 +363,55 @@
 	var catagory = $('.catagory').val();
 	$('.titleCatagory').text(catagory);	
 	
+    $('.decreaseQuantity').click(function(e){
+       	e.preventDefault();
+       	var stat = $(this).parent().find('.cataAmount').val();
+       	var num = parseInt(stat);
+       	num--;
+      
+       		$(this).parent().find('.cataAmount').val(num);
+       		$(this).parent().find('.cataAmount').change();
+     });
+    	
+     $('.increaseQuantity').click(function(e){
+        e.preventDefault();
+        var stat = $(this).parent().find('.cataAmount').val();
+        var num = parseInt(stat);
+        num++;
 
+        	$(this).parent().find('.cataAmount').val(num);
+        	$(this).parent().find('.cataAmount').change();
+     });
+     
+ 	$('.cataAmount').change(function(){
+		var code = $(this).parent().find('.code').val();
+		var amount = $(this).val();
+		console.log(code)
+		console.log(amount)
+		var data = {
+			ca_re_code : code,
+			ca_amount : amount
+		};
+		var obj = $(this);
+		if(amount <=0){
+			alert('1개 이상 구매 가능합니다.');
+			obj.val(amount = '1');
+			return false;
+		}
+		$.ajax({
+			url : contextPath + '/order/cart/stock',
+			type: 'post',
+			data : JSON.stringify(data),
+			contentType : 'application/json; charset=utf-8',
+			dataType : 'json',
+			success : function(result){
+				if(result.re_amount < amount){
+					alert('재고량이 부족합니다.');
+					obj.val(result.re_amount)
+				}
+			}
+		}) 
+ 	})
 </script>
 </body>
 </html>

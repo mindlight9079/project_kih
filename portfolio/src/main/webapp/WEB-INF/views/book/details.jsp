@@ -66,13 +66,16 @@
       display: inline;
     }
     .order-line{
-      display: flex; margin-left: 50px; line-height: 40px; padding: 10px; margin-bottom: 35px; 
+      display: flex; margin-left: 50px; padding: 10px; margin-bottom: 35px; line-height: 30px;
     }
     .order-line * {
       margin-right: 15px;
     }
     .amount input[type="text"]{
-      width: 47px; height: 32px; margin-right: -5px; text-align: center;
+      width: 47px; height: 30px; margin-right: -1px; text-align: center;
+    }
+    .amount{
+    	display: flex; margin-top: 4px;
     }
 	.cart{
 	  margin-right : -10px;
@@ -142,7 +145,7 @@
     
     .minus, .plus {
     	width:30px; height: 30px;  line-height: 30px; background-color: #f8f8f8; border: 1px solid gray;
-    	margin-right: -5px;
+    	margin-right: -1px;
     }
     .plus{
     	margin-right: 15px;
