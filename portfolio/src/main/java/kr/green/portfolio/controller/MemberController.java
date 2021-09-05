@@ -24,6 +24,7 @@ import kr.green.portfolio.vo.BookVO;
 import kr.green.portfolio.vo.BooksVO;
 import kr.green.portfolio.vo.MemberVO;
 import kr.green.portfolio.vo.OrderVO;
+import kr.green.portfolio.vo.ParticularsVO;
 
 @Controller
 public class MemberController {
@@ -145,8 +146,14 @@ public class MemberController {
 		return mv;
 	}
 	
-	@RequestMapping(value="/member/mypagedetails", method=RequestMethod.GET)
-	public ModelAndView mypageDetails (ModelAndView mv) {
+	@RequestMapping(value="/member/mypagedetails")
+	public ModelAndView mypageDetails (ModelAndView mv, String or_num, HttpSession session) {
+		ArrayList<ParticularsVO> particulars = cartService.getParticularsList(or_num);
+		MemberVO member = (MemberVO)session.getAttribute("user");
+		String checkId = member.getMe_id();
+		OrderVO order = cartService.detailOrderList(or_num, checkId);
+		mv.addObject("order", order);
+		mv.addObject("particulars", particulars);
 		mv.setViewName("/member/mypagedetails");
 		return mv;
 	}

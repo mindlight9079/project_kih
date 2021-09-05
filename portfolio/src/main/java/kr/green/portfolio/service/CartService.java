@@ -33,13 +33,17 @@ public interface CartService {
 
 	void insertPayment(String tid, String payment_method_type, String me_name, String partner_order_id, Long point, String approved_at);
 
-	void insertParticulars(String partner_order_id, BigInteger[] isbn, String or_deliver, Integer[] pr_amount);
+	void insertParticulars(String partner_order_id, BigInteger[] isbn, Integer[] pr_amount);
 
 	ArrayList<OrderVO> selectOrder(String me_id);
 
 	void updateValid(String me_id, BigInteger[] isbn);
 
 	ArrayList<OrderVO> selectOrderList(String me_id, Criteria cri);
+
+	ArrayList<ParticularsVO> getParticularsList(String or_num);
+
+	OrderVO detailOrderList(String or_num, String checkId);
 
 
 

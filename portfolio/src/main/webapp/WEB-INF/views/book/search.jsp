@@ -18,7 +18,7 @@
     *{
         padding:0; margin: 0; list-style: none; color:black;
     }
-    a:hover{
+    a:hover, .menu a:hover{
     	color: rgb(0, 104, 136);
     }
     .fa-bars{
@@ -87,13 +87,13 @@
         display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
     }
     input[name="searchAmount"]{
-        width: 80px; margin-right: 35px; height: 40px;
+         width: 47px; margin-right: -1px; height: 30px; text-align: center;
     }
     .cataBottom{
-        display: flex; margin-top: 40px; line-height: 40px;
+        display: flex; margin: 40px 0; line-height: 30px;
     }
     .cataBottom *{
-        margin-right: 5px;
+        margin-right: 2px;
     }
     .search-result {
         font-size: 18px; font-weight: bold;
@@ -119,6 +119,33 @@
 	.author-box td, .author-box th{
 		border: none;
 	} 
+	
+    .minus, .plus {
+    	width:30px; height: 30px;  line-height: 30px; background-color: #f8f8f8; border: 1px solid gray;
+    	margin-right: -1px;
+    }
+    .plus{
+    	margin-right: 37px;
+    }
+    .fas {
+   		text-align: center; margin-right :0;
+    }
+    .amount-box{
+    	display: flex; line-height: 30px; margin-top: 4px;
+    }
+
+    .menu {
+        display: flex; position: absolute; top: 15px; right: 30px; z-index: 12;
+    }
+    .menu ul li{
+        float: left; padding: 10px;  font-size: 20px;  font-family:sans-serif; font-weight: bold;  cursor: pointer;
+    }
+  	.menu ul::after{
+        content: ''; clear: both; display: block;
+    }
+    .menu a{
+    	color: black;
+    }
 </style>
 <body>
     <div class="side-bars">
@@ -157,6 +184,26 @@
         </div>
     </div>
     <i class="fas fa-bars"></i>
+      <div class="menu">
+	        <ul>
+	        	<c:if test="${user == null}">
+	            <li><a href="<%=request.getContextPath()%>/member/login">LOGIN</a></li>
+	            <li><a href="<%=request.getContextPath()%>/member/signup">SIGNUP</a></li>
+	            </c:if>
+	            <c:if test="${user != null}">
+	            <li><a href="<%=request.getContextPath()%>/member/logout">LOGOUT</a></li>
+	            </c:if>
+	            <c:if test="${user.me_grade != 'ADMIN'}">
+	           	 <li><a href="#">ORDERS</a></li>
+	           	 <li><a href="<%=request.getContextPath()%>/member/mypage">MYPAGE</a></li>
+	             <li><a href="<%=request.getContextPath()%>/order/cart">CART</a></li>
+	             <li><a href="<%=request.getContextPath()%>/">HOME</a></li>
+	            </c:if>
+	            <c:if test="${user.me_grade == 'ADMIN'}">
+	             <li><a href="<%=request.getContextPath()%>/admin/user/booklist">MANAGEMENT</a></li>
+	            </c:if>
+	        </ul>
+	    </div>
     <div class="container">
         <div class="search-result" >| "<span>${pm.criteria.search}</span>" 검색결과</div>
         <ul class="viewList">
@@ -203,11 +250,16 @@
                        ${book.bk_contents}
                     </div>
                     <div class="cataBottom">
-                    	<input type="hidden" value="${book.bk_isbn}" class="isbn">
-                    	<input type="hidden" value="${book.bk_code}" class="code">
-                        수량 &nbsp;&nbsp; <input type="number" name="searchAmount"  min="0" value="1"> <br>
-                        <a href="#" class="addCart-btn"><button class="btn btn-info">장바구니</button></a> <br>
-                        <a href="<%=request.getContextPath()%>/order/payment" class="btn-buy"><button class="btn btn-secondary" >바로구매</button></a>
+                    	<div class="amount-box">
+	                    	<input type="hidden" value="${book.bk_isbn}" class="isbn">
+	                    	<input type="hidden" value="${book.bk_code}" class="code">
+	                        수량 &nbsp;&nbsp;
+			           		<button type="button" class="decreaseQuantity minus"><i class="fas fa-minus"></i></button>
+	                        <input type="text" name="searchAmount" class="searchAmount" value="1" readonly> <br>
+	        			    <button type ="button" class="increaseQuantity plus"><i class="fas fa-plus"></i></button>
+	        			 </div>
+	                        <a href="#" class="addCart-btn"><button class="btn btn-info">장바구니</button></a> <br>
+	                        <a href="<%=request.getContextPath()%>/order/payment" class="btn-buy"><button class="btn btn-secondary" >바로구매</button></a>
                     </div>
                 </td>
                 <td>
@@ -306,6 +358,57 @@ $(function(){
 			}
 		})
 	})
+	
+
+	 $('.decreaseQuantity').click(function(e){
+       	e.preventDefault();
+       	var stat = $(this).parent().find('.searchAmount').val();
+       	var num = parseInt(stat);
+       	num--;
+      
+       		$(this).parent().find('.searchAmount').val(num);
+       		$(this).parent().find('.searchAmount').change();
+     });
+    	
+     $('.increaseQuantity').click(function(e){
+        e.preventDefault();
+        var stat = $(this).parent().find('.searchAmount').val();
+        var num = parseInt(stat);
+        num++;
+
+        	$(this).parent().find('.searchAmount').val(num);
+        	$(this).parent().find('.searchAmount').change();
+     });
+     
+ 	$('.searchAmount').change(function(){
+		var code = $(this).parent().find('.code').val();
+		var amount = $(this).val();
+		console.log(code)
+		console.log(amount)
+		var data = {
+			ca_re_code : code,
+			ca_amount : amount
+		};
+		var obj = $(this);
+		if(amount <=0){
+			alert('1개 이상 구매 가능합니다.');
+			obj.val(amount = '1');
+			return false;
+		}
+		$.ajax({
+			url : contextPath + '/order/cart/stock',
+			type: 'post',
+			data : JSON.stringify(data),
+			contentType : 'application/json; charset=utf-8',
+			dataType : 'json',
+			success : function(result){
+				if(result.re_amount < amount){
+					alert('재고량이 부족합니다.');
+					obj.val(result.re_amount)
+				}
+			}
+		}) 
+ 	})
    
    
 })

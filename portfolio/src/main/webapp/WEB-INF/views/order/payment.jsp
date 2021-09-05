@@ -173,6 +173,9 @@
         content: ''; clear: both; display: block;
     }
     
+	.exchange{
+		margin-left: 5px;
+	}
     
 </style>
 <body>
@@ -278,7 +281,7 @@
 	            <td>
 	            	그린배송 :
 	            	<span class="green-deli"></span> 도착예정
-	            	<input type="hidden" name="or_deliver">
+	            	<input type="hidden" name="or_deli_date">
 	            	<div class="caution"><i class="fas fa-exclamation-triangle"></i> 날씨나 택배사 사정에 따라 배송이 지연될 수 있습니다</div>
 	            	</td>
 	          </tr>
@@ -302,7 +305,7 @@
 	            <tr>
 	                <td class="totalCount"></td>
 	                <td class="addPrice"></td>
-	                <td>0원</td>
+	                <td class="pointDiscount">0원</td>
 	                <td class="finalCount"></td>
 	            </tr>
 	        </table>
@@ -318,6 +321,15 @@
 	                            <div>그린포인트 5000원 이상이면 그린머니로 환전가능합니다.</div>
 	                        </td>
 	                    </tr>
+	                    <c:if test="${member.me_point >= 5000 }">
+						<tr>
+							<th></th>
+							<td>
+								<input type="text" id="charge" readonly>
+								<button type="button" class="exchange btn btn-secondary">환전</button>
+							</td>
+						</tr>
+	                    </c:if>
 	                </tbody>                
 	            </table>
 	            <ul class="collectPoint">
@@ -468,7 +480,7 @@ $(function(){
 	var more = now.toISOString().substring(0,10);
 	$('.deli-date').text(more+" 도착예정");
 	$('.green-deli').text(more);
-	$('[name=or_deliver]').val(more);
+	$('[name=or_deli_date]').val(more);
 
 	var contextPath = '<%=request.getContextPath()%>';	
 	$('.payment-btn').click(function(){
@@ -486,13 +498,14 @@ $(function(){
 			var finalCount = $('[name=finalCount]').val();
 			var or_deliver = $('[name=addPrice]').val();	
 			var or_green_point = $('[name=or_green_point]').val();
-			
+			var or_deli_date = $('[name=or_deli_date]').val();
 			var data = {
 					or_me_id : or_me_id,
 					or_receiver : or_receiver,
 					or_payment : finalCount,
 					or_deliver : or_deliver,
-					or_green_point : or_green_point
+					or_green_point : or_green_point,
+					or_deli_date : or_deli_date
 				};
 			$.ajax({
 				async: false,
@@ -513,7 +526,18 @@ $(function(){
 			return false;
 		}
 	})
-
+	
+	$('.exchange').click(function(){
+		var child = window.open("<%=request.getContextPath()%>/order/pointexchange", "_blank", "height=400, width=400");
+	})
+	
+	$('#charge').change(function(){
+		if($('#charge').val() != ''){		
+			$('.pointDiscount').text($('#charge').val());
+		}else{
+			$('.pointDiscount').text("0원");
+		}
+	})
 })
 var a;
 a.trigger('change')

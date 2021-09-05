@@ -42,13 +42,17 @@ public interface CartDAO {
 
 	void insertPayment(@Param("tid")String tid, @Param("payment_method_type") String payment_method_type, @Param("me_name")String me_name, @Param("partner_order_id")String partner_order_id, @Param("point") Long point, @Param("approved_at") String approved_at);
 
-	void insertParticulars(@Param("partner_order_id")String partner_order_id, @Param("bigInteger") BigInteger bigInteger, @Param("or_deliver") String or_deliver, @Param("integer") Integer integer);
+	void insertParticulars(@Param("partner_order_id")String partner_order_id, @Param("bigInteger") BigInteger bigInteger, @Param("integer") Integer integer);
 
 	ArrayList<OrderVO> selectOrder(String me_id);
 
 	void updateValid(@Param("me_id") String me_id, @Param("bigInteger") BigInteger bigInteger);
 
 	ArrayList<OrderVO> selectOrderList(@Param("me_id")String me_id, @Param("cri") Criteria cri);
+
+	ArrayList<ParticularsVO> getParticularsList(String or_num);
+
+	OrderVO detailOrderList(@Param("or_num") String or_num, @Param("checkId") String checkId);
 
 
 }

@@ -128,10 +128,16 @@ public class CartController {
 		return mv;
 	}
 	
+	@RequestMapping(value="/order/pointexchange")
+	public ModelAndView pointExchagne (ModelAndView mv) {
+		mv.setViewName("/order/pointexchange");
+		return mv;
+	}
+	
 	@RequestMapping(value="/order/payfinished", method=RequestMethod.POST)
-	public ModelAndView payFinishedPost (ModelAndView mv, HttpSession session, String partner_order_id, BigInteger[] isbn, String or_deliver, Integer[] pr_amount) {
+	public ModelAndView payFinishedPost (ModelAndView mv, HttpSession session, String partner_order_id, BigInteger[] isbn, Integer[] pr_amount) {
 		MemberVO member = (MemberVO)session.getAttribute("user");
-		cartService.insertParticulars(partner_order_id, isbn, or_deliver, pr_amount);
+		cartService.insertParticulars(partner_order_id, isbn, pr_amount);
 		bookService.updateAmount(isbn, pr_amount);
 		cartService.updateValid(member.getMe_id(), isbn);
 		mv.setViewName("redirect:/");

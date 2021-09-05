@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MYPAGEDETAILS</title>
+<script src="https://kit.fontawesome.com/be5943d19e.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<style>
+  *{
+    margin: 0; padding: 0; text-decoration: none; list-style: none; color:black;
+  }
+  .subCatagory-list a:hover, .menu a:hover {
+    color: rgb(0, 104, 136); text-decoration: underline;
+  }
+  .side-bars{
+      width: 400px; height: 1280px; background-color: black; position: absolute; z-index: 10;
+      opacity: 80%; display: none; top:0px;
+  }
+  .side-bars li{
+      color: white; margin-bottom: 20px; cursor: pointer; font-size: 20px;
+  }
+  .catagory-list{
+      position: absolute; top: 150px; left: 20px;
+  }
+  .subCatagory-list{
+      position: absolute; top: 150px; left: 200px;
+  }
+  .dome-list{
+      display: none;
+  }
+  .dome-list *, .foreign-list *{
+    color: white;
+  }
+  .foreign-list{
+      display: none;
+  }
+  .fa-times{
+      color: white; font-size: 30px; position: absolute; top: 20px; right: 20px;
+  }
+  .fa-bars{
+      font-size: 35px; position: absolute; top:20px; left:15px; cursor: pointer;
+  }
+  .menu {
+      display: flex; position: absolute; top: 15px; right: 30px; z-index: 12;
+  }
+  .menu ul li{
+      float: left; padding: 10px;  font-size: 20px;  font-family:sans-serif; font-weight: bold;  cursor: pointer;
+  }
+  .menu ul::after{
+      content: ''; clear: both; display: block;
+  }
+  .menu a{
+    color: black;
+  }
+
+  .container{
+    margin-top: 120px; margin-bottom: 120px;
+  }
+  .table th, .total, .prod1, .prod2{
+        background-color: #f8f8f8;;
+  }
+  .line-white{
+    border-bottom:  2px solid white;
+  }
+  .table{
+    margin-bottom: 70px;
+  }
+  .back-btn{
+    margin-left: calc(50% - 38px);
+  }
+
+</style>
+</head>
+<body>
+  <div class="side-bars">
+    <i class="fas fa-times"></i>
+    <div class="catagory-list">
+        <ul>
+            <li class="domestic">국내도서</li>
+            <li class="foreign">외국도서</li>
+        </ul>
+    </div>
+    <div class="subCatagory-list">
+        <ul class="dome-list">
+            <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=소설/시&country=국내/해외">소설/시</a></li>
+            <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=에세이&country=국내/해외">에세이</a></li>
+            <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=인문&country=국내/해외">인문</a></li>
+            <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=역사&country=국내/해외">역사</a></li>
+            <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=예술&country=국내/해외">예술</a></li>
+            <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=종교&country=국내/해외">종교</a></li>
+            <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=사회&country=국내/해외">사회</a></li>
+            <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=과학&country=국내/해외">과학</a></li>
+            <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=자기계발&country=국내/해외">자기계발</a></li>
+            <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=국어와외국어&country=국내/해외">국어와외국어</a></li>
+            <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=IT/모바일&country=국내/해외">IT/모바일</a></li>
+        </ul>
+    </div>
+    <div class="subCatagory-list">
+        <ul class="foreign-list">
+            <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=문학&country=외국">문학</a></li>
+            <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=소설&country=외국">소설</a></li>
+            <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=경제/경영&country=외국">경제/경영</a></li>
+            <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=인문/사회&country=외국">인문/사회</a></li>
+            <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=예술&country=외국">예술</a></li>
+            <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=컴퓨터&country=외국">컴퓨터</a></li>
+            <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=자연과학&country=외국">자연과학</a></li>         
+        </ul>
+    </div>
+</div>
+<i class="fas fa-bars"></i>
+<div class="menu">
+  <ul>
+    <c:if test="${user == null}">
+      <li><a href="<%=request.getContextPath()%>/member/login">LOGIN</a></li>
+      <li><a href="<%=request.getContextPath()%>/member/signup">SIGNUP</a></li>
+      </c:if>
+      <c:if test="${user != null}">
+      <li><a href="<%=request.getContextPath()%>/member/logout">LOGOUT</a></li>
+      </c:if>
+      <c:if test="${user.me_grade != 'ADMIN'}">
+        <li><a href="#">ORDERS</a></li>
+        <li><a href="<%=request.getContextPath()%>/member/mypage">MYPAGE</a></li>
+       <li><a href="<%=request.getContextPath()%>/order/cart">CART</a></li>
+       <li><a href="<%=request.getContextPath()%>/">HOME</a></li>
+      </c:if>
+      <c:if test="${user.me_grade == 'ADMIN'}">
+       <li><a href="<%=request.getContextPath()%>/admin/user/booklist">MANAGEMENT</a></li>
+      </c:if>
+  </ul>
+</div>
+	 <div class="container">
+      <table class="table">
+        <h6>| 주문상품정보</h6>
+        <tr>
+          <th>상품명</th>
+          <th>주문수량</th>
+          <th>가격</th>
+          <th>그린포인트</th>
+        </tr>
+        <tr class="line-white">
+          <td>나의 죽음은 나의것</td>
+          <td>1</td>
+          <td>10800원</td>
+          <td>442</td>
+        </tr>
+        <tr>
+          <td>나의 죽음은 나의것</td>
+          <td>1</td>
+          <td>10800원</td>
+          <td>442</td>
+        </tr>
+        <tr class="total">
+          <td></td>
+          <td>합계</td>
+          <td>21600원</td>
+          <td>884</td>
+        </tr>
+        <tr class="prod1">
+          <td colspan="2" ></td>
+          <td>
+            <div>상품 총 금액: 21600원</div>
+            <div>총 배송비 : 0원</div>
+          </td>
+          <td>
+            기본 적립 그린 포인트 : 884원
+          </td>
+        </tr>
+        <tr class="prod2">
+        <td colspan="2"></td>
+          <td>
+            주문 총 금액 : 21600원
+          </td>
+          <td>884원</td>
+        </tr>
+      </table>
+
+      <h6>| 주문, 배송 정보</h6>
+      <table class="table">
+        <tr>
+          <th>도착예정일</th>
+          <td>그린배송 : 7/16 도착예정</td>
+          <td colspan="2"></td>
+        </tr>
+        <tr>
+          <th>포인트적립예상일</th>
+          <td>구매확정 후 익일적립</td>
+          <td colspan="2"></td>
+        </tr>
+        <tr>
+          <th>주문번호</th>
+          <td>202112341232</td>
+          <th>주문일자</th>
+          <td>2021.09.03</td>
+        </tr>
+        <tr>
+          <th>주문하신 분</th>
+          <td>경인혜</td>
+          <th>받으시는 분</th>
+          <td>경인혜</td>
+        </tr>
+        <tr>
+          <th>전화번호</th>
+          <td>01012345678</td>
+          <td colspan="2"></td>
+        </tr>
+        <tr>
+          <th>배송지 주소</th>
+          <td colspan="3"> 
+            <div>도로명 :충청북도 청주시 서원구 수곡동</div>
+            <div>지번 : 충청북도 청주시 서원구 청남로</div>
+          </td>
+        </tr>
+      </table>
+
+      <h6>| 결제정보</h6>
+      <table class="table">
+        <tr>
+          <th>총 주문 금액</th>
+          <td colspan="3">21600원</td>
+        </tr>
+        <tr>
+          <th>실 결제금액</th>
+          <td>21600원</td>
+          <th>그린 포인트 총 적립액</th>
+          <td>884</td>
+        </tr>
+        <tr>
+          <th>결제하신 금액</th>
+          <td colspan="3">
+            21600원
+            <ul>
+              <li>카드 사용 : 21600원</li>
+              <li>그린머니 사용 : 0원</li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <th>결제수단</th>
+          <td>신용카드 : 국민카드 일시불</td>
+          <td colspan="2"></td>
+        </tr>
+        <tr>
+          <th>승인번호</th>
+          <td>0123456</td>
+          <th>승인일자</th>
+          <td>2021.09.03</td>
+        </tr>
+      </table>
+      <button class="btn btn-info back-btn">목록으로</button>
+   </div>
+</body>
+<script>
+    $('.fa-bars').click(function(){
+        $('.side-bars').show();
+    })
+    $('.fa-times').click(function(){
+        $('.side-bars').hide();
+    })
+    $('.domestic').hover(function(){
+        $('.foreign-list').hide();
+        $('.dome-list').show();
+    })
+    $('.foreign').hover(function(){
+        $('.dome-list').hide();
+        $('.foreign-list').show();
+    })
+</script>
+</html>

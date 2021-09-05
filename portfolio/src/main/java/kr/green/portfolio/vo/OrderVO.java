@@ -18,6 +18,7 @@ public class OrderVO {
 	private int or_green_point;
 	private String or_title;
 	private int or_re_title;
+	private Date or_deli_date;
 	
 	public String setOr_random_num() {
 		java.util.Date now = new java.util.Date();
@@ -32,7 +33,11 @@ public class OrderVO {
 	public String getOrDate() {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		return format.format(or_date);
-	}
+	}	
 	
+	public String getDeliDate() {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		return format.format(or_deli_date);
+	}	
 	
 }
