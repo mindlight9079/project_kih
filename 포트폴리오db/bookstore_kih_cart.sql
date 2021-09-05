@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.25, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.26, for Win64 (x86_64)
 --
 -- Host: localhost    Database: bookstore_kih
 -- ------------------------------------------------------
--- Server version	8.0.25
+-- Server version	8.0.26
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -33,7 +33,7 @@ CREATE TABLE `cart` (
   KEY `ca_me_id` (`ca_me_id`),
   CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`ca_re_code`) REFERENCES `registration` (`re_code`),
   CONSTRAINT `cart_ibfk_2` FOREIGN KEY (`ca_me_id`) REFERENCES `member` (`me_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=75 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +42,7 @@ CREATE TABLE `cart` (
 
 LOCK TABLES `cart` WRITE;
 /*!40000 ALTER TABLE `cart` DISABLE KEYS */;
-INSERT INTO `cart` VALUES (64,3,4,'qwe123','D'),(65,2,16,'qwe123','D'),(66,1,24,'qwe123','D'),(67,3,3,'qwe123','D'),(68,2,13,'qwe123','D'),(69,1,20,'qwe123','D'),(70,2,11,'qwe123','D'),(71,1,11,'qwe123','D'),(72,1,24,'qwe123','D'),(73,1,4,'qwe123','D'),(74,1,5,'qwe123','D');
+INSERT INTO `cart` VALUES (64,3,4,'qwe123','D'),(65,2,16,'qwe123','D'),(66,3,24,'qwe123','D'),(67,3,3,'qwe123','D'),(68,2,13,'qwe123','D'),(69,1,20,'qwe123','D'),(70,2,11,'qwe123','D'),(71,1,11,'qwe123','D'),(72,3,24,'qwe123','D'),(73,1,4,'qwe123','D'),(74,1,5,'qwe123','D'),(75,1,1,'qwe123','D'),(76,3,24,'qwe123','D');
 /*!40000 ALTER TABLE `cart` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -55,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-09-03 17:50:33
+-- Dump completed on 2021-09-05 15:23:51

@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.25, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.26, for Win64 (x86_64)
 --
 -- Host: localhost    Database: bookstore_kih
 -- ------------------------------------------------------
--- Server version	8.0.25
+-- Server version	8.0.26
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -26,14 +26,13 @@ CREATE TABLE `particulars` (
   `pr_num` int NOT NULL AUTO_INCREMENT,
   `pr_or_num` varchar(20) NOT NULL,
   `pr_bk_isbn` bigint NOT NULL,
-  `pr_deli_date` datetime NOT NULL,
   `pr_amount` int NOT NULL,
   PRIMARY KEY (`pr_num`),
   KEY `de_bk_isbn_idx` (`pr_bk_isbn`),
   KEY `pr_or_num_idx` (`pr_or_num`),
   CONSTRAINT `de_bk_isbn` FOREIGN KEY (`pr_bk_isbn`) REFERENCES `book` (`bk_isbn`),
   CONSTRAINT `pr_or_num` FOREIGN KEY (`pr_or_num`) REFERENCES `order` (`or_num`)
-) ENGINE=InnoDB AUTO_INCREMENT=75 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +41,7 @@ CREATE TABLE `particulars` (
 
 LOCK TABLES `particulars` WRITE;
 /*!40000 ALTER TABLE `particulars` DISABLE KEYS */;
-INSERT INTO `particulars` VALUES (69,'2021090304453093',8954447384,'2021-09-05 00:00:00',1),(70,'2021090304453093',8960906883,'2021-09-05 00:00:00',1),(71,'2021090304353248',8954681573,'2021-09-05 00:00:00',1),(72,'2021090304353248',1189683881,'2021-09-05 00:00:00',1),(73,'2021090304503380',1162243074,'2021-09-05 00:00:00',1),(74,'2021090304403425',525657746,'2021-09-05 00:00:00',1);
+INSERT INTO `particulars` VALUES (76,'2021090403483155',119134732,1),(77,'2021090403483155',8960906883,3);
 /*!40000 ALTER TABLE `particulars` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -55,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-09-03 17:50:34
+-- Dump completed on 2021-09-05 15:23:48
