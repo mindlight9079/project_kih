@@ -335,7 +335,7 @@
 	            <ul class="collectPoint">
 	                <h4>적립혜택</h4>
 	                <hr>
-	                <li>기보유 포인트 <span class="hasPoint">${member.me_point}</span></li>
+	                <li>기보유 포인트 <span class="hasPoint" id="hasPoint">${member.me_point}</span></li>
 	                <hr>
 	                <li>기본적립 포인트<span class="basicPoint"></span><input type="hidden" name="or_green_point"></li>
 	                <hr>
@@ -531,9 +531,16 @@ $(function(){
 		var child = window.open("<%=request.getContextPath()%>/order/pointexchange", "_blank", "height=400, width=400");
 	})
 	
-	$('#charge').change(function(){
+	
+	$('#charge').focus('input', function(){
 		if($('#charge').val() != ''){		
 			$('.pointDiscount').text($('#charge').val());
+			var minus = $('.pointDiscount').text();
+			var minusPoint = parseInt(minus.replace(/[^0-9]/g,''));
+			var finalCount = num+addNum-minusPoint;
+			$('.finalCount').text(finalCount+"원");
+			$('[name=finalCount]').val(finalCount);
+
 		}else{
 			$('.pointDiscount').text("0원");
 		}

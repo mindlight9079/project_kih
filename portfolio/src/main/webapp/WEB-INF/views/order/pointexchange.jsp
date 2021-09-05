@@ -15,20 +15,27 @@
 </head>
 <body>
   <div>1000단위로 사용 가능합니다.</div>
-  <div>사용 가능 포인트 : ${member.me_point}</div>
+  <div>사용 가능 포인트 : <span id="ablePoint"></span></div>
   <input type="text" class="pointExchange">
   <button type="button" class="exchange btn btn-secondary">확인</button>
 </body>
 <script>
 $(function(){
+		var able = $("#hasPoint", opener.document).text();
+		$('#ablePoint').text(able);		
+
 		$('.exchange').click(function(){
 		var value = $('.pointExchange').val();
-		console.log(value)
+		if(able < value){
+			alert('사용 가능한 포인트를 초과하였습니다.')
+			return false;
+		}
 		if((value % 1000) != 0){
 			alert('1000 단위로 입력 가능합니다.');
 			return false;
 		}
 		$("#charge", opener.document).val(value);
+		$("#charge", opener.document).focus();
 		self.close()
 
 	})
