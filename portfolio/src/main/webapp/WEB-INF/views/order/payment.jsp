@@ -374,7 +374,7 @@
 	                <tr>
 	                    <th>이름</th>
 	                    <td>
-	                    	<input type="text" value="${member.me_name}" class="name" name="or_receiver">
+	                    	<input type="text" value="${member.me_name}" class="name">
 	                    	<input type="hidden" value="${member.me_id}" name="or_me_id">
 	                    </td>
 	                    
@@ -400,7 +400,7 @@
 	                <tr>
 	                    <th>휴대폰</th>
 	                    <td>
-	                        <input type="text" value="${member.me_phone}" class="phone" name="sh_phone">
+	                        <input type="text" value="${member.me_phone}" class="phone">
 	                    </td>
 	                </tr>
 	            </table>
@@ -438,6 +438,8 @@
             <input type="hidden" id="partner_order_id" name="partner_order_id">
             <input type="text" id="sh_doro" name="sh_doro" style="width: 500px">
             <input type="text" id="sh_jibun" name="sh_jibun">
+            <input type="text" name="or_receiver">
+            <input type="text" name="sh_phone">
 	        <button class="payment-btn btn btn-info">결제하기</button>
 	    </form>
     </div>
@@ -504,16 +506,10 @@ function sample4_execDaumPostcode() {
     }).open();
 }
 
-	$('.new-addr').change(function(){
-		 fullAddress();
-	})
-	
-	
 	$('.addrNum').click(function(){
 		sample4_execDaumPostcode();
 	})
 	
-
 	$('.fa-bars').click(function(){
         $('.side-bars').show();
     })
@@ -562,6 +558,10 @@ function sample4_execDaumPostcode() {
 	var totalPoint = hasPoint+basicPoint;
 	$('.totalPoint').text(totalPoint);
 	
+	$('.new-addr').change(function(){
+		 fullAddress();
+	})	
+	
 	$('.newAddr').click(function(){
 		$('.home-addr').hide();
 		$('.new-addr').show();
@@ -573,14 +573,47 @@ function sample4_execDaumPostcode() {
 	    var detail = $('input[id=sample4_detailAddress]').val('');
 	    var extra = $('input[id=sample4_extraAddress]').val('');
 	    var guide = $('#guide').text('');
+	})
 	
+
+	$('.name').change(function(){
+      	if($('input[name=ship_addr]:checked').val() == 'new'){
+		    newValue = $(this).val();
+			$('[name=or_receiver]').val(newValue);
+      	} else if($('input[name=ship_addr]:checked').val() == 'same'){
+			differName =  $(this).val();
+			$('[name=or_receiver]').val(differName);
+		}
+	})
+	
+	$('.phone').change(function(){
+      	if($('input[name=ship_addr]:checked').val() == 'new'){
+		    newPhone = $(this).val();
+			$('[name=sh_phone]').val(newPhone);
+      	} else if($('input[name=ship_addr]:checked').val() == 'same'){
+			differPhone =  $(this).val();
+			$('[name=sh_phone]').val(differPhone);
+		}
+	})
+	
+	$('.home-addr').change(function(){
+		if($('input[name=ship_addr]:checked').val() == 'same'){
+			differAddr1 =  $(this).find('.doroAddr').val();
+			differAddr2 =  $(this).find('.jibunAddr').val();
+			$('[name=sh_doro]').val(differAddr1);
+			$('[name=sh_jibun]').val(differAddr2);
+		}
 	})
 	
 	var addrList = $('input[name=ship_addr]:checked').val();
 	if(addrList == 'same'){
 		$('[name=sh_doro]').val($('.doroAddr').val());
 		$('[name=sh_jibun]').val($('.jibunAddr').val());
+		$('[name=or_receiver]').val($('.name').val());
+		$('[name=sh_phone]').val($('.phone').val());
 	}
+	
+	
 	$('.memberAddr').click(function(){
 		$('.home-addr').show();
 		$('.new-addr').hide();
@@ -590,6 +623,7 @@ function sample4_execDaumPostcode() {
 		$('.phone').val('${member.me_phone}');
 		$('[name=sh_doro]').val($('.doroAddr').val());
 		$('[name=sh_jibun]').val($('.jibunAddr').val());
+		$('[name=or_receiver]').val($('.name').val());
 	})
 	
 
@@ -677,9 +711,6 @@ function sample4_execDaumPostcode() {
 			return false;
 		}
 	})
-
-
-	
 
 })
 
