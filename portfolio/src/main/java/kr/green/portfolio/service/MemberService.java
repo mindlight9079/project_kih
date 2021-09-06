@@ -75,6 +75,8 @@ public interface MemberService {
 
 	int getTotalCountMyPage(Criteria cri);
 
+	void updatePoint(String me_id, Integer pr_use_point);
+
 
 
 

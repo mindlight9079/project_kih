@@ -1,7 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,6 +13,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 <style>
     *{
@@ -74,13 +74,13 @@
         margin-left: 40px;;
     }
     .collectPoint, .client{
-        background-color: #f8f8f8; width: 310px; padding: 20px; 
+        background-color: #f8f8f8; width: 310px; padding: 20px;
     }
     .collectPoint h4, .client h4{
         font-size: 20px;
     }
     .collectPoint li{
-    	position: relative;
+    	position: relative; height: 48px;
     }
     .collectPoint span{
        position: absolute; right: 4px;
@@ -175,6 +175,19 @@
     
 	.exchange{
 		margin-left: 5px;
+	}
+	.usePoint{
+		position: absolute; right: 4px; color: rgb(0, 104, 136); 
+	}
+
+	.new-addr{
+		display: none;  margin-bottom: 10px; width: 450px;
+	}
+	.doroName, .jibunName{
+		width: 450px;
+	}
+	.new-addr input {
+		margin-bottom : 10px;
 	}
     
 </style>
@@ -326,6 +339,7 @@
 							<th></th>
 							<td>
 								<input type="text" id="charge" readonly>
+								<input type="hidden" class="useGreen" name="pr_use_point" value="0">
 								<button type="button" class="exchange btn btn-secondary">환전</button>
 							</td>
 						</tr>
@@ -335,7 +349,10 @@
 	            <ul class="collectPoint">
 	                <h4>적립혜택</h4>
 	                <hr>
-	                <li>기보유 포인트 <span class="hasPoint" id="hasPoint">${member.me_point}</span></li>
+	                <li>기보유 포인트 
+	                	<span class="hasPoint" id="hasPoint">${member.me_point}</span>
+	                	<div class="usePoint"></div>	
+	                </li>
 	                <hr>
 	                <li>기본적립 포인트<span class="basicPoint"></span><input type="hidden" name="or_green_point"></li>
 	                <hr>
@@ -349,9 +366,9 @@
 	                <tr>
 	                    <th>배송지</th>
 	                    <td class="shipping">
-	                        <label><input type="radio" name="ship_addr" class="recentAddr">최근배송지</label>
-	                        <label><input type="radio" name="ship_addr" class="memberAddr" checked>회원정보동일</label>
-	                        <label><input type="radio" name="ship_addr" class="newAddr">새로입력</label>
+	                        <label><input type="radio" name="ship_addr" class="recentAddr" value="recent">최근배송지</label>
+	                        <label><input type="radio" name="ship_addr" class="memberAddr" value="same" checked>회원정보동일</label>
+	                        <label><input type="radio" name="ship_addr" class="newAddr" value="new">새로입력</label>
 	                    </td>
 	                </tr>
 	                <tr>
@@ -368,11 +385,22 @@
 	                        도로명주소 <input type="text" value=" ${member.me_address}" class="doroAddr"> <br>
 	                        지번주소 <input type="text" value="${member.me_jAddress}" class="jibunAddr">
 	                    </td>
+						<td class="new-addr">
+							<input type="text" id="sample4_postcode" placeholder="우편번호">
+							<button type="button" class="btn btn-secondary addrNum">우편번호 찾기</button><br>
+							<input type="text" id="sample4_roadAddress" placeholder="도로명주소" class="doroName">
+							<input type="text" id="sample4_jibunAddress" placeholder="지번주소" class="jibunName">
+							<span id="guide" style="color:#999;display:none"></span>
+							<input type="text" id="sample4_detailAddress" placeholder="상세주소">
+							<input type="text" id="sample4_extraAddress" placeholder="참고항목">
+							<input type="hidden" name="dAddress">
+                			<input type="hidden" name="jAddress">
+						</td>
 	                </tr>
 	                <tr>
 	                    <th>휴대폰</th>
 	                    <td>
-	                        <input type="text" value="${member.me_phone}" class="phone">
+	                        <input type="text" value="${member.me_phone}" class="phone" name="sh_phone">
 	                    </td>
 	                </tr>
 	            </table>
@@ -408,13 +436,85 @@
                 <label class="agree"><input type="checkbox" name="agree-btn"> 동의합니다.(전자상거래법 제 8조 제2항)</label>
             </div>
             <input type="hidden" id="partner_order_id" name="partner_order_id">
+            <input type="text" id="sh_doro" name="sh_doro" style="width: 500px">
+            <input type="text" id="sh_jibun" name="sh_jibun">
 	        <button class="payment-btn btn btn-info">결제하기</button>
 	    </form>
     </div>
    
 <script>
 $(function(){
-    $('.fa-bars').click(function(){
+function fullAddress(){
+    var sp = $('input[id=sample4_postcode]').val();
+    var road = $('input[id=sample4_roadAddress]').val();
+    var jibun = $('input[id=sample4_jibunAddress]').val();
+    var detail = $('input[id=sample4_detailAddress]').val();
+    var extra = $('input[id=sample4_extraAddress]').val();
+    var address = sp+","+road+" "+detail+" "+extra;
+    var jAddress = sp+","+jibun+" "+detail+" "+extra;
+    $('[name=dAddress]').val(address);
+    $('[name=jAddress]').val(jAddress);	
+    $('[name=sh_doro]').val(address);
+    $('[name=sh_jibun]').val(jAddress);	
+}
+
+function sample4_execDaumPostcode() {
+    new daum.Postcode({
+        oncomplete: function(data) {
+            var roadAddr = data.roadAddress; // 도로명 주소 변수
+            var extraRoadAddr = ''; // 참고 항목 변수
+
+            if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                extraRoadAddr += data.bname;
+            }
+            if(data.buildingName !== '' && data.apartment === 'Y'){
+            extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+            }
+            if(extraRoadAddr !== ''){
+                extraRoadAddr = ' (' + extraRoadAddr + ')';
+            }
+
+            document.getElementById('sample4_postcode').value = data.zonecode;
+            document.getElementById("sample4_roadAddress").value = roadAddr;
+            document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
+            if(roadAddr !== ''){
+                document.getElementById("sample4_extraAddress").value = extraRoadAddr;
+            } else {
+                document.getElementById("sample4_extraAddress").value = '';
+            }
+
+            var guideTextBox = document.getElementById("guide");
+            if(data.autoRoadAddress) {
+                var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+                guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+                guideTextBox.style.display = 'block';
+
+            } else if(data.autoJibunAddress) {
+                var expJibunAddr = data.autoJibunAddress;
+                guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+                guideTextBox.style.display = 'block';
+            } else {
+                guideTextBox.innerHTML = '';
+                guideTextBox.style.display = 'none';
+            }
+          	
+            fullAddress();
+            
+        }
+    }).open();
+}
+
+	$('.new-addr').change(function(){
+		 fullAddress();
+	})
+	
+	
+	$('.addrNum').click(function(){
+		sample4_execDaumPostcode();
+	})
+	
+
+	$('.fa-bars').click(function(){
         $('.side-bars').show();
     })
     $('.fa-times').click(function(){
@@ -462,18 +562,36 @@ $(function(){
 	var totalPoint = hasPoint+basicPoint;
 	$('.totalPoint').text(totalPoint);
 	
-
-	
 	$('.newAddr').click(function(){
-		$('.deli-addr input').val('');
+		$('.home-addr').hide();
+		$('.new-addr').show();
+		$('.name').val('');
+		$('.phone').val('');
+		var sp = $('input[id=sample4_postcode]').val('');
+	    var road = $('input[id=sample4_roadAddress]').val('');
+	    var jibun = $('input[id=sample4_jibunAddress]').val('');
+	    var detail = $('input[id=sample4_detailAddress]').val('');
+	    var extra = $('input[id=sample4_extraAddress]').val('');
+	    var guide = $('#guide').text('');
+	
 	})
 	
+	var addrList = $('input[name=ship_addr]:checked').val();
+	if(addrList == 'same'){
+		$('[name=sh_doro]').val($('.doroAddr').val());
+		$('[name=sh_jibun]').val($('.jibunAddr').val());
+	}
 	$('.memberAddr').click(function(){
+		$('.home-addr').show();
+		$('.new-addr').hide();
 		$('.name').val('${member.me_name}');
 		$('.doroAddr').val('${member.me_address}');
 		$('.jibunAddr').val('${member.me_jAddress}');
 		$('.phone').val('${member.me_phone}');
+		$('[name=sh_doro]').val($('.doroAddr').val());
+		$('[name=sh_jibun]').val($('.jibunAddr').val());
 	})
+	
 
 	var now = new Date();
 	now.setDate(now.getDate()+2)
@@ -481,51 +599,6 @@ $(function(){
 	$('.deli-date').text(more+" 도착예정");
 	$('.green-deli').text(more);
 	$('[name=or_deli_date]').val(more);
-
-	var contextPath = '<%=request.getContextPath()%>';	
-	$('.payment-btn').click(function(){
-		if($('[name=pay]:checked').length == 0){
-			alert('결제 방법을 선택하세요.')
-			return false;
-		}
-		if($('[name=agree-btn]:checked').length == 0){
-			alert('주문 내용 확인 후 동의하셔야 구매가 가능합니다.');
-			return false;
-		}
-		if($('[name=pay]:checked').val() == 'kakao'){
-			var or_me_id = $('[name=or_me_id]').val();
-			var or_receiver = $('[name=or_receiver]').val();
-			var finalCount = $('[name=finalCount]').val();
-			var or_deliver = $('[name=addPrice]').val();	
-			var or_green_point = $('[name=or_green_point]').val();
-			var or_deli_date = $('[name=or_deli_date]').val();
-			var data = {
-					or_me_id : or_me_id,
-					or_receiver : or_receiver,
-					or_payment : finalCount,
-					or_deliver : or_deliver,
-					or_green_point : or_green_point,
-					or_deli_date : or_deli_date
-				};
-			$.ajax({
-				async: false,
-				url: contextPath+'/order/kakaopay',
-				type : "post",
-				dataType: 'json',
-				data : JSON.stringify(data),
-				contentType : 'application/json; charset=utf-8',
-				success:function(data){
-					console.log(data)
-					var box = data.next_redirect_pc_url;
-					a = window.open(box);
-				},
-				error:function(error){
-					alert(error);
-				}
-			})
-			return false;
-		}
-	})
 	
 	$('.exchange').click(function(){
 		var child = window.open("<%=request.getContextPath()%>/order/pointexchange", "_blank", "height=400, width=400");
@@ -540,14 +613,76 @@ $(function(){
 			var finalCount = num+addNum-minusPoint;
 			$('.finalCount').text(finalCount+"원");
 			$('[name=finalCount]').val(finalCount);
+			$('.usePoint').text("-"+minusPoint);
+			var totalPoint = hasPoint+basicPoint-minusPoint;
+			$('.totalPoint').text(totalPoint);
+			$('.useGreen').val(minusPoint);
 
 		}else{
 			$('.pointDiscount').text("0원");
 		}
 	})
+	
+	var contextPath = '<%=request.getContextPath()%>';	
+	$('.payment-btn').click(function(){
+		if($('[name=pay]:checked').length == 0){
+			alert('결제 방법을 선택하세요.')
+			return false;
+		}
+		if($('[name=agree-btn]:checked').length == 0){
+			alert('주문 내용 확인 후 동의하셔야 구매가 가능합니다.');
+			return false;
+		}
+		if($('[name=pay]:checked').val() == 'kakao'){
+			var sh_name = $('[name=or_receiver]').val();
+			var	sh_doro = $('[name=sh_doro]').val();
+			var	sh_jibun = $('[name=sh_jibun]').val();				
+			var sh_phone = $('[name=sh_phone]').val();
+	
+			var or_me_id = $('[name=or_me_id]').val();
+			var or_receiver = $('[name=or_receiver]').val();
+			var finalCount = $('[name=finalCount]').val();
+			var or_deliver = $('[name=addPrice]').val();	
+			var or_green_point = $('[name=or_green_point]').val();
+			var or_deli_date = $('[name=or_deli_date]').val();
+			
+			var data = {
+					sh_name : sh_name,
+					sh_doro : sh_doro,
+					sh_jibun : sh_jibun,
+					sh_phone : sh_phone,
+					or_me_id : or_me_id,
+					or_receiver : or_receiver,
+					or_payment : finalCount,
+					or_deliver : or_deliver,
+					or_green_point : or_green_point,
+					or_deli_date : or_deli_date
+				};
+			$.ajax({
+				async: false,
+				url: contextPath+'/order/kakaopay',
+				type : "post",
+				dataType: 'json',
+				data : data,
+				//contentType : 'application/json; charset=utf-8',
+				success:function(data){
+					console.log(data)
+					var box = data.next_redirect_pc_url;
+					a = window.open(box);
+				},
+				error:function(error){
+					alert(error);
+				}
+			})
+			return false;
+		}
+	})
+
+
+	
+
 })
-var a;
-a.trigger('change')
+
 </script>
 </body>
 </html>

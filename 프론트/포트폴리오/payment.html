@@ -10,6 +10,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 <style>
     *{
@@ -70,13 +71,13 @@
         margin-left: 40px;;
     }
     .collectPoint, .client{
-        background-color: #f8f8f8; width: 310px; padding: 20px; 
+        background-color: #f8f8f8; width: 310px; padding: 20px;
     }
     .collectPoint h4, .client h4{
         font-size: 20px;
     }
     .collectPoint li{
-    	position: relative;
+    	position: relative; height: 48px;
     }
     .collectPoint span{
        position: absolute; right: 4px;
@@ -168,9 +169,17 @@
   	.menu ul::after{
         content: ''; clear: both; display: block;
     }
-		.exchange{
-			margin-left: 5px;
-		}
+    
+	.exchange{
+		margin-left: 5px;
+	}
+	.usePoint{
+		position: absolute; right: 4px; color: rgb(0, 104, 136); 
+	}
+
+	.new-addr{
+		display: none;  margin-bottom: 10px; width: 450px;
+	}
     
 </style>
 <body>
@@ -300,7 +309,7 @@
 	            <tr>
 	                <td class="totalCount"></td>
 	                <td class="addPrice"></td>
-	                <td>0원</td>
+	                <td class="pointDiscount">0원</td>
 	                <td class="finalCount"></td>
 	            </tr>
 	        </table>
@@ -314,22 +323,27 @@
 	                        <td>
 	                            <div class="text">${member.me_point}</div>
 	                            <div>그린포인트 5000원 이상이면 그린머니로 환전가능합니다.</div>
-														</td>
-													</tr>
-													<tr>
-														<th></th>
-														<td>
-															<input type="text">
-															<button type="button" class="exchange btn btn-secondary">환전</button>
-														</td>
-													</tr>
-													
+	                        </td>
+	                    </tr>
+	                    <c:if test="${member.me_point >= 5000 }">
+						<tr>
+							<th></th>
+							<td>
+								<input type="text" id="charge" readonly>
+								<input type="hidden" class="useGreen" name="pr_use_point" value="0">
+								<button type="button" class="exchange btn btn-secondary">환전</button>
+							</td>
+						</tr>
+	                    </c:if>
 	                </tbody>                
 	            </table>
 	            <ul class="collectPoint">
 	                <h4>적립혜택</h4>
 	                <hr>
-	                <li>기보유 포인트 <span class="hasPoint">${member.me_point}</span></li>
+	                <li>기보유 포인트 
+	                	<span class="hasPoint" id="hasPoint">${member.me_point}</span>
+	                	<div class="usePoint"></div>	
+	                </li>
 	                <hr>
 	                <li>기본적립 포인트<span class="basicPoint"></span><input type="hidden" name="or_green_point"></li>
 	                <hr>
@@ -359,14 +373,24 @@
 	                <tr>
 	                    <th>배송주소</th>
 	                    <td class="home-addr">
-	                        도로명주소 <input type="text" value=" ${member.me_address}" class="doroAddr"> <br>
-	                        지번주소 <input type="text" value="${member.me_jAddress}" class="jibunAddr">
+	                        도로명주소 <input type="text" value=" ${member.me_address}" class="doroAddr" name="sh_doro"> <br>
+	                        지번주소 <input type="text" value="${member.me_jAddress}" class="jibunAddr" name="sh_jibun">
 	                    </td>
+						<td class="new-addr">
+							<label>주소</label>
+							<input type="text" id="sample4_postcode" placeholder="우편번호">
+							<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
+							<input type="text" id="sample4_roadAddress" placeholder="도로명주소">
+							<input type="text" id="sample4_jibunAddress" placeholder="지번주소">
+							<span id="guide" style="color:#999;display:none"></span>
+							<input type="text" id="sample4_detailAddress" placeholder="상세주소">
+							<input type="text" id="sample4_extraAddress" placeholder="참고항목">
+						</td>
 	                </tr>
 	                <tr>
 	                    <th>휴대폰</th>
 	                    <td>
-	                        <input type="text" value="${member.me_phone}" class="phone">
+	                        <input type="text" value="${member.me_phone}" class="phone" name="sh_phone">
 	                    </td>
 	                </tr>
 	            </table>
@@ -475,7 +499,30 @@ $(function(){
 	$('.deli-date').text(more+" 도착예정");
 	$('.green-deli').text(more);
 	$('[name=or_deli_date]').val(more);
+	
+	$('.exchange').click(function(){
+		var child = window.open("<%=request.getContextPath()%>/order/pointexchange", "_blank", "height=400, width=400");
+	})
+	
+	
+	$('#charge').focus('input', function(){
+		if($('#charge').val() != ''){		
+			$('.pointDiscount').text($('#charge').val());
+			var minus = $('.pointDiscount').text();
+			var minusPoint = parseInt(minus.replace(/[^0-9]/g,''));
+			var finalCount = num+addNum-minusPoint;
+			$('.finalCount').text(finalCount+"원");
+			$('[name=finalCount]').val(finalCount);
+			$('.usePoint').text("-"+minusPoint);
+			var totalPoint = hasPoint+basicPoint-minusPoint;
+			$('.totalPoint').text(totalPoint);
+			$('.useGreen').val(minusPoint);
 
+		}else{
+			$('.pointDiscount').text("0원");
+		}
+	})
+	
 	var contextPath = '<%=request.getContextPath()%>';	
 	$('.payment-btn').click(function(){
 		if($('[name=pay]:checked').length == 0){
@@ -487,13 +534,23 @@ $(function(){
 			return false;
 		}
 		if($('[name=pay]:checked').val() == 'kakao'){
+			var sh_name = $('[name=or_receiver]').val();
+			var sh_doro = $('[name=sh_doro]').val();
+			var sh_jibun = $('[name=sh_jibun]').val();
+			var sh_phone = $('[name=sh_phone]').val();
+	
 			var or_me_id = $('[name=or_me_id]').val();
 			var or_receiver = $('[name=or_receiver]').val();
 			var finalCount = $('[name=finalCount]').val();
 			var or_deliver = $('[name=addPrice]').val();	
 			var or_green_point = $('[name=or_green_point]').val();
 			var or_deli_date = $('[name=or_deli_date]').val();
+			
 			var data = {
+					sh_name : sh_name,
+					sh_doro : sh_doro,
+					sh_jibun : sh_jibun,
+					sh_phone : sh_phone,
 					or_me_id : or_me_id,
 					or_receiver : or_receiver,
 					or_payment : finalCount,
@@ -506,8 +563,8 @@ $(function(){
 				url: contextPath+'/order/kakaopay',
 				type : "post",
 				dataType: 'json',
-				data : JSON.stringify(data),
-				contentType : 'application/json; charset=utf-8',
+				data : data,
+				//contentType : 'application/json; charset=utf-8',
 				success:function(data){
 					console.log(data)
 					var box = data.next_redirect_pc_url;
@@ -521,13 +578,66 @@ $(function(){
 		}
 	})
 
-	$('.exchange').click(function(){
-		var child = window.open("pointexchange.html", "_blank", "height=300, width=300");
+	$('.newAddr').click(function(){
+		$('.home-addr').hide();
+		$('.new-addr').show();
 	})
+    function sample4_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+    
+                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var roadAddr = data.roadAddress; // 도로명 주소 변수
+                var extraRoadAddr = ''; // 참고 항목 변수
 
+                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                    extraRoadAddr += data.bname;
+                }
+                // 건물명이 있고, 공동주택일 경우 추가한다.
+                if(data.buildingName !== '' && data.apartment === 'Y'){
+                extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                if(extraRoadAddr !== ''){
+                    extraRoadAddr = ' (' + extraRoadAddr + ')';
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('sample4_postcode').value = data.zonecode;
+                document.getElementById("sample4_roadAddress").value = roadAddr;
+                document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
+                
+                // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+                if(roadAddr !== ''){
+                    document.getElementById("sample4_extraAddress").value = extraRoadAddr;
+                } else {
+                    document.getElementById("sample4_extraAddress").value = '';
+                }
+
+                var guideTextBox = document.getElementById("guide");
+                // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+                if(data.autoRoadAddress) {
+                    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+                    guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+                    guideTextBox.style.display = 'block';
+
+                } else if(data.autoJibunAddress) {
+                    var expJibunAddr = data.autoJibunAddress;
+                    guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+                    guideTextBox.style.display = 'block';
+                } else {
+                    guideTextBox.innerHTML = '';
+                    guideTextBox.style.display = 'none';
+                }
+            }
+        }).open();
+    }
 })
-var a;
-a.trigger('change')
+
 </script>
 </body>
 </html>

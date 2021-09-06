@@ -11,7 +11,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -34,6 +33,7 @@ import kr.green.portfolio.vo.CartVO;
 import kr.green.portfolio.vo.MemberVO;
 import kr.green.portfolio.vo.OrderVO;
 import kr.green.portfolio.vo.RegistrationVO;
+import kr.green.portfolio.vo.ShippingVO;
 
 
 @Controller
@@ -135,11 +135,12 @@ public class CartController {
 	}
 	
 	@RequestMapping(value="/order/payfinished", method=RequestMethod.POST)
-	public ModelAndView payFinishedPost (ModelAndView mv, HttpSession session, String partner_order_id, BigInteger[] isbn, Integer[] pr_amount) {
+	public ModelAndView payFinishedPost (ModelAndView mv, HttpSession session, String partner_order_id, BigInteger[] isbn, Integer[] pr_amount, Integer pr_use_point) {
 		MemberVO member = (MemberVO)session.getAttribute("user");
-		cartService.insertParticulars(partner_order_id, isbn, pr_amount);
+		cartService.insertParticulars(partner_order_id, isbn, pr_amount, pr_use_point);
 		bookService.updateAmount(isbn, pr_amount);
 		cartService.updateValid(member.getMe_id(), isbn);
+		memberService.updatePoint(member.getMe_id(), pr_use_point);
 		mv.setViewName("redirect:/");
 		return mv;
 	}
@@ -208,10 +209,11 @@ public class CartController {
 		
 	@RequestMapping("/order/kakaopay")
 	@ResponseBody
-	public String kakaopay(HttpServletRequest request, HttpSession session, @RequestBody OrderVO order) throws ParseException {
-		System.out.println(order);
+	public String kakaopay(HttpServletRequest request, HttpSession session, OrderVO order, ShippingVO shipping) throws ParseException {
 		MemberVO member = (MemberVO)session.getAttribute("user");
 		if(member != null && member.getMe_id().equals(order.getOr_me_id())) {
+			System.out.println(shipping);
+			cartService.insertShipping(shipping);
 			cartService.insertPayFinished(order);	
 		}
 		

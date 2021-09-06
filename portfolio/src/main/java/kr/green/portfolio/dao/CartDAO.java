@@ -11,6 +11,7 @@ import kr.green.portfolio.vo.CartVO;
 import kr.green.portfolio.vo.MemberVO;
 import kr.green.portfolio.vo.OrderVO;
 import kr.green.portfolio.vo.ParticularsVO;
+import kr.green.portfolio.vo.ShippingVO;
 
 public interface CartDAO {
 
@@ -42,9 +43,9 @@ public interface CartDAO {
 
 	void insertPayment(@Param("tid")String tid, @Param("payment_method_type") String payment_method_type, @Param("me_name")String me_name, @Param("partner_order_id")String partner_order_id, @Param("point") Long point, @Param("approved_at") String approved_at);
 
-	void insertParticulars(@Param("partner_order_id")String partner_order_id, @Param("bigInteger") BigInteger bigInteger, @Param("integer") Integer integer);
+	void insertParticulars(@Param("partner_order_id")String partner_order_id, @Param("bigInteger") BigInteger bigInteger, @Param("integer") Integer integer, @Param("pr_use_point") Integer pr_use_point);
 
-	ArrayList<OrderVO> selectOrder(String me_id);
+	ArrayList<OrderVO> selectOrder(@Param("me_id") String me_id, @Param("cri") Criteria cri);
 
 	void updateValid(@Param("me_id") String me_id, @Param("bigInteger") BigInteger bigInteger);
 
@@ -53,6 +54,9 @@ public interface CartDAO {
 	ArrayList<ParticularsVO> getParticularsList(String or_num);
 
 	OrderVO detailOrderList(@Param("or_num") String or_num, @Param("checkId") String checkId);
+
+	void insertShipping(ShippingVO shipping);
+
 
 
 }

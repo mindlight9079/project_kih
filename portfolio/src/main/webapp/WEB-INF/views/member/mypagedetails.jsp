@@ -105,9 +105,9 @@
         </tr>
         <tr>
           <th>주문하신 분</th>
-          <td>경인혜</td>
+          <td>${order.or_name}</td>
           <th>받으시는 분</th>
-          <td>경인혜</td>
+          <td>${order.or_receiver}</td>
         </tr>
         <tr>
           <th>전화번호</th>
@@ -140,21 +140,21 @@
           <td colspan="3">
             <span class="orderTotalCount"></span>
             <ul class="additional">
-              <li>카드 사용 : ${order.or_payment}</li>
-              <li>그린머니 사용 : 원</li>
+              <li>카드 사용 : ${order.or_payment}원</li>
+              <li>그린머니 사용 : ${order.or_use_point}원</li>
             </ul>
           </td>
         </tr>
         <tr>
           <th>결제수단</th>
-          <td>신용카드 : 국민카드 일시불</td>
+          <td>${order.or_methods}</td>
           <td colspan="2"></td>
         </tr>
         <tr>
           <th>승인번호</th>
-          <td>0123456</td>
+          <td>${order.or_pa_num}</td>
           <th>승인일자</th>
-          <td>2021.09.03</td>
+          <td>${order.approvedDate}</td>
         </tr>
       </table>
       <button class="btn btn-info back-btn">목록으로</button>

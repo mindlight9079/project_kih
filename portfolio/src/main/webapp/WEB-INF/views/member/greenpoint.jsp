@@ -94,12 +94,22 @@
               </thead>
               <tbody>
              	<c:forEach items="${greenPoint}" var="green" varStatus = "status">
+             		<c:if test="${green.or_state == '구매확정'}">
 	                <tr class="point-box">
 	                  <td>${green.orDate}</td>
 	                  <td class="greenContents"></td>
 	                  <td>${green.or_num}</td>
 	                  <td class="gr_point">${green.or_green_point}</td>
 	                </tr>
+	                </c:if>
+	                <c:if test="${green.or_use_point > 0}">
+	                <tr class="point-box">
+	                  <td>${green.orDate}</td>
+	                  <td class="greenContents"></td>
+	                  <td>${green.or_num}</td>
+	                  <td class="gr_point">-${green.or_use_point}</td>
+	                </tr>
+	                </c:if>
                 </c:forEach>
               </tbody>
             </table>

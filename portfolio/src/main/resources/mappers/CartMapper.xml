@@ -47,9 +47,9 @@
 			ca_amount = #{integer}
 				where ca_num = #{ca_num}
 	</update>
-	<insert id="insertPayFinished">
-		insert into `order` (or_num, or_me_id, or_receiver, or_payment, or_deliver, or_green_point, or_deli_date)
-			values (#{or_num}, #{or_me_id}, #{or_receiver}, #{or_payment}, #{or_deliver}, #{or_green_point}, #{or_deli_date})
+	<insert id="insertPayFinished" >
+		insert into `order` (or_num, or_me_id, or_receiver, or_payment, or_deliver, or_green_point, or_deli_date, or_sh_num)
+			values (#{or_num}, #{or_me_id}, #{or_receiver}, #{or_payment}, #{or_deliver}, #{or_green_point}, #{or_deli_date}, #{or_sh_num})
 	</insert>
 	<select id="getOrder" resultType="kr.green.portfolio.vo.OrderVO">
 		select * from `order` where or_num = #{partner_order_id}
@@ -64,11 +64,14 @@
 			values(#{tid}, #{payment_method_type}, #{me_name}, #{partner_order_id}, #{point}, #{approved_at})
 	</insert>
 	<insert id="insertParticulars">
-		insert into particulars (pr_or_num, pr_bk_isbn, pr_amount)
-			values(#{partner_order_id}, #{bigInteger}, #{integer})
+		insert into particulars (pr_or_num, pr_bk_isbn, pr_amount, pr_use_point)
+			values(#{partner_order_id}, #{bigInteger}, #{integer}, #{pr_use_point})
 	</insert>
 	<select id="selectOrder" resultType="kr.green.portfolio.vo.OrderVO">
-		select * from `order` where or_me_id = #{me_id} and or_state = "구매확정"
+		select or_green_point, pr_use_point as or_use_point, or_state, or_num, or_date, me_id from `member` 
+			join `order` on me_id = or_me_id
+				join ( select * from particulars group by pr_or_num) as t on or_num = pr_or_num where me_id = #{me_id} order by or_date desc
+				 	limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
 	<update id="updateValid">
 		update cart join registration on ca_re_code = re_code
@@ -78,7 +81,7 @@
 		select `order`.*,re_title as or_title, or_count as or_re_title from `order`
 			left join (select *,count(*) as or_count from particulars group by pr_or_num) as t on or_num = pr_or_num 
          		join registration on pr_bk_isbn = re_bk_isbn
-        			where or_me_id = #{me_id} and or_state = "구매확정"
+        			where or_me_id = #{me_id}
         				limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
 	<select id="getParticularsList" resultType="kr.green.portfolio.vo.ParticularsVO">
@@ -86,8 +89,15 @@
 			where pr_or_num = #{or_num}
 	</select>
 	<select id="detailOrderList" resultType="kr.green.portfolio.vo.OrderVO">
-		select * from `order` join `member` on or_me_id = me_id
-			 where or_num = #{or_num} and me_id = #{checkId}
+		select *, pr_use_point as or_use_point, pa_num as or_pa_num, pa_methods as or_methods, pa_approved as or_approved, me_name as or_name
+			 from `order` join `member` on or_me_id = me_id
+				join (select * from particulars group by pr_or_num) as t on pr_or_num = or_num
+					join payment on or_num = pa_or_num
+			 			where or_num = #{or_num} and me_id = #{checkId}
 	</select>
+	<insert id="insertShipping" useGeneratedKeys="true" parameterType="kr.green.portfolio.vo.ShippingVO" keyProperty="sh_num">
+		insert into shipping (sh_name, sh_doro, sh_jibun, sh_phone)
+			values (#{sh_name}, #{sh_doro}, #{sh_jibun}, #{sh_phone})
+	</insert>
 </mapper>
 

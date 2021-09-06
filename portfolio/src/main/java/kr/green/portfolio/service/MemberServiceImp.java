@@ -346,4 +346,12 @@ public class MemberServiceImp implements MemberService {
 		return memberDao.getTotalCountMyPage(cri);
 	}
 
+	@Override
+	public void updatePoint(String me_id, Integer pr_use_point) {
+		if(me_id == null && pr_use_point == null)
+			return;
+		memberDao.updatePoint(me_id, pr_use_point);
+		
+	}
+
 }

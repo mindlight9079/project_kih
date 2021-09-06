@@ -14,6 +14,7 @@ import kr.green.portfolio.vo.CartVO;
 import kr.green.portfolio.vo.MemberVO;
 import kr.green.portfolio.vo.OrderVO;
 import kr.green.portfolio.vo.ParticularsVO;
+import kr.green.portfolio.vo.ShippingVO;
 
 @Service
 public class CartServiceImp implements CartService {
@@ -112,20 +113,20 @@ public class CartServiceImp implements CartService {
 	}
 
 	@Override
-	public void insertParticulars(String partner_order_id, BigInteger[] isbn, Integer[] pr_amount) {
-		if(partner_order_id == null && isbn == null && pr_amount == null)
+	public void insertParticulars(String partner_order_id, BigInteger[] isbn, Integer[] pr_amount, Integer pr_use_point) {
+		if(partner_order_id == null && isbn == null && pr_amount == null && pr_use_point == null)
 			return;
 		for(int i=0; i<isbn.length; i++) {
-			cartDao.insertParticulars(partner_order_id, isbn[i], pr_amount[i]);
+			cartDao.insertParticulars(partner_order_id, isbn[i], pr_amount[i], pr_use_point);
 		}
 			
 	}
 
 	@Override
-	public ArrayList<OrderVO> selectOrder(String me_id) {
+	public ArrayList<OrderVO> selectOrder(String me_id, Criteria cri) {
 		if(me_id == null)
 			return null;
-		return cartDao.selectOrder(me_id);
+		return cartDao.selectOrder(me_id, cri);
 	}
 
 	@Override
@@ -158,6 +159,14 @@ public class CartServiceImp implements CartService {
 			return null;
 		return cartDao.detailOrderList(or_num, checkId);
 	}
+
+	@Override
+	public void insertShipping(ShippingVO shipping) {
+		if(shipping == null)
+			return;
+		cartDao.insertShipping(shipping);
+	}
+
 
 
 

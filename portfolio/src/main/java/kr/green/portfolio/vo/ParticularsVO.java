@@ -13,6 +13,7 @@ public class ParticularsVO {
 	private int pr_amount;
 	private String pr_title;
 	private int pr_price;
+	private int pr_use_point;
 	
 	public int getEachPoint() {
 		return (int)(pr_price * pr_amount * 0.05);

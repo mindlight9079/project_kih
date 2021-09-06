@@ -10,6 +10,7 @@ import kr.green.portfolio.vo.MemberVO;
 import kr.green.portfolio.vo.OrderVO;
 import kr.green.portfolio.vo.ParticularsVO;
 import kr.green.portfolio.vo.PaymentVO;
+import kr.green.portfolio.vo.ShippingVO;
 
 public interface CartService {
 
@@ -33,9 +34,9 @@ public interface CartService {
 
 	void insertPayment(String tid, String payment_method_type, String me_name, String partner_order_id, Long point, String approved_at);
 
-	void insertParticulars(String partner_order_id, BigInteger[] isbn, Integer[] pr_amount);
+	void insertParticulars(String partner_order_id, BigInteger[] isbn, Integer[] pr_amount, Integer pr_use_point);
 
-	ArrayList<OrderVO> selectOrder(String me_id);
+	ArrayList<OrderVO> selectOrder(String me_id, Criteria cri);
 
 	void updateValid(String me_id, BigInteger[] isbn);
 
@@ -45,9 +46,7 @@ public interface CartService {
 
 	OrderVO detailOrderList(String or_num, String checkId);
 
-
-
-
+	void insertShipping(ShippingVO shipping);
 
 
 }

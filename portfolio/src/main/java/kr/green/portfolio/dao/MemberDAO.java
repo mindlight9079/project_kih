@@ -74,5 +74,7 @@ public interface MemberDAO {
 
 	public int getTotalCountMyPage(@Param("cri") Criteria cri);
 
+	public void updatePoint(@Param("me_id") String me_id, @Param("pr_use_point") Integer pr_use_point);
+
 
 }

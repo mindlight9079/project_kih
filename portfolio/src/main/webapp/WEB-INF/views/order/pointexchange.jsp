@@ -21,11 +21,11 @@
 </body>
 <script>
 $(function(){
-		var able = $("#hasPoint", opener.document).text();
-		$('#ablePoint').text(able);		
-
+		var able = parseInt($("#hasPoint", opener.document).text());
+		$('#ablePoint').text(able);
 		$('.exchange').click(function(){
-		var value = $('.pointExchange').val();
+		var value = parseInt($('.pointExchange').val());
+		console.log(value)
 		if(able < value){
 			alert('사용 가능한 포인트를 초과하였습니다.')
 			return false;

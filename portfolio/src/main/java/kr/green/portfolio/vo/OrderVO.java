@@ -4,6 +4,8 @@ import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Data;
 
 @Data
@@ -18,7 +20,14 @@ public class OrderVO {
 	private int or_green_point;
 	private String or_title;
 	private int or_re_title;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date or_deli_date;
+	private int or_use_point;
+	private String or_pa_num;
+	private String or_methods;
+	private Date or_approved;
+	private String or_name;
+	private int or_sh_num;
 	
 	public String setOr_random_num() {
 		java.util.Date now = new java.util.Date();
@@ -38,6 +47,11 @@ public class OrderVO {
 	public String getDeliDate() {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		return format.format(or_deli_date);
+	}	
+	
+	public String getApprovedDate() {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		return format.format(or_approved);
 	}	
 	
 }
