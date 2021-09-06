@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.26, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.25, for Win64 (x86_64)
 --
 -- Host: localhost    Database: bookstore_kih
 -- ------------------------------------------------------
--- Server version	8.0.26
+-- Server version	8.0.25
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -48,7 +48,7 @@ CREATE TABLE `member` (
 
 LOCK TABLES `member` WRITE;
 /*!40000 ALTER TABLE `member` DISABLE KEYS */;
-INSERT INTO `member` VALUES ('abc123','길동이','$2a$10$yaxmVHWXBYq3c6ftiX7UROBvrkAQZMCAnPh8IY5K1B4hOgnLJ5YTy','F','1993년3월12일','01012345678','13485,경기 성남시 분당구 판교로 20  (판교동, 판교원마을3단지아파트)','홍길동','9302201234567','abc123@hanmail.net',0,'ADMIN','13485,경기 성남시 분당구 판교동 629  (판교동, 판교원마을3단지아파트)','none','2021-08-30 09:38:28'),('qwe123','꺽정이','$2a$10$prsKV/jh2.GmpQ7V5U0Ly.wo2cJBWDGuBO8o9pGLY66Qr05gdOgQe','M','1990년10월19일','01011112222','06267,서울 강남구 남부순환로 2609  (도곡동)','임꺽정','9010191111111','qwe123@naver.com',5000,'NORMAL','06267,서울 강남구 도곡동 957-14  (도곡동)','720769937F08A6AD6D3588443CA37203','2021-09-10 00:00:00');
+INSERT INTO `member` VALUES ('abc123','길동이','$2a$10$yaxmVHWXBYq3c6ftiX7UROBvrkAQZMCAnPh8IY5K1B4hOgnLJ5YTy','F','1993년3월12일','01012345678','13485,경기 성남시 분당구 판교로 20  (판교동, 판교원마을3단지아파트)','홍길동','9302201234567','abc123@hanmail.net',0,'ADMIN','13485,경기 성남시 분당구 판교동 629  (판교동, 판교원마을3단지아파트)','none','2021-08-30 09:38:28'),('qwe123','꺽정이','$2a$10$prsKV/jh2.GmpQ7V5U0Ly.wo2cJBWDGuBO8o9pGLY66Qr05gdOgQe','M','1990년10월19일','01011112222','06267,서울 강남구 남부순환로 2609  (도곡동)','임꺽정','9010191111111','qwe123@naver.com',93000,'NORMAL','06267,서울 강남구 도곡동 957-14  (도곡동)','3248796566B5F35099EA884D330D9C01','2021-09-13 00:00:00');
 /*!40000 ALTER TABLE `member` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -61,4 +61,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-09-05 15:23:52
+-- Dump completed on 2021-09-06 17:44:58

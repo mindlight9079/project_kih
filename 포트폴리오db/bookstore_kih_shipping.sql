@@ -16,34 +16,30 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `particulars`
+-- Table structure for table `shipping`
 --
 
-DROP TABLE IF EXISTS `particulars`;
+DROP TABLE IF EXISTS `shipping`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `particulars` (
-  `pr_num` int NOT NULL AUTO_INCREMENT,
-  `pr_or_num` varchar(20) NOT NULL,
-  `pr_bk_isbn` bigint NOT NULL,
-  `pr_amount` int NOT NULL,
-  `pr_use_point` int NOT NULL DEFAULT '0',
-  PRIMARY KEY (`pr_num`),
-  KEY `de_bk_isbn_idx` (`pr_bk_isbn`),
-  KEY `pr_or_num_idx` (`pr_or_num`),
-  CONSTRAINT `de_bk_isbn` FOREIGN KEY (`pr_bk_isbn`) REFERENCES `book` (`bk_isbn`),
-  CONSTRAINT `pr_or_num` FOREIGN KEY (`pr_or_num`) REFERENCES `order` (`or_num`)
-) ENGINE=InnoDB AUTO_INCREMENT=92 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `shipping` (
+  `sh_num` int NOT NULL AUTO_INCREMENT,
+  `sh_name` varchar(50) NOT NULL,
+  `sh_doro` longtext NOT NULL,
+  `sh_jibun` longtext NOT NULL,
+  `sh_phone` varchar(20) NOT NULL,
+  PRIMARY KEY (`sh_num`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `particulars`
+-- Dumping data for table `shipping`
 --
 
-LOCK TABLES `particulars` WRITE;
-/*!40000 ALTER TABLE `particulars` DISABLE KEYS */;
-INSERT INTO `particulars` VALUES (89,'2021090603470372',1190030926,1,0),(90,'2021090603470372',1162243074,1,0);
-/*!40000 ALTER TABLE `particulars` ENABLE KEYS */;
+LOCK TABLES `shipping` WRITE;
+/*!40000 ALTER TABLE `shipping` DISABLE KEYS */;
+INSERT INTO `shipping` VALUES (5,'임꺽정',' 06267,서울 강남구 남부순환로 2609  (도곡동)','06267,서울 강남구 도곡동 957-14  (도곡동)','01011112222'),(6,'임꺽정',' 06267,서울 강남구 남부순환로 2609  (도곡동)','06267,서울 강남구 도곡동 957-14  (도곡동)','01011112222'),(7,'임꺽정',' 06267,서울 강남구 남부순환로 2609  (도곡동)','06267,서울 강남구 도곡동 957-14  (도곡동)','01011112222');
+/*!40000 ALTER TABLE `shipping` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
