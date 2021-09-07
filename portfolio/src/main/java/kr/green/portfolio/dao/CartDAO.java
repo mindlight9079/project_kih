@@ -61,6 +61,10 @@ public interface CartDAO {
 
 	ShippingVO detailShippingList(@Param("or_num") String or_num, @Param("checkId") String checkId);
 
+	void insertPaymentInic(@Param("apply_num") String apply_num, @Param("pay_method") String pay_method, @Param("me_name") String me_name, @Param("or_num") String or_num, @Param("formattedDate") String formattedDate);
+
+	void updateOrderState(String or_num);
+
 
 
 }

@@ -108,5 +108,14 @@
 			join `member` on me_id = or_me_id
 				where me_id = #{checkId} and or_num = #{or_num}
 	</select>
+	<insert id="insertPaymentInic">
+		insert into payment (pa_num, pa_methods, pa_name, pa_or_num, pa_approved)
+			values(#{apply_num}, #{pay_method}, #{me_name}, #{or_num}, #{formattedDate})
+	</insert>
+	<update id="updateOrderState">
+		update `order` set
+			or_state = "결제완료"
+				where or_num = #{or_num}
+	</update>
 </mapper>
 

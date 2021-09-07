@@ -14,6 +14,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 </head>
 <style>
     *{
@@ -410,15 +411,15 @@
 	                    <hr>
 	                    <tr>
 	                        <th>이름</th>
-	                        <td><input type="text" value="${member.me_name}"></td>
+	                        <td><input type="text" value="${member.me_name}" class="orderName"></td>
 	                    </tr>
 	                    <tr>
 	                        <th>휴대폰</th>
-	                        <td><input type="text" value="${member.me_phone}"></td>
+	                        <td><input type="text" value="${member.me_phone}" class="cellPhone"></td>
 	                    </tr>
 	                    <tr>
 	                        <th>이메일</th>
-	                        <td><input type="text" value="${member.me_email}"></td>
+	                        <td><input type="text" value="${member.me_email}" class="email"></td>
 	                    </tr>
 	                </table>
 	            </div> 
@@ -440,7 +441,7 @@
             <input type="hidden" id="sh_jibun" name="sh_jibun">
             <input type="hidden" name="or_receiver">
             <input type="hidden" name="sh_phone">
-	        <button class="payment-btn btn btn-info">결제하기</button>
+	        <button class="payment-btn btn btn-info" type="button">결제하기</button>
 	    </form>
     </div>
    
@@ -740,8 +741,82 @@ function sample4_execDaumPostcode() {
 			})
 			return false;
 		}
-	})
+		
+		if($('[name=pay]:checked').val() == 'card'){
+			var finalCount = $('[name=finalCount]').val();
+			var email = $('.email').val();
+			var name = $('.orderName').val();
+			var cellPhone = $('.cellPhone').val()
+			var	doro = $('[name=sh_doro]').val();
+			var	jibun = $('[name=sh_jibun]').val();	
+			var pay_method = 'card';
+			
+			IMP.init('imp78262628');
+			IMP.request_pay({
+			    pg : 'inicis',
+			    pay_method : pay_method,
+			    merchant_uid : 'merchant_' + new Date().getTime(),
+			    name : 'GreenBookStore',
+			    amount : finalCount, //판매 가격
+			    buyer_email : email,
+			    buyer_name : name,
+			    buyer_tel : cellPhone,
+			    buyer_addr : doro,
+			    buyer_postcode : jibun
+			}, function(rsp) {
+				console.log(rsp)
+			    if ( rsp.success ) {
+			        var msg = '결제가 완료되었습니다.';
+			        
+					var sh_name = $('[name=or_receiver]').val();
+					var	sh_doro = $('[name=sh_doro]').val();
+					var	sh_jibun = $('[name=sh_jibun]').val();				
+					var sh_phone = $('[name=sh_phone]').val();
+			
+					var or_me_id = $('[name=or_me_id]').val();
+					var or_receiver = $('[name=or_receiver]').val();
+					var finalCount = $('[name=finalCount]').val();
+					var or_deliver = $('[name=addPrice]').val();	
+					var or_green_point = $('[name=or_green_point]').val();
+					var or_deli_date = $('[name=or_deli_date]').val();
+					
+					var data = {
+							sh_name : sh_name,
+							sh_doro : sh_doro,
+							sh_jibun : sh_jibun,
+							sh_phone : sh_phone,
+							or_me_id : or_me_id,
+							or_receiver : or_receiver,
+							or_payment : finalCount,
+							or_deliver : or_deliver,
+							or_green_point : or_green_point,
+							or_deli_date : or_deli_date,
+							apply_num : rsp.apply_num,
+							pay_method : pay_method,
+							paid_at : rsp.paid_at						
+						};  
+					
+			        $.ajax({
+			        	async: false,
+			    		url : contextPath + '/order/inicis',
+			    		type : 'post',
+			    		data :  data,
+			    		dataType: 'json',
+			    		success:function(result){
+			    			$("#partner_order_id").val(result);
+			    			$("form").submit();
+			    		}
+			    	})    
+			    
+			    } else {
+			        var msg = '결제에 실패하였습니다.';
+			        msg += '에러내용 : ' + rsp.error_msg;
+			    }
+			    alert(msg);
 
+			});
+		}
+	})
 })
 
 </script>

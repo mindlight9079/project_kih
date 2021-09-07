@@ -52,5 +52,10 @@ public interface CartService {
 
 	ShippingVO detailShippingList(String or_num, String checkId);
 
+	void insertPaymentInic(String apply_num, String pay_method, String me_name, String or_num, String formattedDate);
+
+	void updateOrderState(String or_num);
+
+
 
 }

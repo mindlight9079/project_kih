@@ -10,7 +10,9 @@ import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -222,7 +224,6 @@ public class CartController {
 	public String kakaopay(HttpServletRequest request, HttpSession session, OrderVO order, ShippingVO shipping) throws ParseException {
 		MemberVO member = (MemberVO)session.getAttribute("user");
 		if(member != null && member.getMe_id().equals(order.getOr_me_id())) {
-			System.out.println(shipping);
 			cartService.insertShipping(shipping);
 			order.setOr_sh_num(shipping.getSh_num());
 			cartService.insertPayFinished(order);	
@@ -288,4 +289,27 @@ public class CartController {
 		return jsonObj;
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="/order/inicis", method=RequestMethod.POST)
+	public String addCart(OrderVO order, ShippingVO shipping, String apply_num, String pay_method, String paid_at, HttpSession session, HttpServletRequest request) {
+		MemberVO member = (MemberVO)session.getAttribute("user");
+		String me_name = ((MemberVO)request.getSession().getAttribute("user")).getMe_name();
+		String result = "0";
+		if(member != null && member.getMe_id().equals(order.getOr_me_id())) {
+			cartService.insertShipping(shipping);
+			order.setOr_sh_num(shipping.getSh_num());
+			cartService.insertPayFinished(order);
+			cartService.updateOrderState(order.getOr_num());
+			
+			long timestamp = Long.parseLong(paid_at);
+		    Date date = new java.util.Date(timestamp*1000L); 
+		    SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
+		    sdf.setTimeZone(java.util.TimeZone.getTimeZone("GMT+9")); 
+		    String formattedDate = sdf.format(date);
+		    
+			cartService.insertPaymentInic(apply_num, pay_method, me_name, order.getOr_num(), formattedDate);
+			result = ""+order.getOr_num();
+		}
+		return result;
+	}
 }

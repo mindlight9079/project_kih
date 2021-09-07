@@ -3,6 +3,7 @@ package kr.green.portfolio.service;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -180,6 +181,23 @@ public class CartServiceImp implements CartService {
 			return null;
 		return cartDao.detailShippingList(or_num, checkId);
 	}
+
+	@Override
+	public void insertPaymentInic(String apply_num, String pay_method, String me_name, String or_num, String formattedDate) {
+		if(apply_num == null && pay_method == null && me_name == null && or_num == null && formattedDate == null)
+			return;
+		cartDao.insertPaymentInic(apply_num, pay_method, me_name, or_num, formattedDate);
+		
+	}
+
+	@Override
+	public void updateOrderState(String or_num) {
+		if(or_num == null)
+			return;
+		cartDao.updateOrderState(or_num);
+		
+	}
+
 
 
 
