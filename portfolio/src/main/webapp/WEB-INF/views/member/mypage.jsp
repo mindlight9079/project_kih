@@ -65,6 +65,12 @@
     .table-bordered{
       width: 850px;
     }
+    .orderDate{
+    	width: 115px;
+    }
+    .orderState{
+    	width: 90px;
+    }
   
   </style>
 </head>
@@ -90,10 +96,10 @@
             <table class="table table-bordered">
               <thead>
                 <tr>
-                  <th>주문일자</th>
+                  <th class="orderDate">주문일자</th>
                   <th>주문번호</th>
                   <th>주문내역</th>
-                  <th>주문상태</th>
+                  <th class="orderState">주문상태</th>
                 </tr>
               </thead>
               <tbody>
