@@ -436,10 +436,10 @@
                 <label class="agree"><input type="checkbox" name="agree-btn"> 동의합니다.(전자상거래법 제 8조 제2항)</label>
             </div>
             <input type="hidden" id="partner_order_id" name="partner_order_id">
-            <input type="text" id="sh_doro" name="sh_doro" style="width: 500px">
-            <input type="text" id="sh_jibun" name="sh_jibun">
-            <input type="text" name="or_receiver">
-            <input type="text" name="sh_phone">
+            <input type="hidden" id="sh_doro" name="sh_doro" style="width: 500px">
+            <input type="hidden" id="sh_jibun" name="sh_jibun">
+            <input type="hidden" name="or_receiver">
+            <input type="hidden" name="sh_phone">
 	        <button class="payment-btn btn btn-info">결제하기</button>
 	    </form>
     </div>
@@ -583,6 +583,9 @@ function sample4_execDaumPostcode() {
       	} else if($('input[name=ship_addr]:checked').val() == 'same'){
 			differName =  $(this).val();
 			$('[name=or_receiver]').val(differName);
+		} else if($('input[name=ship_addr]:checked').val() == 'recent'){
+			recentDifferName = $(this).val();
+			$('[name=or_receiver]').val(recentDifferName);
 		}
 	})
 	
@@ -593,6 +596,9 @@ function sample4_execDaumPostcode() {
       	} else if($('input[name=ship_addr]:checked').val() == 'same'){
 			differPhone =  $(this).val();
 			$('[name=sh_phone]').val(differPhone);
+		} else if($('input[name=ship_addr]:checked').val() == 'recent'){
+			recentDifferPhone = $(this).val();
+			$('[name=sh_phone]').val(recentDifferPhone);
 		}
 	})
 	
@@ -603,7 +609,27 @@ function sample4_execDaumPostcode() {
 			$('[name=sh_doro]').val(differAddr1);
 			$('[name=sh_jibun]').val(differAddr2);
 		}
+		if($('input[name=ship_addr]:checked').val() == 'recent'){
+			recentDiffer1 = $(this).find('.doroAddr').val();
+			recentDiffer2 = $(this).find('.jibunAddr').val();
+			$('[name=sh_doro]').val(recentDiffer1);
+			$('[name=sh_jibun]').val(recentDiffer2);
+		}
 	})
+	
+	$('.doroAddr').focus('input', function(){
+	if($('input[name=ship_addr]:checked').val() == 'recent'){
+		recentAddr1 =  $(this).val();
+		recentAddr2 =  $(this).parent().find('.jibunAddr').val();
+		recentName = $(this).parents('.deli-addr').find('.name').val();
+		recentPhone = $(this).parents('.deli-addr').find('.phone').val();
+		$('[name=sh_doro]').val(recentAddr1);
+		$('[name=sh_jibun]').val(recentAddr2);
+		$('[name=or_receiver]').val(recentName);
+		$('[name=sh_phone]').val(recentPhone);
+		
+	}
+})
 	
 	var addrList = $('input[name=ship_addr]:checked').val();
 	if(addrList == 'same'){
@@ -624,9 +650,9 @@ function sample4_execDaumPostcode() {
 		$('[name=sh_doro]').val($('.doroAddr').val());
 		$('[name=sh_jibun]').val($('.jibunAddr').val());
 		$('[name=or_receiver]').val($('.name').val());
+		$('[name=sh_phone]').val($('.phone').val());
 	})
 	
-
 	var now = new Date();
 	now.setDate(now.getDate()+2)
 	var more = now.toISOString().substring(0,10);
@@ -636,6 +662,10 @@ function sample4_execDaumPostcode() {
 	
 	$('.exchange').click(function(){
 		var child = window.open("<%=request.getContextPath()%>/order/pointexchange", "_blank", "height=400, width=400");
+	})
+	
+	$('.recentAddr').click(function(){
+		var addrChild = window.open("<%=request.getContextPath()%>/order/address", "_blank", "height=400, width=800");
 	})
 	
 	

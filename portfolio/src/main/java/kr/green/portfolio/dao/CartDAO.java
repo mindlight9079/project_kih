@@ -55,7 +55,11 @@ public interface CartDAO {
 
 	OrderVO detailOrderList(@Param("or_num") String or_num, @Param("checkId") String checkId);
 
-	void insertShipping(ShippingVO shipping);
+	void insertShipping(@Param("shipping") ShippingVO shipping);
+
+	ArrayList<ShippingVO> selectShipping(String userId);
+
+	ShippingVO detailShippingList(@Param("or_num") String or_num, @Param("checkId") String checkId);
 
 
 

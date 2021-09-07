@@ -111,14 +111,14 @@
         </tr>
         <tr>
           <th>전화번호</th>
-          <td>01012345678</td>
+          <td>${shipping.sh_phone}</td>
           <td colspan="2"></td>
         </tr>
         <tr>
           <th>배송지 주소</th>
           <td colspan="3"> 
-            <div>도로명 :충청북도 청주시 서원구 수곡동</div>
-            <div>지번 : 충청북도 청주시 서원구 청남로</div>
+            <div>도로명 : ${shipping.sh_doro}</div>
+            <div>지번 : ${shipping.sh_jibun}</div>
           </td>
         </tr>
       </table>
@@ -157,7 +157,7 @@
           <td>${order.approvedDate}</td>
         </tr>
       </table>
-      <button class="btn btn-info back-btn">목록으로</button>
+      <a href="<%=request.getContextPath()%>/member/mypage"><button class="btn btn-info back-btn">목록으로</button></a>
    </div>
 </body>
 <script>

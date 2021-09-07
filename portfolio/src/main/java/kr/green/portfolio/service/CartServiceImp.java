@@ -167,6 +167,20 @@ public class CartServiceImp implements CartService {
 		cartDao.insertShipping(shipping);
 	}
 
+	@Override
+	public ArrayList<ShippingVO> selectShipping(String userId) {
+		if(userId == null)
+			return null;
+		return cartDao.selectShipping(userId);
+	}
+
+	@Override
+	public ShippingVO detailShippingList(String or_num, String checkId) {
+		if(or_num == null && checkId == null)
+			return null;
+		return cartDao.detailShippingList(or_num, checkId);
+	}
+
 
 
 

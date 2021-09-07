@@ -113,9 +113,19 @@ public class CartController {
 			paymentList = cartService.getPaymentList(ca_num, member);
 		else {
 			paymentList = cartService.getPaymentList(isbn, amount);
-		}
+		}		
 		mv.addObject("paymentList", paymentList);
 		mv.addObject("member",member);
+		return mv;
+	}
+	
+	@RequestMapping(value="/order/address")
+	public ModelAndView recentAddress (ModelAndView mv, HttpSession session) {
+		MemberVO member = (MemberVO)session.getAttribute("user");
+		String userId = member.getMe_id();
+		ArrayList<ShippingVO> shipping = cartService.selectShipping(userId);
+		mv.addObject("shipping", shipping);
+		mv.setViewName("/order/address");
 		return mv;
 	}
 
@@ -214,6 +224,7 @@ public class CartController {
 		if(member != null && member.getMe_id().equals(order.getOr_me_id())) {
 			System.out.println(shipping);
 			cartService.insertShipping(shipping);
+			order.setOr_sh_num(shipping.getSh_num());
 			cartService.insertPayFinished(order);	
 		}
 		

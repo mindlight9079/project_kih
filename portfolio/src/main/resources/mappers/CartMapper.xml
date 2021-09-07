@@ -95,9 +95,18 @@
 					join payment on or_num = pa_or_num
 			 			where or_num = #{or_num} and me_id = #{checkId}
 	</select>
-	<insert id="insertShipping" useGeneratedKeys="true" parameterType="kr.green.portfolio.vo.ShippingVO" keyProperty="sh_num">
+	<insert id="insertShipping" useGeneratedKeys="true" parameterType="kr.green.portfolio.vo.ShippingVO" keyProperty="shipping.sh_num">
 		insert into shipping (sh_name, sh_doro, sh_jibun, sh_phone)
-			values (#{sh_name}, #{sh_doro}, #{sh_jibun}, #{sh_phone})
+			values (#{shipping.sh_name}, #{shipping.sh_doro}, #{shipping.sh_jibun}, #{shipping.sh_phone})
 	</insert>
+	<select id="selectShipping" resultType="kr.green.portfolio.vo.ShippingVO">
+		select * from shipping join `order` on sh_num = or_sh_num
+			join `member` on or_me_id = me_id where me_id = #{userId} limit 0,4
+	</select>
+	<select id="detailShippingList" resultType="kr.green.portfolio.vo.ShippingVO">
+		select * from shipping join `order` on or_sh_num = sh_num
+			join `member` on me_id = or_me_id
+				where me_id = #{checkId} and or_num = #{or_num}
+	</select>
 </mapper>
 

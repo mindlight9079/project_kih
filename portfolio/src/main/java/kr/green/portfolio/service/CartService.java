@@ -48,5 +48,9 @@ public interface CartService {
 
 	void insertShipping(ShippingVO shipping);
 
+	ArrayList<ShippingVO> selectShipping(String userId);
+
+	ShippingVO detailShippingList(String or_num, String checkId);
+
 
 }
