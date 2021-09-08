@@ -62,7 +62,7 @@
         font-weight: bold;
     }
     .viewList{
-        width: 445px;; height: 50px; background-color:#f8f8f8; display: flex; font-size: 17px;
+        width: 500px; height: 50px; background-color:#f8f8f8; display: flex; font-size: 17px;
         line-height: 50px; font-weight: 600; 
     }
     .viewList a{
@@ -144,6 +144,9 @@
     .menu ul li{
         float: left; padding: 10px;  font-size: 20px;  font-family:sans-serif; font-weight: bold;  cursor: pointer;
     }
+     .menu ul li a{
+     	font-size: 18px; font-weight: bold;  
+     }
   	.menu ul::after{
         content: ''; clear: both; display: block;
     }
@@ -216,6 +219,7 @@
 	            <c:if test="${user.me_grade != 'ADMIN'}">
 	           	 <li><a href="<%=request.getContextPath()%>/member/mypage">MYPAGE</a></li>
 	             <li><a href="<%=request.getContextPath()%>/order/cart">CART</a></li>
+	             <li><a href="<%=request.getContextPath()%>/">HOME</a></li>
 	            </c:if>
 	            <c:if test="${user.me_grade == 'ADMIN'}">
 	             <li><a href="<%=request.getContextPath()%>/admin/user/booklist">MANAGEMENT</a></li>

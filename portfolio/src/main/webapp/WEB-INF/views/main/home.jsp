@@ -46,8 +46,11 @@
         display: flex; position: absolute; top: 15px; right: 30px; 
     }
     .menu ul li{
-        float: left; padding: 10px;  font-size: 20px;  font-family:sans-serif; font-weight: bold;  cursor: pointer;
+        float: left; padding: 10px;  font-size: 20px; cursor: pointer;
     }
+     .menu ul li a{
+     	font-size: 18px; font-weight: bold;  
+     }
     .fa-search{
         font-size: 25px; text-align: center; margin-top: 11px; margin-left: 3px; cursor: pointer;
     }

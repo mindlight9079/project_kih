@@ -97,6 +97,9 @@
     .menu ul li{
         float: left; padding: 10px;  font-size: 20px;  font-family:sans-serif; font-weight: bold;  cursor: pointer;
     }
+     .menu ul li a{
+     	font-size: 18px; font-weight: bold;  
+     }
   	.menu ul::after{
         content: ''; clear: both; display: block;
     }

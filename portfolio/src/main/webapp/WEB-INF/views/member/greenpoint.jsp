@@ -58,12 +58,118 @@
         .fa-crown{
         	font-size: 20px;
         }
+       
+       	    .menu {
+	        display: flex; position: absolute; top: 15px; right: 30px; z-index: 12;
+	    }
+	    .menu ul li{
+	        float: left; padding: 10px;  font-size: 20px;  font-family:sans-serif; font-weight: bold;  cursor: pointer;
+	    }
+	    .menu ul li a{
+	     	font-size: 18px; font-weight: bold;  
+	     }
+	  	.menu ul::after{
+	        content: ''; clear: both; display: block;
+	    }
+	    .menu a{
+	    	color: black;
+	    }
+
+	    a:hover, .menu a:hover {
+	    	color: rgb(0, 104, 136);
+	    }
+	    .fa-bars{
+	      font-size: 35px; position: absolute; top:20px; left:15px; cursor: pointer;
+	    }
+	    .container{
+	        margin-top: 120px; overflow: hidden;
+	    }    
+	    .side-bars{
+	        width: 400px; height: 1280px; background-color: black; position: absolute; z-index: 10;
+	        opacity: 80%; display: none; top:0px;
+	    }
+	    .side-bars li{
+	       color: white; margin-bottom: 20px; margin-left: 20px; cursor: pointer; font-size: 18px;
+	    }
+	    .catagory-list{
+	        position: absolute; top: 150px; left: 20px;
+	    }
+	    .subCatagory-list{
+	        position: absolute; top: 150px; left: 200px;
+	    }
+	    .dome-list{
+	        display: none;
+	    }
+	    .dome-list *, .foreign-list *{
+	    	color: white;
+	    }
+	    .foreign-list{
+	        display: none;
+	    }
+	    .fa-times{
+	        color: white; font-size: 30px; position: absolute; top: 20px; right: 20px; 
+	    }
 
     </style>
 </head>
 <body>
+    <div class="side-bars">
+        <i class="fas fa-times"></i>
+        <div class="catagory-list">
+            <ul>
+                <li class="domestic">국내도서</li>
+                <li class="foreign">외국도서</li>
+            </ul>
+        </div>
+        <div class="subCatagory-list">
+	         <ul class="dome-list">
+	             <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=소설/시&country=국내/해외">소설/시</a></li>
+	             <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=에세이&country=국내/해외">에세이</a></li>
+	             <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=인문&country=국내/해외">인문</a></li>
+	             <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=역사&country=국내/해외">역사</a></li>
+	             <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=예술&country=국내/해외">예술</a></li>
+	             <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=종교&country=국내/해외">종교</a></li>
+	             <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=사회&country=국내/해외">사회</a></li>
+	             <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=과학&country=국내/해외">과학</a></li>
+	             <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=자기계발&country=국내/해외">자기계발</a></li>
+	             <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=국어와외국어&country=국내/해외">국어와외국어</a></li>
+	             <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=IT/모바일&country=국내/해외">IT/모바일</a></li>
+	         </ul>
+	     </div>
+	     <div class="subCatagory-list">
+	         <ul class="foreign-list">
+	             <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=문학&country=외국">문학</a></li>
+	             <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=소설&country=외국">소설</a></li>
+	             <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=경제/경영&country=외국">경제/경영</a></li>
+	             <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=인문/사회&country=외국">인문/사회</a></li>
+	             <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=예술&country=외국">예술</a></li>
+	             <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=컴퓨터&country=외국">컴퓨터</a></li>
+	             <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=자연과학&country=외국">자연과학</a></li>         
+	         </ul>
+        </div>
+    </div>
+    <i class="fas fa-bars"></i>
+     <div class="menu">
+        <ul>
+        	<c:if test="${user == null}">
+            <li><a href="<%=request.getContextPath()%>/member/login">LOGIN</a></li>
+            <li><a href="<%=request.getContextPath()%>/member/signup">SIGNUP</a></li>
+            </c:if>
+            <c:if test="${user != null}">
+            <li><a href="<%=request.getContextPath()%>/member/logout">LOGOUT</a></li>
+            </c:if>
+            <c:if test="${user.me_grade != 'ADMIN'}">
+           	 <li><a href="<%=request.getContextPath()%>/member/mypage">MYPAGE</a></li>
+             <li><a href="<%=request.getContextPath()%>/order/cart">CART</a></li>
+             <li><a href="<%=request.getContextPath()%>/">HOME</a></li>
+            </c:if>
+            <c:if test="${user.me_grade == 'ADMIN'}">
+             <li><a href="<%=request.getContextPath()%>/admin/user/booklist">MANAGEMENT</a></li>
+            </c:if>
+        </ul>
+      </div>
     <div class="container">
-    <div class="mypage"><i class="fas fa-bars"></i><i class="fas fa-bars nav-btn"></i>MyPage <a href="<%=request.getContextPath()%>"><i class="fas fa-home"></i></a></div>
+    <div class="mypage">MyPage</div>
     <div class="nav">
         <ul>
         	<li><a href="<%=request.getContextPath()%>/member/mypage">주문내역</a></li>
@@ -123,15 +229,21 @@
 <script>
 $(function(){
     $('.fa-bars').click(function(){
-        $('.nav').show();
-        $(this).hide();
-        $('.nav-btn').show();
+        $('.side-bars').show();
     })
-    $('.nav-btn').click(function(){
-        $('.nav').hide();
-        $('.fa-bars').show();
-        $('.nav-btn').hide();
+    $('.fa-times').click(function(){
+        $('.side-bars').hide();
     })
+
+    $('.domestic').hover(function(){
+        $('.foreign-list').hide();
+        $('.dome-list').show();
+    })
+    $('.foreign').hover(function(){
+        $('.dome-list').hide();
+        $('.foreign-list').show();
+    })
+    
 	$('.point-box').each(function(){
 		var point = $(this).find('.gr_point').text();
 		if(point >= 0){
