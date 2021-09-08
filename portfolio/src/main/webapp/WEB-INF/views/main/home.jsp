@@ -19,7 +19,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/be5943d19e.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-        <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <style>
     * {
@@ -222,12 +222,12 @@
             </ul>
         </div>
     </div>
-    <div class="main" data-aos="fade-down" data-aos-easing="linear" data-aos-duration="1000">
+    <div class="main" data-aos="fade-down" data-aos-easing="linear" data-aos-duration="1500">
         <img class="bookstore animate__repeat-1	animate__fadeInDown animate__animated" src="<%=request.getContextPath()%>/resources/js/BOOKSTORE.png" alt="greenbookstore" >
         <p class="letter">Books makes you valuable</p>
     </div>   
     <i class="fas fa-bars"></i>
-    <div class="menu">
+    <div class="menu" data-aos="fade-down-left">
         <ul>
         	<c:if test="${user == null}">
             <li><a href="<%=request.getContextPath()%>/member/login">LOGIN</a></li>
