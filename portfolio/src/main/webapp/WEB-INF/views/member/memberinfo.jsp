@@ -128,7 +128,7 @@
                 <input type="text" class="form-control" placeholder="이메일" id="email" name="me_email" value="${user.me_email}">
             </div>
         </div>
-        <button class="btn btn-primary col-12">회원정보수정</button>
+        <button class="btn btn-info col-12">회원정보수정</button>
     </form>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>

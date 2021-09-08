@@ -19,6 +19,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/be5943d19e.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+        <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <style>
     * {
         margin: 0; padding: 0; text-decoration: none; list-style: none; color:black;
@@ -104,16 +106,16 @@
         width: 150px; height: 220px;
     }
     .container3{
-       height: 1000px;
+       height: 1040px;
     }
     .contents3{
         top: 250px; left:calc(50% - 1390px / 2); width: 80%; height: 100%; margin: 0 auto;
     }
     .bsContents{
-        text-align: center; font-size: 14px; display:block;
+        text-align: center; font-size: 14px; display: block; 
     }
     .bsBook{
-        text-align: center; float:left; width: 20%; margin-top: 80px; cursor: pointer;
+        text-align: center; float:left; width: 20%; margin-top: 80px; cursor: pointer; height: 305px;
     }
     .contents3::after{
     	display: block; content: ''; clear: both;
@@ -220,7 +222,7 @@
             </ul>
         </div>
     </div>
-    <div class="main">
+    <div class="main" data-aos="fade-down" data-aos-easing="linear" data-aos-duration="1000">
         <img class="bookstore animate__repeat-1	animate__fadeInDown animate__animated" src="<%=request.getContextPath()%>/resources/js/BOOKSTORE.png" alt="greenbookstore" >
         <p class="letter">Books makes you valuable</p>
     </div>   
@@ -252,9 +254,9 @@
 	           <button><i class="fas fa-search search-icon"></i></button>
 	   	   </div>
 	   	</form>
-    <div class="container" >
+    <div class="container" data-aos="fade-up" data-aos-duration="3000"> 
         <div class="choice">
-         Green's Choice
+        <div data-aos="zoom-in-right">Green's Choice</div>
         <div class="line"></div>
         </div>
 		<div class="choiceImg">
@@ -274,10 +276,10 @@
 			</div>
 		</div>
 	</div>
-    <div class="container2">
+    <div class="container2" data-aos="fade-up" data-aos-duration="3000">
         <div class="line2"></div>
         <div class="bookToday">
-            Book Today
+        <div data-aos="zoom-in-left"> Book Today </div>
         </div>
         <div class="contents2">
 	        <a href="<%=request.getContextPath()%>/book/details?re_bk_isbn=${bookToday.bk_isbn}"><img src="<%=request.getContextPath()%>/img${bookToday.bk_mainImg}" alt="todayImg" class="todayImg"></a>
@@ -289,9 +291,9 @@
 	        </div>
         </div>
     </div>
-    <div class="container3">
+    <div class="container3"  data-aos="fade-up" data-aos-duration="3000">
         <div class="bestSeller">
-           The Best Seller 10
+        <div data-aos="zoom-in-right">The Best Seller 10</div>
         <div class="line"></div>
         </div>
     <div class="contents3">
@@ -337,7 +339,10 @@
     $('.x-btn').click(function(){
         $('.search-box').hide();
     })
-
+    AOS.init({
+        easing: 'ease-out-back',
+        duration: 1000
+    });
     </script>
 </body>
 </html>

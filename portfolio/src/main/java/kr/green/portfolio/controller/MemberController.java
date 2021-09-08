@@ -82,6 +82,7 @@ public class MemberController {
 		pm.calcData();
 		MemberVO member = (MemberVO)session.getAttribute("user");
 		ArrayList<OrderVO> orderList = cartService.selectOrderList(member.getMe_id(),cri);
+		mv.addObject("member", member);
 		mv.addObject("orderList", orderList);
 		mv.addObject("pm", pm);
 		mv.setViewName("/member/mypage");
@@ -110,7 +111,7 @@ public class MemberController {
 	@RequestMapping(value="/member/greenpoint", method=RequestMethod.GET)
 	public ModelAndView greenpointGet (ModelAndView mv, Criteria cri, HttpSession session) {
 		PageMaker pm = new PageMaker();
-		cri.setPerPageNum(10);
+		cri.setPerPageNum(5);
 		pm.setCriteria(cri);
 		pm.setDisplayPageNum(5);
 		int totalCount = memberService.getTotalCountGreenPoint(cri);
@@ -118,6 +119,7 @@ public class MemberController {
 		pm.calcData();
 		MemberVO member = (MemberVO)session.getAttribute("user");
 		ArrayList<OrderVO> greenPoint = cartService.selectOrder(member.getMe_id(), cri);
+		mv.addObject("member", member);
 		mv.addObject("greenPoint", greenPoint);
 		mv.addObject("pm", pm);
 		mv.setViewName("/member/greenpoint");

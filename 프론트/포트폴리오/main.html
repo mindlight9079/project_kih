@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DETAILS</title>
+    <title>HOME</title>
     <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
@@ -16,9 +16,14 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/be5943d19e.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <style>
     * {
         margin: 0; padding: 0; text-decoration: none; list-style: none; color:black;
+    }
+    .subCatagory-list a:hover {
+    	color: rgb(0, 104, 136); text-decoration: underline;
     }
     .main{
         position:relative; background-image: url(water.jpg); background-position: center center; height: 1280px; width: 100%; overflow: hidden;
@@ -45,8 +50,7 @@
     .fa-bars{
         font-size: 35px; position: absolute; top:20px; left:15px; cursor: pointer;
     }
-
-    .menu::after{
+    .menu ul::after{
         content: ''; clear: both; display: block;
     }
     .container, .container2, .container3{
@@ -58,6 +62,9 @@
     .choice, .bookToday, .bestSeller{
         font-size: 40px; font-family:Georgia, 'Times New Roman', Times, serif ; margin: 130px 0 0 80px;
         display: flex;
+    }
+    .todayImg{
+    	width: 450px; height: 650px; margin-top: 100px; box-shadow :2px 2px 2px 2px; 
     }
     .bookToday{
        position: absolute; right: 140px; display: flex;
@@ -77,8 +84,8 @@
     .choiceImg img{
         width: 250px; height: 393px; margin: 20px;  margin: 80px 60px 20px;
     }
-    .contents div{
-        text-align: center;
+    .contents span{
+        text-align: center; display: block;
     }
     .contents2{
         position: absolute; top: calc(50% - 300px); left:calc(50% - 1370px / 2); display: flex;
@@ -87,23 +94,35 @@
         width: 450px;
     }
     .bookContents{
-        text-align: center; width: 800px; font-size: 30px; padding: 60px 0 0 60px;
+        width: 800px; font-size: 30px; margin-left: 150px; height: 770px; margin-top: 85px;
     }
-    .contents3 img, .contents4 img{
-        width: 150px; margin: 0 auto;
+    .bk_contents{
+    overflow: hidden; text-overflow:ellipsis; word-wrap:break-word;  display: -webkit-box; -webkit-line-clamp:15;  -webkit-box-orient: vertical;  
+    }
+    .contents3 img{
+        width: 150px; height: 220px;
     }
     .container3{
-        position: relative;
+       height: 1040px;
     }
-    .contents3, .contents4{
-        position: absolute; display: flex; top: 250px; left:calc(50% - 1390px / 2); 
+    .contents3{
+        top: 250px; left:calc(50% - 1390px / 2); width: 80%; height: 100%; margin: 0 auto;
     }
-    .contents3 *, .contents4 *{
-        margin: 0 20px;
+    .bsContents{
+        text-align: center; font-size: 14px; display: block; 
     }
-    .contents4{
-        position: absolute; display: flex; top: 600px;
+    .bsBook{
+        text-align: center; float:left; width: 20%; margin-top: 80px; cursor: pointer; height: 305px;
     }
+    .contents3::after{
+    	display: block; content: ''; clear: both;
+    }
+    .bsNum{
+        font-size: 30px; font-family:Georgia, 'Times New Roman', Times, serif ; display: block;
+    }
+    .todayBook{
+    	padding:0; margin-bottom: 30px; 
+    } 
     .container2::after{
         display: block; content: ''; clear: both;
     }
@@ -113,18 +132,14 @@
     .swiper-container-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction {
         left: -200px;
     }
-
-    .bsContents{
-        text-align: center; font-size: 14px;
+    .swiper-horizontal>.swiper-pagination-bullets, .swiper-pagination-bullets.swiper-pagination-horizontal, .swiper-pagination-custom, .swiper-pagination-fraction {
+    	left: -10%;
     }
-    .bsBook1{
-        text-align: center;
-    }
-    .bsNum{
-        font-size: 30px; font-family:Georgia, 'Times New Roman', Times, serif ;
-    }
-
     
+    .bestImg{
+    	border: 1px solid gray; 
+    }
+        
     .side-bars{
         width: 400px; height: 1280px; background-color: black; position: absolute; z-index: 10;
         opacity: 80%; display: none;
@@ -141,14 +156,16 @@
     .dome-list{
         display: none;
     }
+    .dome-list *, .foreign-list *{
+    	color: white;
+    }
     .foreign-list{
         display: none;
     }
     .fa-times{
         color: white; font-size: 30px; position: absolute; top: 20px; right: 20px;
     }
-
-
+    
     .search-box{
         width:100%; height: 1280px; background-color: black; position: absolute; z-index: 15;
         opacity: 80%; top: 0px; right:0; display: flex; display: none;
@@ -158,14 +175,13 @@
         opacity: 100%; font-size: 30px; padding: 15px; box-sizing: border-box; border-radius: 20px;
     }
     .search-icon{
-        font-size: 40px; z-index: 20; 
+        font-size: 40px; z-index: 20; cursor: pointer;
         text-align: center; line-height: 50px; position:absolute; top: 315px; left :calc(50% + 185px);
     }
     .x-btn{
         position: absolute; top: 25px; right: 35px;
     }
-
-
+    
 </style>
 </head>
 <body>
@@ -179,28 +195,28 @@
         </div>
         <div class="subCatagory-list">
             <ul class="dome-list">
-                <li>소설/시</li>
-                <li>에세이</li>
-                <li>인문</li>
-                <li>역사</li>
-                <li>예술</li>
-                <li>종교</li>
-                <li>사회</li>
-                <li>과학</li>
-                <li>자기계발</li>
-                <li>국어와외국어</li>
-                <li>IT/모바일</li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=소설/시&country=국내/해외">소설/시</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=에세이&country=국내/해외">에세이</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=인문&country=국내/해외">인문</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=역사&country=국내/해외">역사</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=예술&country=국내/해외">예술</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=종교&country=국내/해외">종교</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=사회&country=국내/해외">사회</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=과학&country=국내/해외">과학</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=자기계발&country=국내/해외">자기계발</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=국어와외국어&country=국내/해외">국어와외국어</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=IT/모바일&country=국내/해외">IT/모바일</a></li>
             </ul>
         </div>
         <div class="subCatagory-list">
             <ul class="foreign-list">
-                <li>문학</li>
-                <li>소설</li>
-                <li>경제/경영</li>
-                <li>인문/사회</li>
-                <li>예술</li>
-                <li>컴퓨터</li>
-                <li>자연과학</li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=문학&country=외국">문학</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=소설&country=외국">소설</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=경제/경영&country=외국">경제/경영</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=인문/사회&country=외국">인문/사회</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=예술&country=외국">예술</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=컴퓨터&country=외국">컴퓨터</a></li>
+                <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=자연과학&country=외국">자연과학</a></li>         
             </ul>
         </div>
     </div>
@@ -227,18 +243,18 @@
              <li><a href="<%=request.getContextPath()%>/admin/user/booklist">MANAGEMENT</a></li>
             </c:if>
         </ul>
-
         <i class="fas fa-search sm-search"></i>
     </div>
-    <div class="search-box">
-            <i class="fas fa-times x-btn"></i>
-            <input type="text" name="search" placeholder="search">
-            <i class="fas fa-search search-icon"></i>
-    </div>
-
+	    <form method="post" action="<%=request.getContextPath()%>/book/search">
+	       <div class="search-box">
+	           <i class="fas fa-times x-btn"></i>
+	           <input type="text" name="search" placeholder="search">
+	           <button><i class="fas fa-search search-icon"></i></button>
+	   	   </div>
+	   	</form>
     <div class="container" >
         <div class="choice">
-         Green's Choice
+            <div data-aos="zoom-in-right">Green's Choice</div>
         <div class="line"></div>
         </div>
 		<div class="choiceImg">
@@ -248,8 +264,8 @@
 					<div class="swiper-slide">
 						<a class="contents" href="<%=request.getContextPath()%>/book/details?re_bk_isbn=${book.bk_isbn}">
 							<img src="<%=request.getContextPath()%>/img${book.bk_mainImg}" alt="bookImg">
-							<div>${book.bk_title}</div>
-							<div>${book.bk_au_writer} 저 | ${book.bk_publish}</div>
+							<span>${book.bk_title}</span>
+ 							<span>${book.bk_au_writer} 저 | ${book.bk_publish}</span>
 						</a>
 					</div>
 				</c:forEach>
@@ -261,68 +277,33 @@
     <div class="container2">
         <div class="line2"></div>
         <div class="bookToday">
-            Book Today
+            <div data-aos="zoom-in-left"> Book Today </div>
         </div>
         <div class="contents2">
-        <img src="소크라테스 익스프레스.jpg" alt="express">
-        <div class="bookContents">
-            " 대중을 품에 안고 그들에게 밝은 길을 찾아 주며 그들을 행복스럽고 평화스러운 곳으로 인도하겠다는 커다란 이상을 품었기 때문이다 그러므로 그들은 길지 아니한 목숨을 사는가 싶이 살았으며 그들의 그림자는 천고에 사라지지 않는 것이다 이것은 "
-
-            로 그들은 길지 아니한 목숨을 사는가 싶이 살았으며 그들의 그림자는 천고에 사라지지 않는 것이다 이것은
-            " 대중을 품에 안고 그들에게 밝은 길을 찾아 주며 그들을 행복스럽고 평화스러운 곳으로 인도하겠다는 커다란 이상을 품었기 때문이다 그러므로 그들은 길지 아니한 목숨을 사는가 싶이 살았으며 그들의 그림자는 천고에 사라지지 않는 것이다 이것은 "
-
-            로 그들은 길지 아니한 목숨을 사는가 싶이 살았으며 그들의 그림자는 천고에 사라지지 않는 것이다 이것은
-        </div>
+	        <a href="<%=request.getContextPath()%>/book/details?re_bk_isbn=${bookToday.bk_isbn}"><img src="<%=request.getContextPath()%>/img${bookToday.bk_mainImg}" alt="todayImg" class="todayImg"></a>
+	      	<div class="bookContents">
+	        <h2 class="todayBook">오늘의 책 ></h2>
+	       		 <div class="bk_contents">
+	        	  "${bookToday.bk_contents}"
+	        	 </div>
+	        </div>
         </div>
     </div>
     <div class="container3">
         <div class="bestSeller">
-           The Best Seller 10
+            <div data-aos="zoom-in-right">The Best Seller 10</div>
         <div class="line"></div>
         </div>
     <div class="contents3">
-        <div class="bsBook1">
-            <div class="bsNum">1</div><img src="소크라테스 익스프레스.jpg" alt="express">
-            <div class="bsContents"><div>소크라테스 익스프레스</div><div>에릭와이너 저 | 현대문학</div></div>
+    <c:forEach items="${registration}" var="regi" varStatus="status">
+        <div class="bsBook">
+   		<a href="<%=request.getContextPath()%>/book/details?re_bk_isbn=${regi.bk_isbn}">
+            <span class="bsNum">${status.count}</span>
+            <img src="<%=request.getContextPath()%>/img${regi.bk_mainImg}" alt="bestImg" class="bestImg"/>
+            <span class="bsContents"><span>${regi.bk_title}</span><br><span>${regi.bk_au_writer} 저 | ${regi.bk_publish}</span></span>
+        </a>
         </div>
-        <div class="bsBook1">
-            <div class="bsNum">2</div><img src="소크라테스 익스프레스.jpg" alt="express">
-            <div class="bsContents"><div>소크라테스 익스프레스</div><div>에릭와이너 저 | 현대문학</div></div>
-        </div>
-        <div class="bsBook1">
-            <div class="bsNum">3</div><img src="소크라테스 익스프레스.jpg" alt="express">
-            <div class="bsContents"><div>소크라테스 익스프레스</div><div>에릭와이너 저 | 현대문학</div></div>
-        </div>
-        <div class="bsBook1">
-            <div class="bsNum">4</div><img src="소크라테스 익스프레스.jpg" alt="express">
-            <div class="bsContents"><div>소크라테스 익스프레스</div><div>에릭와이너 저 | 현대문학</div></div>
-        </div>
-        <div class="bsBook1">
-            <div class="bsNum">5</div><img src="소크라테스 익스프레스.jpg" alt="express">
-            <div class="bsContents"><div>소크라테스 익스프레스</div><div>에릭와이너 저 | 현대문학</div></div>
-        </div>   
-    </div>
-    <div class="contents4">
-        <div class="bsBook1">
-            <div class="bsNum">6</div><img src="소크라테스 익스프레스.jpg" alt="express">
-            <div class="bsContents"><div>소크라테스 익스프레스</div><div>에릭와이너 저 | 현대문학</div></div>
-        </div>
-        <div class="bsBook1">
-            <div class="bsNum">7</div><img src="소크라테스 익스프레스.jpg" alt="express">
-            <div class="bsContents"><div>소크라테스 익스프레스</div><div>에릭와이너 저 | 현대문학</div></div>
-        </div>
-        <div class="bsBook1">
-            <div class="bsNum">8</div><img src="소크라테스 익스프레스.jpg" alt="express">
-            <div class="bsContents"><div>소크라테스 익스프레스</div><div>에릭와이너 저 | 현대문학</div></div>
-        </div>
-        <div class="bsBook1">
-            <div class="bsNum">9</div><img src="소크라테스 익스프레스.jpg" alt="express">
-            <div class="bsContents"><div>소크라테스 익스프레스</div><div>에릭와이너 저 | 현대문학</div></div>
-        </div>
-        <div class="bsBook1">
-            <div class="bsNum">10</div><img src="소크라테스 익스프레스.jpg" alt="express">
-            <div class="bsContents"><div>소크라테스 익스프레스</div><div>에릭와이너 저 | 현대문학</div></div>
-        </div>   
+    </c:forEach>
     </div>
     </div>
 <script>
@@ -334,14 +315,12 @@
         clickable: true,
         },
     });
-
     $('.fa-bars').click(function(){
         $('.side-bars').show();
     })
     $('.fa-times').click(function(){
         $('.side-bars').hide();
     })
-
     $('.domestic').hover(function(){
         $('.foreign-list').hide();
         $('.dome-list').show();
@@ -350,7 +329,7 @@
         $('.dome-list').hide();
         $('.foreign-list').show();
     })
-
+    
     $('.sm-search').click(function(){
         $('.search-box').show();
         $('[name="search"]').val('');
@@ -358,6 +337,10 @@
     $('.x-btn').click(function(){
         $('.search-box').hide();
     })
+    AOS.init({
+        easing: 'ease-out-back',
+        duration: 1000
+    });
     </script>
 </body>
 </html>

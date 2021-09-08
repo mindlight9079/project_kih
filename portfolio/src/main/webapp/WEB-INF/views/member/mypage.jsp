@@ -81,7 +81,7 @@
         <div class="inner-container">
           <div class="nav">
             <div class="grade-box">   
-                <div class="grade">나의 등급 : <div class="normal">일반</div></div>   
+                <div class="grade">나의 등급 : <div class="normal">${member.me_grade}</div></div>   
             </div>
 	            <div class="nav-list">
 	              <ul class="nav-bottom">

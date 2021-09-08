@@ -150,7 +150,9 @@
 		 limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
 	<select id="getTotalCountGreenPoint" resultType="int">
-		select count(*) from member
+		select count(*) from `member` 
+			join `order` on me_id = or_me_id
+				join ( select * from particulars group by pr_or_num) as t on or_num = pr_or_num
 	</select>
 	<select id="getBooksSearch" resultType="kr.green.portfolio.vo.BooksVO">
 		select *,au_title as bs_title, au_contents as bs_contents, au_birth as bs_birth

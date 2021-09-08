@@ -62,6 +62,12 @@
     .table{
       width: 850px;
     }
+    .userPoint{
+    	text-align : center;
+    }
+    .userPoint h3 {
+    	color:  rgb(0, 104, 136);
+    }
   </style>
 </head>
 <body>
@@ -71,7 +77,7 @@
         <div class="inner-container">
           <div class="nav">
             <div class="grade-box">   
-                <div class="grade">나의 등급 : <div class="normal">일반</div></div>   
+                <div class="grade">나의 등급 : <div class="normal">${member.me_grade}</div></div>   
             </div>
             <div class="nav-list">
               <ul class="nav-bottom">
@@ -85,6 +91,9 @@
             <h5> - 그린포인트내역</h5>
             <table class="table">
               <thead>
+                 <tr>
+              		<td colspan="4" class="userPoint"> 현재 나의 그린 포인트는? <h3>${member.me_point}</h3></td>
+              	</tr>
                 <tr>
                   <th>일자</th>
                   <th>내용</th>
@@ -115,13 +124,13 @@
             </table>
            	<ul class="pagination justify-content-center">
 				<c:if test="${pm.prev}">
-					<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/member/greenpoint?page=${pm.startPage-1}&type=${pm.criteria.type}&search=${pm.criteria.search}">이전</a></li>
+					<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/member/greenpoint?page=${pm.startPage-1}">이전</a></li>
 				</c:if>
 				<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="index">
-					<li class="page-item <c:if test="${pm.criteria.page == index }">active</c:if>"><a class="page-link" href="<%=request.getContextPath()%>/member/greenpoint?page=${index}&type=${pm.criteria.type}&search=${pm.criteria.search}">${index}</a></li>
+					<li class="page-item <c:if test="${pm.criteria.page == index }">active</c:if>"><a class="page-link" href="<%=request.getContextPath()%>/member/greenpoint?page=${index}">${index}</a></li>
 				</c:forEach>
 				<c:if test="${pm.next}">
-					<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/member/greenpoint?page=${pm.endPage+1}&type=${pm.criteria.type}&search=${pm.criteria.search}">다음</a></li>
+					<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/member/greenpoint?page=${pm.endPage+1}">다음</a></li>
 				</c:if>
 			</ul>
           </div>

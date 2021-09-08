@@ -56,6 +56,4 @@ public interface CartService {
 
 	void updateOrderState(String or_num);
 
-
-
 }
