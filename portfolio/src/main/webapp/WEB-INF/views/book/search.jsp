@@ -8,11 +8,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CATAGORY</title>
-<script src="https://kit.fontawesome.com/be5943d19e.js" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<script src="https://kit.fontawesome.com/be5943d19e.js" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/portfolio/resources/css/common.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <style>
     *{
@@ -32,7 +33,7 @@
         opacity: 80%; display: none; top:0px;
     }
     .side-bars li{
-        color: white; margin-bottom: 20px; cursor: pointer; font-size: 20px;
+        color: white; margin-bottom: 20px; margin-left: 20px; cursor: pointer; font-size: 18px;
     }
     .catagory-list{
         position: absolute; top: 150px; left: 20px;
@@ -52,13 +53,16 @@
     .fa-times{
         color: white; font-size: 30px; position: absolute; top: 20px; right: 20px; 
     }
+    .fa-search{
+        font-size: 25px; text-align: center; margin-top: 11px; margin-left: 3px; cursor: pointer;
+    }
 
 
     h1{
         font-weight: bold;
     }
     .viewList{
-        width: 500px; height: 50px; background-color:#f8f8f8; display: flex; font-size: 17px;
+        width: 445px;; height: 50px; background-color:#f8f8f8; display: flex; font-size: 17px;
         line-height: 50px; font-weight: 600; 
     }
     .viewList a{
@@ -146,6 +150,22 @@
     .menu a{
     	color: black;
     }
+    
+    .search-box{
+        width:100%; height: 1280px; background-color: black; position: absolute; z-index: 15;
+        opacity: 80%; top: 0px; right:0; display: flex; display: none;
+    }
+    [name="search"]{
+        width: 500px; height: 100px; position: absolute; top:300px; left: calc(50% - 250px);
+        opacity: 100%; font-size: 30px; padding: 15px; box-sizing: border-box; border-radius: 20px;
+    }
+    .search-icon{
+        font-size: 40px; z-index: 20; cursor: pointer;
+        text-align: center; line-height: 50px; position:absolute; top: 315px; left :calc(50% + 185px);
+    }
+    .x-btn{
+        position: absolute; top: 25px; right: 35px;
+    }
 </style>
 <body>
     <div class="side-bars">
@@ -185,7 +205,7 @@
     </div>
     <i class="fas fa-bars"></i>
       <div class="menu">
-	        <ul>
+           <ul>
 	        	<c:if test="${user == null}">
 	            <li><a href="<%=request.getContextPath()%>/member/login">LOGIN</a></li>
 	            <li><a href="<%=request.getContextPath()%>/member/signup">SIGNUP</a></li>
@@ -194,16 +214,22 @@
 	            <li><a href="<%=request.getContextPath()%>/member/logout">LOGOUT</a></li>
 	            </c:if>
 	            <c:if test="${user.me_grade != 'ADMIN'}">
-	           	 <li><a href="#">ORDERS</a></li>
 	           	 <li><a href="<%=request.getContextPath()%>/member/mypage">MYPAGE</a></li>
 	             <li><a href="<%=request.getContextPath()%>/order/cart">CART</a></li>
-	             <li><a href="<%=request.getContextPath()%>/">HOME</a></li>
 	            </c:if>
 	            <c:if test="${user.me_grade == 'ADMIN'}">
 	             <li><a href="<%=request.getContextPath()%>/admin/user/booklist">MANAGEMENT</a></li>
 	            </c:if>
 	        </ul>
+        <i class="fas fa-search sm-search"></i>
 	    </div>
+	   	<form method="post" action="<%=request.getContextPath()%>/book/search">
+	       <div class="search-box">
+	           <i class="fas fa-times x-btn"></i>
+	           <input type="text" name="search" placeholder="search">
+	           <button><i class="fas fa-search search-icon"></i></button>
+	   	   </div>
+	   	</form>
     <div class="container">
         <div class="search-result" >| "<span>${pm.criteria.search}</span>" 검색결과</div>
         <ul class="viewList">
@@ -409,7 +435,14 @@ $(function(){
 			}
 		}) 
  	})
-   
+       
+    $('.sm-search').click(function(){
+        $('.search-box').show();
+        $('[name="search"]').val('');
+    })
+    $('.x-btn').click(function(){
+        $('.search-box').hide();
+    })
    
 })
 </script>

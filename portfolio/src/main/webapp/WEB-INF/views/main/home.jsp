@@ -16,6 +16,7 @@
     rel="stylesheet"
     href="https://unpkg.com/swiper/swiper-bundle.min.css"
     />
+    <link rel="stylesheet" href="/portfolio/resources/css/common.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/be5943d19e.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
@@ -62,7 +63,7 @@
     .container2{
         height: 1200px;
     }
-    .choice, .bookToday, .bestSeller{
+    .choice>div:first-child, .bookToday>div:first-child, .bestSeller>div:first-child{
         font-size: 40px; font-family:Georgia, 'Times New Roman', Times, serif ; margin: 130px 0 0 80px;
         display: flex;
     }
@@ -73,7 +74,7 @@
        position: absolute; right: 140px; display: flex;
     }
     .line, .line2 {
-        background-color: gray; height: 2px; width:1525px; position:absolute; top:165px; right: 0;
+        background-color: gray; height: 2px; width:75%; position:absolute; top:165px; right: 0;
     }
     .line2{
         left:0;
@@ -148,7 +149,7 @@
         opacity: 80%; display: none;
     }
     .side-bars li{
-        color: white; margin-bottom: 20px; cursor: pointer; font-size: 20px;
+        color: white; margin-bottom: 20px; margin-left: 20px; cursor: pointer; font-size: 18px;
     }
     .catagory-list{
         position: absolute; top: 150px; left: 20px;
@@ -237,7 +238,6 @@
             <li><a href="<%=request.getContextPath()%>/member/logout">LOGOUT</a></li>
             </c:if>
             <c:if test="${user.me_grade != 'ADMIN'}">
-           	 <li><a href="#">ORDERS</a></li>
            	 <li><a href="<%=request.getContextPath()%>/member/mypage">MYPAGE</a></li>
              <li><a href="<%=request.getContextPath()%>/order/cart">CART</a></li>
             </c:if>
@@ -339,6 +339,7 @@
     $('.x-btn').click(function(){
         $('.search-box').hide();
     })
+    
     AOS.init({
         easing: 'ease-out-back',
         duration: 1000

@@ -8,6 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CART</title>
+<link rel="stylesheet" href="/portfolio/resources/css/common.css">
 <script src="https://kit.fontawesome.com/be5943d19e.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -60,7 +61,7 @@
         opacity: 80%; display: none; top:0px;
     }
     .side-bars li{
-        color: white; margin-bottom: 20px; cursor: pointer; font-size: 20px;
+		color: white; margin-bottom: 20px; margin-left: 20px; cursor: pointer; font-size: 18px;
     }
     .catagory-list{
         position: absolute; top: 150px; left: 20px;
@@ -160,7 +161,6 @@
             <li><a href="<%=request.getContextPath()%>/member/logout">LOGOUT</a></li>
             </c:if>
             <c:if test="${user.me_grade != 'ADMIN'}">
-           	 <li><a href="#">ORDERS</a></li>
            	 <li><a href="<%=request.getContextPath()%>/member/mypage">MYPAGE</a></li>
              <li><a href="<%=request.getContextPath()%>/order/cart">CART</a></li>
              <li><a href="<%=request.getContextPath()%>/">HOME</a></li>
