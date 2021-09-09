@@ -18,6 +18,10 @@
         *{
             margin: 0; padding: 0; list-style: none; text-decoration: none; color: black;
         }
+        body{
+        	background-image: url(<%=request.getContextPath()%>/resources/js/whitewater.jpg); 
+        }
+ 
         a{
         	color: black;
         }
@@ -29,7 +33,8 @@
         }
         .mypage{
             font-size: 40px; text-align: center; font-weight: bold;
-        }
+            font-style: italic; letter-spacing: 0; color: #000;
+        } 
         .table th{
             background-color: #f8f8f8;
         }

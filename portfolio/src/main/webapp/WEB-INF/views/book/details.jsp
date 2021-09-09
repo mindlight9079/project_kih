@@ -25,13 +25,17 @@
     	color: rgb(0, 104, 136); text-decoration: underline;
     }
     body{
-      background-color: white; position: relative;
+      position: relative; 
     }
+     body{
+  	background-image: url(<%=request.getContextPath()%>/resources/js/whitewater.jpg); 
+  	background-size: 400%;
+  }
     .fa-bars{
       font-size: 35px; position: absolute; top:20px; left:15px; cursor: pointer;
     }
     .container{
-      padding: 50px; padding-top: 150px; background-color: white;  position:relative;
+      padding: 50px; padding-top: 150px; position:relative;
     }
     .book-top{
       display: flex; overflow: hidden; margin-left: 40px; width: 1000px;

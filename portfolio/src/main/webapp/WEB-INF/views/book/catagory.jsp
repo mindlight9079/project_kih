@@ -19,6 +19,10 @@
     *{
         padding:0; margin: 0; text-decoration: none; list-style: none; color:black;
     }
+    body{
+    	background-image: url(<%=request.getContextPath()%>/resources/js/whitewater.jpg); 
+    	background-size: 400%;
+    }
     a:hover, .menu a:hover {
     	color: rgb(0, 104, 136);
     }
@@ -26,7 +30,7 @@
       font-size: 35px; position: absolute; top:20px; left:15px; cursor: pointer;
     }
     .container{
-        margin-top: 120px; overflow: hidden;
+        margin-top: 120px; overflow: hidden; margin-bottom: 120px;
     }    
     .side-bars{
         width: 400px; height: 1280px; background-color: black; position: absolute; z-index: 10;

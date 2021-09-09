@@ -19,11 +19,16 @@
         *{
             margin: 0; padding: 0; list-style: none; text-decoration: none; color: black;
         }
+        body{
+        	background-image: url(<%=request.getContextPath()%>/resources/js/whitewater.jpg); 
+        	background-size: 200%;
+        }
         .container{
             width: 70%;  margin: 120px auto; position: relative;
         }
         .mypage{
             font-size: 40px; text-align: center; font-weight: bold;
+            font-style: italic; letter-spacing: 0; color: #000;
         }
         .table th{
             background-color: #f8f8f8;

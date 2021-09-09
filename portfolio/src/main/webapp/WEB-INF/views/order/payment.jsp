@@ -21,6 +21,10 @@
     *{
         padding:0; margin: 0; list-style: none; color: black;
     }
+    body{
+    	background-image: url(<%=request.getContextPath()%>/resources/js/whitewater.jpg); 
+    	background-size: 400%;
+    }
     .subCatagory-list a:hover, .menu a:hover {
     	color: rgb(0, 104, 136); text-decoration: underline;
     }

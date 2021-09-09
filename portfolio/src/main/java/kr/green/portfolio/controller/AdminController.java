@@ -38,7 +38,7 @@ public class AdminController {
 	@RequestMapping(value="/admin/user/booklist")
 	public ModelAndView bookList(ModelAndView mv, Criteria cri) {
 		PageMaker pm = new PageMaker();
-		cri.setPerPageNum(10);
+		cri.setPerPageNum(5);
 		pm.setCriteria(cri);
 		pm.setDisplayPageNum(5);
 		int totalCount = bookService.getTotalCount(cri);
@@ -111,7 +111,7 @@ public class AdminController {
 	@RequestMapping(value="/admin/user/publisherlist")
 	public ModelAndView PublisherList(ModelAndView mv, Criteria cri) {
 		PageMaker pm = new PageMaker();
-		cri.setPerPageNum(10);
+		cri.setPerPageNum(5);
 		pm.setCriteria(cri);
 		pm.setDisplayPageNum(5);
 		int totalCount = memberService.getTotalCountPublish(cri);
@@ -155,7 +155,7 @@ public class AdminController {
 	@RequestMapping(value="/admin/user/authorlist")
 	public ModelAndView authorList(ModelAndView mv, Criteria cri) {
 		PageMaker pm = new PageMaker();
-		cri.setPerPageNum(10);
+		cri.setPerPageNum(5);
 		pm.setCriteria(cri);
 		pm.setDisplayPageNum(5);
 		int totalCount = memberService.getTotalCountAuthor(cri);
@@ -205,7 +205,7 @@ public class AdminController {
 	@RequestMapping(value="/admin/user/registrationlist")
 	public ModelAndView regiBookList(ModelAndView mv, Criteria cri) {
 		PageMaker pm = new PageMaker();
-		cri.setPerPageNum(10);
+		cri.setPerPageNum(5);
 		pm.setCriteria(cri);
 		pm.setDisplayPageNum(5);
 		int totalCount = bookService.getTotalCountRegi(cri);
@@ -253,7 +253,7 @@ public class AdminController {
 	@RequestMapping(value="/admin/user/bookslist")
 	public ModelAndView booksList(ModelAndView mv, Criteria cri) {
 		PageMaker pm = new PageMaker();
-		cri.setPerPageNum(10);
+		cri.setPerPageNum(5);
 		pm.setCriteria(cri);
 		pm.setDisplayPageNum(5);
 		int totalCount = memberService.getTotalCountBooks(cri);

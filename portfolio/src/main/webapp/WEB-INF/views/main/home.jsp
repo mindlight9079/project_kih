@@ -36,11 +36,15 @@
     .homeImg{
         width: 100%; height: 100%;
     }
-    .bookstore{
+   /* .bookstore{
         position: absolute;  top:calc(45% - 768px / 2); left: calc(50% - 1366px / 2);
+    }*/
+    .bookstore{
+    	position: absolute; width: 1500px; top: 60px; left: calc(50% - 1500px / 2);
     }
     .letter{
         color: white; font-size: 35px; position:absolute; top: 65%; text-align: center; width: 100%;
+        font-style: italic; letter-spacing: 0;
     }
     .menu {
         display: flex; position: absolute; top: 15px; right: 30px; 
@@ -68,7 +72,7 @@
     }
     .choice>div:first-child, .bookToday>div:first-child, .bestSeller>div:first-child{
         font-size: 40px; font-family:Georgia, 'Times New Roman', Times, serif ; margin: 130px 0 0 80px;
-        display: flex;
+        display: flex; font-style: italic; letter-spacing: 0; color: #000;
     }
     .todayImg{
     	width: 450px; height: 650px; margin-top: 100px; box-shadow :2px 2px 2px 2px; 
@@ -228,7 +232,7 @@
         </div>
     </div>
     <div class="main" data-aos="fade-down" data-aos-easing="linear" data-aos-duration="1500">
-        <img class="bookstore animate__repeat-1	animate__fadeInDown animate__animated" src="<%=request.getContextPath()%>/resources/js/BOOKSTORE.png" alt="greenbookstore" >
+        <img class="bookstore animate__repeat-1	animate__fadeInDown animate__animated" src="<%=request.getContextPath()%>/resources/js/BOOK.png" alt="greenbookstore" >
         <p class="letter">Books makes you valuable</p>
     </div>   
     <i class="fas fa-bars"></i>
@@ -359,7 +363,7 @@
         nowScrollTop = $(this).scrollTop();
             if(wheelDelta() == 'down'){
                 $('.bars').fadeOut();
-            }     
+            }
         prevScrollTop = nowScrollTop;
     });
     </script>

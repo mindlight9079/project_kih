@@ -74,7 +74,7 @@ public class MemberController {
 	@RequestMapping(value="/member/mypage", method=RequestMethod.GET)
 	public ModelAndView mypageGet (ModelAndView mv, HttpSession session, Criteria cri) {
 		PageMaker pm = new PageMaker();
-		cri.setPerPageNum(10);
+		cri.setPerPageNum(5);
 		pm.setCriteria(cri);
 		pm.setDisplayPageNum(5);
 		int totalCount = memberService.getTotalCountMyPage(cri);
