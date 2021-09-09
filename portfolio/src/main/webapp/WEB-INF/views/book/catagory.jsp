@@ -45,7 +45,7 @@
         display: none;
     }
     .dome-list *, .foreign-list *{
-    	color: white;
+    	color: white; font-size: 18px;
     }
     .foreign-list{
         display: none;
@@ -140,7 +140,7 @@
    
 </style>
 <body>
-    <div class="side-bars">
+    <div class="side-bars bars">
         <i class="fas fa-times"></i>
         <div class="catagory-list">
             <ul>
@@ -299,6 +299,19 @@
         $('.dome-list').hide();
         $('.foreign-list').show();
     })
+    
+    var prevScrollTop = 0;
+    var nowScrollTop = 0;
+    function wheelDelta(){
+        return prevScrollTop - nowScrollTop > 0 ? 'up' : 'down';
+    };
+    $(window).on('scroll', function(){
+        nowScrollTop = $(this).scrollTop();
+            if(wheelDelta() == 'down'){
+                $('.bars').fadeOut();
+            }     
+        prevScrollTop = nowScrollTop;
+    });
     
     $('.allChecked-btn').click(function(){
     	$(this).hide();

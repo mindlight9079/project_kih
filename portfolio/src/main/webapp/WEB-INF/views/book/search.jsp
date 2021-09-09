@@ -26,7 +26,7 @@
       font-size: 35px; position: absolute; top:20px; left:15px; cursor: pointer;
     }
     .container{
-        margin-top: 120px; overflow: hidden;
+        margin-top: 120px; overflow: hidden; position: relative;
     }    
     .side-bars{
         width: 400px; height: 1280px; background-color: black; position: absolute; z-index: 10;
@@ -45,7 +45,7 @@
         display: none;
     }
     .dome-list *, .foreign-list *{
-    	color: white;
+    	color: white; font-size: 18px;
     }
     .foreign-list{
         display: none;
@@ -90,7 +90,7 @@
         max-height: 200px; overflow: hidden; margin-top: 20px;
         display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
     }
-    input[name="searchAmount"]{
+    input[name="cataAmount"]{
          width: 47px; margin-right: -1px; height: 30px; text-align: center;
     }
     .cataBottom{
@@ -169,9 +169,14 @@
     .x-btn{
         position: absolute; top: 25px; right: 35px;
     }
+    .bookCart{
+    	position: absolute; right: 15px;  top: 45px;
+}
+}
+    }
 </style>
 <body>
-    <div class="side-bars">
+    <div class="side-bars bars">
         <i class="fas fa-times"></i>
         <div class="catagory-list">
             <ul>
@@ -228,7 +233,7 @@
         <i class="fas fa-search sm-search"></i>
 	    </div>
 	   	<form method="post" action="<%=request.getContextPath()%>/book/search">
-	       <div class="search-box">
+	       <div class="search-box bars">
 	           <i class="fas fa-times x-btn"></i>
 	           <input type="text" name="search" placeholder="search">
 	           <button><i class="fas fa-search search-icon"></i></button>
@@ -250,6 +255,8 @@
             	<a href="<%=request.getContextPath()%>/book/search?search=${pm.criteria.search}&sort=lowPrice">낮은가격순</a>
             </li>
         </ul>
+        <form action="<%=request.getContextPath()%>/order/cartRegister" method="post">
+        <button class="bookCart btn btn-secondary">장바구니</button>
         <table class="table">
         <c:forEach items="${bookSearch}" var="book" varStatus="status">
             <tr>
@@ -274,7 +281,7 @@
                         | ${book.bk_publish} | ${book.date}
                     </div>
                     <span class="pricePart">
-                        <span> 판매가&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;</span><span class="cataPrice"> &nbsp;${book.bk_price}원</span>
+                        <span> 판매가&nbsp;&nbsp;&nbsp;&nbsp;|</span><span class="cataPrice"> ${book.bk_price}원</span>
                     </span>
                     <div class="preview">
                        ${book.bk_contents}
@@ -285,7 +292,7 @@
 	                    	<input type="hidden" value="${book.bk_code}" class="code">
 	                        수량 &nbsp;&nbsp;
 			           		<button type="button" class="decreaseQuantity minus"><i class="fas fa-minus"></i></button>
-	                        <input type="text" name="searchAmount" class="searchAmount" value="1" readonly> <br>
+	                        <input type="text" name="cataAmount" class="searchAmount" value="1" readonly> <br>
 	        			    <button type ="button" class="increaseQuantity plus"><i class="fas fa-plus"></i></button>
 	        			 </div>
 	                        <a href="#" class="addCart-btn"><button class="btn btn-info">장바구니</button></a> <br>
@@ -293,11 +300,12 @@
                     </div>
                 </td>
                 <td>
-                    <input type="checkbox" name="checkList">
+                    <input type="checkbox" name="checkList" value="${book.bk_isbn}">
                 </td>
             </tr>
         </c:forEach>
         </table>
+        </form>
             <ul class="pagination justify-content-center">
 				<c:if test="${pm.prev}">
 					<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/book/search?&page=${pm.startPage-1}&search=${pm.criteria.search}&sort=${pm.criteria.sort}">이전</a></li>
@@ -333,6 +341,8 @@
     </div>
 <script>
 $(function(){
+  
+  
   $('.fa-bars').click(function(){
       $('.side-bars').show();
   })
@@ -348,9 +358,22 @@ $(function(){
       $('.dome-list').hide();
       $('.foreign-list').show();
   })
+ 
+  var prevScrollTop = 0;
+  var nowScrollTop = 0;
+  function wheelDelta(){
+      return prevScrollTop - nowScrollTop > 0 ? 'up' : 'down';
+  };
+  $(window).on('scroll', function(){
+      nowScrollTop = $(this).scrollTop();
+          if(wheelDelta() == 'down'){
+              $('.bars').fadeOut();
+          }     
+      prevScrollTop = nowScrollTop;
+  });
   
    $('.btn-buy').click(function(e){
-   	var amount = $(this).parent().find('input[name=searchAmount]').val();
+   	var amount = $(this).parent().find('input[name=cataAmount]').val();
    	var isbn = $(this).parent().find('.isbn').val();
 	if(parseInt(amount) <= 0){
 		e.preventDefault();
@@ -366,7 +389,7 @@ $(function(){
 			alert('회원만 사용 가능합니다.');
 			return;
 		}
-		var amount = $(this).parent().find('input[name=searchAmount]').val();
+		var amount = $(this).parent().find('input[name=cataAmount]').val();
 		var code = $(this).parent().find('.code').val();
 		var data = {
 			ca_amount : amount,
@@ -447,6 +470,17 @@ $(function(){
     $('.x-btn').click(function(){
         $('.search-box').hide();
     })
+    
+	$('.bookCart').click(function(){
+		if(user == ''){
+			alert('회원만 사용 가능합니다.');
+			return false;
+		}
+		if($('input[name=checkList]:checked').length == 0){
+			alert('선택된 상품이 없습니다.')
+			return false;
+		}	
+	})
    
 })
 </script>

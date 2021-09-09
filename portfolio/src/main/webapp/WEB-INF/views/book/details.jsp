@@ -135,7 +135,7 @@
         display: none;
     }
     .dome-list *, .foreign-list *{
-    	color: white;
+    	color: white; font-size: 18px;
     }
     .foreign-list{
         display: none;
@@ -171,7 +171,7 @@
   </style>
 </head>
 <body>
-  <div class="side-bars">
+  <div class="side-bars bars">
     <i class="fas fa-times"></i>
     <div class="catagory-list">
         <ul>
@@ -422,6 +422,20 @@ $(function(){
         $('.dome-list').hide();
         $('.foreign-list').show();
     })
+    
+    var prevScrollTop = 0;
+    var nowScrollTop = 0;
+    function wheelDelta(){
+        return prevScrollTop - nowScrollTop > 0 ? 'up' : 'down';
+    };
+    $(window).on('scroll', function(){
+        nowScrollTop = $(this).scrollTop();
+            if(wheelDelta() == 'down'){
+                $('.bars').fadeOut();
+            }     
+        prevScrollTop = nowScrollTop;
+    });
+    
     $('.btn-buy').click(function(e){
     	var amount = $('.bookAmount').val();
     	var isbn = '${book.bk_isbn}';
@@ -431,8 +445,6 @@ $(function(){
 		} else
 		$(this).attr('href','<%=request.getContextPath()%>/order/payment?isbn='+isbn+'&amount='+amount)
     })
-    
-
 	 
 })
 </script>

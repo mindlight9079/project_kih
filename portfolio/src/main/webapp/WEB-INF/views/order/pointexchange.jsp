@@ -23,12 +23,17 @@
 <script>
 $(function(){
 		var able = parseInt($("#hasPoint", opener.document).text());
+		var total = parseInt($("#totalPrice", opener.document).text())
 		$('#ablePoint').text(able);
 		$('.exchange').click(function(){
 		var value = parseInt($('.pointExchange').val());
 		console.log(value)
 		if(able < value){
 			alert('사용 가능한 포인트를 초과하였습니다.')
+			return false;
+		}
+		if(total < value){
+			alert('사용 가능한 범위를 초과하였습니다.')
 			return false;
 		}
 		if((value % 1000) != 0){

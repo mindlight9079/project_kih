@@ -28,7 +28,7 @@
             width: 70%;  margin: 120px auto; position: relative;
         }
         .mypage{
-            font-size: 40px; border-bottom: 2px solid black;
+            font-size: 40px; text-align: center; font-weight: bold;
         }
         .table th{
             background-color: #f8f8f8;
@@ -36,31 +36,23 @@
         .fa-bars{
             margin-right: 15px; font-size: 25px; cursor: pointer;
         }
-        .nav-btn{
-            display: none;
-        }
         .nav{
-            width: 150px; height: 150px; background-color: black; position: absolute; top: 62px;
-            opacity: 95%; cursor: pointer; font-size: 20px; display: none;
+        	margin-left: calc(50% - 330px / 2);
         }
-        .nav a{
-            color: white;
-        }
-        .nav ul{
-            text-align: center; margin: 20px auto;
+        .nav::after{
+            content: ''; display: block; clear: both;
         }
         .nav li{
-           margin-bottom: 10px;
+            width: 110px; border-right: 1px solid black; text-align: center;
+            float: left;  margin-top: 40px;
         }
-        .nav a:hover{
-            color: rgb(0, 104, 136); text-decoration: none;
+        .nav li:last-child{
+        	border: none;
         }
-        .orderInfo{
-            margin-top: 70px;
+        .table{
+        	margin-top: 70px;
         }
-        .fa-home{
-            position:absolute; font-size : 35px; right: 20px; top:17px; color: black; cursor: pointer;
-        }
+
         
 	    .menu {
 	        display: flex; position: absolute; top: 15px; right: 30px; z-index: 12;
@@ -104,7 +96,7 @@
 	        display: none;
 	    }
 	    .dome-list *, .foreign-list *{
-	    	color: white;
+	    	color: white; font-size: 18px;
 	    }
 	    .foreign-list{
 	        display: none;
@@ -112,10 +104,14 @@
 	    .fa-times{
 	        color: white; font-size: 30px; position: absolute; top: 20px; right: 20px; 
 	    }
+	    
+	    .current{
+	    	font-weight: bold;
+	    }
     </style>
 </head>
 <body>
-    <div class="side-bars">
+    <div class="side-bars bars">
         <i class="fas fa-times"></i>
         <div class="catagory-list">
             <ul>
@@ -172,14 +168,11 @@
     </div>
     <div class="container">
     <div class="mypage">MyPage</div>
-    <div class="nav">
-        <ul>
-        	<li><a href="<%=request.getContextPath()%>/member/mypage">주문내역</a></li>
+        <ul class="nav">
+        	<li><a href="<%=request.getContextPath()%>/member/mypage" class="current">주문내역</a></li>
             <li class="point"><a href="<%=request.getContextPath()%>/member/greenpoint">그린포인트</a></li>
             <li class="info"><a href="<%=request.getContextPath()%>/member/memberinfo">회원정보</a></li>
         </ul>
-    </div>
-        <h3 class="orderInfo">| 주문내역</h3>
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -234,9 +227,21 @@ $(function(){
         $('.dome-list').hide();
         $('.foreign-list').show();
     })
-    
+    var prevScrollTop = 0;
+    var nowScrollTop = 0;
+    function wheelDelta(){
+        return prevScrollTop - nowScrollTop > 0 ? 'up' : 'down';
+    };
+    $(window).on('scroll', function(){
+        nowScrollTop = $(this).scrollTop();
+            if(wheelDelta() == 'down'){
+                $('.bars').fadeOut();
+            }     
+        prevScrollTop = nowScrollTop;
+    });   
 	
 })
 </script>
 </body>
 </html>
+

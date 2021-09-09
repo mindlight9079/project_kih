@@ -45,7 +45,7 @@
         display: none;
     }
     .dome-list *, .foreign-list *{
-    	color: white;
+    	color: white; font-size: 18px;
     }
     .foreign-list{
         display: none;
@@ -79,7 +79,7 @@
 
 </style>
 <body>
-    <div class="side-bars">
+    <div class="side-bars bars">
         <i class="fas fa-times"></i>
         <div class="catagory-list">
             <ul>
@@ -150,22 +150,34 @@
         </table>
         </table>
     </div>
-    <script>
-        $('.fa-bars').click(function(){
-            $('.side-bars').show();
-        })
-        $('.fa-times').click(function(){
-            $('.side-bars').hide();
-        })
-        
-        $('.domestic').hover(function(){
-            $('.foreign-list').hide();
-            $('.dome-list').show();
-        })
-        $('.foreign').hover(function(){
-            $('.dome-list').hide();
-            $('.foreign-list').show();
-        })
-    </script>
+<script>
+   $('.fa-bars').click(function(){
+       $('.side-bars').show();
+   })
+   $('.fa-times').click(function(){
+       $('.side-bars').hide();
+   })
+   
+   $('.domestic').hover(function(){
+       $('.foreign-list').hide();
+       $('.dome-list').show();
+   })
+   $('.foreign').hover(function(){
+       $('.dome-list').hide();
+       $('.foreign-list').show();
+   })
+	var prevScrollTop = 0;
+	var nowScrollTop = 0;
+	function wheelDelta(){
+	    return prevScrollTop - nowScrollTop > 0 ? 'up' : 'down';
+	};
+	$(window).on('scroll', function(){
+	    nowScrollTop = $(this).scrollTop();
+	        if(wheelDelta() == 'down'){
+	            $('.bars').fadeOut();
+	        }     
+	    prevScrollTop = nowScrollTop;
+	});
+</script>
 </body>
 </html>

@@ -123,7 +123,7 @@
         display: none;
     }
     .dome-list *, .foreign-list *{
-        color : white;
+        color : white; font-size: 18px;
     }
     .foreign-list{
         display: none;
@@ -197,7 +197,7 @@
     
 </style>
 <body>
-    <div class="side-bars">
+    <div class="side-bars bars">
         <i class="fas fa-times"></i>
         <div class="catagory-list">
             <ul>
@@ -320,7 +320,7 @@
 	                <td>최종 결제금액</td>
 	            </tr>
 	            <tr>
-	                <td class="totalCount"></td>
+	                <td class="totalCount" id="totalPrice"></td>
 	                <td class="addPrice"></td>
 	                <td class="pointDiscount">0원</td>
 	                <td class="finalCount"></td>
@@ -529,6 +529,19 @@ function sample4_execDaumPostcode() {
         $('.dome-list').hide();
         $('.foreign-list').show();
     })
+    
+    var prevScrollTop = 0;
+    var nowScrollTop = 0;
+    function wheelDelta(){
+        return prevScrollTop - nowScrollTop > 0 ? 'up' : 'down';
+    };
+    $(window).on('scroll', function(){
+        nowScrollTop = $(this).scrollTop();
+            if(wheelDelta() == 'down'){
+                $('.bars').fadeOut();
+            }     
+        prevScrollTop = nowScrollTop;
+    });
     
     
 	var totalCount = 0;	

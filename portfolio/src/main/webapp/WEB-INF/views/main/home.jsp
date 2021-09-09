@@ -101,10 +101,11 @@
         width: 450px;
     }
     .bookContents{
-        width: 800px; font-size: 30px; margin-left: 150px; height: 770px; margin-top: 85px;
+        width: 800px; font-size: 30px; margin-left: 200px; height: 770px; margin-top: 85px;
     }
     .bk_contents{
-    overflow: hidden; text-overflow:ellipsis; word-wrap:break-word;  display: -webkit-box; -webkit-line-clamp:15;  -webkit-box-orient: vertical;  
+    overflow: hidden; text-overflow:ellipsis; word-wrap:break-word;  display: -webkit-box; -webkit-line-clamp:22;  -webkit-box-orient: vertical;  width: 705px;
+    font-size: 20px;
     }
     .contents3 img{
         width: 150px; height: 220px;
@@ -128,7 +129,7 @@
         font-size: 30px; font-family:Georgia, 'Times New Roman', Times, serif ; display: block;
     }
     .todayBook{
-    	padding:0; margin-bottom: 30px; 
+    	padding:0; margin-bottom: 30px; font-size: 30px;
     } 
     .container2::after{
         display: block; content: ''; clear: both;
@@ -164,7 +165,7 @@
         display: none;
     }
     .dome-list *, .foreign-list *{
-    	color: white;
+    	color: white; font-size: 18px;
     }
     .foreign-list{
         display: none;
@@ -191,7 +192,7 @@
 </style>
 </head>
 <body>
-    <div class="side-bars">
+    <div class="side-bars bars">
         <i class="fas fa-times"></i>
         <div class="catagory-list">
             <ul>
@@ -251,7 +252,7 @@
         <i class="fas fa-search sm-search"></i>
     </div>
 	    <form method="post" action="<%=request.getContextPath()%>/book/search">
-	       <div class="search-box">
+	       <div class="search-box bars">
 	           <i class="fas fa-times x-btn"></i>
 	           <input type="text" name="search" placeholder="search">
 	           <button><i class="fas fa-search search-icon"></i></button>
@@ -346,6 +347,19 @@
     AOS.init({
         easing: 'ease-out-back',
         duration: 1000
+    });
+
+    var prevScrollTop = 0;
+    var nowScrollTop = 0;
+    function wheelDelta(){
+        return prevScrollTop - nowScrollTop > 0 ? 'up' : 'down';
+    };
+    $(window).on('scroll', function(){
+        nowScrollTop = $(this).scrollTop();
+            if(wheelDelta() == 'down'){
+                $('.bars').fadeOut();
+            }     
+        prevScrollTop = nowScrollTop;
     });
     </script>
 </body>

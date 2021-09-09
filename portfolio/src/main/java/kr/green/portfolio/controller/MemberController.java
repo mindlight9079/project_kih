@@ -104,7 +104,7 @@ public class MemberController {
 				request.getSession().setAttribute("user", updateUser);
 			}
 		}
-		mv.setViewName("/member/mypage");
+		mv.setViewName("redirect:/");
 		return mv;
 	}
 	

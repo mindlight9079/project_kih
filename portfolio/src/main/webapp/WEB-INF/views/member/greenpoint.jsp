@@ -22,7 +22,7 @@
             width: 70%;  margin: 120px auto; position: relative;
         }
         .mypage{
-            font-size: 40px; font-family: Georgia, 'Times New Roman', Times, serif; border-bottom: 2px solid black;
+            font-size: 40px; text-align: center; font-weight: bold;
         }
         .table th{
             background-color: #f8f8f8;
@@ -30,43 +30,18 @@
         .fa-bars{
             margin-right: 15px; font-size: 25px; cursor: pointer;
         }
-        .nav-btn{
-            display: none;
-        }
-        .nav{
-            width: 150px; height: 150px; background-color: black; position: absolute; top: 62px;
-            opacity: 95%; cursor: pointer; font-size: 20px; display: none;
-        }
-        .nav a{
-            color: white;
-        }
-        .nav ul{
-            text-align: center; margin: 20px auto;
-        }
-        .nav li{
-           margin-bottom: 10px;
-        }
-        .nav a:hover{
-            color: rgb(0, 104, 136); text-decoration: none;
-        }
-        .fa-home{
-            position:absolute; font-size : 35px; right: 20px; top:17px; color: black; cursor: pointer;
-        }
-        .gradeBox{
-        	display: flex;           margin-top: 70px;
-        }
         .fa-crown{
-        	font-size: 20px;
+        	font-size: 20px; position: absolute; right: 15px; top: 170px;
         }
        
-       	    .menu {
+       	.menu {
 	        display: flex; position: absolute; top: 15px; right: 30px; z-index: 12;
 	    }
 	    .menu ul li{
 	        float: left; padding: 10px;  font-size: 20px;  font-family:sans-serif; font-weight: bold;  cursor: pointer;
 	    }
 	    .menu ul li a{
-	     	font-size: 18px; font-weight: bold;  
+	     	font-size: 18px; font-weight: bold;
 	     }
 	  	.menu ul::after{
 	        content: ''; clear: both; display: block;
@@ -101,7 +76,7 @@
 	        display: none;
 	    }
 	    .dome-list *, .foreign-list *{
-	    	color: white;
+	    	color: white; font-size: 18px;
 	    }
 	    .foreign-list{
 	        display: none;
@@ -109,11 +84,34 @@
 	    .fa-times{
 	        color: white; font-size: 30px; position: absolute; top: 20px; right: 20px; 
 	    }
+	    
+	    .nav{
+        	margin-left: calc(50% - 330px / 2);
+        }
+        .nav::after{
+            content: ''; display: block; clear: both;
+        }
+        .nav li{
+            width: 110px; border-right: 1px solid black; text-align: center;
+            float: left;  margin-top: 40px;
+        }
+        .nav li:last-child{
+        	border: none;
+        }
+        .nav a{
+        	 color: black;
+        }
+        .tablePart{
+        	margin-top: 70px;
+        }
+        .current{
+        	font-weight: bold;
+        }
 
     </style>
 </head>
 <body>
-    <div class="side-bars">
+    <div class="side-bars bars">
         <i class="fas fa-times"></i>
         <div class="catagory-list">
             <ul>
@@ -170,50 +168,47 @@
       </div>
     <div class="container">
     <div class="mypage">MyPage</div>
-    <div class="nav">
-        <ul>
+        <ul class="nav">
         	<li><a href="<%=request.getContextPath()%>/member/mypage">주문내역</a></li>
-            <li class="point"><a href="<%=request.getContextPath()%>/member/greenpoint">그린포인트</a></li>
+            <li class="point"><a href="<%=request.getContextPath()%>/member/greenpoint" class="current">그린포인트</a></li>
             <li class="info"><a href="<%=request.getContextPath()%>/member/memberinfo">회원정보</a></li>
         </ul>
-    </div>
-    	<div class="gradeBox">
-        <h3 class="greenInfo">| 그린포인트</h3> 
-        <i class="fas fa-crown"> ${member.me_grade}</i>
-        </div>
-        <table class="table">
-            <thead>
-               <tr>
-                    <td colspan="4" class="userPoint"> 현재 나의 그린 포인트는? <h3>${member.me_point}</h3></td>
-                </tr>
-              <tr>
-                <th>일자</th>
-                <th>내용</th>
-                <th>주문번호</th>
-                <th>그린포인트</th>
-              </tr>
-            </thead>
-            <tbody>
-               <c:forEach items="${greenPoint}" var="green" varStatus = "status">
-                   <c:if test="${green.or_state == '구매확정'}">
-                  <tr class="point-box">
-                    <td>${green.orDate}</td>
-                    <td class="greenContents"></td>
-                    <td>${green.or_num}</td>
-                    <td class="gr_point">${green.or_green_point}</td>
-                  </tr>
-                  </c:if>
-                  <c:if test="${green.or_use_point > 0}">
-                  <tr class="point-box">
-                    <td>${green.orDate}</td>
-                    <td class="greenContents"></td>
-                    <td>${green.or_num}</td>
-                    <td class="gr_point">-${green.or_use_point}</td>
-                  </tr>
-                  </c:if>
-              </c:forEach>
-            </tbody>
-          </table>
+        <div class="tablePart">
+		    <i class="fas fa-crown"> ${member.me_grade}</i>
+	        <table class="table">
+	            <thead>
+	               <tr>
+	                    <td colspan="4" class="userPoint"> 현재 나의 그린 포인트는? <h3>${member.me_point}</h3></td>
+	                </tr>
+	              <tr>
+	                <th>일자</th>
+	                <th>내용</th>
+	                <th>주문번호</th>
+	                <th>그린포인트</th>
+	              </tr>
+	            </thead>
+	            <tbody>
+	               <c:forEach items="${greenPoint}" var="green" varStatus = "status">
+	                   <c:if test="${green.or_state == '구매확정'}">
+	                  <tr class="point-box">
+	                    <td>${green.orDate}</td>
+	                    <td class="greenContents"></td>
+	                    <td>${green.or_num}</td>
+	                    <td class="gr_point">${green.or_green_point}</td>
+	                  </tr>
+	                  </c:if>
+	                  <c:if test="${green.or_use_point > 0}">
+	                  <tr class="point-box">
+	                    <td>${green.orDate}</td>
+	                    <td class="greenContents"></td>
+	                    <td>${green.or_num}</td>
+	                    <td class="gr_point">-${green.or_use_point}</td>
+	                  </tr>
+	                  </c:if>
+	              </c:forEach>
+	            </tbody>
+	          </table>
+	       </div>
              <ul class="pagination justify-content-center">
               <c:if test="${pm.prev}">
                   <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/member/greenpoint?page=${pm.startPage-1}">이전</a></li>
@@ -243,6 +238,18 @@ $(function(){
         $('.dome-list').hide();
         $('.foreign-list').show();
     })
+    var prevScrollTop = 0;
+    var nowScrollTop = 0;
+    function wheelDelta(){
+        return prevScrollTop - nowScrollTop > 0 ? 'up' : 'down';
+    };
+    $(window).on('scroll', function(){
+        nowScrollTop = $(this).scrollTop();
+            if(wheelDelta() == 'down'){
+                $('.bars').fadeOut();
+            }     
+        prevScrollTop = nowScrollTop;
+    });
     
 	$('.point-box').each(function(){
 		var point = $(this).find('.gr_point').text();

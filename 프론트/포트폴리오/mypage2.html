@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="/portfolio/resources/css/common.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -14,11 +15,17 @@
         *{
             margin: 0; padding: 0; list-style: none; text-decoration: none; color: black;
         }
+        a{
+        	color: black;
+        }
+        a:hover{
+        	color: rgb(0, 104, 136);
+        }
         .container{
             width: 70%;  margin: 120px auto; position: relative;
         }
         .mypage{
-            font-size: 40px; font-family: Georgia, 'Times New Roman', Times, serif; border-bottom: 2px solid black;
+            font-size: 40px; text-align: center; font-weight: bold;
         }
         .table th{
             background-color: #f8f8f8;
@@ -26,43 +33,140 @@
         .fa-bars{
             margin-right: 15px; font-size: 25px; cursor: pointer;
         }
-        .nav-btn{
-            display: none;
-        }
-        .nav{
-            width: 150px; height: 110px; background-color: black; position: absolute; top: 62px;
-            opacity: 70%; cursor: pointer; font-size: 20px; display: none;
-        }
-        .nav a{
-            color: white;
-        }
-        .nav ul{
-            text-align: center; margin: 20px auto;
-        }
-        .nav li{
-           margin-bottom: 10px;
-        }
-        .nav a:hover{
-            color: rgb(0, 104, 136); text-decoration: none;
-        }
         .orderInfo{
             margin-top: 70px;
         }
-        .fa-home{
-            position:absolute; font-size : 35px; right: 20px; top:17px; color: black; cursor: pointer;
+        
+        .nav{
+        	margin-left: calc(50% - 330px / 2);
+        }
+        .nav::after{
+            content: ''; display: block; clear: both;
+        }
+        .nav li{
+            width: 110px; border-right: 1px solid black; text-align: center;
+            float: left;  margin-top: 40px;
+        }
+        .nav li:last-child{
+        	border: none;
         }
 
+        
+	    .menu {
+	        display: flex; position: absolute; top: 15px; right: 30px; z-index: 12;
+	    }
+	    .menu ul li{
+	        float: left; padding: 10px;  font-size: 20px;  font-family:sans-serif; font-weight: bold;  cursor: pointer;
+	    }
+	    .menu ul li a{
+	     	font-size: 18px; font-weight: bold;  
+	     }
+	  	.menu ul::after{
+	        content: ''; clear: both; display: block;
+	    }
+	    .menu a{
+	    	color: black;
+	    }
+
+	    a:hover, .menu a:hover {
+	    	color: rgb(0, 104, 136);
+	    }
+	    .fa-bars{
+	      font-size: 35px; position: absolute; top:20px; left:15px; cursor: pointer;
+	    }
+	    .container{
+	        margin-top: 120px; overflow: hidden;
+	    }    
+	    .side-bars{
+	        width: 400px; height: 1280px; background-color: black; position: absolute; z-index: 10;
+	        opacity: 80%; display: none; top:0px;
+	    }
+	    .side-bars li{
+	       color: white; margin-bottom: 20px; margin-left: 20px; cursor: pointer; font-size: 18px;
+	    }
+	    .catagory-list{
+	        position: absolute; top: 150px; left: 20px;
+	    }
+	    .subCatagory-list{
+	        position: absolute; top: 150px; left: 200px;
+	    }
+	    .dome-list{
+	        display: none;
+	    }
+	    .dome-list *, .foreign-list *{
+	    	color: white; font-size: 18px;
+	    }
+	    .foreign-list{
+	        display: none;
+	    }
+	    .fa-times{
+	        color: white; font-size: 30px; position: absolute; top: 20px; right: 20px; 
+	    }
     </style>
 </head>
 <body>
-    <div class="container">
-    <div class="mypage"><i class="fas fa-bars"></i><i class="fas fa-bars nav-btn"></i>MyPage <a href="<%=request.getContextPath()%>"><i class="fas fa-home"></i></a></div>
-    <div class="nav">
+    <div class="side-bars bars">
+        <i class="fas fa-times"></i>
+        <div class="catagory-list">
+            <ul>
+                <li class="domestic">국내도서</li>
+                <li class="foreign">외국도서</li>
+            </ul>
+        </div>
+        <div class="subCatagory-list">
+	         <ul class="dome-list">
+	             <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=소설/시&country=국내/해외">소설/시</a></li>
+	             <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=에세이&country=국내/해외">에세이</a></li>
+	             <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=인문&country=국내/해외">인문</a></li>
+	             <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=역사&country=국내/해외">역사</a></li>
+	             <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=예술&country=국내/해외">예술</a></li>
+	             <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=종교&country=국내/해외">종교</a></li>
+	             <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=사회&country=국내/해외">사회</a></li>
+	             <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=과학&country=국내/해외">과학</a></li>
+	             <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=자기계발&country=국내/해외">자기계발</a></li>
+	             <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=국어와외국어&country=국내/해외">국어와외국어</a></li>
+	             <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=IT/모바일&country=국내/해외">IT/모바일</a></li>
+	         </ul>
+	     </div>
+	     <div class="subCatagory-list">
+	         <ul class="foreign-list">
+	             <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=문학&country=외국">문학</a></li>
+	             <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=소설&country=외국">소설</a></li>
+	             <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=경제/경영&country=외국">경제/경영</a></li>
+	             <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=인문/사회&country=외국">인문/사회</a></li>
+	             <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=예술&country=외국">예술</a></li>
+	             <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=컴퓨터&country=외국">컴퓨터</a></li>
+	             <li><a href="<%=request.getContextPath()%>/book/catagory?re_catagory=자연과학&country=외국">자연과학</a></li>         
+	         </ul>
+        </div>
+    </div>
+    <i class="fas fa-bars"></i>
+     <div class="menu">
         <ul>
+        	<c:if test="${user == null}">
+            <li><a href="<%=request.getContextPath()%>/member/login">LOGIN</a></li>
+            <li><a href="<%=request.getContextPath()%>/member/signup">SIGNUP</a></li>
+            </c:if>
+            <c:if test="${user != null}">
+            <li><a href="<%=request.getContextPath()%>/member/logout">LOGOUT</a></li>
+            </c:if>
+            <c:if test="${user.me_grade != 'ADMIN'}">
+           	 <li><a href="<%=request.getContextPath()%>/member/mypage">MYPAGE</a></li>
+             <li><a href="<%=request.getContextPath()%>/order/cart">CART</a></li>
+             <li><a href="<%=request.getContextPath()%>/">HOME</a></li>
+            </c:if>
+            <c:if test="${user.me_grade == 'ADMIN'}">
+             <li><a href="<%=request.getContextPath()%>/admin/user/booklist">MANAGEMENT</a></li>
+            </c:if>
+        </ul>
+    </div>
+    <div class="container">
+    <div class="mypage">MyPage</div>
+        <ul class="nav">
+        	<li><a href="<%=request.getContextPath()%>/member/mypage">주문내역</a></li>
             <li class="point"><a href="<%=request.getContextPath()%>/member/greenpoint">그린포인트</a></li>
             <li class="info"><a href="<%=request.getContextPath()%>/member/memberinfo">회원정보</a></li>
         </ul>
-    </div>
         <h3 class="orderInfo">| 주문내역</h3>
         <table class="table table-bordered">
             <thead>
@@ -104,15 +208,33 @@
 <script>
 $(function(){
     $('.fa-bars').click(function(){
-        $('.nav').show();
-        $(this).hide();
-        $('.nav-btn').show();
+        $('.side-bars').show();
     })
-    $('.nav-btn').click(function(){
-        $('.nav').hide();
-        $('.fa-bars').show();
-        $('.nav-btn').hide();
+    $('.fa-times').click(function(){
+        $('.side-bars').hide();
     })
+
+    $('.domestic').hover(function(){
+        $('.foreign-list').hide();
+        $('.dome-list').show();
+    })
+    $('.foreign').hover(function(){
+        $('.dome-list').hide();
+        $('.foreign-list').show();
+    })
+    var prevScrollTop = 0;
+    var nowScrollTop = 0;
+    function wheelDelta(){
+        return prevScrollTop - nowScrollTop > 0 ? 'up' : 'down';
+    };
+    $(window).on('scroll', function(){
+        nowScrollTop = $(this).scrollTop();
+            if(wheelDelta() == 'down'){
+                $('.bars').fadeOut();
+            }     
+        prevScrollTop = nowScrollTop;
+    });   
+	
 })
 </script>
 </body>
