@@ -37,23 +37,49 @@
 		<c:forEach items="${orderList}" var="order" varStatus="status">
 			<tr>
 				<td>
-					<select>
-						<option value="finished" selected>결제완료</option>
-						<option value="delivering">배송중</option>
-						<option value="deli-complete">배송완료</option>
-						<option value="confirm">구매확정</option>
+					<select class="state">
+						<option value="finished" <c:if test="${order.or_state == '결제완료'}">selected</c:if>>결제완료</option>
+						<option value="delivering" <c:if test="${order.or_state == '배송중'}">selected</c:if>>배송중</option>
+						<option value="deli-complete" <c:if test="${order.or_state == '배송완료'}">selected</c:if>>배송완료</option>
+						<option value="confirm" <c:if test="${order.or_state == '구매확정'}">selected</c:if>>구매확정</option>
 					</select>
 				</td>
-				<td>${order.or_num}</td>
+				<td class="orNum">${order.or_num}</td>
 				<td>${order.or_methods}</td>
-				<td>${order.or_payment}</td>
+				<td>${order.or_payment}원</td>
 				<td>${order.or_use_point}</td>
 				<td>${order.or_me_id}</td>
-				<td>${order.or_title} 외 ${order.or_re_title -1}</td>
+				<td>${order.or_title} <c:if test="${order.or_re_title > 1}">외 ${order.or_re_title -1}권</c:if></td>
 				<td>${order.approvedDate}
 			</tr>
 		</c:forEach>
 	</table>
+<script>
+$(function(){
+	var contextPath = '<%=request.getContextPath()%>';
+	$('.state').change(function(){
+		var orderState = $(this).val();
+		var orNum = $(this).parents('tr').find('.orNum').text();
+		var data = {
+				or_state : orderState,
+				or_num : orNum
+		}
+		$.ajax({
+			type: 'post',
+			url : contextPath + '/admin/user/orders/mod',
+			data : JSON.stringify(data),
+			contentType : "application/json; charset=UTF-8",
+			success : function(res){
+				if(res == 'OK')
+					alert('주문 상태가 변경되었습니다.')
+				else
+					alert('주문 상태가 변경되지 않았습니다.')
+			} 
+		})
+	})
+	
+})
+</script>
 </div>
 </body>
 </html>

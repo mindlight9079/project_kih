@@ -5,8 +5,11 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -287,5 +290,12 @@ public class AdminController {
 		mv.addObject("orderList", orderList);
 		mv.setViewName("/admin/user/orders");
 		return mv;
+	}
+	
+	@ResponseBody
+	@PostMapping("/admin/user/orders/mod")
+	public String stateModPost(@RequestBody OrderVO order) {
+		System.out.println(order);
+		return cartService.updateState(order) ? "OK" : "FAIL";
 	}
 }

@@ -122,7 +122,26 @@
 		 left join (select *,count(*) as or_count from particulars group by pr_or_num) as t on or_num = pr_or_num 
         			join registration on pr_bk_isbn = re_bk_isbn
 						join payment on pa_or_num = or_num
-								where or_state = "결제완료";
+							where (or_state="결제완료" or or_state ="배송중" or or_state="배송완료" or or_state="구매확정")
 	</select>
+	<select id="selectAdminOrder" resultType="kr.green.portfolio.vo.OrderVO">
+		select * from `order` where or_num = #{or_num}
+	</select>
+	<update id="updateState">
+		update `order` set
+			<if test="or_state == 'finished'">
+				or_state = "결제완료"
+			</if>
+			<if test="or_state == 'delivering'">
+				or_state = "배송중"
+			</if>
+			<if test="or_state == 'deli-complete'">
+				or_state = "배송완료"
+			</if>
+			<if test="or_state == 'confirm'">
+				or_state = "구매확정"
+			</if>
+			where or_num = #{or_num}
+	</update>
 </mapper>
 

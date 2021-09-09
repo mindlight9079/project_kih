@@ -58,4 +58,6 @@ public interface CartService {
 
 	ArrayList<OrderVO> adminOrderList();
 
+	boolean updateState(OrderVO order);
+
 }

@@ -203,4 +203,15 @@ public class CartServiceImp implements CartService {
 		return cartDao.adminOrderList();
 	}
 
+	@Override
+	public boolean updateState(OrderVO order) {
+		if(order == null)
+			return false;
+		OrderVO dbOrder = cartDao.selectAdminOrder(order.getOr_num());
+		dbOrder.setOr_state(order.getOr_state());
+		cartDao.updateState(dbOrder);
+		return true;
+		
+	}
+
 }
