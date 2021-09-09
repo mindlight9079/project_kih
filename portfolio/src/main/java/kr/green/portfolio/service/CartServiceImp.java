@@ -198,4 +198,9 @@ public class CartServiceImp implements CartService {
 		
 	}
 
+	@Override
+	public ArrayList<OrderVO> adminOrderList() {
+		return cartDao.adminOrderList();
+	}
+
 }

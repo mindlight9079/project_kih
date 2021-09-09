@@ -65,6 +65,8 @@ public interface CartDAO {
 
 	void updateOrderState(String or_num);
 
+	ArrayList<OrderVO> adminOrderList();
+
 
 
 }

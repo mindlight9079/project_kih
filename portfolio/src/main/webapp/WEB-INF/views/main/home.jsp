@@ -247,6 +247,7 @@
             </c:if>
             <c:if test="${user.me_grade == 'ADMIN'}">
              <li><a href="<%=request.getContextPath()%>/admin/user/booklist">MANAGEMENT</a></li>
+             <li><a href="<%=request.getContextPath()%>/admin/user/orders">ORDERS</a></li>
             </c:if>
         </ul>
         <i class="fas fa-search sm-search"></i>

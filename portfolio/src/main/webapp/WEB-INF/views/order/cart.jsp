@@ -335,14 +335,15 @@ $('.delete-btn').click(function(){
      });
      
 $('.amount').change(function(){
-	var amount = $(this).val();
+	var amount = parseInt($(this).val());
 	var codeNum =$(this).parent().prev().find('.codeNum').val();
 	var data = {
 		ca_amount : amount,
 		ca_re_code : codeNum
 	};
 	var obj = $(this);
-	var re_amount = $(this).parent().find('input[name=ca_re_amount]').val()
+	var re_amount = parseInt($(this).parent().find('input[name=ca_re_amount]').val())
+
 	if(amount <=0){
 		alert('1개 이상 구매 가능합니다.');
 		obj.val(amount = '1');

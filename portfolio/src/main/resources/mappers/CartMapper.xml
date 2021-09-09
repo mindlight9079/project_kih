@@ -117,5 +117,12 @@
 			or_state = "결제완료"
 				where or_num = #{or_num}
 	</update>
+	<select id="adminOrderList" resultType="kr.green.portfolio.vo.OrderVO">
+		select `order`.*,re_title as or_title, or_count as or_re_title, pa_methods as or_methods, pa_approved as or_approved, pr_use_point as or_use_point from `order`
+		 left join (select *,count(*) as or_count from particulars group by pr_or_num) as t on or_num = pr_or_num 
+        			join registration on pr_bk_isbn = re_bk_isbn
+						join payment on pa_or_num = or_num
+								where or_state = "결제완료";
+	</select>
 </mapper>
 

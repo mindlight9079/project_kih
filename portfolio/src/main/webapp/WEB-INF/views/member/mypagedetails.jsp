@@ -30,14 +30,14 @@
   .table{
     margin-bottom: 70px;
   }
-  .back-btn{
-    margin-left: calc(50% - 38px);
-  }
   .orderNum{
   	margin-bottom: 30px;  color: rgb(0, 104, 136); font-weight: bold;
   }
   .additional{
   	margin-left: 20px; list-style: square;
+  }
+  .btn-box{
+  	text-align:center;
   }
 
 </style>
@@ -158,7 +158,9 @@
           <td>${order.approvedDate}</td>
         </tr>
       </table>
-      <a href="<%=request.getContextPath()%>/member/mypage"><button class="btn btn-info back-btn">목록으로</button></a>
+      <div class="btn-box">
+	      <a href="<%=request.getContextPath()%>/member/mypage"><button class="btn btn-info back-btn">목록으로</button></a>
+      </div>
    </div>
 </body>
 <script>
