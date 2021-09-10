@@ -17,16 +17,15 @@
 <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/additional-methods.min.js"></script>
 <style>
     body{
-        background-color: gainsboro;
+       background-image: url(<%=request.getContextPath()%>/resources/js/whitewater.jpg); 
+       background-size: 300%;
     }
     .container{
-      padding: 30px; margin: 70px auto; width: 700px;
+      padding: 30px; margin: 120px auto; width: 700px;
     }
     h1{
-        margin-bottom: 25px;
-    }
-    .box1, .box2{
-        background-color: white; padding: 30px; margin-bottom: 10px; box-shadow: 1px 2px 2px gray;
+      font-size: 40px; text-align: center; font-weight: bold;
+      font-style: italic; letter-spacing: 0; color: #000;  margin-bottom : 40px;
     }
     .address .form-control{
         margin-bottom: 5px;
@@ -45,12 +44,12 @@
 <body>
     <form class="container" method="post" action="<%=request.getContextPath()%>/member/signup">
         <div class="box1">
-            <h1>회원가입</h1>
+            <h1>SignUp</h1>
             <div class="form-group">
             <label>아이디</label>
             <input type="text" class="form-control" placeholder="아이디" id="id" name="me_id">
             </div>
-            <button type="button" class="id-dup-btn mb-3 col-12 btn btn btn-outline-primary">아이디 중복 확인</button>
+            <button type="button" class="id-dup-btn mb-3 col-12 btn btn btn-outline-secondary">아이디 중복 확인</button>
             <div class="form-group">
             <label>비밀번호</label>
             <input type="password" class="form-control" placeholder="비밀번호" id="pw" name="me_password">
@@ -125,7 +124,7 @@
                 <input type="text" class="form-control" placeholder="이메일" id="email" name="me_email">
             </div>
         </div>
-        <button class="btn btn-primary col-12">회원가입</button>
+        <button class="btn btn-info col-12">회원가입</button>
     </form>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>

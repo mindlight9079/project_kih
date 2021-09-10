@@ -15,18 +15,20 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <style>
     body{
-        background-color: gainsboro;
+       background-image: url(<%=request.getContextPath()%>/resources/js/whitewater.jpg); 
     }
     .container{
-        padding: 30px; margin: 70px auto; width: 600px;
+        padding: 30px; margin: 120px auto; width: 600px;
+    }
     h1{
-        margin-bottom: 25px;
+        font-size: 40px; text-align: center; font-weight: bold;
+        font-style: italic; letter-spacing: 0; color: #000; margin-bottom : 40px;
     }
 </style>
 </head>
 <body>
     <form class="container" method="post" action="<%=request.getContextPath()%>/member/login">
-        <h1>로그인</h1>
+        <h1>Login</h1>
         <div class="form-group">
         <label>아이디</label>
         <input type="text" class="form-control" placeholder="아이디" id="id" name="me_id">
@@ -40,7 +42,7 @@
             <input class="form-check-input" name="useCookie" type="checkbox"> 자동로그인
         </label>
         </div>
-        <button class="btn btn-primary col-12">로그인</button>
+        <button class="btn btn-info col-12">로그인</button>
     </form>
 </body>
 </html>

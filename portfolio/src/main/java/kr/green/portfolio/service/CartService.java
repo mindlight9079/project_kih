@@ -60,4 +60,9 @@ public interface CartService {
 
 	boolean updateState(OrderVO order);
 
+	OrderVO getOrderInfo(String or_num);
+
+	void updateCancel(String or_num);
+
+
 }

@@ -44,7 +44,12 @@
 </head>
 <body>
 	 <div class="container">
-	 <h3 class="orderNum">주문번호 : ${order.or_num}</h3>
+	 <h3 class="orderNum">주문번호 : ${order.or_num}
+	  <input type="hidden" value="${order.or_num}" id="or_num">
+	  <input type="hidden" value="${order.or_pa_num}" id="pa_num">
+	  <input type="hidden" value="${order.or_pay_card}" id="or_pay_card">
+      <input type="hidden" value="${order.or_green_point}" class="point">
+	  </h3>
       <table class="table">
         <h6>| 주문상품정보</h6>
         <tr>
@@ -54,6 +59,7 @@
           <th>그린포인트</th>
         </tr>
         <c:forEach items="${particulars}" var="parti" varStatus="status">
+        <input type="hidden" value="${parti.pr_bk_isbn}" class="isbn">
         <tr class="line-white">
           <td>${parti.pr_title}</td>
           <td>${parti.pr_amount}<input type="hidden" value="${parti.pr_amount}" class="amount"></td>
@@ -160,6 +166,9 @@
       </table>
       <div class="btn-box">
 	      <a href="<%=request.getContextPath()%>/member/mypage"><button class="btn btn-info back-btn">목록으로</button></a>
+	      <c:if test="${order.or_state == '결제완료'}"> 
+	      <button class="btn btn-secondary cancel-btn">결제취소</button>
+	      </c:if>
       </div>
    </div>
 </body>
@@ -173,5 +182,41 @@ $('.totalCount').text(totalCount+"원");
 
 var deliver = parseInt($('.deliver').val());
 $('.orderTotalCount').text(totalCount+deliver+"원");
+
+var contextPath = '<%=request.getContextPath()%>';
+$('.cancel-btn').click(function(){
+	if(confirm('취소하시겠습니까?') == false){
+		return false;
+	}	
+	if($('#or_pay_card').val() == 'kakao'){
+		var orderNum = $('#or_num').val();
+		var tid = $('#pa_num').val();
+		var isbn = $('.isbn').val();
+		var point = $('.point').val();
+		var amount = $('.amount').val();
+		var data = {
+				or_num : orderNum,
+				pa_num : tid,
+				pr_bk_isbn : isbn,
+				pr_amount : amount,
+				or_green_point : point
+		}
+		$.ajax({
+			async: false,
+			url: contextPath+'/order/kakaopay/cancel',
+			type : "post",
+			data :  data,
+			success: function(data){
+				if(data == 'OK'){
+					alert('결제 취소 성공')
+					location.href= contextPath+'/member/mypage';
+				}
+			},
+			error:function(error){
+				alert(error);
+			}
+		})
+	}
+})
 </script>
 </html>

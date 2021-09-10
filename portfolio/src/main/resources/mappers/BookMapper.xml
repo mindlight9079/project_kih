@@ -169,5 +169,11 @@
 			re_sales = re_sales + #{integer}
 				where re_bk_isbn = #{bigInteger}
 	</update>
+	<update id="updateCancelAmount">
+		update registration set
+			re_amount = re_amount + #{integer},
+			re_sales = re_sales - #{integer}
+				where re_bk_isbn = #{bigInteger}
+	</update>
 </mapper>
 

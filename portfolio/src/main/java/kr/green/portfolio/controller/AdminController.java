@@ -295,7 +295,6 @@ public class AdminController {
 	@ResponseBody
 	@PostMapping("/admin/user/orders/mod")
 	public String stateModPost(@RequestBody OrderVO order) {
-		System.out.println(order);
 		return cartService.updateState(order) ? "OK" : "FAIL";
 	}
 }

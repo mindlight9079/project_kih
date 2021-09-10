@@ -214,4 +214,23 @@ public class CartServiceImp implements CartService {
 		
 	}
 
+	@Override
+	public OrderVO getOrderInfo(String or_num) {
+		if(or_num == null)
+			return null;
+		return cartDao.selectAdminOrder(or_num);
+	}
+
+	@Override
+	public void updateCancel(String or_num) {
+		if(or_num == null)
+			return;
+		OrderVO order = cartDao.selectAdminOrder(or_num);
+		if(order.getOr_num().equals(or_num)) {
+			order.setOr_state("결제취소");
+			cartDao.updateCancel(order);
+		}
+		
+	}
+
 }

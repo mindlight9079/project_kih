@@ -736,6 +736,7 @@ function sample4_execDaumPostcode() {
 			var or_deliver = $('[name=addPrice]').val();	
 			var or_green_point = $('[name=or_green_point]').val();
 			var or_deli_date = $('[name=or_deli_date]').val();
+			var or_pay_card = $('[name=pay]:checked').val();
 			
 			var data = {
 					sh_name : sh_name,
@@ -747,7 +748,8 @@ function sample4_execDaumPostcode() {
 					or_payment : finalCount,
 					or_deliver : or_deliver,
 					or_green_point : or_green_point,
-					or_deli_date : or_deli_date
+					or_deli_date : or_deli_date,
+					or_pay_card : or_pay_card
 				};
 			$.ajax({
 				async: false,
@@ -776,6 +778,7 @@ function sample4_execDaumPostcode() {
 			var	doro = $('[name=sh_doro]').val();
 			var	jibun = $('[name=sh_jibun]').val();	
 			var pay_method = 'card';
+		
 			
 			IMP.init('imp78262628');
 			IMP.request_pay({
@@ -805,6 +808,7 @@ function sample4_execDaumPostcode() {
 					var or_deliver = $('[name=addPrice]').val();	
 					var or_green_point = $('[name=or_green_point]').val();
 					var or_deli_date = $('[name=or_deli_date]').val();
+					var or_pay_card = $('[name=pay]:checked').val();
 					
 					var data = {
 							sh_name : sh_name,
@@ -817,6 +821,7 @@ function sample4_execDaumPostcode() {
 							or_deliver : or_deliver,
 							or_green_point : or_green_point,
 							or_deli_date : or_deli_date,
+							or_pay_card : or_pay_card,
 							apply_num : rsp.apply_num,
 							pay_method : pay_method,
 							paid_at : rsp.paid_at						

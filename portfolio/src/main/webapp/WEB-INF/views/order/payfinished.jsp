@@ -24,8 +24,8 @@
     <div class="container">
         <h4>카카오 페이 결제 후</h4>
         <h4>확인 버튼을 눌러주세요.</h4>
-        <input type="button" value="확인" onclick="tt()" class="btn btn-info">
-        <input type="hidden" value="${partner_order_id}" id="partner_order_id">
+            <input type="button" value="확인" onclick="tt()" class="btn btn-info">
+            <input type="hidden" value="${partner_order_id}" id="partner_order_id">
     </div>
 </body>
 <script>

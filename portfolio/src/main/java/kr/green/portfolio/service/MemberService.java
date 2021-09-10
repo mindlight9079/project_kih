@@ -78,6 +78,4 @@ public interface MemberService {
 	void updatePoint(String me_id, Integer pr_use_point);
 
 
-
-
 }

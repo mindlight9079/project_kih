@@ -196,6 +196,7 @@
 </style>
 </head>
 <body>
+<div class="circle"></div>
     <div class="side-bars bars">
         <i class="fas fa-times"></i>
         <div class="catagory-list">

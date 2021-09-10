@@ -53,5 +53,8 @@ public interface BookService {
 
 	void updateAmount(BigInteger[] isbn, Integer[] pr_amount);
 
+	void updateCancelAmount(BigInteger[] pr_bk_isbn, Integer[] pr_amount);
+
+
 
 }

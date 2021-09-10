@@ -48,8 +48,8 @@
 				where ca_num = #{ca_num}
 	</update>
 	<insert id="insertPayFinished" >
-		insert into `order` (or_num, or_me_id, or_receiver, or_payment, or_deliver, or_green_point, or_deli_date, or_sh_num)
-			values (#{or_num}, #{or_me_id}, #{or_receiver}, #{or_payment}, #{or_deliver}, #{or_green_point}, #{or_deli_date}, #{or_sh_num})
+		insert into `order` (or_num, or_me_id, or_receiver, or_payment, or_deliver, or_green_point, or_deli_date, or_sh_num, or_pay_card)
+			values (#{or_num}, #{or_me_id}, #{or_receiver}, #{or_payment}, #{or_deliver}, #{or_green_point}, #{or_deli_date}, #{or_sh_num}, #{or_pay_card})
 	</insert>
 	<select id="getOrder" resultType="kr.green.portfolio.vo.OrderVO">
 		select * from `order` where or_num = #{partner_order_id}
@@ -122,7 +122,7 @@
 		 left join (select *,count(*) as or_count from particulars group by pr_or_num) as t on or_num = pr_or_num 
         			join registration on pr_bk_isbn = re_bk_isbn
 						join payment on pa_or_num = or_num
-							where (or_state="결제완료" or or_state ="배송중" or or_state="배송완료" or or_state="구매확정")
+							where (or_state="결제완료" or or_state ="배송중" or or_state="배송완료" or or_state="구매확정" or or_state = "결제취소")
 	</select>
 	<select id="selectAdminOrder" resultType="kr.green.portfolio.vo.OrderVO">
 		select * from `order` where or_num = #{or_num}
@@ -141,7 +141,16 @@
 			<if test="or_state == 'confirm'">
 				or_state = "구매확정"
 			</if>
+			<if test="or_state == 'cancel'">
+				or_state = "결제취소"
+			</if>
 			where or_num = #{or_num}
 	</update>
+	<update id="updateCancel">
+		update `order` set
+			or_state = "결제취소"
+				where or_num = #{or_num}
+	</update>
+
 </mapper>
 

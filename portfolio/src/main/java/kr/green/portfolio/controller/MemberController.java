@@ -111,7 +111,7 @@ public class MemberController {
 	@RequestMapping(value="/member/greenpoint", method=RequestMethod.GET)
 	public ModelAndView greenpointGet (ModelAndView mv, Criteria cri, HttpSession session) {
 		PageMaker pm = new PageMaker();
-		cri.setPerPageNum(5);
+		cri.setPerPageNum(3);
 		pm.setCriteria(cri);
 		pm.setDisplayPageNum(5);
 		int totalCount = memberService.getTotalCountGreenPoint(cri);

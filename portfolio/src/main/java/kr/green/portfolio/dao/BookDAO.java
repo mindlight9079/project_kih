@@ -57,4 +57,6 @@ public interface BookDAO {
 
 	void updateAmount(@Param("bigInteger") BigInteger bigInteger, @Param("integer") Integer integer);
 
+	void updateCancelAmount(@Param("bigInteger") BigInteger bigInteger, @Param("integer") Integer integer);
+
 }

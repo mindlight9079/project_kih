@@ -147,7 +147,7 @@ public class CartController {
 	}
 	
 	@RequestMapping(value="/order/payfinished", method=RequestMethod.POST)
-	public ModelAndView payFinishedPost (ModelAndView mv, HttpSession session, String partner_order_id, BigInteger[] isbn, Integer[] pr_amount, Integer pr_use_point) {
+	public ModelAndView payFinishedPost (ModelAndView mv, HttpSession session, String partner_order_id, BigInteger[] isbn, Integer[] pr_amount, Integer pr_use_point, Integer or_green_point) {
 		MemberVO member = (MemberVO)session.getAttribute("user");
 		cartService.insertParticulars(partner_order_id, isbn, pr_amount, pr_use_point);
 		bookService.updateAmount(isbn, pr_amount);
@@ -277,6 +277,58 @@ public class CartController {
 		}
 		return "{\"result\":\"NO\"}"; 
 	}
+	@ResponseBody
+	@RequestMapping(value="/order/kakaopay/cancel")
+	public String cancelKakaopay (ModelAndView mv, HttpSession session, String pa_num, String or_num, BigInteger[] pr_bk_isbn, Integer[] pr_amount, Integer or_green_point) throws ParseException {
+		OrderVO dbOrder = cartService.getOrderInfo(or_num);
+		MemberVO member = (MemberVO)session.getAttribute("user");
+		try {
+			
+			URL address = new URL("https://kapi.kakao.com/v1/payment/cancel");
+			try {
+				HttpURLConnection serverConnect = (HttpURLConnection) address.openConnection();
+				serverConnect.setRequestMethod("POST");
+				serverConnect.setRequestProperty("Authorization", "KakaoAK 740e4771a6bc8cb24fc7999d91ff3218");
+				serverConnect.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+				serverConnect.setDoOutput(true);
+				OutputStream giver = serverConnect.getOutputStream();
+				String parameter = "cid=TC0ONETIME" // 가맹점 코드
+						+ "&tid="+pa_num
+						+ "&cancel_amount="+dbOrder.getOr_payment()
+						+ "&cancel_tax_free_amount=0" 
+						+ "&cancel_vat_amount=200";
+				DataOutputStream dataGive = new DataOutputStream(giver);
+				dataGive.writeBytes(parameter);
+				dataGive.close();				
+				int result = serverConnect.getResponseCode();
+				InputStream taker;
+				if(result == 200) {
+					taker = serverConnect.getInputStream();
+				} else {
+					taker = serverConnect.getErrorStream();
+				}
+				System.out.println("리절트 :"+result);
+				InputStreamReader reader = new InputStreamReader(taker);
+				BufferedReader change = new BufferedReader(reader);
+				String res = change.readLine();
+				JSONObject jsonObj = stringToJson(res);
+				
+				System.out.println(res);	
+				
+				cartService.updateCancel(or_num);
+				bookService.updateCancelAmount(pr_bk_isbn, pr_amount);
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+				return "FAIL";
+			}
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+				return "FAIL";
+		}
+		return "OK"; 
+	}
+	
 	private JSONObject stringToJson(String res) {
 		JSONParser parser = new JSONParser();
 		Object obj = null;
@@ -288,6 +340,8 @@ public class CartController {
 		JSONObject jsonObj = (JSONObject) obj;
 		return jsonObj;
 	}
+	
+	
 	
 	@ResponseBody
 	@RequestMapping(value="/order/inicis", method=RequestMethod.POST)

@@ -210,5 +210,16 @@ public class BookServiceImp implements BookService {
 		
 	}
 
+	@Override
+	public void updateCancelAmount(BigInteger[] pr_bk_isbn, Integer[] pr_amount) {
+		if(pr_bk_isbn == null && pr_amount == null)
+			return;
+		for(int i=0; i<pr_bk_isbn.length; i++) {
+			bookDao.updateCancelAmount(pr_bk_isbn[i], pr_amount[i]);
+		}
+		
+	}
+
+
 
 }

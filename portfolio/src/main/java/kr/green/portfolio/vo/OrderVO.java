@@ -16,6 +16,7 @@ public class OrderVO {
 	private String or_state;
 	private String or_receiver;
 	private BigInteger or_payment;
+	private String or_pay_card;
 	private int or_deliver;
 	private int or_green_point;
 	private String or_title;

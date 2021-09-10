@@ -42,6 +42,7 @@
 						<option value="delivering" <c:if test="${order.or_state == '배송중'}">selected</c:if>>배송중</option>
 						<option value="deli-complete" <c:if test="${order.or_state == '배송완료'}">selected</c:if>>배송완료</option>
 						<option value="confirm" <c:if test="${order.or_state == '구매확정'}">selected</c:if>>구매확정</option>
+						<option value="cancel" <c:if test="${order.or_state == '결제취소'}">selected</c:if>>결제취소</option>
 					</select>
 				</td>
 				<td class="orNum">${order.or_num}</td>

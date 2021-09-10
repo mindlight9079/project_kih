@@ -71,6 +71,9 @@ public interface CartDAO {
 
 	void updateState(OrderVO dbOrder);
 
+	void updateCancel(OrderVO order);
+
+
 
 
 }
