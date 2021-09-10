@@ -1,10 +1,14 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIGNUP</title>
+    <title>BOOK</title>
+<link rel="stylesheet" href="/portfolio/resources/css/common.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -15,7 +19,7 @@
     body{
         background-color: gainsboro;
     }
-    .book-box{
+    .container{
       padding: 30px; margin: 70px auto; width: 700px; background-color: white;
     }
     h1{
@@ -24,7 +28,7 @@
 </style>
 </head>
 <body>
-    <form class="container">
+    <form class="container" method="post" action="<%=request.getContextPath()%>/admin/user/book" enctype="multipart/form-data">
       <h1>BOOK</h1>
          <div class="form-group">
             <label>ISBN</label>
@@ -32,15 +36,19 @@
          </div>
          <div class="form-group">
             <label>도서명</label>
-            <input type="password" class="form-control" name="bk_title">
+            <input type="text" class="form-control" name="bk_title">
          </div>
          <div class="form-group">
             <label>부도서명</label>
-            <input type="password" class="form-control" name="bk_subtitle">
+            <input type="text" class="form-control" name="bk_subtitle">
+         </div>
+         <div class="form-group">
+            <label>국가분류</label>
+            <input type="text" class="form-control" name="bk_country">
          </div>
          <div class="form-group">
             <label>저자</label>
-            <input type="password" class="form-control" name="bk_au_writer">
+            <input type="text" class="form-control" name="bk_au_writer">
          </div>
          <div class="form-group">
             <label>출판사명</label>
@@ -56,11 +64,8 @@
          </div>
          <div class="form-group">
             <label>메인이미지</label>
-            <input type="text" class="form-control" name="bk_mainImg">
-         </div>
-         <div class="form-group">
-            <label>메인이미지업로드경로</label>
-            <input type="text" class="form-control" name="bk_mainUpload">
+           	<input type="file" class="form-control" name="file" id="image" accept="image/*" onchange="setThumbnail(event);" value="${book.bk_mainImg}">
+           	<div id="image_container"></div>
          </div>
          <div class="form-group">
             <label>출판사번호</label>
@@ -68,5 +73,19 @@
          </div>
         <button class="btn btn-primary col-12">등록</button>
     </form>
+<script type="text/javascript">
+	function setThumbnail(event){
+		var reader = new FileReader();
+		
+		reader.onload = function(event){
+			var img = document.createElement("img");
+			img.setAttribute("src", event.target.result);
+			img.setAttribute("class", "col-lg-6");
+			document.querySelector("div#image_container").innerHTML = '';
+			document.querySelector("div#image_container").appendChild(img);
+		};
+		reader.readAsDataURL(event.target.files[0]);
+	}
+</script>
 </body>
 </html>

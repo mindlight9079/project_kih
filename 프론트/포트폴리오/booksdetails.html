@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>REGISTRATIONDETAILS</title>
+    <title>BOOKSDETAILS</title>
 <link rel="stylesheet" href="/portfolio/resources/css/common.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -25,46 +25,45 @@
     h1{
         margin-bottom: 25px;
     }
- 	textarea[name="re_contents"] {
+    .box1, .box2{
+        background-color: white; padding: 30px; margin-bottom: 10px; box-shadow: 1px 2px 2px gray;
+    }
+    .address .form-control{
+        margin-bottom: 5px;
+    }
+    #jumin1, #jumin2{
+        display: inline;
+    }
+    .birth .form-control{
+        display: inline;
+    }
+ 	textarea[name="bs_contents"]{
  		resize:none; height: 400px;
  	}
 </style>
 </head>
 <body>
-    <form class="container" method="post" action="<%=request.getContextPath()%>/admin/user/registrationdetails">
-      <h1>REGISTRATION DETAILS</h1>
+    <form class="container" method="post" action="<%=request.getContextPath()%>/admin/user/booksdetails">
+      <h1>BOOKS DETAILS</h1>
          <div class="form-group">
-            <label>등록코드</label>
-            <input type="text" class="form-control" name="re_code" value="${regi.re_code}">
+            <label>저서번호</label>
+            <input type="text" class="form-control" name="bs_num" value="${books.bs_num}">
          </div>
          <div class="form-group">
             <label>ISBN</label>
-            <input type="text" class="form-control" name="re_bk_isbn" value="${regi.re_bk_isbn}" readonly>
+            <input type="text" class="form-control" name="bs_bk_isbn" value="${books.bs_bk_isbn}">
          </div>
          <div class="form-group">
-            <label>도서명</label>
-            <input type="text" class="form-control" name="re_title" value="${regi.re_title}">
+            <label>역할</label>
+            <input type="text" class="form-control" name="bs_part" value="${books.bs_part}">
          </div>
          <div class="form-group">
-            <label>가격</label>
-            <input type="text" class="form-control" name="re_price" value="${regi.re_price}">
+            <label>이름</label>
+            <input type="text" class="form-control" name="bs_name" value="${books.bs_name}">
          </div>
          <div class="form-group">
-            <label>카테고리</label>
-            <input type="text" class="form-control" name="re_catagory" value="${regi.re_catagory}">
-         </div>
-         <div class="form-group">
-            <label>책소개</label>
-            <textarea class="form-control" name="re_contents"> ${regi.re_contents}</textarea>
-         </div>
-         <div class="form-group">
-            <label>수량</label>
-            <input type="number" min="0" class="form-control" name="re_amount"  value="${regi.re_amount}">
-         </div>
-         <div class="form-group">
-            <label>그린초이스</label> <br>
-            N <input type="radio" value="N" name="re_choice" <c:if test="${regi.re_choice == 'N'}">checked</c:if>>
-            Y <input type="radio" value="Y" name="re_choice" <c:if test="${regi.re_choice == 'Y'}">checked</c:if>>
+            <label>작가번호</label>
+            <input type="text" class="form-control" name="bs_au_num" value="${books.bs_au_num}">
          </div>
         <button class="btn btn-primary col-12">수정</button>
     </form>

@@ -7,44 +7,25 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BOOKSDETAILS</title>
+    <title>Books Details</title>
 <link rel="stylesheet" href="/portfolio/resources/css/common.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/jquery.validate.min.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/additional-methods.min.js"></script>
 <style>
-    body{
-        background-color: gainsboro;
-    }
     .container{
-      padding: 30px; margin: 70px auto; width: 700px; background-color: white;
+        padding: 30px; margin: 120px auto; width: 600px;
     }
     h1{
-        margin-bottom: 25px;
+        font-size: 40px; text-align: center; font-weight: bold;
+        font-style: italic; letter-spacing: 0; color: #000; margin-bottom : 40px;
     }
-    .box1, .box2{
-        background-color: white; padding: 30px; margin-bottom: 10px; box-shadow: 1px 2px 2px gray;
-    }
-    .address .form-control{
-        margin-bottom: 5px;
-    }
-    #jumin1, #jumin2{
-        display: inline;
-    }
-    .birth .form-control{
-        display: inline;
-    }
- 	textarea[name="bs_contents"]{
- 		resize:none; height: 400px;
- 	}
 </style>
 </head>
 <body>
     <form class="container" method="post" action="<%=request.getContextPath()%>/admin/user/booksdetails">
-      <h1>BOOKS DETAILS</h1>
+      <h1>Books Details</h1>
          <div class="form-group">
             <label>저서번호</label>
             <input type="text" class="form-control" name="bs_num" value="${books.bs_num}">
@@ -65,7 +46,7 @@
             <label>작가번호</label>
             <input type="text" class="form-control" name="bs_au_num" value="${books.bs_au_num}">
          </div>
-        <button class="btn btn-primary col-12">수정</button>
+        <button class="btn btn-info col-12">수정</button>
     </form>
 </body>
 </html>

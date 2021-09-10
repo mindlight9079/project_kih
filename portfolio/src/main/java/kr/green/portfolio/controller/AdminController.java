@@ -101,7 +101,7 @@ public class AdminController {
 	public ModelAndView publisherPost(ModelAndView mv, PublisherVO publisher) {
 		boolean isPubRegister = memberService.pubRegister(publisher);
 		if(isPubRegister) {
-			mv.setViewName("redirect:/admin/user/booklist");
+			mv.setViewName("redirect:/admin/user/publisherlist");
 		} else {
 			mv.setViewName("redirect:/admin/user/publisher");
 		}

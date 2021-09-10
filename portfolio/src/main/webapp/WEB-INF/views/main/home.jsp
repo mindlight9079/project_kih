@@ -251,7 +251,7 @@
              <li><a href="<%=request.getContextPath()%>/order/cart">CART</a></li>
             </c:if>
             <c:if test="${user.me_grade == 'ADMIN'}">
-             <li><a href="<%=request.getContextPath()%>/admin/user/booklist">MANAGEMENT</a></li>
+             <li><a href="<%=request.getContextPath()%>/admin/user/publisherlist">MANAGEMENT</a></li>
              <li><a href="<%=request.getContextPath()%>/admin/user/orders">ORDERS</a></li>
             </c:if>
         </ul>
