@@ -158,22 +158,23 @@
     <i class="fas fa-bars"></i>
      <div class="menu">
         <ul>
-        	<c:if test="${user == null}">
-            <li><a href="<%=request.getContextPath()%>/member/login">LOGIN</a></li>
-            <li><a href="<%=request.getContextPath()%>/member/signup">SIGNUP</a></li>
-            </c:if>
-            <c:if test="${user != null}">
-            <li><a href="<%=request.getContextPath()%>/member/logout">LOGOUT</a></li>
-            </c:if>
-            <c:if test="${user.me_grade != 'ADMIN'}">
-           	 <li><a href="<%=request.getContextPath()%>/member/mypage">MYPAGE</a></li>
-             <li><a href="<%=request.getContextPath()%>/order/cart">CART</a></li>
-             <li><a href="<%=request.getContextPath()%>/">HOME</a></li>
-            </c:if>
-            <c:if test="${user.me_grade == 'ADMIN'}">
-            <li><a href="<%=request.getContextPath()%>/admin/user/publisherlist">MANAGEMENT</a></li>
-            </c:if>
-        </ul>
+	        <c:if test="${user == null}">
+	          <li><a href="<%=request.getContextPath()%>/member/login">LOGIN</a></li>
+	          <li><a href="<%=request.getContextPath()%>/member/signup">SIGNUP</a></li>
+	          </c:if>
+	          <c:if test="${user != null}">
+	          <li><a href="<%=request.getContextPath()%>/member/logout">LOGOUT</a></li>
+	          </c:if>
+	          <c:if test="${user.me_grade != 'ADMIN'}">
+	            <li><a href="<%=request.getContextPath()%>/member/mypage">MYPAGE</a></li>
+	           <li><a href="<%=request.getContextPath()%>/order/cart">CART</a></li>
+	          </c:if>
+	          <c:if test="${user.me_grade == 'ADMIN'}">
+	           <li><a href="<%=request.getContextPath()%>/admin/user/publisherlist">MANAGEMENT</a></li>
+	           <li><a href="<%=request.getContextPath()%>/admin/user/orders">ORDERS</a></li>
+	          </c:if>
+	          <li><a href="<%=request.getContextPath()%>">HOME</a></li>
+	      </ul>
     </div>
     <div class="container">
     <div class="management">Management</div>

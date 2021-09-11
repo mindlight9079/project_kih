@@ -199,8 +199,8 @@ public class CartServiceImp implements CartService {
 	}
 
 	@Override
-	public ArrayList<OrderVO> adminOrderList() {
-		return cartDao.adminOrderList();
+	public ArrayList<OrderVO> adminOrderList(Criteria cri) {
+		return cartDao.adminOrderList(cri);
 	}
 
 	@Override
@@ -231,6 +231,11 @@ public class CartServiceImp implements CartService {
 			cartDao.updateCancel(order);
 		}
 		
+	}
+
+	@Override
+	public int getTotalCountOrders(Criteria cri) {
+		return cartDao.getTotalCountOrders(cri);
 	}
 
 }

@@ -1,13 +1,10 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Publisherlist</title>
+    <title>Authorlist</title>
     <link rel="stylesheet" href="/portfolio/resources/css/common.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -157,81 +154,84 @@
     </div>
     <i class="fas fa-bars"></i>
      <div class="menu">
-        <ul>
-	        <c:if test="${user == null}">
-	          <li><a href="<%=request.getContextPath()%>/member/login">LOGIN</a></li>
-	          <li><a href="<%=request.getContextPath()%>/member/signup">SIGNUP</a></li>
-	          </c:if>
-	          <c:if test="${user != null}">
-	          <li><a href="<%=request.getContextPath()%>/member/logout">LOGOUT</a></li>
-	          </c:if>
-	          <c:if test="${user.me_grade != 'ADMIN'}">
-	            <li><a href="<%=request.getContextPath()%>/member/mypage">MYPAGE</a></li>
-	           <li><a href="<%=request.getContextPath()%>/order/cart">CART</a></li>
-	          </c:if>
-	          <c:if test="${user.me_grade == 'ADMIN'}">
-	           <li><a href="<%=request.getContextPath()%>/admin/user/publisherlist">MANAGEMENT</a></li>
-	           <li><a href="<%=request.getContextPath()%>/admin/user/orders">ORDERS</a></li>
-	          </c:if>
-	          <li><a href="<%=request.getContextPath()%>">HOME</a></li>
-	      </ul>
+      <ul>
+        <c:if test="${user == null}">
+          <li><a href="<%=request.getContextPath()%>/member/login">LOGIN</a></li>
+          <li><a href="<%=request.getContextPath()%>/member/signup">SIGNUP</a></li>
+          </c:if>
+          <c:if test="${user != null}">
+          <li><a href="<%=request.getContextPath()%>/member/logout">LOGOUT</a></li>
+          </c:if>
+          <c:if test="${user.me_grade != 'ADMIN'}">
+            <li><a href="<%=request.getContextPath()%>/member/mypage">MYPAGE</a></li>
+           <li><a href="<%=request.getContextPath()%>/order/cart">CART</a></li>
+          </c:if>
+          <c:if test="${user.me_grade == 'ADMIN'}">
+           <li><a href="<%=request.getContextPath()%>/admin/user/publisherlist">MANAGEMENT</a></li>
+           <li><a href="<%=request.getContextPath()%>/admin/user/orders">ORDERS</a></li>
+          </c:if>
+      </ul>
     </div>
     <div class="container">
-    <div class="management">Management</div>
-        <ul class="nav">
-		     <li><a href="<%=request.getContextPath()%>/admin/user/publisherlist" class="current">출판사리스트</a></li>
-	         <li><a href="<%=request.getContextPath()%>/admin/user/booklist">책리스트</a></li>
-	         <li><a href="<%=request.getContextPath()%>/admin/user/authorlist">저자리스트</a></li>
-	         <li><a href="<%=request.getContextPath()%>/admin/user/bookslist">저서리스트</a></li>
-	         <li><a href="<%=request.getContextPath()%>/admin/user/registrationlist">판매가능서적</a></li>
-        </ul>
-
-        <div class="search">
-            <form class="input-group float-right mb-3" action="<%=request.getContextPath()%>/admin/user/publisherlist">
-               <select class="form-control mr-2" name="type">
-                   <option value="0" <c:if test="${pm.criteria.type == 0 }">selected</c:if>>전체</option>
-                   <option value="1" <c:if test="${pm.criteria.type == 1 }">selected</c:if>>출판사명</option>
-               </select>
-               <input type="text" class="form-control mr-2" name="search" value="<c:out value="${pm.criteria.search}"/>">
-               <button class="btn btn-outline-secondary">검색</button>
-            </form>
-        </div>
-          
-        <table class="table table-bordered">
-            <thead>
-            <tr>
-                <th>출판사번호</th>
-                <th>출판사명</th>
-                <th>전화번호</th>
-                <th>대표자명</th>
-            </tr>
-            </thead>
-            <tbody>
-            <c:forEach items="${publish}" var="publisher" varStatus="status">
-            <tr>
-                <td>${publisher.pu_num}</td>
-                <td><a href="<%=request.getContextPath()%>/admin/user/publisherdetails?pu_num=${publisher.pu_num}">${publisher.pu_name}</a></td>
-                <td>${publisher.pu_phone}</td>
-                <td>${publisher.pu_ceo}</td>
-            </tr>
-            </c:forEach>
-            </tbody>
-        </table>
-        <div class="regi-btn">
-			<button class="btn btn-outline-secondary"><a href="<%=request.getContextPath()%>/admin/user/publisher">출판사등록</a></button>
-        </div>
-             <ul class="pagination justify-content-center">
-               <c:if test="${pm.prev}">
-                   <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/admin/user/publisherlist?page=${pm.startPage-1}&type=${pm.criteria.type}&search=${pm.criteria.search}">이전</a></li>
-               </c:if>
-               <c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="index">
-                   <li class="page-item <c:if test="${pm.criteria.page == index }">active</c:if>"><a class="page-link" href="<%=request.getContextPath()%>/admin/user/publisherlist?page=${index}&type=${pm.criteria.type}&search=${pm.criteria.search}">${index}</a></li>
-               </c:forEach>
-   
-               <c:if test="${pm.next}">
-                   <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/admin/user/publisherlist?page=${pm.endPage+1}&type=${pm.criteria.type}&search=${pm.criteria.search}">다음</a></li>
-               </c:if>
-             </ul>
+    <div class="management">Orders</div>
+    <table class="table">
+      <tr>
+        <th>결제상태</th>
+        <th>결제번호</th>
+        <th>결제수단</th>
+        <th>결제금액</th>
+        <th>할인합계</th>
+        <th>주문자명</th>
+        <th>주문상품</th>
+        <th>결제승인일자</th>
+      </tr>
+      <c:forEach items="${orderList}" var="order" varStatus="status">
+        <tr>
+          <td>
+            <select class="state">
+              <option value="finished" <c:if test="${order.or_state == '결제완료'}">selected</c:if>>결제완료</option>
+              <option value="delivering" <c:if test="${order.or_state == '배송중'}">selected</c:if>>배송중</option>
+              <option value="deli-complete" <c:if test="${order.or_state == '배송완료'}">selected</c:if>>배송완료</option>
+              <option value="confirm" <c:if test="${order.or_state == '구매확정'}">selected</c:if>>구매확정</option>
+              <option value="cancel" <c:if test="${order.or_state == '결제취소'}">selected</c:if>>결제취소</option>
+            </select>
+          </td>
+          <td class="orNum">${order.or_num}</td>
+          <td>${order.or_methods}</td>
+          <td>${order.or_payment}원</td>
+          <td>${order.or_use_point}</td>
+          <td>${order.or_me_id}</td>
+          <td>${order.or_title} <c:if test="${order.or_re_title > 1}">외 ${order.or_re_title -1}권</c:if></td>
+          <td>${order.approvedDate}
+        </tr>
+      </c:forEach>
+    </table>
+  <script>
+  $(function(){
+    var contextPath = '<%=request.getContextPath()%>';
+    $('.state').change(function(){
+      var orderState = $(this).val();
+      var orNum = $(this).parents('tr').find('.orNum').text();
+      var data = {
+          or_state : orderState,
+          or_num : orNum
+      }
+      $.ajax({
+        type: 'post',
+        url : contextPath + '/admin/user/orders/mod',
+        data : JSON.stringify(data),
+        contentType : "application/json; charset=UTF-8",
+        success : function(res){
+          if(res == 'OK')
+            alert('주문 상태가 변경되었습니다.')
+          else
+            alert('주문 상태가 변경되지 않았습니다.')
+        } 
+      })
+    })
+    
+  })
+  </script>
     </div>
 <script>
 $(function(){

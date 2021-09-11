@@ -123,6 +123,7 @@
         			join registration on pr_bk_isbn = re_bk_isbn
 						join payment on pa_or_num = or_num
 							where (or_state="결제완료" or or_state ="배송중" or or_state="배송완료" or or_state="구매확정" or or_state = "결제취소")
+								limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
 	<select id="selectAdminOrder" resultType="kr.green.portfolio.vo.OrderVO">
 		select * from `order` where or_num = #{or_num}
@@ -151,6 +152,9 @@
 			or_state = "결제취소"
 				where or_num = #{or_num}
 	</update>
+	<select id="getTotalCountOrders" resultType="int">
+		select count(*) from `order`
+	</select>
 
 </mapper>
 

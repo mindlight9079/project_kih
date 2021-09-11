@@ -285,8 +285,16 @@ public class AdminController {
 	
 	
 	@RequestMapping(value="/admin/user/orders")
-	public ModelAndView ordersList (ModelAndView mv) {
-		ArrayList<OrderVO> orderList = cartService.adminOrderList();
+	public ModelAndView ordersList (ModelAndView mv, Criteria cri) {
+		PageMaker pm = new PageMaker();
+		cri.setPerPageNum(5);
+		pm.setCriteria(cri);
+		pm.setDisplayPageNum(5);
+		int totalCount = cartService.getTotalCountOrders(cri);
+		pm.setTotalCount(totalCount);
+		pm.calcData();
+		ArrayList<OrderVO> orderList = cartService.adminOrderList(cri);
+		mv.addObject("pm", pm);
 		mv.addObject("orderList", orderList);
 		mv.setViewName("/admin/user/orders");
 		return mv;

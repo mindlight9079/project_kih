@@ -65,13 +65,15 @@ public interface CartDAO {
 
 	void updateOrderState(String or_num);
 
-	ArrayList<OrderVO> adminOrderList();
+	ArrayList<OrderVO> adminOrderList(@Param("cri") Criteria cri);
 
 	OrderVO selectAdminOrder(String or_num);
 
 	void updateState(OrderVO dbOrder);
 
 	void updateCancel(OrderVO order);
+
+	int getTotalCountOrders(@Param("cri") Criteria cri);
 
 
 

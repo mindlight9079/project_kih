@@ -56,13 +56,15 @@ public interface CartService {
 
 	void updateOrderState(String or_num);
 
-	ArrayList<OrderVO> adminOrderList();
+	ArrayList<OrderVO> adminOrderList(Criteria cri);
 
 	boolean updateState(OrderVO order);
 
 	OrderVO getOrderInfo(String or_num);
 
 	void updateCancel(String or_num);
+
+	int getTotalCountOrders(Criteria cri);
 
 
 }
