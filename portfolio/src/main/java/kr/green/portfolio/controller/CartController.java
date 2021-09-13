@@ -343,8 +343,8 @@ public class CartController {
 	
 	
 	@ResponseBody
-	@RequestMapping(value="/order/inicis", method=RequestMethod.POST)
-	public String addCart(OrderVO order, ShippingVO shipping, String apply_num, String pay_method, String paid_at, HttpSession session, HttpServletRequest request) {
+	@RequestMapping(value="/order/inicis")
+	public String payInicis(OrderVO order, ShippingVO shipping, String apply_num, String pay_method, String paid_at, HttpSession session, HttpServletRequest request) {
 		MemberVO member = (MemberVO)session.getAttribute("user");
 		String me_name = ((MemberVO)request.getSession().getAttribute("user")).getMe_name();
 		String result = "0";

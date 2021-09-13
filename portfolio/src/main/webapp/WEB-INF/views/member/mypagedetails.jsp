@@ -14,6 +14,10 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script><!-- jQuery CDN --->
 <style>
   *{
     margin: 0; padding: 0; text-decoration: none; color:black;
@@ -112,7 +116,7 @@
         </tr>
         <tr>
           <th>주문하신 분</th>
-          <td>${order.or_name}</td>
+          <td>${order.or_name}<input type="hidden" value="${order.or_name}" id="name"></td>
           <th>받으시는 분</th>
           <td>${order.or_receiver}</td>
         </tr>
@@ -138,7 +142,7 @@
         </tr>
         <tr>
           <th>실 결제금액</th>
-          <td>${order.or_payment}원</td>
+          <td>${order.or_payment}원 <input type="hidden" value="${order.or_payment}" id="payCount"></td>
           <th>그린 포인트 총 적립액</th>
           <td>${order.or_green_point}</td>
         </tr>
@@ -159,7 +163,7 @@
         </tr>
         <tr>
           <th>승인번호</th>
-          <td>${order.or_pa_num}</td>
+          <td>${order.or_pa_num}<input type="hidden" value="${order.or_pa_num}" id="cardPayNum"></td>
           <th>승인일자</th>
           <td>${order.approvedDate}</td>
         </tr>
@@ -217,7 +221,26 @@ $('.cancel-btn').click(function(){
 			}
 		})
 	}
-
+	if($('#or_pay_card').val() == 'card'){
+		var cardPayNum = $('#cardPayNum').val();
+		var payCount = $('#payCount').val();
+		var name= $('#name').val();
+		   jQuery.ajax({
+		        "url": contextPath+'member/mypagedetails', // 예: http://www.myservice.com/payments/cancel
+		        "type": "POST",
+		        "contentType": "application/json",
+		        "data": JSON.stringify({
+		        "merchant_uid": cardPayNum, // 예: ORD20180131-0000011
+		        "cancel_request_amount": payCount, // 환불금액
+		        "reason": "테스트 결제 환불" // 환불사유
+		        "refund_holder": name , // [가상계좌 환불시 필수입력] 환불 수령계좌 예금주
+		        "refund_bank": "88" // [가상계좌 환불시 필수입력] 환불 수령계좌 은행코드(예: KG이니시스의 경우 신한은행은 88번)
+		        "refund_account": "56211105948400" // [가상계좌 환불시 필수입력] 환불 수령계좌 번호
+		      }),
+		      "dataType": "json"
+		    });
+	
+	}
 })
 </script>
 </html>
