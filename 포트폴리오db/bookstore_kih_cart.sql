@@ -33,7 +33,7 @@ CREATE TABLE `cart` (
   KEY `ca_me_id` (`ca_me_id`),
   CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`ca_re_code`) REFERENCES `registration` (`re_code`),
   CONSTRAINT `cart_ibfk_2` FOREIGN KEY (`ca_me_id`) REFERENCES `member` (`me_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=87 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=118 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +42,7 @@ CREATE TABLE `cart` (
 
 LOCK TABLES `cart` WRITE;
 /*!40000 ALTER TABLE `cart` DISABLE KEYS */;
-INSERT INTO `cart` VALUES (64,3,4,'qwe123','D'),(65,2,16,'qwe123','D'),(66,3,24,'qwe123','D'),(67,3,3,'qwe123','D'),(68,2,13,'qwe123','D'),(69,1,20,'qwe123','D'),(70,2,11,'qwe123','D'),(71,1,11,'qwe123','D'),(72,3,24,'qwe123','D'),(73,1,4,'qwe123','D'),(74,1,5,'qwe123','D'),(75,1,1,'qwe123','D'),(76,3,24,'qwe123','D'),(77,1,18,'qwe123','D'),(78,1,17,'qwe123','D'),(79,1,16,'qwe123','D'),(80,1,22,'qwe123','D'),(81,1,1,'qwe123','D'),(82,1,23,'qwe123','D'),(83,1,17,'qwe123','D'),(84,1,15,'qwe123','D'),(85,1,3,'qwe123','D'),(86,1,7,'qwe123','D');
+INSERT INTO `cart` VALUES (104,90,7,'qwe123','D'),(105,1,4,'qwe123','D'),(106,1,3,'qwe123','D'),(107,1,1,'qwe123','D'),(108,1,4,'qwe123','D'),(109,1,1,'qwe123','D'),(110,1,4,'qwe123','D'),(111,1,16,'qwe123','D'),(112,1,3,'qwe123','D'),(113,1,1,'qwe123','D'),(114,1,4,'qwe123','D'),(115,1,1,'qwe123','D'),(116,1,1,'qwe123','D'),(117,1,3,'qwe123','D');
 /*!40000 ALTER TABLE `cart` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -55,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-09-06 17:44:57
+-- Dump completed on 2021-09-13 17:48:27
