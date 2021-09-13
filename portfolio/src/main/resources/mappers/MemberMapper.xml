@@ -176,5 +176,10 @@
 			me_point = me_point - #{pr_use_point}
 				where me_id = #{me_id}
 	</update>
+	<update id="updateCancelPoint">
+		update `member`set
+			me_point = me_point + #{pr_use_point}
+				where me_id = #{me_id}
+	</update>
 </mapper>
 

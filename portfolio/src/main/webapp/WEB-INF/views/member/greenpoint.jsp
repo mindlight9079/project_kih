@@ -36,9 +36,15 @@
             margin-right: 15px; font-size: 25px; cursor: pointer;
         }
         .fa-crown{
-        	font-size: 20px; position: absolute; right: 15px; top: 170px;
+        	font-size: 20px;
         }
-       
+        .grade{
+        	text-align:right;
+        }
+        .fa-question-circle{
+        	margin-left: 5px;
+        }
+        
        	.menu {
 	        display: flex; position: absolute; top: 15px; right: 30px; z-index: 12;
 	    }
@@ -112,6 +118,14 @@
         .current{
         	font-weight: bold;
         }
+        .tooltip-text{
+        	width: 200px; height: 180px; border: 1px solid grey;  position: absolute; right: 0;
+        	background: #f8f9fa; padding: 10px; z-index: 25;  display: none;
+        }
+        .tooltip-text p{
+        	text-align: left;
+        }
+	
 
     </style>
 </head>
@@ -179,7 +193,15 @@
             <li class="info"><a href="<%=request.getContextPath()%>/member/memberinfo">회원정보</a></li>
         </ul>
         <div class="tablePart">
-		    <i class="fas fa-crown"> ${member.me_grade}</i>
+        	<div class="grade">
+		    <i class="fas fa-crown"> ${member.me_grade}</i><i class="fas fa-question-circle"></i>
+		    <div class="tooltip-text">
+		    	<p>NORMAL:</p>
+		    	<p>SILVER:</p>
+		    	<p>GOLD:</p>
+		    	<p>GREEN:</p>
+		    </div>
+        	</div>
 	        <table class="table">
 	            <thead>
 	               <tr>
@@ -264,6 +286,17 @@ $(function(){
 			$(this).find('.greenContents').text("그린 포인트를 그린 머니로 전환");
 		}
 	})
+	
+	$('.fa-question-circle').hover(function(){
+		$('.tooltip-text').show();
+	})
+	
+	$('.tooltip-text').mouseleave(function(){
+		$(this).hide();
+	})
+	
+	
+	
 })
 </script>
 </body>

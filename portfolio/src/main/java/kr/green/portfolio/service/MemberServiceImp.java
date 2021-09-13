@@ -354,5 +354,13 @@ public class MemberServiceImp implements MemberService {
 		
 	}
 
+	@Override
+	public void updateCancelPoint(String me_id, Integer pr_use_point) {
+		if(me_id == null && pr_use_point == null)
+			return;
+		memberDao.updateCancelPoint(me_id, pr_use_point);
+		
+	}
+
 
 }

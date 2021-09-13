@@ -76,6 +76,8 @@ public interface MemberDAO {
 
 	public void updatePoint(@Param("me_id") String me_id, @Param("pr_use_point") Integer pr_use_point);
 
+	public void updateCancelPoint(@Param("me_id") String me_id, @Param("pr_use_point") Integer pr_use_point);
+
 
 
 

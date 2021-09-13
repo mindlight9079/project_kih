@@ -279,8 +279,9 @@ public class CartController {
 	}
 	@ResponseBody
 	@RequestMapping(value="/order/kakaopay/cancel")
-	public String cancelKakaopay (ModelAndView mv, HttpSession session, String pa_num, String or_num, BigInteger[] pr_bk_isbn, Integer[] pr_amount, Integer or_green_point) throws ParseException {
+	public String cancelKakaopay (ModelAndView mv, HttpSession session, String pa_num, String or_num, BigInteger[] pr_bk_isbn, Integer[] pr_amount, Integer pr_use_point) throws ParseException {
 		OrderVO dbOrder = cartService.getOrderInfo(or_num);
+		MemberVO member = (MemberVO)session.getAttribute("user");
 		try {
 			
 			URL address = new URL("https://kapi.kakao.com/v1/payment/cancel");
@@ -316,6 +317,7 @@ public class CartController {
 				
 				cartService.updateCancel(or_num);
 				bookService.updateCancelAmount(pr_bk_isbn, pr_amount);
+				memberService.updateCancelPoint(member.getMe_id(),pr_use_point);
 				
 			} catch (IOException e) {
 				e.printStackTrace();

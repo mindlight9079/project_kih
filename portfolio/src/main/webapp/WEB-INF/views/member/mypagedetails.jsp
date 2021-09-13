@@ -52,7 +52,7 @@
 	  <input type="hidden" value="${order.or_num}" id="or_num">
 	  <input type="hidden" value="${order.or_pa_num}" id="pa_num">
 	  <input type="hidden" value="${order.or_pay_card}" id="or_pay_card">
-      <input type="hidden" value="${order.or_green_point}" class="point">
+      <input type="hidden" value="${order.or_use_point}" class="usePoint">
 	  </h3>
       <table class="table">
         <h6>| 주문상품정보</h6>
@@ -196,14 +196,15 @@ $('.cancel-btn').click(function(){
 		var orderNum = $('#or_num').val();
 		var tid = $('#pa_num').val();
 		var isbn = $('.isbn').val();
-		var point = $('.point').val();
+		var point = $('.usePoint').val();
 		var amount = $('.amount').val();
+		
 		var data = {
 				or_num : orderNum,
 				pa_num : tid,
 				pr_bk_isbn : isbn,
 				pr_amount : amount,
-				or_green_point : point
+				pr_use_point : point
 		}
 		$.ajax({
 			async: false,
