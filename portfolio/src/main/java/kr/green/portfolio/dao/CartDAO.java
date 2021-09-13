@@ -78,7 +78,4 @@ public interface CartDAO {
 
 	PaymentVO detailPaymentList(@Param("or_num") String or_num,@Param("checkId") String checkId);
 
-
-
-
 }

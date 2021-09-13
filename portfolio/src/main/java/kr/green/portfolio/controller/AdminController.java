@@ -2,6 +2,7 @@ package kr.green.portfolio.controller;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,7 @@ import kr.green.portfolio.vo.AuthorVO;
 import kr.green.portfolio.vo.BookVO;
 import kr.green.portfolio.vo.BooksVO;
 import kr.green.portfolio.vo.OrderVO;
+import kr.green.portfolio.vo.ParticularsVO;
 import kr.green.portfolio.vo.PublisherVO;
 import kr.green.portfolio.vo.RegistrationVO;
 
@@ -294,6 +296,12 @@ public class AdminController {
 		pm.setTotalCount(totalCount);
 		pm.calcData();
 		ArrayList<OrderVO> orderList = cartService.adminOrderList(cri);
+		ArrayList<ParticularsVO> particulars = null;
+		for(OrderVO tmp : orderList) {
+			particulars = cartService.getParticularsList(tmp.getOr_num());
+			System.out.println(particulars);
+		}
+		mv.addObject("particulars", particulars);
 		mv.addObject("pm", pm);
 		mv.addObject("orderList", orderList);
 		mv.setViewName("/admin/user/orders");

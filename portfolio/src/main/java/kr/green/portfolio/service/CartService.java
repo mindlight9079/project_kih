@@ -68,5 +68,5 @@ public interface CartService {
 
 	PaymentVO detailPaymentList(String or_num, String checkId);
 
-
+	
 }

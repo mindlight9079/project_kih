@@ -192,6 +192,11 @@
       <c:forEach items="${orderList}" var="order" varStatus="status">
         <tr>
           <td>
+	      <input type="hidden" value="${order.or_pay_card}" class="payMethod">
+	      <input type="hidden" value="${order.or_num}" class="orderNum">
+	     	<c:forEach items="${particulars}" var="parti" varStatus="status">
+	      	<input type="text" value="${parti.pr_bk_isbn}">
+	      	</c:forEach>
             <select class="state">
               <option value="finished" <c:if test="${order.or_state == '결제완료'}">selected</c:if>>결제완료</option>
               <option value="delivering" <c:if test="${order.or_state == '배송중'}">selected</c:if>>배송중</option>
@@ -221,35 +226,69 @@
 	            <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/admin/user/orders?page=${pm.endPage+1}">다음</a></li>
 	        </c:if>
        </ul>
-  <script>
-  $(function(){
-    var contextPath = '<%=request.getContextPath()%>';
-    $('.state').change(function(){
-      var orderState = $(this).val();
-      var orNum = $(this).parents('tr').find('.orNum').text();
-      var data = {
-          or_state : orderState,
-          or_num : orNum
-      }
-      $.ajax({
-        type: 'post',
-        url : contextPath + '/admin/user/orders/mod',
-        data : JSON.stringify(data),
-        contentType : "application/json; charset=UTF-8",
-        success : function(res){
-          if(res == 'OK')
-            alert('주문 상태가 변경되었습니다.')
-          else
-            alert('주문 상태가 변경되지 않았습니다.')
-        } 
-      })
-    })
-    
-  })
-  </script>
     </div>
 <script>
 $(function(){
+    var contextPath = '<%=request.getContextPath()%>';
+    $('.state').change(function(){
+	      var orderState = $(this).val();
+	      var orNum = $(this).parents('tr').find('.orNum').text();
+	      var data = {
+	          or_state : orderState,
+	          or_num : orNum
+	      }
+	      $.ajax({
+	        type: 'post',
+	        url : contextPath + '/admin/user/orders/mod',
+	        data : JSON.stringify(data),
+	        contentType : "application/json; charset=UTF-8",
+	        success : function(res){
+	          if(res == 'OK')
+	            alert('주문 상태가 변경되었습니다.')
+	          else
+	            alert('주문 상태가 변경되지 않았습니다.')
+	        } 
+	      })
+	      
+	  	if($('.state').val() == 'cancel' && $(this).parent().find('.payMethod').val() == 'card'){
+	  		var orderNum = $(this).parent().find('.orderNum').val();
+			var tid = $(this).parent().find('.pa_num').val();
+			var isbn = [];
+			$(this).parent().find('.isbn').each(function(){
+				isbn.push($(this).parent().find('.isbn').val());
+			});
+			var point = $('.usePoint').val();
+			var amount = [];
+			$('.amount').each(function(){
+				amount.push($(this).val());
+			});
+				
+			var data = {
+					or_num : orderNum,
+					pa_num : tid,
+					pr_bk_isbn : isbn,
+					pr_amount : amount,
+					pr_use_point : point
+			}
+			$.ajax({
+				async: false,
+				url: contextPath+'/order/kakaopay/cancel',
+				type : "post",
+				data :  data,
+				success: function(data){
+					if(data == 'OK'){
+						alert('결제 취소 성공')
+						location.href= contextPath+'/member/mypage';
+					}
+				},
+				error:function(error){
+					alert(error);
+				}
+			})
+	  	}
+    })
+
+	
     $('.fa-bars').click(function(){
         $('.side-bars').show();
     })
