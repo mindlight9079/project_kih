@@ -11,6 +11,7 @@ import kr.green.portfolio.vo.CartVO;
 import kr.green.portfolio.vo.MemberVO;
 import kr.green.portfolio.vo.OrderVO;
 import kr.green.portfolio.vo.ParticularsVO;
+import kr.green.portfolio.vo.PaymentVO;
 import kr.green.portfolio.vo.ShippingVO;
 
 public interface CartDAO {
@@ -61,7 +62,7 @@ public interface CartDAO {
 
 	ShippingVO detailShippingList(@Param("or_num") String or_num, @Param("checkId") String checkId);
 
-	void insertPaymentInic(@Param("apply_num") String apply_num, @Param("pay_method") String pay_method, @Param("me_name") String me_name, @Param("or_num") String or_num, @Param("formattedDate") String formattedDate);
+	void insertPaymentInic(@Param("apply_num") String apply_num, @Param("pay_method") String pay_method, @Param("me_name") String me_name, @Param("or_num") String or_num, @Param("formattedDate") String formattedDate, @Param("imp_uid") String imp_uid, @Param("merchant_uid") String merchant_uid);
 
 	void updateOrderState(String or_num);
 
@@ -74,6 +75,8 @@ public interface CartDAO {
 	void updateCancel(OrderVO order);
 
 	int getTotalCountOrders(@Param("cri") Criteria cri);
+
+	PaymentVO detailPaymentList(@Param("or_num") String or_num,@Param("checkId") String checkId);
 
 
 

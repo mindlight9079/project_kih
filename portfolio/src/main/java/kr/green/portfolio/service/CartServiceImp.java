@@ -15,6 +15,7 @@ import kr.green.portfolio.vo.CartVO;
 import kr.green.portfolio.vo.MemberVO;
 import kr.green.portfolio.vo.OrderVO;
 import kr.green.portfolio.vo.ParticularsVO;
+import kr.green.portfolio.vo.PaymentVO;
 import kr.green.portfolio.vo.ShippingVO;
 
 @Service
@@ -183,10 +184,10 @@ public class CartServiceImp implements CartService {
 	}
 
 	@Override
-	public void insertPaymentInic(String apply_num, String pay_method, String me_name, String or_num, String formattedDate) {
+	public void insertPaymentInic(String apply_num, String pay_method, String me_name, String or_num, String formattedDate, String imp_uid, String merchant_uid) {
 		if(apply_num == null && pay_method == null && me_name == null && or_num == null && formattedDate == null)
 			return;
-		cartDao.insertPaymentInic(apply_num, pay_method, me_name, or_num, formattedDate);
+		cartDao.insertPaymentInic(apply_num, pay_method, me_name, or_num, formattedDate, imp_uid, merchant_uid);
 		
 	}
 
@@ -236,6 +237,13 @@ public class CartServiceImp implements CartService {
 	@Override
 	public int getTotalCountOrders(Criteria cri) {
 		return cartDao.getTotalCountOrders(cri);
+	}
+
+	@Override
+	public PaymentVO detailPaymentList(String or_num, String checkId) {
+		if(or_num == null && checkId == null)
+			return null;
+		return cartDao.detailPaymentList(or_num, checkId);
 	}
 
 }

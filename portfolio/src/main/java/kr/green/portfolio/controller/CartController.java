@@ -1,11 +1,13 @@
 package kr.green.portfolio.controller;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -346,7 +348,7 @@ public class CartController {
 	
 	@ResponseBody
 	@RequestMapping(value="/order/inicis")
-	public String payInicis(OrderVO order, ShippingVO shipping, String apply_num, String pay_method, String paid_at, HttpSession session, HttpServletRequest request) {
+	public String payInicis(OrderVO order, ShippingVO shipping, String apply_num, String pay_method, String paid_at, String imp_uid, String merchant_uid, HttpSession session, HttpServletRequest request) {
 		MemberVO member = (MemberVO)session.getAttribute("user");
 		String me_name = ((MemberVO)request.getSession().getAttribute("user")).getMe_name();
 		String result = "0";
@@ -362,9 +364,75 @@ public class CartController {
 		    sdf.setTimeZone(java.util.TimeZone.getTimeZone("GMT+9")); 
 		    String formattedDate = sdf.format(date);
 		    
-			cartService.insertPaymentInic(apply_num, pay_method, me_name, order.getOr_num(), formattedDate);
+			cartService.insertPaymentInic(apply_num, pay_method, me_name, order.getOr_num(), formattedDate, imp_uid, merchant_uid);
 			result = ""+order.getOr_num();
 		}
 		return result;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/order/inicis/cancel")
+	public String inicisCancel(String imp_uid, Integer or_payment, String or_num, BigInteger[] pr_bk_isbn, Integer[] pr_amount, Integer pr_use_point, HttpSession session) throws IOException, ParseException {
+		MemberVO member = (MemberVO)session.getAttribute("user");
+		//access_token 발급
+		HttpURLConnection conn = null;
+		URL url = new URL("https://api.iamport.kr/users/getToken");
+		conn = (HttpURLConnection)url.openConnection();
+		conn.setRequestMethod("POST");
+		conn.setRequestProperty("Content-Type", "application/json");
+		conn.setRequestProperty("Accept", "application/json");
+		conn.setDoOutput(true);
+		JSONObject obj = new JSONObject();
+		obj.put("imp_key", "6085078399473707");
+		obj.put("imp_secret", "a9cee70737acec945392a217d129a3735dad369aa9e7d04dd5525e800355cf22aa76419c419879c5");
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
+		bw.write(obj.toString());
+		bw.flush();
+		bw.close();
+		BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+		StringBuilder sb = new StringBuilder();
+		String line = null;
+		while((line = br.readLine()) != null) {
+		sb.append(line + "\n");
+		}
+		br.close();
+		JSONParser jsonParser = new JSONParser();
+		JSONObject jsonObj = (JSONObject)jsonParser.parse(sb.toString());
+		JSONObject responseData = (JSONObject)jsonObj.get("response");
+		String access_token = (String)responseData.get("access_token");
+
+		//REST API(결제환불) 호출
+		HttpURLConnection conn2 = null;
+		URL url2 = new URL("https://api.iamport.kr/payments/cancel");
+		conn2 = (HttpURLConnection)url2.openConnection();
+		conn2.setRequestMethod("POST");
+		conn2.setRequestProperty("Content-Type", "application/json");
+		conn2.setRequestProperty("Authorization", access_token);
+		conn2.setDoOutput(true);
+		JSONObject obj2 = new JSONObject();
+		obj2.put("reason", "테스트 환불");
+		obj2.put("imp_uid", imp_uid);
+		obj2.put("amount", or_payment);
+		BufferedWriter bw2 = new BufferedWriter(new OutputStreamWriter(conn2.getOutputStream()));
+		bw2.write(obj2.toString());
+		bw2.flush();
+		bw2.close();
+		BufferedReader br2 = new BufferedReader(new InputStreamReader(conn2.getInputStream()));
+		StringBuilder sb2 = new StringBuilder();
+		String line2 = null;
+		while((line2 = br2.readLine()) != null) {
+		sb2.append(line2 + "\n");
+		}
+		br2.close();
+		cartService.updateCancel(or_num);
+		for(int i=0; i<pr_bk_isbn.length; i++) {
+			System.out.println(pr_bk_isbn[i]);
+		}
+		bookService.updateCancelAmount(pr_bk_isbn, pr_amount);
+		
+		memberService.updateCancelPoint(member.getMe_id(),pr_use_point);
+		return "OK";
+		
+	}
+	
 }

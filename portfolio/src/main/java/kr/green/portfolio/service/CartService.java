@@ -52,7 +52,7 @@ public interface CartService {
 
 	ShippingVO detailShippingList(String or_num, String checkId);
 
-	void insertPaymentInic(String apply_num, String pay_method, String me_name, String or_num, String formattedDate);
+	void insertPaymentInic(String apply_num, String pay_method, String me_name, String or_num, String formattedDate, String imp_uid, String merchant_uid);
 
 	void updateOrderState(String or_num);
 
@@ -65,6 +65,8 @@ public interface CartService {
 	void updateCancel(String or_num);
 
 	int getTotalCountOrders(Criteria cri);
+
+	PaymentVO detailPaymentList(String or_num, String checkId);
 
 
 }

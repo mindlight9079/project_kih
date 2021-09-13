@@ -9,4 +9,6 @@ public class PaymentVO {
 	private String pa_name;
 	private String pa_or_num;
 	private Long pa_point;
+	private String imp_uid;
+	private String merchant_uid;
 }

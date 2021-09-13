@@ -25,6 +25,7 @@ import kr.green.portfolio.vo.BooksVO;
 import kr.green.portfolio.vo.MemberVO;
 import kr.green.portfolio.vo.OrderVO;
 import kr.green.portfolio.vo.ParticularsVO;
+import kr.green.portfolio.vo.PaymentVO;
 import kr.green.portfolio.vo.ShippingVO;
 
 @Controller
@@ -156,6 +157,8 @@ public class MemberController {
 		String checkId = member.getMe_id();
 		OrderVO order = cartService.detailOrderList(or_num, checkId);
 		ShippingVO shipping = cartService.detailShippingList(or_num, checkId);
+		PaymentVO payment = cartService.detailPaymentList(or_num,checkId);
+		mv.addObject("payment", payment);
 		mv.addObject("shipping", shipping);
 		mv.addObject("order", order);
 		mv.addObject("particulars", particulars);

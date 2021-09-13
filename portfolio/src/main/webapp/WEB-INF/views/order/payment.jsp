@@ -759,7 +759,6 @@ function sample4_execDaumPostcode() {
 				data : data,
 				//contentType : 'application/json; charset=utf-8',
 				success:function(data){
-					console.log(data)
 					var box = data.next_redirect_pc_url;
 					a = window.open(box);
 				},
@@ -824,7 +823,9 @@ function sample4_execDaumPostcode() {
 							or_pay_card : or_pay_card,
 							apply_num : rsp.apply_num,
 							pay_method : pay_method,
-							paid_at : rsp.paid_at						
+							paid_at : rsp.paid_at,
+							imp_uid : rsp.imp_uid,
+							merchant_uid : rsp.merchant_uid
 						};  
 					
 			        $.ajax({

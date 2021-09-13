@@ -53,6 +53,8 @@
 	  <input type="hidden" value="${order.or_pa_num}" id="pa_num">
 	  <input type="hidden" value="${order.or_pay_card}" id="or_pay_card">
       <input type="hidden" value="${order.or_use_point}" class="usePoint">
+      <input type="hidden" value="${payment.imp_uid}" id="imp">
+      <input type="hidden" value="${payment.merchant_uid}" id="merchant">
 	  </h3>
       <table class="table">
         <h6>| 주문상품정보</h6>
@@ -63,7 +65,7 @@
           <th>그린포인트</th>
         </tr>
         <c:forEach items="${particulars}" var="parti" varStatus="status">
-        <input type="hidden" value="${parti.pr_bk_isbn}" class="isbn">
+        <input type="text" value="${parti.pr_bk_isbn}" class="isbn">
         <tr class="line-white">
           <td>${parti.pr_title}</td>
           <td>${parti.pr_amount}<input type="hidden" value="${parti.pr_amount}" class="amount"></td>
@@ -163,7 +165,7 @@
         </tr>
         <tr>
           <th>승인번호</th>
-          <td>${order.or_pa_num}<input type="hidden" value="${order.or_pa_num}" id="cardPayNum"></td>
+          <td>${order.or_pa_num}</td>
           <th>승인일자</th>
           <td>${order.approvedDate}</td>
         </tr>
@@ -195,10 +197,16 @@ $('.cancel-btn').click(function(){
 	if($('#or_pay_card').val() == 'kakao'){
 		var orderNum = $('#or_num').val();
 		var tid = $('#pa_num').val();
-		var isbn = $('.isbn').val();
+		var isbn = [];
+		$('.isbn').each(function(){
+			isbn.push($(this).val());
+		});
 		var point = $('.usePoint').val();
-		var amount = $('.amount').val();
-		
+		var amount = [];
+		$('.amount').each(function(){
+			amount.push($(this).val());
+		});
+			
 		var data = {
 				or_num : orderNum,
 				pa_num : tid,
@@ -223,24 +231,44 @@ $('.cancel-btn').click(function(){
 		})
 	}
 	if($('#or_pay_card').val() == 'card'){
-		var cardPayNum = $('#cardPayNum').val();
 		var payCount = $('#payCount').val();
 		var name= $('#name').val();
-		   jQuery.ajax({
-		        "url": contextPath+'member/mypagedetails', // 예: http://www.myservice.com/payments/cancel
-		        "type": "POST",
-		        "contentType": "application/json",
-		        "data": JSON.stringify({
-		        "merchant_uid": cardPayNum, // 예: ORD20180131-0000011
-		        "cancel_request_amount": payCount, // 환불금액
-		        "reason": "테스트 결제 환불" // 환불사유
-		        "refund_holder": name , // [가상계좌 환불시 필수입력] 환불 수령계좌 예금주
-		        "refund_bank": "88" // [가상계좌 환불시 필수입력] 환불 수령계좌 은행코드(예: KG이니시스의 경우 신한은행은 88번)
-		        "refund_account": "56211105948400" // [가상계좌 환불시 필수입력] 환불 수령계좌 번호
-		      }),
-		      "dataType": "json"
+		var imp = $('#imp').val();
+		var orderNum = $('#or_num').val();
+		var merchant = $('#merchant').val();
+		var isbn = [];
+		$('.isbn').each(function(){
+			isbn.push($(this).val());
+		});
+		var point = $('.usePoint').val();
+		var amount = [];
+		$('.amount').each(function(){
+			amount.push($(this).val());
+		});
+		
+		console.log(isbn)
+		   $.ajax({
+		        url : contextPath+'/order/inicis/cancel', // 예: http://www.myservice.com/payments/cancel
+		        type: "POST",
+		        traditional : true,
+		        data:{
+		        	"imp_uid": imp ,
+		        	"merchant_uid": merchant , // 예: ORD20180131-0000011
+		        	"or_payment": payCount, // 환불금액
+		        	"or_num" : orderNum,
+		        	"pr_bk_isbn" : isbn,
+		        	"pr_amount" : amount,
+		        	"pr_use_point" : point,
+		        	"reason": "테스트 결제 환불" // 환불사유
+		      },
+		    }).done(function(result) { // 환불 성공시 로직 
+		    	if(result == 'OK'){
+			        alert("환불 성공");
+			        location.href=contextPath+'/member/mypage';
+		    	}
+		    }).fail(function(error) { // 환불 실패시 로직
+		      alert("환불 실패");
 		    });
-	
 	}
 })
 </script>

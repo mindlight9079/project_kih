@@ -109,8 +109,8 @@
 				where me_id = #{checkId} and or_num = #{or_num}
 	</select>
 	<insert id="insertPaymentInic">
-		insert into payment (pa_num, pa_methods, pa_name, pa_or_num, pa_approved)
-			values(#{apply_num}, #{pay_method}, #{me_name}, #{or_num}, #{formattedDate})
+		insert into payment (pa_num, pa_methods, pa_name, pa_or_num, pa_approved, imp_uid, merchant_uid)
+			values(#{apply_num}, #{pay_method}, #{me_name}, #{or_num}, #{formattedDate}, #{imp_uid}, #{merchant_uid})
 	</insert>
 	<update id="updateOrderState">
 		update `order` set
@@ -155,6 +155,12 @@
 	<select id="getTotalCountOrders" resultType="int">
 		select count(*) from `order`
 	</select>
+	<select id="detailPaymentList" resultType="kr.green.portfolio.vo.PaymentVO" >
+		select * from payment join `order` on or_num = pa_or_num
+			join `member` on me_id = or_me_id 
+				where or_num = #{or_num}
+	</select>
+	
 
 </mapper>
 
