@@ -48,7 +48,7 @@ CREATE TABLE `member` (
 
 LOCK TABLES `member` WRITE;
 /*!40000 ALTER TABLE `member` DISABLE KEYS */;
-INSERT INTO `member` VALUES ('abc123','길동이','$2a$10$yaxmVHWXBYq3c6ftiX7UROBvrkAQZMCAnPh8IY5K1B4hOgnLJ5YTy','F','1993년3월12일','01012345678','13485,경기 성남시 분당구 판교로 20  (판교동, 판교원마을3단지아파트)','홍길동','9302201234567','abc123@hanmail.net',0,'ADMIN','13485,경기 성남시 분당구 판교동 629  (판교동, 판교원마을3단지아파트)','none','2021-09-13 14:38:24'),('qwe123','꺽정이','$2a$10$prsKV/jh2.GmpQ7V5U0Ly.wo2cJBWDGuBO8o9pGLY66Qr05gdOgQe','M','1990년10월19일','01000000000','13524,경기 성남시 분당구 대왕판교로606번길 45  (삼평동)','임꺽정','9010191111111','qwe123@naver.com',30000,'SILVER','13524,경기 성남시 분당구 삼평동 653  (삼평동)','EA1FAC166A5A5179464333D164C5BCCF','2021-09-20 00:00:00');
+INSERT INTO `member` VALUES ('abc123','길동이','$2a$10$yaxmVHWXBYq3c6ftiX7UROBvrkAQZMCAnPh8IY5K1B4hOgnLJ5YTy','F','1993년3월12일','01012345678','13485,경기 성남시 분당구 판교로 20  (판교동, 판교원마을3단지아파트)','홍길동','9302201234567','abc123@hanmail.net',0,'ADMIN','13485,경기 성남시 분당구 판교동 629  (판교동, 판교원마을3단지아파트)','F39C6616EC2190740C0788FD49D200E5','2021-09-21 00:00:00'),('qwe123','꺽정이','$2a$10$prsKV/jh2.GmpQ7V5U0Ly.wo2cJBWDGuBO8o9pGLY66Qr05gdOgQe','M','1990년10월19일','01000000000','13524,경기 성남시 분당구 대왕판교로606번길 45  (삼평동)','임꺽정','9010191111111','qwe123@naver.com',130000,'SILVER','13524,경기 성남시 분당구 삼평동 653  (삼평동)','none','2021-09-14 17:34:13');
 /*!40000 ALTER TABLE `member` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -61,4 +61,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-09-13 17:48:26
+-- Dump completed on 2021-09-14 17:48:01
