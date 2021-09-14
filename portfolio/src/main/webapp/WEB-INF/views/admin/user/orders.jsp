@@ -197,6 +197,7 @@
 	      <input type="hidden" value="${order.or_use_point}" class="usePoint">
 	      <input type="hidden" value="${order.or_pa_num}" class="pa_num">
 	      <input type="hidden" value="${order.or_me_id}" class="id" >
+	      <input type="hidden" value="${order.or_green_point}" class="returnPoint">
 	     	<c:forEach items="${particulars}" var="parti" varStatus="status">
 	     	<c:if test="${parti.pr_or_num == order.or_num}">
 		      	<input type="hidden" value="${parti.pr_bk_isbn}" class="isbn">
@@ -264,16 +265,19 @@ $(function(){
 			var tid = $(this).parent().find('.pa_num').val();
 			var isbn = [];
 			$(this).parent().find('.isbn').each(function(){
-				isbn.push($(this).parent().find('.isbn').val());
+				isbn.push($(this).val());
 			});
 			var point = $(this).parent().find('.usePoint').val();
 			var amount = [];
 			$(this).parent().find('.amount').each(function(){
-				amount.push($(this).parent().find('.amount').val());
+				amount.push($(this).val());
 			});
 			var id = $(this).parent().find('.id').val();
+			var returnPoint = $(this).parent().find('.returnPoint').val();
+			console.log(returnPoint)
 			
 			var data = {
+					po_point : returnPoint,
 					or_num : orderNum,
 					pa_num : tid,
 					pr_bk_isbn : isbn,
@@ -286,6 +290,7 @@ $(function(){
 				url: contextPath+'/order/kakaopay/cancel',
 				type : "post",
 				data :  data,
+				traditional : true,
 				success: function(data){
 					if(data == 'OK'){
 						alert('결제 취소 성공')
@@ -303,20 +308,22 @@ $(function(){
 			var orderNum = $(this).parent().find('.orderNum').val();
 			var isbn = [];
 			$(this).parent().find('.isbn').each(function(){
-				isbn.push($(this).parent().find('.isbn').val());
+				isbn.push($(this).val());
 			});
 			var point = $(this).parent().find('.usePoint').val();
 			var amount = [];
 			$(this).parent().find('.amount').each(function(){
-				amount.push($(this).parent().find('.amount').val());
+				amount.push($(this).val());
 			});
 			var id = $(this).parent().find('.id').val();
+			var returnPoint = $(this).parent().find('.returnPoint').val();
 			
 			   $.ajax({
 			        url : contextPath+'/order/inicis/cancel', // 예: http://www.myservice.com/payments/cancel
 			        type: "POST",
 			        traditional : true,
 			        data:{
+			        	"po_point" : returnPoint,
 			        	"me_id" : id,
 			        	"imp_uid": imp ,
 			        	"or_payment": payCount, // 환불금액

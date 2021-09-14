@@ -46,8 +46,6 @@ public interface CartDAO {
 
 	void insertParticulars(@Param("partner_order_id")String partner_order_id, @Param("bigInteger") BigInteger bigInteger, @Param("integer") Integer integer, @Param("pr_use_point") Integer pr_use_point);
 
-	ArrayList<OrderVO> selectOrder(@Param("me_id") String me_id, @Param("cri") Criteria cri);
-
 	void updateValid(@Param("me_id") String me_id, @Param("bigInteger") BigInteger bigInteger);
 
 	ArrayList<OrderVO> selectOrderList(@Param("me_id")String me_id, @Param("cri") Criteria cri);

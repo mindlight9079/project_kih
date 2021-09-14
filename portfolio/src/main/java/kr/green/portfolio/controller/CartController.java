@@ -155,6 +155,7 @@ public class CartController {
 		bookService.updateAmount(isbn, pr_amount);
 		cartService.updateValid(member.getMe_id(), isbn);
 		memberService.updatePoint(member.getMe_id(), pr_use_point);
+		memberService.usePoint(member.getMe_id(), pr_use_point);
 		mv.setViewName("redirect:/");
 		return mv;
 	}
@@ -228,7 +229,8 @@ public class CartController {
 		if(member != null && member.getMe_id().equals(order.getOr_me_id())) {
 			cartService.insertShipping(shipping);
 			order.setOr_sh_num(shipping.getSh_num());
-			cartService.insertPayFinished(order);	
+			cartService.insertPayFinished(order);
+			memberService.insertPoint(member.getMe_id(), order.getOr_green_point());
 		}
 		
 		try {
@@ -281,7 +283,8 @@ public class CartController {
 	}
 	@ResponseBody
 	@RequestMapping(value="/order/kakaopay/cancel")
-	public String cancelKakaopay (ModelAndView mv, HttpSession session, String pa_num, String or_num, BigInteger[] pr_bk_isbn, Integer[] pr_amount, Integer pr_use_point, String me_id) throws ParseException {
+	public String cancelKakaopay (ModelAndView mv, HttpSession session, String pa_num, String or_num, BigInteger[] pr_bk_isbn, Integer[] pr_amount, Integer pr_use_point, String me_id, Integer po_point) throws ParseException {
+		System.out.println(po_point);
 		OrderVO dbOrder = cartService.getOrderInfo(or_num);
 		MemberVO member = (MemberVO)session.getAttribute("user");
 		try {
@@ -321,8 +324,13 @@ public class CartController {
 				bookService.updateCancelAmount(pr_bk_isbn, pr_amount);
 				if(member.getMe_grade().equals("ADMIN")) {
 					memberService.updateCancelPoint(me_id, pr_use_point);
+					memberService.insertCancelPoint(me_id, pr_use_point);
+					memberService.returnPoint(me_id, po_point);
 				}else {
 					memberService.updateCancelPoint(member.getMe_id(),pr_use_point);
+					memberService.insertCancelPoint(member.getMe_id(), pr_use_point);
+					memberService.returnPoint(member.getMe_id(), po_point);
+					
 				}
 				
 			} catch (IOException e) {
@@ -361,6 +369,7 @@ public class CartController {
 			order.setOr_sh_num(shipping.getSh_num());
 			cartService.insertPayFinished(order);
 			cartService.updateOrderState(order.getOr_num());
+			memberService.insertPoint(member.getMe_id(), order.getOr_green_point());
 			
 			long timestamp = Long.parseLong(paid_at);
 		    Date date = new java.util.Date(timestamp*1000L); 
@@ -376,7 +385,7 @@ public class CartController {
 	
 	@ResponseBody
 	@RequestMapping(value="/order/inicis/cancel")
-	public String inicisCancel(String imp_uid, Integer or_payment, String or_num, BigInteger[] pr_bk_isbn, Integer[] pr_amount, Integer pr_use_point, HttpSession session, String me_id) throws IOException, ParseException {
+	public String inicisCancel(String imp_uid, Integer or_payment, String or_num, BigInteger[] pr_bk_isbn, Integer[] pr_amount, Integer pr_use_point, HttpSession session, String me_id, Integer po_point) throws IOException, ParseException {
 		MemberVO member = (MemberVO)session.getAttribute("user");
 		//access_token 발급
 		HttpURLConnection conn = null;
@@ -429,14 +438,15 @@ public class CartController {
 		}
 		br2.close();
 		cartService.updateCancel(or_num);
-		for(int i=0; i<pr_bk_isbn.length; i++) {
-			System.out.println(pr_bk_isbn[i]);
-		}
 		bookService.updateCancelAmount(pr_bk_isbn, pr_amount);
 		if(member.getMe_grade().equals("ADMIN")) {
 			memberService.updateCancelPoint(me_id, pr_use_point);
+			memberService.updateCancelPoint(me_id, pr_use_point);
+			memberService.returnPoint(me_id, po_point);
 		}else {
 			memberService.updateCancelPoint(member.getMe_id(),pr_use_point);
+			memberService.insertCancelPoint(member.getMe_id(), pr_use_point);
+			memberService.returnPoint(member.getMe_id(), po_point);
 		}
 		return "OK";
 		

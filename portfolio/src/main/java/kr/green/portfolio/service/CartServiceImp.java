@@ -124,12 +124,6 @@ public class CartServiceImp implements CartService {
 			
 	}
 
-	@Override
-	public ArrayList<OrderVO> selectOrder(String me_id, Criteria cri) {
-		if(me_id == null)
-			return null;
-		return cartDao.selectOrder(me_id, cri);
-	}
 
 	@Override
 	public void updateValid(String me_id, BigInteger[] isbn) {

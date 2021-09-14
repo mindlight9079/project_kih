@@ -11,6 +11,7 @@ import kr.green.portfolio.pagination.Criteria;
 import kr.green.portfolio.vo.AuthorVO;
 import kr.green.portfolio.vo.BooksVO;
 import kr.green.portfolio.vo.MemberVO;
+import kr.green.portfolio.vo.PointVO;
 import kr.green.portfolio.vo.PublisherVO;
 
 public interface MemberService {
@@ -79,6 +80,14 @@ public interface MemberService {
 
 	void updateCancelPoint(String me_id, Integer pr_use_point);
 
+	void insertPoint(String me_id, Integer or_green_point);
 
+	void usePoint(String me_id, Integer pr_use_point);
+
+	void insertCancelPoint(String me_id, Integer pr_use_point);
+
+	ArrayList<PointVO> getPointList(String me_id, Criteria cri);
+
+	void returnPoint(String me_id, Integer po_point);
 
 }

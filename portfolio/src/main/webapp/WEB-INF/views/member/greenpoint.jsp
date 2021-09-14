@@ -216,23 +216,13 @@
 	              </tr>
 	            </thead>
 	            <tbody>
-	               <c:forEach items="${greenPoint}" var="green" varStatus = "status">
-	                   <c:if test="${green.or_state == '구매확정'}">
+	               <c:forEach items="${pointList}" var="point" varStatus = "status">
 	                  <tr class="point-box">
-	                    <td>${green.orDate}</td>
-	                    <td class="greenContents"></td>
-	                    <td>${green.or_num}</td>
-	                    <td class="gr_point">${green.or_green_point}</td>
+	                    <td>${point.poDate}</td>
+	                    <td>${point.po_contents}</td>
+	                    <td>${point.po_or_num}</td>
+	                    <td>${point.po_point}</td>
 	                  </tr>
-	                  </c:if>
-	                  <c:if test="${green.or_use_point > 0}">
-	                  <tr class="point-box">
-	                    <td>${green.orDate}</td>
-	                    <td class="greenContents"></td>
-	                    <td>${green.or_num}</td>
-	                    <td class="gr_point">-${green.or_use_point}</td>
-	                  </tr>
-	                  </c:if>
 	              </c:forEach>
 	            </tbody>
 	          </table>
@@ -278,16 +268,7 @@ $(function(){
             }     
         prevScrollTop = nowScrollTop;
     });
-    
-	$('.point-box').each(function(){
-		var point = $(this).find('.gr_point').text();
-		if(point >= 0){
-			$(this).find('.greenContents').text("주문에 의한 그린포인트 부여");
-		} else if(point < 0){
-			$(this).find('.greenContents').text("그린 포인트를 그린 머니로 전환");
-		}
-	})
-	
+    	
 	$('.fa-question-circle').hover(function(){
 		$('.tooltip-text').show();
 	})

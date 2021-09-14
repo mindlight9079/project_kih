@@ -26,6 +26,7 @@ import kr.green.portfolio.vo.MemberVO;
 import kr.green.portfolio.vo.OrderVO;
 import kr.green.portfolio.vo.ParticularsVO;
 import kr.green.portfolio.vo.PaymentVO;
+import kr.green.portfolio.vo.PointVO;
 import kr.green.portfolio.vo.ShippingVO;
 
 @Controller
@@ -119,9 +120,9 @@ public class MemberController {
 		pm.setTotalCount(totalCount);
 		pm.calcData();
 		MemberVO member = (MemberVO)session.getAttribute("user");
-		ArrayList<OrderVO> greenPoint = cartService.selectOrder(member.getMe_id(), cri);
+		ArrayList<PointVO> pointList = memberService.getPointList(member.getMe_id(),cri);
 		mv.addObject("member", member);
-		mv.addObject("greenPoint", greenPoint);
+		mv.addObject("pointList", pointList);
 		mv.addObject("pm", pm);
 		mv.setViewName("/member/greenpoint");
 		return mv;

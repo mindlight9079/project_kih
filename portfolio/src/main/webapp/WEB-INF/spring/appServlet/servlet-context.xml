@@ -39,6 +39,14 @@
 	        <mapping path="/member/mypage"/>
 	        <beans:ref bean="memberInterceptor"/>
 	    </interceptor>
+	    <interceptor>
+	        <mapping path="/order/payment"/>
+	        <beans:ref bean="memberInterceptor"/>
+	    </interceptor>
+	    <interceptor>
+	        <mapping path="/order/cartRegister"/>
+	        <beans:ref bean="memberInterceptor"/>
+	    </interceptor>
 	</interceptors>
 		<interceptors>
 	    <interceptor>

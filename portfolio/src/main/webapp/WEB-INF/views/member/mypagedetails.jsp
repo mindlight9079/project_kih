@@ -54,6 +54,7 @@
 	  <input type="hidden" value="${order.or_pay_card}" id="or_pay_card">
       <input type="hidden" value="${order.or_use_point}" class="usePoint">
       <input type="hidden" value="${payment.imp_uid}" id="imp">
+      <input type="hidden" value="${order.or_green_point}" id="returnPoint">
 	  </h3>
       <table class="table">
         <h6>| 주문상품정보</h6>
@@ -205,19 +206,22 @@ $('.cancel-btn').click(function(){
 		$('.amount').each(function(){
 			amount.push($(this).val());
 		});
-			
+		var returnPoint = $('#returnPoint').val();
+		console.log(returnPoint)
 		var data = {
 				or_num : orderNum,
 				pa_num : tid,
 				pr_bk_isbn : isbn,
 				pr_amount : amount,
-				pr_use_point : point
+				pr_use_point : point,
+				po_point : returnPoint
 		}
 		$.ajax({
 			async: false,
 			url: contextPath+'/order/kakaopay/cancel',
 			type : "post",
 			data :  data,
+			traditional : true,
 			success: function(data){
 				if(data == 'OK'){
 					alert('결제 취소 성공')
@@ -243,6 +247,7 @@ $('.cancel-btn').click(function(){
 		$('.amount').each(function(){
 			amount.push($(this).val());
 		});
+		var returnPoint = $('#returnPoint').val(); 
 		
 		console.log(isbn)
 		   $.ajax({
@@ -250,6 +255,7 @@ $('.cancel-btn').click(function(){
 		        type: "POST",
 		        traditional : true,
 		        data:{
+		        	"po_point" : returnPoint,
 		        	"imp_uid": imp ,
 		        	"or_payment": payCount, // 환불금액
 		        	"or_num" : orderNum,

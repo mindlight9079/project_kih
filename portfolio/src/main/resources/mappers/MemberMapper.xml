@@ -153,6 +153,7 @@
 		select count(*) from `member` 
 			join `order` on me_id = or_me_id
 				join ( select * from particulars group by pr_or_num) as t on or_num = pr_or_num
+					where (pr_use_point > 0 or (or_green_point > 0 and or_state='구매확정'))
 	</select>
 	<select id="getBooksSearch" resultType="kr.green.portfolio.vo.BooksVO">
 		select *,au_title as bs_title, au_contents as bs_contents, au_birth as bs_birth
@@ -181,5 +182,25 @@
 			me_point = me_point + #{pr_use_point}
 				where me_id = #{me_id}
 	</update>
+	<insert id="insertPoint">
+		insert into `point` (po_me_id, po_contents, po_point)
+			values (#{me_id}, '주문에 의한 그린포인트 부여', #{or_green_point})
+	</insert>
+	<insert id="usePoint">
+		insert into `point` (po_me_id, po_contents, po_point)
+			values (#{me_id}, '그린 포인트를 그린 머니로 전환', -#{pr_use_point})
+	</insert>
+	<insert id="insertCancelPoint">
+		insert into `point` (po_me_id, po_contents, po_point)
+			values (#{me_id}, '결제취소로 인한 그린 포인트 재적립', #{pr_use_point})
+	</insert>
+	<insert id="returnPoint">
+		insert into `point` (po_me_id, po_contents, po_point)
+			values (#{me_id}, '결제취소로 인한 그린 포인트 차감', -#{po_point})
+	</insert>
+	<select id="getPointList" resultType="kr.green.portfolio.vo.PointVO">
+		select * from `point` where po_me_id  = #{me_id} 
+	</select>
+	
 </mapper>
 

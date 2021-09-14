@@ -30,7 +30,7 @@
       font-size: 35px; position: absolute; top:20px; left:15px; cursor: pointer;
     }
     .container{
-        margin-top: 120px; overflow: hidden; position: relative;
+        margin-top: 120px; margin-bottom: 120px; overflow: hidden; position: relative;
     }    
     .side-bars{
         width: 400px; height: 1280px; background-color: black; position: absolute; z-index: 10;

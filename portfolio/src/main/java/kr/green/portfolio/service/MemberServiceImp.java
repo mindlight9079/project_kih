@@ -21,6 +21,7 @@ import kr.green.portfolio.pagination.Criteria;
 import kr.green.portfolio.vo.AuthorVO;
 import kr.green.portfolio.vo.BooksVO;
 import kr.green.portfolio.vo.MemberVO;
+import kr.green.portfolio.vo.PointVO;
 import kr.green.portfolio.vo.PublisherVO;
 
 @Service
@@ -359,6 +360,45 @@ public class MemberServiceImp implements MemberService {
 		if(me_id == null && pr_use_point == null)
 			return;
 		memberDao.updateCancelPoint(me_id, pr_use_point);
+		
+	}
+
+	@Override
+	public void insertPoint(String me_id, Integer or_green_point) {
+		if(me_id == null && or_green_point == null)
+			return;
+		memberDao.insertPoint(me_id, or_green_point);
+		
+	}
+
+	@Override
+	public void usePoint(String me_id, Integer pr_use_point) {
+		if(me_id == null && pr_use_point == null)
+			return;
+		memberDao.usePoint(me_id, pr_use_point);
+		
+	}
+
+	@Override
+	public void insertCancelPoint(String me_id, Integer pr_use_point) {
+		if(me_id == null && pr_use_point == null)
+			return;
+		memberDao.insertCancelPoint(me_id, pr_use_point);
+		
+	}
+
+	@Override
+	public ArrayList<PointVO> getPointList(String me_id, Criteria cri) {
+		if(me_id == null)
+			return null;
+		return memberDao.getPointList(me_id, cri);
+	}
+
+	@Override
+	public void returnPoint(String me_id, Integer po_point) {
+		if(me_id == null && po_point == null)
+			return;
+		memberDao.returnPoint(me_id, po_point);
 		
 	}
 

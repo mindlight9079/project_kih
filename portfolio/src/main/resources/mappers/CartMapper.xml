@@ -67,12 +67,6 @@
 		insert into particulars (pr_or_num, pr_bk_isbn, pr_amount, pr_use_point)
 			values(#{partner_order_id}, #{bigInteger}, #{integer}, #{pr_use_point})
 	</insert>
-	<select id="selectOrder" resultType="kr.green.portfolio.vo.OrderVO">
-		select or_green_point, pr_use_point as or_use_point, or_state, or_num, or_date, me_id from `member` 
-			join `order` on me_id = or_me_id
-				join ( select * from particulars group by pr_or_num) as t on or_num = pr_or_num where me_id = #{me_id} order by or_date desc
-				 	limit #{cri.pageStart}, #{cri.perPageNum}
-	</select>
 	<update id="updateValid">
 		update cart join registration on ca_re_code = re_code
 			set ca_valid = "D" where re_bk_isbn =#{bigInteger} and ca_me_id = #{me_id};

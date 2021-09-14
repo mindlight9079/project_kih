@@ -36,8 +36,6 @@ public interface CartService {
 
 	void insertParticulars(String partner_order_id, BigInteger[] isbn, Integer[] pr_amount, Integer pr_use_point);
 
-	ArrayList<OrderVO> selectOrder(String me_id, Criteria cri);
-
 	void updateValid(String me_id, BigInteger[] isbn);
 
 	ArrayList<OrderVO> selectOrderList(String me_id, Criteria cri);

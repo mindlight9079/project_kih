@@ -10,6 +10,7 @@ import kr.green.portfolio.pagination.Criteria;
 import kr.green.portfolio.vo.AuthorVO;
 import kr.green.portfolio.vo.BooksVO;
 import kr.green.portfolio.vo.MemberVO;
+import kr.green.portfolio.vo.PointVO;
 import kr.green.portfolio.vo.PublisherVO;
  
 public interface MemberDAO {
@@ -77,6 +78,17 @@ public interface MemberDAO {
 	public void updatePoint(@Param("me_id") String me_id, @Param("pr_use_point") Integer pr_use_point);
 
 	public void updateCancelPoint(@Param("me_id") String me_id, @Param("pr_use_point") Integer pr_use_point);
+
+	public void insertPoint(@Param("me_id") String me_id, @Param("or_green_point") Integer or_green_point);
+
+	public void usePoint(@Param("me_id")String me_id, @Param("pr_use_point") Integer pr_use_point);
+
+	public void insertCancelPoint(@Param("me_id") String me_id, @Param("pr_use_point") Integer pr_use_point);
+
+	public void returnPoint(@Param("me_id") String me_id, @Param("po_point") Integer po_point);
+
+	public ArrayList<PointVO> getPointList(@Param("me_id") String me_id, @Param("cri") Criteria cri);
+
 
 
 
