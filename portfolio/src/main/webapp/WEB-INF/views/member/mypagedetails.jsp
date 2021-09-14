@@ -54,7 +54,6 @@
 	  <input type="hidden" value="${order.or_pay_card}" id="or_pay_card">
       <input type="hidden" value="${order.or_use_point}" class="usePoint">
       <input type="hidden" value="${payment.imp_uid}" id="imp">
-      <input type="hidden" value="${payment.merchant_uid}" id="merchant">
 	  </h3>
       <table class="table">
         <h6>| 주문상품정보</h6>
@@ -65,7 +64,7 @@
           <th>그린포인트</th>
         </tr>
         <c:forEach items="${particulars}" var="parti" varStatus="status">
-        <input type="text" value="${parti.pr_bk_isbn}" class="isbn">
+        <input type="hidden" value="${parti.pr_bk_isbn}" class="isbn">
         <tr class="line-white">
           <td>${parti.pr_title}</td>
           <td>${parti.pr_amount}<input type="hidden" value="${parti.pr_amount}" class="amount"></td>
@@ -235,7 +234,6 @@ $('.cancel-btn').click(function(){
 		var name= $('#name').val();
 		var imp = $('#imp').val();
 		var orderNum = $('#or_num').val();
-		var merchant = $('#merchant').val();
 		var isbn = [];
 		$('.isbn').each(function(){
 			isbn.push($(this).val());
@@ -253,7 +251,6 @@ $('.cancel-btn').click(function(){
 		        traditional : true,
 		        data:{
 		        	"imp_uid": imp ,
-		        	"merchant_uid": merchant , // 예: ORD20180131-0000011
 		        	"or_payment": payCount, // 환불금액
 		        	"or_num" : orderNum,
 		        	"pr_bk_isbn" : isbn,

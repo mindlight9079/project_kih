@@ -824,8 +824,7 @@ function sample4_execDaumPostcode() {
 							apply_num : rsp.apply_num,
 							pay_method : pay_method,
 							paid_at : rsp.paid_at,
-							imp_uid : rsp.imp_uid,
-							merchant_uid : rsp.merchant_uid
+							imp_uid : rsp.imp_uid
 						};  
 					
 			        $.ajax({

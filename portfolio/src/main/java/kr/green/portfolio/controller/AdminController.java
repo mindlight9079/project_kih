@@ -297,11 +297,12 @@ public class AdminController {
 		pm.calcData();
 		ArrayList<OrderVO> orderList = cartService.adminOrderList(cri);
 		ArrayList<ParticularsVO> particulars = null;
+		ArrayList<ParticularsVO> particulars2 = new ArrayList<ParticularsVO>();
 		for(OrderVO tmp : orderList) {
 			particulars = cartService.getParticularsList(tmp.getOr_num());
-			System.out.println(particulars);
+			particulars2.addAll(particulars);
 		}
-		mv.addObject("particulars", particulars);
+		mv.addObject("particulars", particulars2);
 		mv.addObject("pm", pm);
 		mv.addObject("orderList", orderList);
 		mv.setViewName("/admin/user/orders");

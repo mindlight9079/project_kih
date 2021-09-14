@@ -29,6 +29,7 @@ public class OrderVO {
 	private Date or_approved;
 	private String or_name;
 	private int or_sh_num;
+	private String or_imp_uid;
 	
 	public String setOr_random_num() {
 		java.util.Date now = new java.util.Date();

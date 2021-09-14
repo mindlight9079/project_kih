@@ -281,7 +281,7 @@ public class CartController {
 	}
 	@ResponseBody
 	@RequestMapping(value="/order/kakaopay/cancel")
-	public String cancelKakaopay (ModelAndView mv, HttpSession session, String pa_num, String or_num, BigInteger[] pr_bk_isbn, Integer[] pr_amount, Integer pr_use_point) throws ParseException {
+	public String cancelKakaopay (ModelAndView mv, HttpSession session, String pa_num, String or_num, BigInteger[] pr_bk_isbn, Integer[] pr_amount, Integer pr_use_point, String me_id) throws ParseException {
 		OrderVO dbOrder = cartService.getOrderInfo(or_num);
 		MemberVO member = (MemberVO)session.getAttribute("user");
 		try {
@@ -319,7 +319,11 @@ public class CartController {
 				
 				cartService.updateCancel(or_num);
 				bookService.updateCancelAmount(pr_bk_isbn, pr_amount);
-				memberService.updateCancelPoint(member.getMe_id(),pr_use_point);
+				if(member.getMe_grade().equals("ADMIN")) {
+					memberService.updateCancelPoint(me_id, pr_use_point);
+				}else {
+					memberService.updateCancelPoint(member.getMe_id(),pr_use_point);
+				}
 				
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -348,7 +352,7 @@ public class CartController {
 	
 	@ResponseBody
 	@RequestMapping(value="/order/inicis")
-	public String payInicis(OrderVO order, ShippingVO shipping, String apply_num, String pay_method, String paid_at, String imp_uid, String merchant_uid, HttpSession session, HttpServletRequest request) {
+	public String payInicis(OrderVO order, ShippingVO shipping, String apply_num, String pay_method, String paid_at, String imp_uid, HttpSession session, HttpServletRequest request) {
 		MemberVO member = (MemberVO)session.getAttribute("user");
 		String me_name = ((MemberVO)request.getSession().getAttribute("user")).getMe_name();
 		String result = "0";
@@ -364,7 +368,7 @@ public class CartController {
 		    sdf.setTimeZone(java.util.TimeZone.getTimeZone("GMT+9")); 
 		    String formattedDate = sdf.format(date);
 		    
-			cartService.insertPaymentInic(apply_num, pay_method, me_name, order.getOr_num(), formattedDate, imp_uid, merchant_uid);
+			cartService.insertPaymentInic(apply_num, pay_method, me_name, order.getOr_num(), formattedDate, imp_uid);
 			result = ""+order.getOr_num();
 		}
 		return result;
@@ -372,7 +376,7 @@ public class CartController {
 	
 	@ResponseBody
 	@RequestMapping(value="/order/inicis/cancel")
-	public String inicisCancel(String imp_uid, Integer or_payment, String or_num, BigInteger[] pr_bk_isbn, Integer[] pr_amount, Integer pr_use_point, HttpSession session) throws IOException, ParseException {
+	public String inicisCancel(String imp_uid, Integer or_payment, String or_num, BigInteger[] pr_bk_isbn, Integer[] pr_amount, Integer pr_use_point, HttpSession session, String me_id) throws IOException, ParseException {
 		MemberVO member = (MemberVO)session.getAttribute("user");
 		//access_token 발급
 		HttpURLConnection conn = null;
@@ -429,8 +433,11 @@ public class CartController {
 			System.out.println(pr_bk_isbn[i]);
 		}
 		bookService.updateCancelAmount(pr_bk_isbn, pr_amount);
-		
-		memberService.updateCancelPoint(member.getMe_id(),pr_use_point);
+		if(member.getMe_grade().equals("ADMIN")) {
+			memberService.updateCancelPoint(me_id, pr_use_point);
+		}else {
+			memberService.updateCancelPoint(member.getMe_id(),pr_use_point);
+		}
 		return "OK";
 		
 	}

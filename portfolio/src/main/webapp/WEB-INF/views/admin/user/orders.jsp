@@ -194,9 +194,17 @@
           <td>
 	      <input type="hidden" value="${order.or_pay_card}" class="payMethod">
 	      <input type="hidden" value="${order.or_num}" class="orderNum">
+	      <input type="hidden" value="${order.or_use_point}" class="usePoint">
+	      <input type="hidden" value="${order.or_pa_num}" class="pa_num">
+	      <input type="hidden" value="${order.or_me_id}" class="id" >
 	     	<c:forEach items="${particulars}" var="parti" varStatus="status">
-	      	<input type="text" value="${parti.pr_bk_isbn}">
+	     	<c:if test="${parti.pr_or_num == order.or_num}">
+		      	<input type="hidden" value="${parti.pr_bk_isbn}" class="isbn">
+		      	<input type="hidden" value="${parti.pr_amount}" class="amount">
+	      	</c:if>
 	      	</c:forEach>
+	      <input type="hidden" value="${order.or_payment}" class="payCount">
+	      <input type="hidden" value="${order.or_imp_uid}" class="imp">
             <select class="state">
               <option value="finished" <c:if test="${order.or_state == '결제완료'}">selected</c:if>>결제완료</option>
               <option value="delivering" <c:if test="${order.or_state == '배송중'}">selected</c:if>>배송중</option>
@@ -238,6 +246,7 @@ $(function(){
 	          or_num : orNum
 	      }
 	      $.ajax({
+	    	async: false,
 	        type: 'post',
 	        url : contextPath + '/admin/user/orders/mod',
 	        data : JSON.stringify(data),
@@ -250,25 +259,27 @@ $(function(){
 	        } 
 	      })
 	      
-	  	if($('.state').val() == 'cancel' && $(this).parent().find('.payMethod').val() == 'card'){
+	  	if($(this).val() == 'cancel' && $(this).parent().find('.payMethod').val() == 'kakao'){
 	  		var orderNum = $(this).parent().find('.orderNum').val();
 			var tid = $(this).parent().find('.pa_num').val();
 			var isbn = [];
 			$(this).parent().find('.isbn').each(function(){
 				isbn.push($(this).parent().find('.isbn').val());
 			});
-			var point = $('.usePoint').val();
+			var point = $(this).parent().find('.usePoint').val();
 			var amount = [];
-			$('.amount').each(function(){
-				amount.push($(this).val());
+			$(this).parent().find('.amount').each(function(){
+				amount.push($(this).parent().find('.amount').val());
 			});
-				
+			var id = $(this).parent().find('.id').val();
+			
 			var data = {
 					or_num : orderNum,
 					pa_num : tid,
 					pr_bk_isbn : isbn,
 					pr_amount : amount,
-					pr_use_point : point
+					pr_use_point : point,
+					me_id : id
 			}
 			$.ajax({
 				async: false,
@@ -278,7 +289,7 @@ $(function(){
 				success: function(data){
 					if(data == 'OK'){
 						alert('결제 취소 성공')
-						location.href= contextPath+'/member/mypage';
+						location.href= contextPath+'/admin/user/orders';
 					}
 				},
 				error:function(error){
@@ -286,6 +297,44 @@ $(function(){
 				}
 			})
 	  	}
+	  	if($(this).val() == 'cancel' && $(this).parent().find('.payMethod').val() == 'card'){
+			var payCount = $(this).parent().find('.payCount').val();
+			var imp = $(this).parent().find('.imp').val();
+			var orderNum = $(this).parent().find('.orderNum').val();
+			var isbn = [];
+			$(this).parent().find('.isbn').each(function(){
+				isbn.push($(this).parent().find('.isbn').val());
+			});
+			var point = $(this).parent().find('.usePoint').val();
+			var amount = [];
+			$(this).parent().find('.amount').each(function(){
+				amount.push($(this).parent().find('.amount').val());
+			});
+			var id = $(this).parent().find('.id').val();
+			
+			   $.ajax({
+			        url : contextPath+'/order/inicis/cancel', // 예: http://www.myservice.com/payments/cancel
+			        type: "POST",
+			        traditional : true,
+			        data:{
+			        	"me_id" : id,
+			        	"imp_uid": imp ,
+			        	"or_payment": payCount, // 환불금액
+			        	"or_num" : orderNum,
+			        	"pr_bk_isbn" : isbn,
+			        	"pr_amount" : amount,
+			        	"pr_use_point" : point,
+			        	"reason": "테스트 결제 환불" // 환불사유
+			      },
+			    }).done(function(result) { // 환불 성공시 로직 
+			    	if(result == 'OK'){
+				        alert("환불 성공");
+				        location.href=contextPath+'/admin/user/orders';
+			    	}
+			    }).fail(function(error) { // 환불 실패시 로직
+			      alert("환불 실패");
+			    });
+		}
     })
 
 	

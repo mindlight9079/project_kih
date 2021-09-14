@@ -184,10 +184,10 @@ public class CartServiceImp implements CartService {
 	}
 
 	@Override
-	public void insertPaymentInic(String apply_num, String pay_method, String me_name, String or_num, String formattedDate, String imp_uid, String merchant_uid) {
+	public void insertPaymentInic(String apply_num, String pay_method, String me_name, String or_num, String formattedDate, String imp_uid) {
 		if(apply_num == null && pay_method == null && me_name == null && or_num == null && formattedDate == null)
 			return;
-		cartDao.insertPaymentInic(apply_num, pay_method, me_name, or_num, formattedDate, imp_uid, merchant_uid);
+		cartDao.insertPaymentInic(apply_num, pay_method, me_name, or_num, formattedDate, imp_uid);
 		
 	}
 

@@ -109,8 +109,8 @@
 				where me_id = #{checkId} and or_num = #{or_num}
 	</select>
 	<insert id="insertPaymentInic">
-		insert into payment (pa_num, pa_methods, pa_name, pa_or_num, pa_approved, imp_uid, merchant_uid)
-			values(#{apply_num}, #{pay_method}, #{me_name}, #{or_num}, #{formattedDate}, #{imp_uid}, #{merchant_uid})
+		insert into payment (pa_num, pa_methods, pa_name, pa_or_num, pa_approved, imp_uid)
+			values(#{apply_num}, #{pay_method}, #{me_name}, #{or_num}, #{formattedDate}, #{imp_uid})
 	</insert>
 	<update id="updateOrderState">
 		update `order` set
@@ -119,7 +119,7 @@
 	</update>
 	<select id="adminOrderList" resultType="kr.green.portfolio.vo.OrderVO">
 		select `order`.*,re_title as or_title, or_count as or_re_title, pa_methods as or_methods, pa_approved as or_approved, pr_use_point as or_use_point,
-		pa_num as or_pa_num from `order`
+		pa_num as or_pa_num, imp_uid as or_imp_uid from `order`
 		 left join (select *,count(*) as or_count from particulars group by pr_or_num) as t on or_num = pr_or_num 
         			join registration on pr_bk_isbn = re_bk_isbn
 						join payment on pa_or_num = or_num

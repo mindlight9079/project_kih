@@ -123,7 +123,7 @@
         	background: #f8f9fa; padding: 10px; z-index: 25;  display: none;
         }
         .tooltip-text p{
-        	text-align: left;
+        	text-align: left;  font-size: 12px;
         }
 	
 
@@ -196,10 +196,11 @@
         	<div class="grade">
 		    <i class="fas fa-crown"> ${member.me_grade}</i><i class="fas fa-question-circle"></i>
 		    <div class="tooltip-text">
-		    	<p>NORMAL:</p>
-		    	<p>SILVER:</p>
-		    	<p>GOLD:</p>
-		    	<p>GREEN:</p>
+		    	<p>년간 포인트 누적액</p>
+		    	<p>NORMAL: 25000포인트 미만</p>
+		    	<p>SILVER: 25000포인트 이상</p>
+		    	<p>GOLD: 50000포인트 이상</p>
+		    	<p>GREEN: 80000포인트 이상</p>
 		    </div>
         	</div>
 	        <table class="table">
