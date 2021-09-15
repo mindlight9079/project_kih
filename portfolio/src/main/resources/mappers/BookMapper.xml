@@ -133,8 +133,14 @@
 		select *, re_contents as bk_contents from book join registration on bk_isbn = re_bk_isbn where re_choice = 'N' order by rand() limit 1
 	</select>
 	<select id="getTotalCountSearch" resultType="int">
-		select count(*) from book join books on bk_isbn = bs_bk_isbn 
-			join registration on bk_isbn = re_bk_isbn
+		select count(*) from book join registration on bk_isbn = re_bk_isbn
+				where (bk_isbn like concat('%',#{cri.search},'%')
+				or bk_title like concat('%',#{cri.search},'%')
+				or bk_subtitle like concat('%',#{cri.search},'%')
+				or bk_au_writer like concat('%',#{cri.search},'%')
+				or bk_country like concat('%',#{cri.search},'%')
+				or re_contents like concat('%',#{cri.search},'%')
+				or bk_publish like concat('%',#{cri.search},'%'))
 	</select>
 	<select id="getSearch" resultType="kr.green.portfolio.vo.BookVO">
 		select *, re_contents as bk_contents, re_price as bk_price, re_code as bk_code from book join registration on bk_isbn = re_bk_isbn
