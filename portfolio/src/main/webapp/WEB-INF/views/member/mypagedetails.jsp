@@ -55,6 +55,7 @@
       <input type="hidden" value="${order.or_use_point}" class="usePoint">
       <input type="hidden" value="${payment.imp_uid}" id="imp">
       <input type="hidden" value="${order.or_green_point}" id="returnPoint">
+      <input type="hidden" value="${order.or_me_id}" id="id">
 	  </h3>
       <table class="table">
         <h6>| 주문상품정보</h6>
@@ -175,6 +176,9 @@
 	      <c:if test="${order.or_state == '결제완료'}"> 
 	      <button class="btn btn-secondary cancel-btn">결제취소</button>
 	      </c:if>
+	      <c:if test="${order.or_state == '배송완료'}">
+	      <button class="btn btn-secondary confirmed-box">구매확정</button>
+	      </c:if>
       </div>
    </div>
 </body>
@@ -249,7 +253,6 @@ $('.cancel-btn').click(function(){
 		});
 		var returnPoint = $('#returnPoint').val(); 
 		
-		console.log(isbn)
 		   $.ajax({
 		        url : contextPath+'/order/inicis/cancel', // 예: http://www.myservice.com/payments/cancel
 		        type: "POST",
@@ -273,6 +276,33 @@ $('.cancel-btn').click(function(){
 		      alert("환불 실패");
 		    });
 	}
+})
+
+$('.confirmed-box').click(function(){
+	var id = $('#id').val();
+	var orNum = $('#or_num').val();
+	var getPoint = $('#returnPoint').val();
+	var data = {
+			po_me_id : id,
+			or_num : orNum,
+			po_point : getPoint
+	}
+	$.ajax({
+		async: false,
+		url: contextPath+'/member/point',
+		type : "post",
+		data :  data,
+		traditional : true,
+		success: function(data){
+			if(data == 'OK'){
+				alert('구매확정하셨습니다.')
+				location.href= contextPath+'/member/mypage';
+			}
+		},
+		error:function(error){
+			alert(error);
+		}
+	})
 })
 </script>
 </html>

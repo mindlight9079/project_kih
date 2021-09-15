@@ -205,7 +205,10 @@
 	                </td>
 	                <td>${cart.ca_total_price}원 <input type="hidden" value="${cart.ca_price}" class="price"/></td>
 	                <td>
-	                 	<a href="<%=request.getContextPath()%>/order/payment?ca_num=${cart.ca_num}"><button type="button" class="btn btn-secondary order-btn mb-1">주문하기</button></a><br>
+	                 	<a href="<%=request.getContextPath()%>/order/payment?ca_num=${cart.ca_num}">
+	                 	<button type="button" class="btn btn-secondary order-btn mb-1">주문하기</button>
+	                 	</a>
+	                 	<br>
 	                    <button type="button" class="btn btn-secondary delete-btn" data-cartNum="${cart.ca_re_code}" >삭제</button>
 	                </td>
 	            </tr>
@@ -341,13 +344,14 @@ $('.delete-btn').click(function(){
 $('.amount').change(function(){
 	var amount = parseInt($(this).val());
 	var codeNum =$(this).parent().prev().find('.codeNum').val();
+	
 	var data = {
 		ca_amount : amount,
-		ca_re_code : codeNum
+		ca_re_code : codeNum,
 	};
+
 	var obj = $(this);
 	var re_amount = parseInt($(this).parent().find('input[name=ca_re_amount]').val())
-
 	if(amount <=0){
 		alert('1개 이상 구매 가능합니다.');
 		obj.val(amount = '1');
@@ -375,6 +379,32 @@ $('.order-btn').click(function(){
 	$('[name=ca_num]').prop('checked',false)
 	$(this).parents('tr').find('[name=ca_num]').prop('checked',true)
 	getTotalCount();
+	
+	var amount = parseInt($(this).parents('tr').find('.amount').val());
+	var re_amount = parseInt($(this).parents('tr').find('input[name=ca_re_amount]').val());
+	var codeNum = $(this).parents('tr').find('.codeNum').val();
+	var obj = $(this).parents('tr').find('.amount').val()
+	var ca_num = $(this).parents('tr').find('[name=ca_num]').val();
+	
+	if(re_amount < amount){
+		$('.amount').change();
+	var data = {
+			ca_amount : re_amount,
+			ca_re_code : codeNum
+		}
+		$.ajax({
+			url : contextPath + '/order/cart/update',
+			type : 'post',
+			data : JSON.stringify(data),
+			aync : false,
+			contentType : 'application/json; charset=utf-8',
+			success:function(result){
+				if(result == '1'){
+					alert("수량이 수정되었습니다.")
+				}
+			}
+		})
+	}
 })
 
 var user = '${user==null?'':user.me_id}';

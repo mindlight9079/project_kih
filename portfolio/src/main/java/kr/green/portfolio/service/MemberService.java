@@ -90,4 +90,6 @@ public interface MemberService {
 
 	void returnPoint(String me_id, Integer po_point);
 
+	void updateMemberPoint(String po_me_id, Integer po_point);
+
 }

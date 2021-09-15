@@ -261,7 +261,7 @@
 	 	                    <input type="hidden" value="${regi.re_code}" class="code">
 	        			 </div>
                       <a href="#" class="addCart-btn"><button type="button" class="btn btn-info ">장바구니</button></a> <br>
-                      <a href="<%=request.getContextPath()%>/order/payment" class="btn-buy"><button class="btn btn-secondary ">바로구매</button></a>
+                      <a href="<%=request.getContextPath()%>/order/payment" class="btn-buy"><button type="button" class="btn btn-secondary ">바로구매</button></a>
 				      <input type="hidden" value="${book.bk_isbn}" class="isbn">
 				      <input type="hidden" value="${regi.re_catagory}" class="catagory">
                     </div>

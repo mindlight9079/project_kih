@@ -201,6 +201,10 @@
 	<select id="getPointList" resultType="kr.green.portfolio.vo.PointVO">
 		select * from `point` where po_me_id  = #{me_id} 
 	</select>
-	
+	<update id="updateMemberPoint">
+		update `member` set
+			me_point = me_point + #{po_point}
+				where me_id = #{po_me_id}
+	</update>
 </mapper>
 

@@ -89,6 +89,8 @@ public interface MemberDAO {
 
 	public ArrayList<PointVO> getPointList(@Param("me_id") String me_id, @Param("cri") Criteria cri);
 
+	public void updateMemberPoint(@Param("po_me_id")String po_me_id, @Param("po_point") Integer po_point);
+
 
 
 

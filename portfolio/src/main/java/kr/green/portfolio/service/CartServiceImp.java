@@ -116,8 +116,10 @@ public class CartServiceImp implements CartService {
 
 	@Override
 	public void insertParticulars(String partner_order_id, BigInteger[] isbn, Integer[] pr_amount, Integer pr_use_point) {
-		if(partner_order_id == null && isbn == null && pr_amount == null && pr_use_point == null)
+		if(partner_order_id == null && isbn == null && pr_amount == null)
 			return;
+		if(pr_use_point == null)
+			pr_use_point = 0;
 		for(int i=0; i<isbn.length; i++) {
 			cartDao.insertParticulars(partner_order_id, isbn[i], pr_amount[i], pr_use_point);
 		}
@@ -238,6 +240,14 @@ public class CartServiceImp implements CartService {
 		if(or_num == null && checkId == null)
 			return null;
 		return cartDao.detailPaymentList(or_num, checkId);
+	}
+
+	@Override
+	public void updateOrderConfirmed(String or_num, String po_me_id) {
+		if(or_num == null && po_me_id == null)
+			return;
+		cartDao.updateOrderConfirmed(or_num, po_me_id);
+		
 	}
 
 }

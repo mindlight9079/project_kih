@@ -791,6 +791,7 @@ function sample4_execDaumPostcode() {
 			    buyer_tel : cellPhone,
 			    buyer_addr : doro,
 			    buyer_postcode : jibun
+			    
 			}, function(rsp) {
 				console.log(rsp)
 			    if ( rsp.success ) {

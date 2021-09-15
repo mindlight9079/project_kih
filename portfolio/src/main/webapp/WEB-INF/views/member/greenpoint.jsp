@@ -217,12 +217,14 @@
 	            </thead>
 	            <tbody>
 	               <c:forEach items="${pointList}" var="point" varStatus = "status">
+	               <c:if test="${point.po_point != 0}">
 	                  <tr class="point-box">
 	                    <td>${point.poDate}</td>
 	                    <td>${point.po_contents}</td>
 	                    <td>${point.po_or_num}</td>
 	                    <td>${point.po_point}</td>
 	                  </tr>
+	               </c:if>
 	              </c:forEach>
 	            </tbody>
 	          </table>

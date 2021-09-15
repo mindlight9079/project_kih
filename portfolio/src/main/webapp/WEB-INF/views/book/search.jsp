@@ -300,7 +300,7 @@
 	        			    <button type ="button" class="increaseQuantity plus"><i class="fas fa-plus"></i></button>
 	        			 </div>
 	                        <a href="#" class="addCart-btn"><button class="btn btn-info">장바구니</button></a> <br>
-	                        <a href="<%=request.getContextPath()%>/order/payment" class="btn-buy"><button class="btn btn-secondary" >바로구매</button></a>
+	                        <a href="<%=request.getContextPath()%>/order/payment" class="btn-buy"><button type="button" class="btn btn-secondary" >바로구매</button></a>
                     </div>
                 </td>
                 <td>

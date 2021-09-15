@@ -349,16 +349,20 @@ public class MemberServiceImp implements MemberService {
 
 	@Override
 	public void updatePoint(String me_id, Integer pr_use_point) {
-		if(me_id == null && pr_use_point == null)
+		if(me_id == null)
 			return;
+		if(pr_use_point == null)
+			pr_use_point = 0;
 		memberDao.updatePoint(me_id, pr_use_point);
 		
 	}
 
 	@Override
 	public void updateCancelPoint(String me_id, Integer pr_use_point) {
-		if(me_id == null && pr_use_point == null)
+		if(me_id == null)
 			return;
+		if(pr_use_point == null)
+			pr_use_point = 0;
 		memberDao.updateCancelPoint(me_id, pr_use_point);
 		
 	}
@@ -373,16 +377,20 @@ public class MemberServiceImp implements MemberService {
 
 	@Override
 	public void usePoint(String me_id, Integer pr_use_point) {
-		if(me_id == null && pr_use_point == null)
+		if(me_id == null)
 			return;
+		if(pr_use_point == null)
+			pr_use_point = 0;
 		memberDao.usePoint(me_id, pr_use_point);
 		
 	}
 
 	@Override
 	public void insertCancelPoint(String me_id, Integer pr_use_point) {
-		if(me_id == null && pr_use_point == null)
+		if(me_id == null)
 			return;
+		if(pr_use_point == null)
+			pr_use_point = 0;
 		memberDao.insertCancelPoint(me_id, pr_use_point);
 		
 	}
@@ -399,6 +407,14 @@ public class MemberServiceImp implements MemberService {
 		if(me_id == null && po_point == null)
 			return;
 		memberDao.returnPoint(me_id, po_point);
+		
+	}
+
+	@Override
+	public void updateMemberPoint(String po_me_id, Integer po_point) {
+		if(po_me_id == null && po_point == null)
+			return;
+		memberDao.updateMemberPoint(po_me_id, po_point);
 		
 	}
 

@@ -230,7 +230,7 @@ public class CartController {
 			cartService.insertShipping(shipping);
 			order.setOr_sh_num(shipping.getSh_num());
 			cartService.insertPayFinished(order);
-			memberService.insertPoint(member.getMe_id(), order.getOr_green_point());
+			//memberService.insertPoint(member.getMe_id(), order.getOr_green_point());
 		}
 		
 		try {
@@ -325,11 +325,11 @@ public class CartController {
 				if(member.getMe_grade().equals("ADMIN")) {
 					memberService.updateCancelPoint(me_id, pr_use_point);
 					memberService.insertCancelPoint(me_id, pr_use_point);
-					memberService.returnPoint(me_id, po_point);
+					//memberService.returnPoint(me_id, po_point);
 				}else {
 					memberService.updateCancelPoint(member.getMe_id(),pr_use_point);
 					memberService.insertCancelPoint(member.getMe_id(), pr_use_point);
-					memberService.returnPoint(member.getMe_id(), po_point);
+					//memberService.returnPoint(member.getMe_id(), po_point);
 					
 				}
 				
@@ -369,7 +369,7 @@ public class CartController {
 			order.setOr_sh_num(shipping.getSh_num());
 			cartService.insertPayFinished(order);
 			cartService.updateOrderState(order.getOr_num());
-			memberService.insertPoint(member.getMe_id(), order.getOr_green_point());
+			//memberService.insertPoint(member.getMe_id(), order.getOr_green_point());
 			
 			long timestamp = Long.parseLong(paid_at);
 		    Date date = new java.util.Date(timestamp*1000L); 
@@ -442,11 +442,11 @@ public class CartController {
 		if(member.getMe_grade().equals("ADMIN")) {
 			memberService.updateCancelPoint(me_id, pr_use_point);
 			memberService.updateCancelPoint(me_id, pr_use_point);
-			memberService.returnPoint(me_id, po_point);
+			//memberService.returnPoint(me_id, po_point);
 		}else {
 			memberService.updateCancelPoint(member.getMe_id(),pr_use_point);
 			memberService.insertCancelPoint(member.getMe_id(), pr_use_point);
-			memberService.returnPoint(member.getMe_id(), po_point);
+			//memberService.returnPoint(member.getMe_id(), po_point);
 		}
 		return "OK";
 		

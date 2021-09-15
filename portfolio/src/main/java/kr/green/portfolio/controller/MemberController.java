@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,11 +23,13 @@ import kr.green.portfolio.service.CartService;
 import kr.green.portfolio.service.MemberService;
 import kr.green.portfolio.vo.BookVO;
 import kr.green.portfolio.vo.BooksVO;
+import kr.green.portfolio.vo.CartVO;
 import kr.green.portfolio.vo.MemberVO;
 import kr.green.portfolio.vo.OrderVO;
 import kr.green.portfolio.vo.ParticularsVO;
 import kr.green.portfolio.vo.PaymentVO;
 import kr.green.portfolio.vo.PointVO;
+import kr.green.portfolio.vo.RegistrationVO;
 import kr.green.portfolio.vo.ShippingVO;
 
 @Controller
@@ -165,6 +168,15 @@ public class MemberController {
 		mv.addObject("particulars", particulars);
 		mv.setViewName("/member/mypagedetails");
 		return mv;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/member/point")
+	public String pointCheck (String po_me_id, String or_num, Integer po_point) {
+		memberService.insertPoint(po_me_id, po_point);
+		memberService.updateMemberPoint(po_me_id, po_point);
+		cartService.updateOrderConfirmed(or_num, po_me_id);
+		return "OK";
 	}
 	
 }
