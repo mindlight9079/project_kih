@@ -342,6 +342,36 @@ $(function(){
 			      alert("환불 실패");
 			    });
 		}
+	  	
+	  	if($(this).val() == 'confirm'){
+	  		var id = $(this).parent().find('.id').val();
+	  		var orderNum = $(this).parent().find('.orderNum').val();
+	  		var getPoint = $(this).parent().find('.returnPoint').val();
+	  		console.log(id)
+	  		console.log(orderNum)
+	  		console.log(getPoint)
+	  		var data = {
+	  				po_me_id : id,
+	  				or_num : orderNum,
+	  				po_point : getPoint
+	  		}
+	  		$.ajax({
+	  			async: false,
+	  			url: contextPath+'/member/point',
+	  			type : "post",
+	  			data :  data,
+	  			traditional : true,
+	  			success: function(data){
+	  				if(data == 'OK'){
+	  					alert('구매확정으로 변경되었습니다.')
+	  					location.href= contextPath+'/admin/user/orders';
+	  				}
+	  			},
+	  			error:function(error){
+	  				alert(error);
+	  			}
+	  		})
+	  	}
     })
 
 	

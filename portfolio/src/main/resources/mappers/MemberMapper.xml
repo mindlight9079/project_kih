@@ -196,7 +196,7 @@
 			values (#{me_id}, '결제취소로 인한 그린 포인트 차감', -#{po_point})
 	</insert>
 	<select id="getPointList" resultType="kr.green.portfolio.vo.PointVO">
-		select * from `point` where po_me_id  = #{me_id} 
+		select * from `point` where (po_me_id  = #{me_id} and po_point != 0)
 			limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
 	<update id="updateMemberPoint">
