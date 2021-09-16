@@ -117,6 +117,9 @@
 		.regi-btn{
 			text-align: right;
 		}
+	   .notice{
+    		color: grey; font-size: 15px; text-align : center;
+ 	   }
     </style>
 </head>
 <body>
@@ -189,6 +192,9 @@
         <th>주문상품</th>
         <th>결제승인일자</th>
       </tr>
+    <c:if test="${orderList.size() == 0}">
+		<tr><td colspan="8" class="notice">주문 내역이 없습니다.</td></tr>
+    </c:if>
       <c:forEach items="${orderList}" var="order" varStatus="status">
         <tr>
           <td>
@@ -292,6 +298,7 @@ $(function(){
 				data :  data,
 				traditional : true,
 				success: function(data){
+					console.log(data)
 					if(data == 'OK'){
 						alert('결제 취소 성공')
 						location.href= contextPath+'/admin/user/orders';

@@ -126,7 +126,7 @@
         	text-align: left;  font-size: 12px;
         }
 	    .notice{
-    	color: grey; font-size: 20px; text-align : center;
+    	color: grey; font-size: 15px; text-align : center;
    		}
 
     </style>

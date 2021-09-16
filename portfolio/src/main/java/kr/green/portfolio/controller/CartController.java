@@ -284,7 +284,6 @@ public class CartController {
 	@ResponseBody
 	@RequestMapping(value="/order/kakaopay/cancel")
 	public String cancelKakaopay (ModelAndView mv, HttpSession session, String pa_num, String or_num, BigInteger[] pr_bk_isbn, Integer[] pr_amount, Integer pr_use_point, String me_id, Integer po_point) throws ParseException {
-		System.out.println(po_point);
 		OrderVO dbOrder = cartService.getOrderInfo(or_num);
 		MemberVO member = (MemberVO)session.getAttribute("user");
 		try {
@@ -312,14 +311,15 @@ public class CartController {
 				} else {
 					taker = serverConnect.getErrorStream();
 				}
+				if(result == 400) {
+					return "FAIL";
+				}
 				System.out.println("리절트 :"+result);
 				InputStreamReader reader = new InputStreamReader(taker);
 				BufferedReader change = new BufferedReader(reader);
 				String res = change.readLine();
 				JSONObject jsonObj = stringToJson(res);
-				
-				System.out.println(res);	
-				
+				System.out.println(res);
 				cartService.updateCancel(or_num);
 				bookService.updateCancelAmount(pr_bk_isbn, pr_amount);
 				if(member.getMe_grade().equals("ADMIN")) {

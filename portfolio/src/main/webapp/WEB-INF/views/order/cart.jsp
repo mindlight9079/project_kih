@@ -119,7 +119,7 @@
     	display: flex;
     }
     .notice{
-    	color: grey; font-size: 20px; text-align : center;
+    	color: grey; font-size: 15px; text-align : center;
     }
     
     

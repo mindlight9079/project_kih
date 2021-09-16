@@ -177,7 +177,7 @@
     	position: absolute; right: 15px;  top: 45px;
 	}
 	.notice{
-    	color: grey; font-size: 20px; text-align : center;
+    	color: grey; font-size: 15px; text-align : center;
     }
 </style>
 <body>
