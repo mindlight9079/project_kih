@@ -302,6 +302,8 @@ $(function(){
 					if(data == 'OK'){
 						alert('결제 취소 성공')
 						location.href= contextPath+'/admin/user/orders';
+					}else{
+						alert('결제 취소가 이미 처리되었습니다.')
 					}
 				},
 				error:function(error){

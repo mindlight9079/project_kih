@@ -77,7 +77,6 @@ public class CartController {
 		MemberVO member = (MemberVO)session.getAttribute("user");
 		String userId = member.getMe_id();
 		int result = 0;
-	
 		if(member != null) {
 			cart.setCa_me_id(userId);
 			cartService.deleteCart(cart);
@@ -91,13 +90,19 @@ public class CartController {
 	public String updateCart(@RequestBody CartVO cart, HttpSession session) {
 		MemberVO member = (MemberVO)session.getAttribute("user");
 		String userId = member.getMe_id();
+		String result = "FAIL";
 		int amount = cart.getCa_amount();
-		String result = "0";
-		if(member != null) {
+		RegistrationVO dbRegi = bookService.getRegiBook(cart.getCa_re_code());
+		if(member != null && amount > dbRegi.getRe_amount()) {
+			cart.setCa_me_id(userId);
+			cart.setCa_amount(dbRegi.getRe_amount());
+			cartService.updateCart(cart);
+			result = "OK";
+		} else if(member != null && amount <= dbRegi.getRe_amount()) {
 			cart.setCa_me_id(userId);
 			cart.setCa_amount(amount);
 			cartService.updateCart(cart);
-			result = "1";
+			result = "OK";
 		}
 		return result;
 	}

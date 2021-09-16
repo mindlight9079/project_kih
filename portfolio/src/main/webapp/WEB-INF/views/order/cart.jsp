@@ -246,7 +246,7 @@
             <button class="btn btn btn-info orderList-btn">주문하기</button>
             <a href="<%=request.getContextPath()%>/"><button type="button" class="btn btn-secondary">쇼핑계속하기</button></a>
         </div>
-    </form>
+  	</form> 
 	</div>
 <script>
 $('.fa-bars').click(function(){
@@ -374,7 +374,7 @@ $('.amount').change(function(){
 		data : JSON.stringify(data),
 		contentType : 'application/json; charset=utf-8',
 		success:function(result){
-			if(result == '1'){
+			if(result == 'OK'){
 				alert("수량이 수정되었습니다.")
 				location.reload();
 			}
@@ -386,6 +386,8 @@ $('.order-btn').click(function(){
 	$(this).parents('tr').find('[name=ca_num]').prop('checked',true)
 	getTotalCount();
 	
+	checkAmount($(this).parents('tr'))
+	/*
 	var amount = parseInt($(this).parents('tr').find('.amount').val());
 	var re_amount = parseInt($(this).parents('tr').find('input[name=ca_re_amount]').val());
 	var codeNum = $(this).parents('tr').find('.codeNum').val();
@@ -394,9 +396,9 @@ $('.order-btn').click(function(){
 	
 	if(re_amount < amount){
 		$('.amount').change();
-	var data = {
-			ca_amount : re_amount,
-			ca_re_code : codeNum
+		var data = {
+				ca_amount : re_amount,
+				ca_re_code : codeNum
 		}
 		$.ajax({
 			url : contextPath + '/order/cart/update',
@@ -410,7 +412,7 @@ $('.order-btn').click(function(){
 				}
 			}
 		})
-	}
+	}*/
 })
 
 var user = '${user==null?'':user.me_id}';
@@ -422,8 +424,70 @@ $('.orderList-btn').click(function(){
 	if($('input[name=ca_num]:checked').length == 0){
 		alert('선택된 상품이 없습니다.')
 		return false;
-	}	
+	}
+	/*
+	var amount = [];
+	$(this).parents('.container').find('.amount').each(function(){
+		parseInt(amount.push($(this).val()));
+	});	
+	var re_amount = [];
+	$(this).parents('.container').find('input[name=ca_re_amount]').each(function(){
+		parseInt(re_amount.push($(this).val()));
+	});	
+	var codeNum = [];
+	$(this).parents('.container').find('.codeNum').each(function(){
+		codeNum.push($(this).val());
+	});
+	if(re_amount < amount){
+		$('.amount').change();
+	var data = {
+			ca_amount : re_amount,
+			ca_re_code : codeNum
+		}
+		$.ajax({
+			url : contextPath + '/order/cart/update',
+			traditional : true,
+			type : 'post',
+			data : JSON.stringify(data),
+			aync : false,
+			contentType : 'application/json; charset=utf-8',
+			success:function(result){
+				if(result == '1'){
+					alert("수량이 수정되었습니다.")
+				}
+			}
+		})
+	}*/
+	$('.cart-table tr').each(function(){
+		checkAmount($(this));
+	})
 })
+function checkAmount(trObj){
+	var amount = parseInt(trObj.find('.amount').val());
+	var re_amount = parseInt(trObj.find('input[name=ca_re_amount]').val());
+	var codeNum = trObj.find('.codeNum').val();
+	var obj = trObj.find('.amount').val()
+	var ca_num = trObj.find('[name=ca_num]').val();
+	
+	if(re_amount < amount){
+		var data = {
+			ca_amount : amount,
+			ca_re_code : codeNum
+		}
+		$.ajax({
+			url : contextPath + '/order/cart/update',
+			type : 'post',
+			data : JSON.stringify(data),
+			aync : false,
+			contentType : 'application/json; charset=utf-8',
+			success:function(result){
+				if(result == 'OK'){
+					alert("재고가 변경되었습니다.")
+				}
+			}
+		})
+	}
+}
 </script>
 </body>
 </html>
