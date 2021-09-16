@@ -113,6 +113,9 @@
 	    .current{
 	    	font-weight: bold;
 	    }
+	   .notice{
+    	color: grey; font-size: 20px; text-align : center;
+ 	   }
     </style>
 </head>
 <body>
@@ -187,6 +190,9 @@
                     <th class="orderState">주문상태</th>
                 </tr>
             </thead>
+           	<c:if test="${orderList.size() == 0}">
+				<tr><td colspan="4" class="notice">주문 내역이 없습니다.</td></tr>
+        	</c:if>
             <tbody>
             <c:forEach items="${orderList}" var="order" varStatus="status">
             <tr>

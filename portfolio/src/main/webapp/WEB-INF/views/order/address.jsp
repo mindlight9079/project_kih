@@ -29,6 +29,9 @@
         .phoneWidth{
         	width: 150px;
         }
+        .notice{
+    		color: grey; font-size: 20px; text-align : center;
+   		}
     </style>
 </head>
 <body>
@@ -39,6 +42,9 @@
                 <th>배송지</th>
                 <th class="phoneWidth">휴대전화</th>
             </tr>
+            <c:if test="${shipping.size() == 0}">
+				<tr><td colspan="3" class="notice">최근 배송지 내역이 없습니다.</td></tr>
+        	</c:if>
             <c:forEach items="${shipping}" var="ship" varStatus="status">
 	            <tr class="addr">
 	                <td>${ship.sh_name}<input type="hidden" value="${ship.sh_name}" id="sh_name"></td>

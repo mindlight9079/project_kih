@@ -125,7 +125,9 @@
         .tooltip-text p{
         	text-align: left;  font-size: 12px;
         }
-	
+	    .notice{
+    	color: grey; font-size: 20px; text-align : center;
+   		}
 
     </style>
 </head>
@@ -215,6 +217,9 @@
 	                <th>그린포인트</th>
 	              </tr>
 	            </thead>
+	        <c:if test="${pointList.size() == 0}">
+				<tr><td colspan="4" class="notice">그린포인트 적립 내역이 없습니다.</td></tr>
+        	</c:if>
 	            <tbody>
 	               <c:forEach items="${pointList}" var="point" varStatus = "status">
 	               <c:if test="${point.po_point != 0}">

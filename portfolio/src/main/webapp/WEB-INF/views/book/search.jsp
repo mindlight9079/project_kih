@@ -175,8 +175,9 @@
     }
     .bookCart{
     	position: absolute; right: 15px;  top: 45px;
-}
-}
+	}
+	.notice{
+    	color: grey; font-size: 20px; text-align : center;
     }
 </style>
 <body>
@@ -262,6 +263,9 @@
         <form action="<%=request.getContextPath()%>/order/cartRegister" method="post">
         <button class="bookCart btn btn-secondary">장바구니</button>
         <table class="table">
+            <c:if test="${bookSearch.size() == 0}">
+				<div class="notice">관련된 책 정보가 없습니다.</div>
+        	</c:if>
         <c:forEach items="${bookSearch}" var="book" varStatus="status">
             <tr>
                 <td>

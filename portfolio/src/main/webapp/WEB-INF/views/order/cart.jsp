@@ -118,6 +118,9 @@
     .amount-box{
     	display: flex;
     }
+    .notice{
+    	color: grey; font-size: 20px; text-align : center;
+    }
     
     
 </style>
@@ -190,6 +193,9 @@
                 <th>주문</th>
             </tr>
             </thead>
+          	<c:if test="${cartList.size() == 0}">
+				<tr><td colspan="6" class="notice">카트에 담겨있는 상품이 없습니다.</td></tr>
+        	</c:if>
             <tbody>
                <c:forEach items="${cartList}" var="cart" varStatus="status"> 
                  <c:if test="${cart != null}">

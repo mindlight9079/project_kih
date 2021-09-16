@@ -141,6 +141,9 @@
     .menu a{
     	color: black;
     }
+    .notice{
+    	color: grey; font-size: 20px; text-align : center;
+    }
    
 </style>
 <body>
@@ -222,6 +225,9 @@
  			<button type="button" class="btn btn-secondary allUnChecked-btn">전체해제</button>
  		</div>
         <table class="table">
+        	<c:if test="${registration.size() == 0}">
+				<div class="notice">관련된 책 정보가 없습니다.</div>
+        	</c:if>
         <c:forEach items="${registration}" var="book" varStatus="status">
             <tr>
                 <td>
