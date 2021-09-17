@@ -88,22 +88,25 @@ public class CartController {
 	@ResponseBody
 	@RequestMapping(value="/order/cart/update", method=RequestMethod.POST)
 	public String updateCart(@RequestBody CartVO cart, HttpSession session) {
+		//현재 수량을 가져온다.(화면에서)
+		//장바구니 번호에 맞는 재고량을 db에서 가져온다. 
+		//현재 수량과 재고를 비교한다.
+		//현재 수량이 재고보다 작으면 장바구니에 수량을 수량으로 변경
+		//현재 수량이 재고보다 많으면 장바구니에 현재 수량으로 업데이트
 		MemberVO member = (MemberVO)session.getAttribute("user");
 		String userId = member.getMe_id();
 		String result = "FAIL";
 		int amount = cart.getCa_amount();
 		RegistrationVO dbRegi = bookService.getRegiBook(cart.getCa_re_code());
+		cart.setCa_me_id(userId);
 		if(member != null && amount > dbRegi.getRe_amount()) {
-			cart.setCa_me_id(userId);
 			cart.setCa_amount(dbRegi.getRe_amount());
-			cartService.updateCart(cart);
-			result = "OK";
+			result = "OK1";
 		} else if(member != null && amount <= dbRegi.getRe_amount()) {
-			cart.setCa_me_id(userId);
 			cart.setCa_amount(amount);
-			cartService.updateCart(cart);
-			result = "OK";
+			result = "OK2";
 		}
+		cartService.updateCart(cart);
 		return result;
 	}
 	

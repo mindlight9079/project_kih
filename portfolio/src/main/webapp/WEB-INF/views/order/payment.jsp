@@ -281,11 +281,12 @@
 		                <td class="price">${payment.ca_price}원</td>
 		                <td class="amount">
 		                	<c:if test="${payment.ca_amount != null}">${payment.ca_amount}</c:if>
+		                		<input type="hidden" value="${payment.ca_amount}" class="ca_amount">
+		                		<input type="hidden" value="${payment.ca_re_code}" class="codeNum">
 		                </td>
 		                <td class="total" >${payment.ca_total_price}원</td>
 		                <td class="deli-date"></td>
 		            </tr>
-			        <input type="hidden" name="pr_amount" value="${payment.ca_amount}">
 	            </c:forEach>
 	            </tbody>
 	        </table>
@@ -724,6 +725,15 @@ function sample4_execDaumPostcode() {
 			alert('주문 내용 확인 후 동의하셔야 구매가 가능합니다.');
 			return false;
 		}
+		var str = true;
+		$('.cart-table tr').each(function(){
+			if(!checkAmount($(this)))
+				str = false;
+		})
+		if(!str){
+			location.reload();
+			return false;
+		}
 		if($('[name=pay]:checked').val() == 'kakao'){
 			var sh_name = $('[name=or_receiver]').val();
 			var	sh_doro = $('[name=sh_doro]').val();
@@ -849,6 +859,32 @@ function sample4_execDaumPostcode() {
 			});
 		}
 	})
+
+function checkAmount(trObj){
+	var amount = parseInt(trObj.find('.ca_amount').val());
+	var codeNum = trObj.find('.codeNum').val();
+	console.log(amount)
+	console.log(codeNum)
+	var data = {
+		ca_amount : amount,
+		ca_re_code : codeNum
+	}
+	var str = true;
+	$.ajax({
+		url : contextPath + '/order/cart/update',
+		type : 'post',
+		data : JSON.stringify(data),
+		async : false,
+		contentType : 'application/json; charset=utf-8',
+		success:function(result){
+			if(result == 'OK1'){
+				alert("재고부족으로 주문수량이 변경되었습니다.")
+				str = false;
+			}
+		}
+	})
+	return str;
+}
 })
 
 </script>

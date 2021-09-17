@@ -275,26 +275,7 @@ $(window).on('scroll', function(){
         }     
     prevScrollTop = nowScrollTop;
 });
-function getTotalCount(){
-	var totalCount = 0;	
-	$('.price').each(function(){
-			var qty = $(this).parent().prev().find('.amount').val();
-			if($(this).parents('tr').find('[name=ca_num]').prop('checked'))
-				totalCount += parseInt($(this).val())*qty;
-	})
-	$('.totalCount').text(totalCount+"원");
-	var total = $('.totalCount').text();
-	var num = parseInt(total.replace(/[^0-9]/g,''));
-	if(num >= 10000){
-		$('.addPrice').text('0원');		
-	} else if(num < 10000){
-		$('.addPrice').text('2500원');
-	}
-	var addPrice = $('.addPrice').text();
-	var addNum = parseInt(addPrice.replace(/[^0-9]/g,''));
-	var finalCount = num+addNum;
-	$('.finalCount').text(finalCount+"원");
-}	
+
 
 
 	$('[name=ca_num]').prop('checked',true);
@@ -374,7 +355,7 @@ $('.amount').change(function(){
 		data : JSON.stringify(data),
 		contentType : 'application/json; charset=utf-8',
 		success:function(result){
-			if(result == 'OK'){
+			if(result == 'OK2'){
 				alert("수량이 수정되었습니다.")
 				location.reload();
 			}
@@ -387,32 +368,7 @@ $('.order-btn').click(function(){
 	getTotalCount();
 	
 	checkAmount($(this).parents('tr'))
-	/*
-	var amount = parseInt($(this).parents('tr').find('.amount').val());
-	var re_amount = parseInt($(this).parents('tr').find('input[name=ca_re_amount]').val());
-	var codeNum = $(this).parents('tr').find('.codeNum').val();
-	var obj = $(this).parents('tr').find('.amount').val()
-	var ca_num = $(this).parents('tr').find('[name=ca_num]').val();
-	
-	if(re_amount < amount){
-		$('.amount').change();
-		var data = {
-				ca_amount : re_amount,
-				ca_re_code : codeNum
-		}
-		$.ajax({
-			url : contextPath + '/order/cart/update',
-			type : 'post',
-			data : JSON.stringify(data),
-			aync : false,
-			contentType : 'application/json; charset=utf-8',
-			success:function(result){
-				if(result == '1'){
-					alert("수량이 수정되었습니다.")
-				}
-			}
-		})
-	}*/
+
 })
 
 var user = '${user==null?'':user.me_id}';
@@ -425,43 +381,34 @@ $('.orderList-btn').click(function(){
 		alert('선택된 상품이 없습니다.')
 		return false;
 	}
-	/*
-	var amount = [];
-	$(this).parents('.container').find('.amount').each(function(){
-		parseInt(amount.push($(this).val()));
-	});	
-	var re_amount = [];
-	$(this).parents('.container').find('input[name=ca_re_amount]').each(function(){
-		parseInt(re_amount.push($(this).val()));
-	});	
-	var codeNum = [];
-	$(this).parents('.container').find('.codeNum').each(function(){
-		codeNum.push($(this).val());
-	});
-	if(re_amount < amount){
-		$('.amount').change();
-	var data = {
-			ca_amount : re_amount,
-			ca_re_code : codeNum
-		}
-		$.ajax({
-			url : contextPath + '/order/cart/update',
-			traditional : true,
-			type : 'post',
-			data : JSON.stringify(data),
-			aync : false,
-			contentType : 'application/json; charset=utf-8',
-			success:function(result){
-				if(result == '1'){
-					alert("수량이 수정되었습니다.")
-				}
-			}
-		})
-	}*/
+	
 	$('.cart-table tr').each(function(){
 		checkAmount($(this));
 	})
+
 })
+
+function getTotalCount(){
+	var totalCount = 0;	
+	$('.price').each(function(){
+			var qty = $(this).parent().prev().find('.amount').val();
+			if($(this).parents('tr').find('[name=ca_num]').prop('checked'))
+				totalCount += parseInt($(this).val())*qty;
+	})
+	$('.totalCount').text(totalCount+"원");
+	var total = $('.totalCount').text();
+	var num = parseInt(total.replace(/[^0-9]/g,''));
+	if(num >= 10000){
+		$('.addPrice').text('0원');		
+	} else if(num < 10000){
+		$('.addPrice').text('2500원');
+	}
+	var addPrice = $('.addPrice').text();
+	var addNum = parseInt(addPrice.replace(/[^0-9]/g,''));
+	var finalCount = num+addNum;
+	$('.finalCount').text(finalCount+"원");
+}	
+
 function checkAmount(trObj){
 	var amount = parseInt(trObj.find('.amount').val());
 	var re_amount = parseInt(trObj.find('input[name=ca_re_amount]').val());
@@ -469,24 +416,22 @@ function checkAmount(trObj){
 	var obj = trObj.find('.amount').val()
 	var ca_num = trObj.find('[name=ca_num]').val();
 	
-	if(re_amount < amount){
-		var data = {
-			ca_amount : amount,
-			ca_re_code : codeNum
-		}
-		$.ajax({
-			url : contextPath + '/order/cart/update',
-			type : 'post',
-			data : JSON.stringify(data),
-			aync : false,
-			contentType : 'application/json; charset=utf-8',
-			success:function(result){
-				if(result == 'OK'){
-					alert("재고가 변경되었습니다.")
-				}
-			}
-		})
+	var data = {
+		ca_amount : amount,
+		ca_re_code : codeNum
 	}
+	$.ajax({
+		url : contextPath + '/order/cart/update',
+		type : 'post',
+		data : JSON.stringify(data),
+		async : false,
+		contentType : 'application/json; charset=utf-8',
+		success:function(result){
+			if(result == 'OK1'){
+				alert("재고부족으로 주문수량이 변경되었습니다.")
+			}
+		}
+	})
 }
 </script>
 </body>
