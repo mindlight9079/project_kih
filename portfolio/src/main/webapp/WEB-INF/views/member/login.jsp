@@ -24,6 +24,15 @@
         font-size: 40px; text-align: center; font-weight: bold;
         font-style: italic; letter-spacing: 0; color: #000; margin-bottom : 40px;
     }
+    .form-check{
+		display: flex;
+    }
+    .find{
+    	margin-left: 265px;
+    }
+    .find a{
+    	color: grey; font-size: 14px;
+    }
 </style>
 </head>
 <body>
@@ -41,6 +50,10 @@
         <label class="form-check-label">
             <input class="form-check-input" name="useCookie" type="checkbox"> 자동로그인
         </label>
+        <div class="find">
+			<a href="<%=request.getContextPath()%>/find/id" class="findId">아이디찾기 | </a>
+	       	<a href="<%=request.getContextPath()%>/find/pw" class="findPw">비밀번호찾기</a>
+        </div>
         </div>
         <button class="btn btn-info col-12">로그인</button>
     </form>

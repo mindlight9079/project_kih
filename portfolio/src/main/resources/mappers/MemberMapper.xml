@@ -204,5 +204,11 @@
 			me_point = me_point + #{po_point}
 				where me_id = #{po_me_id}
 	</update>
+	<select id="getMemberByEmail" resultType="kr.green.portfolio.vo.MemberVO">
+		select * from member where me_email = #{me_email}
+	</select>
+	<select id="getMemberId" resultType="kr.green.portfolio.vo.MemberVO">
+		select * from member where me_id = #{id}
+	</select>
 </mapper>
 

@@ -418,5 +418,21 @@ public class MemberServiceImp implements MemberService {
 		
 	}
 
+	@Override
+	public ArrayList<MemberVO> getMemberByEmail(String email) {
+		if(email == null)
+			return null;
+		return memberDao.getMemberByEmail(email);
+	}
+
+	@Override
+	public MemberVO getMemberId(String id) {
+		if(id == null)
+			return null;
+		return memberDao.getMemberId(id);
+	}
+
+
+
 
 }

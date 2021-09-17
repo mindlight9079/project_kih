@@ -91,6 +91,10 @@ public interface MemberDAO {
 
 	public void updateMemberPoint(@Param("po_me_id")String po_me_id, @Param("po_point") Integer po_point);
 
+	public ArrayList<MemberVO> getMemberByEmail(String email);
+
+	public MemberVO getMemberId(String id);
+
 
 
 

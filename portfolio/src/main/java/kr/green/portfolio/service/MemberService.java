@@ -92,4 +92,9 @@ public interface MemberService {
 
 	void updateMemberPoint(String po_me_id, Integer po_point);
 
+	ArrayList<MemberVO> getMemberByEmail(String email);
+
+	MemberVO getMemberId(String id);
+
+
 }
