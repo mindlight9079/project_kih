@@ -33,7 +33,7 @@ CREATE TABLE `particulars` (
   KEY `pr_or_num_idx` (`pr_or_num`),
   CONSTRAINT `de_bk_isbn` FOREIGN KEY (`pr_bk_isbn`) REFERENCES `book` (`bk_isbn`),
   CONSTRAINT `pr_or_num` FOREIGN KEY (`pr_or_num`) REFERENCES `order` (`or_num`)
-) ENGINE=InnoDB AUTO_INCREMENT=189 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=241 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +42,7 @@ CREATE TABLE `particulars` (
 
 LOCK TABLES `particulars` WRITE;
 /*!40000 ALTER TABLE `particulars` DISABLE KEYS */;
-INSERT INTO `particulars` VALUES (188,'2021091405164625',1191824004,1,10000);
+INSERT INTO `particulars` VALUES (239,'2021091604260349',8960906883,1,0),(240,'2021091604260349',1191239349,1,0);
 /*!40000 ALTER TABLE `particulars` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -55,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-09-14 17:48:00
+-- Dump completed on 2021-09-17 12:48:41

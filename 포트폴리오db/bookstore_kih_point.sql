@@ -31,7 +31,7 @@ CREATE TABLE `point` (
   PRIMARY KEY (`po_num`),
   KEY `po_me_id` (`po_me_id`),
   CONSTRAINT `point_ibfk_1` FOREIGN KEY (`po_me_id`) REFERENCES `member` (`me_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=85 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +40,7 @@ CREATE TABLE `point` (
 
 LOCK TABLES `point` WRITE;
 /*!40000 ALTER TABLE `point` DISABLE KEYS */;
-INSERT INTO `point` VALUES (44,'qwe123','주문에 의한 그린포인트 부여',750,'2021-09-14 17:46:16'),(45,'qwe123','그린 포인트를 그린 머니로 전환',-10000,'2021-09-14 17:46:34'),(46,'qwe123','결제취소로 인한 그린 포인트 재적립',10000,'2021-09-14 17:46:51'),(47,'qwe123','결제취소로 인한 그린 포인트 차감',-750,'2021-09-14 17:46:51');
+INSERT INTO `point` VALUES (83,'qwe123','그린 포인트를 그린 머니로 전환',0,'2021-09-16 16:03:43'),(84,'qwe123','결제취소로 인한 그린 포인트 재적립',0,'2021-09-16 16:04:05');
 /*!40000 ALTER TABLE `point` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-09-14 17:48:00
+-- Dump completed on 2021-09-17 12:48:40
