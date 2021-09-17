@@ -15,6 +15,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://kit.fontawesome.com/be5943d19e.js" crossorigin="anonymous"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/jquery.validate.min.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/additional-methods.min.js"></script>
     <style>
         *{
             margin: 0; padding: 0; list-style: none; text-decoration: none; color: black;
@@ -432,9 +434,7 @@ $(function(){
 	            email : "메일규칙에 어긋납니다."
 	        }
 	    }, submitHandler: function(form){
-	 
-	    	 sample4_execDaumPostcode();
-		     
+					     
 		     var year = $('[type=year]').val();
 		     var month = $('[name=month]').val();
 		     var day = $('[type=day]').val();
@@ -446,7 +446,7 @@ $(function(){
 		     var jumin = jumin1+jumin2;
 		     $('[name=me_resident_num]').val(jumin);
 		 
-		     $('form').submit();
+		    return true;
 	    }
 	});
 })
