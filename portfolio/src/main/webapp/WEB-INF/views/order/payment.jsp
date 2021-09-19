@@ -281,7 +281,7 @@
 		                <td class="price">${payment.ca_price}원</td>
 		                <td class="amount">
 		                	<c:if test="${payment.ca_amount != null}">${payment.ca_amount}</c:if>
-		                		<input type="hidden" value="${payment.ca_amount}" class="ca_amount">
+		                		<input type="hidden" value="${payment.ca_amount}" class="ca_amount" name="pr_amount">
 		                		<input type="hidden" value="${payment.ca_re_code}" class="codeNum">
 		                </td>
 		                <td class="total" >${payment.ca_total_price}원</td>
