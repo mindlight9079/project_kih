@@ -13,12 +13,29 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<style>
+    h5{
+        font-size: 20px; text-align: center; font-weight: bold;
+        font-style: italic; letter-spacing: 0; color: #000; margin: 20px 0; 
+    }
+    .container{
+    	margin: 0 auto; text-align: center;
+    }
+    .btn-part{
+    	margin-top: 20px;
+    }
+</style>
 </head>
 <body>
+  <h5>그린포인트</h5>
+  <div class="container">
   <div>1000단위로 사용 가능합니다.</div>
   <div>사용 가능 포인트 : <span id="ablePoint"></span></div>
-  <input type="text" class="pointExchange">
-  <button type="button" class="exchange btn btn-secondary">확인</button>
+  <div class="btn-part">
+	<input type="text" class="pointExchange">
+  	<button type="button" class="exchange btn btn-secondary">확인</button>
+  </div>
+  </div>
 </body>
 <script>
 $(function(){

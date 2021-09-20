@@ -14,6 +14,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <style>
+       h5{
+        font-size: 20px; text-align: center; font-weight: bold;
+        font-style: italic; letter-spacing: 0; color: #000; margin: 20px 0; 
+   		}
         .container{
             margin-top: 30px;
         }
@@ -36,6 +40,7 @@
 </head>
 <body>
     <div class="container">
+    <h5>최근배송지</h5>
         <table class="table">
             <tr>
                 <th class="width">수령자</th>
