@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.25, for Win64 (x86_64)
 --
--- Host: localhost    Database: bookstore_kih
+-- Host: localhost    Database: kih9079
 -- ------------------------------------------------------
 -- Server version	8.0.25
 
@@ -16,34 +16,32 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `particulars`
+-- Table structure for table `point`
 --
 
-DROP TABLE IF EXISTS `particulars`;
+DROP TABLE IF EXISTS `point`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `particulars` (
-  `pr_num` int NOT NULL AUTO_INCREMENT,
-  `pr_or_num` varchar(20) NOT NULL,
-  `pr_bk_isbn` bigint NOT NULL,
-  `pr_amount` int NOT NULL,
-  `pr_use_point` int NOT NULL DEFAULT '0',
-  PRIMARY KEY (`pr_num`),
-  KEY `de_bk_isbn_idx` (`pr_bk_isbn`),
-  KEY `pr_or_num_idx` (`pr_or_num`),
-  CONSTRAINT `de_bk_isbn` FOREIGN KEY (`pr_bk_isbn`) REFERENCES `book` (`bk_isbn`),
-  CONSTRAINT `pr_or_num` FOREIGN KEY (`pr_or_num`) REFERENCES `order` (`or_num`)
-) ENGINE=InnoDB AUTO_INCREMENT=241 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `point` (
+  `po_num` int NOT NULL AUTO_INCREMENT,
+  `po_me_id` varchar(50) NOT NULL,
+  `po_contents` longtext NOT NULL,
+  `po_point` int NOT NULL DEFAULT '0',
+  `po_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`po_num`),
+  KEY `po_me_id` (`po_me_id`),
+  CONSTRAINT `point_ibfk_1` FOREIGN KEY (`po_me_id`) REFERENCES `member` (`me_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=85 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `particulars`
+-- Dumping data for table `point`
 --
 
-LOCK TABLES `particulars` WRITE;
-/*!40000 ALTER TABLE `particulars` DISABLE KEYS */;
-INSERT INTO `particulars` VALUES (239,'2021091604260349',8960906883,1,0),(240,'2021091604260349',1191239349,1,0);
-/*!40000 ALTER TABLE `particulars` ENABLE KEYS */;
+LOCK TABLES `point` WRITE;
+/*!40000 ALTER TABLE `point` DISABLE KEYS */;
+INSERT INTO `point` VALUES (83,'qwe123','그린 포인트를 그린 머니로 전환',0,'2021-09-16 16:03:43'),(84,'qwe123','결제취소로 인한 그린 포인트 재적립',0,'2021-09-16 16:04:05');
+/*!40000 ALTER TABLE `point` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -55,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-09-23 14:41:42
+-- Dump completed on 2021-09-23 15:02:54

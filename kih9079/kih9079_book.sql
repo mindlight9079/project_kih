@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.25, for Win64 (x86_64)
 --
--- Host: localhost    Database: bookstore_kih
+-- Host: localhost    Database: kih9079
 -- ------------------------------------------------------
 -- Server version	8.0.25
 
@@ -37,7 +37,7 @@ CREATE TABLE `book` (
   KEY `bk_pu_num_idx` (`bk_publish`),
   KEY `bk_pu_num_idx1` (`bk_pu_num`),
   CONSTRAINT `bk_pu_num` FOREIGN KEY (`bk_pu_num`) REFERENCES `publisher` (`pu_num`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -59,4 +59,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-09-23 14:41:40
+-- Dump completed on 2021-09-23 15:02:53
