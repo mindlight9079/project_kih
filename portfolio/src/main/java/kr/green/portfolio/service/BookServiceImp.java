@@ -22,7 +22,8 @@ public class BookServiceImp implements BookService {
 	@Autowired
 	MemberDAO memberDao;
 	
-	private String uploadPath = "D:\\JAVA_TEST\\uploadfiles";
+	//private String uploadPath = "D:\\JAVA_TEST\\uploadfiles";
+	private String uploadPath = "/kih9079/tomcat/webapps/img";
 	
 	@Override
 	public boolean bookRegister(BookVO book, MultipartFile file) {

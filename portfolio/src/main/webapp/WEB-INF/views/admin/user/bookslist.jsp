@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bookslist</title>
-    <link rel="stylesheet" href="/portfolio/resources/css/common.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/common.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -173,7 +173,7 @@
 	           <li><a href="<%=request.getContextPath()%>/admin/user/publisherlist">MANAGEMENT</a></li>
 	           <li><a href="<%=request.getContextPath()%>/admin/user/orders">ORDERS</a></li>
 	          </c:if>
-	          <li><a href="<%=request.getContextPath()%>">HOME</a></li>
+	          <li><a href="<%=request.getContextPath()%>/">HOME</a></li>
 	      </ul>
     </div>
     <div class="container">
