@@ -40,7 +40,7 @@
         }
 
         .nav{
-        	margin-left: calc(50% - 330px / 2);
+        	margin-left: calc(50% - 440px / 2);
         }
         .nav::after{
             content: ''; display: block; clear: both;
@@ -205,6 +205,7 @@
         <li><a href="<%=request.getContextPath()%>/member/mypage">주문내역</a></li>
         <li class="point"><a href="<%=request.getContextPath()%>/member/greenpoint">그린포인트</a></li>
         <li class="info"><a href="<%=request.getContextPath()%>/member/memberinfo" class="current">회원정보</a></li>
+        <li class="out"><a href="<%=request.getContextPath()%>/member/memberout">회원탈퇴</a></li>
     </ul>
 <div class="box1">
     <div class="form-group">
@@ -349,8 +350,8 @@
 		     var jibun = $('input[id=sample4_jibunAddress]').val();
 		     var detail = $('input[id=sample4_detailAddress]').val();
 		     var extra = $('input[id=sample4_extraAddress]').val();
-		     var address = sp+","+road+detail+" "+extra;
-		     var jAddress = sp+","+jibun+detail+" "+extra;
+		     var address = sp+", "+road+" "+detail+" "+extra;
+		     var jAddress = sp+", "+jibun+" "+detail+" "+extra;
 		     $('[name=me_address]').val(address);
 		     $('[name=me_jAddress]').val(jAddress);
             }
@@ -441,6 +442,17 @@ $(function(){
 		     var day = $('[type=day]').val();
 		     var birth = year+"년"+month+"월"+day+"일";
 		     $('[name=me_birth]').val(birth);
+		     
+		     var sp = $('input[id=sample4_postcode]').val();
+		     var road = $('input[id=sample4_roadAddress]').val();
+		     var jibun = $('input[id=sample4_jibunAddress]').val();
+		     var detail = $('input[id=sample4_detailAddress]').val();
+		     var extra = $('input[id=sample4_extraAddress]').val();
+		     var address = sp+", "+road+" "+detail+" "+extra;
+		     var jAddress = sp+", "+jibun+" "+detail+" "+extra;
+		     $('[name=me_address]').val(address);
+		     $('[name=me_jAddress]').val(jAddress);
+		     
 		     
 		     var jumin1 = $('#jumin1').val();
 		     var jumin2 = $('#jumin2').val();

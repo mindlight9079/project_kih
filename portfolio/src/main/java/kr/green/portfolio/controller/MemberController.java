@@ -273,4 +273,24 @@ public class MemberController {
 		return pw;
 	}
 	
+	@RequestMapping(value="/member/memberout", method= RequestMethod.GET)
+	public ModelAndView memberout (ModelAndView mv, HttpSession session) {
+		mv.setViewName("/member/memberout");
+		return mv;
+	}
+	
+	@RequestMapping(value="/member/memberout", method= RequestMethod.POST)
+	public ModelAndView memberDelete (ModelAndView mv, MemberVO memberVO, HttpSession session) {
+		MemberVO member = (MemberVO) session.getAttribute("user");
+		if(memberService.login(memberVO) == null){
+			mv.addObject("msg", false);
+			mv.setViewName("/member/memberout");
+		}else {
+			memberService.memberDelete(member);
+			session.invalidate();
+			mv.setViewName("redirect:/");
+		}
+		return mv;
+	}
+	
 }

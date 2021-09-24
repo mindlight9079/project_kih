@@ -97,7 +97,7 @@
 	    }
 	    
 	    .nav{
-        	margin-left: calc(50% - 330px / 2);
+        	margin-left: calc(50% - 440px / 2);
         }
         .nav::after{
             content: ''; display: block; clear: both;
@@ -193,6 +193,7 @@
         	<li><a href="<%=request.getContextPath()%>/member/mypage">주문내역</a></li>
             <li class="point"><a href="<%=request.getContextPath()%>/member/greenpoint" class="current">그린포인트</a></li>
             <li class="info"><a href="<%=request.getContextPath()%>/member/memberinfo">회원정보</a></li>
+            <li class="out"><a href="<%=request.getContextPath()%>/member/memberout">회원탈퇴</a></li>
         </ul>
         <div class="tablePart">
         	<div class="grade">

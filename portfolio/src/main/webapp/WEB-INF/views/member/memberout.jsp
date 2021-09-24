@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mypage</title>
+    <title>Memberout</title>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/common.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -21,52 +21,22 @@
         body{
         	background-image: url(<%=request.getContextPath()%>/resources/js/whitewater.jpg); 
         }
- 
-        a{
-        	color: black;
-        }
-        a:hover{
-        	color: rgb(0, 104, 136);
-        }
         .container{
             width: 70%;  margin: 120px auto; position: relative;
         }
         .mypage{
             font-size: 40px; text-align: center; font-weight: bold;
             font-style: italic; letter-spacing: 0; color: #000;
-        } 
-        .table th{
-            background-color: #f8f8f8;
-        }
-        .fa-bars{
-            margin-right: 15px; font-size: 25px; cursor: pointer;
-        }
-        .nav{
-        	margin-left: calc(50% - 440px / 2);
-        }
-        .nav::after{
-            content: ''; display: block; clear: both;
-        }
-        .nav li{
-            width: 110px; border-right: 1px solid black; text-align: center;
-            float: left;  margin-top: 40px;
-        }
-        .nav li:last-child{
-        	border: none;
-        }
-        .table{
-        	margin-top: 70px;
         }
 
-        
-	    .menu {
+       	.menu {
 	        display: flex; position: absolute; top: 15px; right: 30px; z-index: 12;
 	    }
 	    .menu ul li{
 	        float: left; padding: 10px;  font-size: 20px;  font-family:sans-serif; font-weight: bold;  cursor: pointer;
 	    }
 	    .menu ul li a{
-	     	font-size: 18px; font-weight: bold;  
+	     	font-size: 18px; font-weight: bold;
 	     }
 	  	.menu ul::after{
 	        content: ''; clear: both; display: block;
@@ -109,13 +79,36 @@
 	    .fa-times{
 	        color: white; font-size: 30px; position: absolute; top: 20px; right: 20px; 
 	    }
-	    
-	    .current{
-	    	font-weight: bold;
-	    }
-	   .notice{
-    	color: grey; font-size: 15px; text-align : center;
- 	   }
+
+        .nav{
+        	margin-left: calc(50% - 440px / 2);
+        }
+        .nav::after{
+            content: ''; display: block; clear: both;
+        }
+        .nav li{
+            width: 110px; border-right: 1px solid black; text-align: center;
+            float: left;  margin-top: 40px;
+        }
+        .nav li:last-child{
+        	border: none;
+        }
+        .nav a{
+        	 color: black;
+        }
+        .current{
+        	font-weight: bold;
+        }
+
+		.deletePart{
+			width: 75%; margin: 70px auto;
+		}
+		.error{
+			font-size: 15px; color: red; margin-top: -3px; margin-bottom: 7px;
+		}
+		.btn-part{
+			text-align:center;
+		}
     </style>
 </head>
 <body>
@@ -167,62 +160,48 @@
             <c:if test="${user.me_grade != 'ADMIN'}">
            	 <li><a href="<%=request.getContextPath()%>/member/mypage">MYPAGE</a></li>
              <li><a href="<%=request.getContextPath()%>/order/cart">CART</a></li>
+             <li><a href="<%=request.getContextPath()%>/">HOME</a></li>
             </c:if>
             <c:if test="${user.me_grade == 'ADMIN'}">
              <li><a href="<%=request.getContextPath()%>/admin/user/publisherlist">MANAGEMENT</a></li>
-             <li><a href="<%=request.getContextPath()%>/admin/user/orders">ORDERS</a></li>
             </c:if>
-             <li><a href="<%=request.getContextPath()%>/">HOME</a></li>
         </ul>
-    </div>
-    <div class="container">
-    <div class="mypage">MyPage</div>
+      </div>
+
+
+      <div class="container">
+        <div class="mypage">MyPage</div>
         <ul class="nav">
-        	<li><a href="<%=request.getContextPath()%>/member/mypage" class="current">주문내역</a></li>
+        	<li><a href="<%=request.getContextPath()%>/member/mypage">주문내역</a></li>
             <li class="point"><a href="<%=request.getContextPath()%>/member/greenpoint">그린포인트</a></li>
             <li class="info"><a href="<%=request.getContextPath()%>/member/memberinfo">회원정보</a></li>
-            <li class="out"><a href="<%=request.getContextPath()%>/member/memberout">회원탈퇴</a></li>
+            <li class="out"><a href="<%=request.getContextPath()%>/member/memberout" class="current">회원탈퇴</a></li>
         </ul>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th class="orderDate">주문일자</th>
-                    <th>주문번호</th>
-                    <th>주문내역</th>
-                    <th class="orderState">주문상태</th>
-                </tr>
-            </thead>
-           	<c:if test="${orderList.size() == 0}">
-				<tr><td colspan="4" class="notice">주문 내역이 없습니다.</td></tr>
-        	</c:if>
-            <tbody>
-            <c:forEach items="${orderList}" var="order" varStatus="status">
-            <tr>
-                <td>${order.orDate}</td>
-                <td><a href="<%=request.getContextPath()%>/member/mypagedetails?or_num=${order.or_num}">${order.or_num}</a></td>
-                <td>
-                    ${order.or_title}
-                    <c:if test="${order.or_re_title > 1}">
-                        외 ${order.or_re_title -1} 권
-                        </c:if>
-                    </td>
-                    <td>${order.or_state}</td>
-                </tr>                
-            </c:forEach>
-            </tbody>
-        </table>
-        <ul class="pagination justify-content-center">
-            <c:if test="${pm.prev}">
-                <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/member/mypage?page=${pm.startPage-1}">이전</a></li>
-            </c:if>
-            <c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="index">
-                <li class="page-item <c:if test="${pm.criteria.page == index }">active</c:if>"><a class="page-link" href="<%=request.getContextPath()%>/member/mypage?page=${index}">${index}</a></li>
-            </c:forEach>
-            <c:if test="${pm.next}">
-                <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/member/mypage?page=${pm.endPage+1}">다음</a></li>
-            </c:if>
-        </ul>
+        <form action="<%=request.getContextPath()%>/member/memberout" method="post" class="deletePart">
+            <div class="form-group">
+                <label class="control-label" for="userId">아이디</label>
+                <input class="form-control" type="text" id="userId" name="me_id" value="${user.me_id}" readonly="readonly"/>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="userPass">패스워드</label>
+                <input class="form-control" type="password" id="userPass" name="me_password" />
+            </div>
+	         <div class="error">
+	            <c:if test="${msg == false}">
+	                비밀번호가 맞지 않습니다.
+	            </c:if>
+	        </div>	
+            <div class="form-group">
+                <label class="control-label" for="userName">성명</label>
+                <input class="form-control" type="text" id="userName" name="me_name" value="${user.me_name}" readonly="readonly"/>
+            </div>
+            <div class="form-group btn-part">
+                <button class="btn btn-info" type="submit" id="submit">회원탈퇴</button>
+                <button class="cancle btn btn-secondary" type="button">취소</button>
+            </div>
+        </form>
     </div>
+
 <script>
 $(function(){
     $('.fa-bars').click(function(){
@@ -251,10 +230,21 @@ $(function(){
                 $('.bars').fadeOut();
             }     
         prevScrollTop = nowScrollTop;
-    });   
+    });
+    	
+
+	$(".cancle").on("click", function(){
+		location.href = '<%=request.getContextPath()%>';
+	})
+	$("#submit").on("click", function(){
+		if($("#userPass").val()==""){
+			alert("비밀번호를 입력해주세요.");
+			$("#userPass").focus();
+			return false;
+		}
+	})
 	
 })
 </script>
 </body>
 </html>
-

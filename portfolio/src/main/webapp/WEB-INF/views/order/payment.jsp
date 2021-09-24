@@ -462,8 +462,8 @@ function fullAddress(){
     var jibun = $('input[id=sample4_jibunAddress]').val();
     var detail = $('input[id=sample4_detailAddress]').val();
     var extra = $('input[id=sample4_extraAddress]').val();
-    var address = sp+","+road+" "+detail+" "+extra;
-    var jAddress = sp+","+jibun+" "+detail+" "+extra;
+    var address = sp+", "+road+" "+detail+" "+extra;
+    var jAddress = sp+", "+jibun+" "+detail+" "+extra;
     $('[name=dAddress]').val(address);
     $('[name=jAddress]').val(jAddress);	
     $('[name=sh_doro]').val(address);

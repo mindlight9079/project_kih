@@ -432,7 +432,12 @@ public class MemberServiceImp implements MemberService {
 		return memberDao.getMemberId(id);
 	}
 
-
-
+	@Override
+	public void memberDelete(MemberVO member) {
+		if(member == null)
+			return;
+		memberDao.memberDelete(member);
+		
+	}
 
 }

@@ -259,9 +259,9 @@ public class CartController {
 						+ "&total_amount="+order.getOr_payment() // 총 금액
 						+ "&vat_amount=200" // 부가세
 						+ "&tax_free_amount=0" // 상품 비과세 금액
-						+ "&approval_url=http://localhost:8080/portfolio/order/payfinished?partner_order_id="+order.getOr_num()// 결제 성공 시
-						+ "&fail_url=http://localhost:8080/portfolio/order/payment" // 결제 실패 시
-						+ "&cancel_url=http://localhost:8080/portfolio/order/payment"; // 결제 취소 시
+						+ "&approval_url=http://kih9079.cafe24.com/order/payfinished?partner_order_id="+order.getOr_num()// 결제 성공 시
+						+ "&fail_url=http://kih9079.cafe24.com/order/payment" // 결제 실패 시
+						+ "&cancel_url=http://kih9079.cafe24.com/order/payment"; // 결제 취소 시
 				DataOutputStream dataGive = new DataOutputStream(giver);
 				dataGive.writeBytes(parameter);
 				dataGive.close();				

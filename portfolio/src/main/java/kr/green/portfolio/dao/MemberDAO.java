@@ -95,6 +95,9 @@ public interface MemberDAO {
 
 	public MemberVO getMemberId(String id);
 
+	public void memberDelete(@Param("member") MemberVO member);
+
+
 
 
 

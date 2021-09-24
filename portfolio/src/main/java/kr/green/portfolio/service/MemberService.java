@@ -96,5 +96,8 @@ public interface MemberService {
 
 	MemberVO getMemberId(String id);
 
+	void memberDelete(MemberVO member);
+
+
 
 }
