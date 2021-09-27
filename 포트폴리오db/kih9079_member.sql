@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.25, for Win64 (x86_64)
 --
--- Host: localhost    Database: bookstore_kih
+-- Host: localhost    Database: kih9079
 -- ------------------------------------------------------
 -- Server version	8.0.25
 
@@ -48,7 +48,7 @@ CREATE TABLE `member` (
 
 LOCK TABLES `member` WRITE;
 /*!40000 ALTER TABLE `member` DISABLE KEYS */;
-INSERT INTO `member` VALUES ('abc123','길동이','$2a$10$yaxmVHWXBYq3c6ftiX7UROBvrkAQZMCAnPh8IY5K1B4hOgnLJ5YTy','F','1993년3월12일','01012345678','13485,경기 성남시 분당구 판교로 20  (판교동, 판교원마을3단지아파트)','홍길동','9302201234567','abc123@hanmail.net',0,'ADMIN','13485,경기 성남시 분당구 판교동 629  (판교동, 판교원마을3단지아파트)','none','2021-09-16 15:36:45'),('qwe123','꺽정이','$2a$10$31y8aP3yxYs/rmXdk22qpOM26HCG4vUwBMLkY0ue.f4d.t6Tx53zW','M','1990년10월19일','01097940220','28711,충북 청주시 상당구 청남로 2178  (석교동)','임꺽정','9010191111111','yakoojaka@naver.com',3470,'NORMAL','28711,충북 청주시 상당구 석교동 439  (석교동)','4B982DC7829A4EBA73D2E819F959ED3E','2021-09-30 00:00:00');
+INSERT INTO `member` VALUES ('abc123','길동이','$2a$10$yaxmVHWXBYq3c6ftiX7UROBvrkAQZMCAnPh8IY5K1B4hOgnLJ5YTy','F','1993년3월12일','01012345678','13485,경기 성남시 분당구 판교로 20  (판교동, 판교원마을3단지아파트)','홍길동','9302201234567','abc123@hanmail.net',0,'ADMIN','13485,경기 성남시 분당구 판교동 629  (판교동, 판교원마을3단지아파트)','none','2021-09-24 13:04:01'),('kih9079','이네','$2a$10$absqonIoSUZJxr6lfAa/HuzBwWGhVBouFX0YQchJngRlBDeCyqS72','F','1993년2월20일','01012345678','28688, 충북 청주시 서원구 구룡산로 235 101호  (수곡동)','경인혜','9302201234567','kih9079@naver.com',0,'NORMAL','28688, 충북 청주시 서원구 수곡동 901 101호  (수곡동)','D7876962A8DA48E01CD6867C53696770','2021-10-01 00:00:00');
 /*!40000 ALTER TABLE `member` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -61,4 +61,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-09-23 14:41:41
+-- Dump completed on 2021-09-27  9:27:58

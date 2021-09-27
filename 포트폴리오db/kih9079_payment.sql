@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.25, for Win64 (x86_64)
 --
--- Host: localhost    Database: bookstore_kih
+-- Host: localhost    Database: kih9079
 -- ------------------------------------------------------
 -- Server version	8.0.25
 
@@ -32,7 +32,7 @@ CREATE TABLE `payment` (
   `imp_uid` varchar(50) DEFAULT '0',
   PRIMARY KEY (`pa_num`),
   KEY `pa_or_num_idx` (`pa_or_num`),
-  CONSTRAINT `pa_or_num` FOREIGN KEY (`pa_or_num`) REFERENCES `order` (`or_num`)
+  CONSTRAINT `pa_or_num` FOREIGN KEY (`pa_or_num`) REFERENCES `order` (`or_num`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -42,7 +42,6 @@ CREATE TABLE `payment` (
 
 LOCK TABLES `payment` WRITE;
 /*!40000 ALTER TABLE `payment` DISABLE KEYS */;
-INSERT INTO `payment` VALUES ('T2942582627208219744','MONEY','임꺽정',0,'2021091604260349','2021-09-16 16:03:43','0');
 /*!40000 ALTER TABLE `payment` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -55,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-09-23 14:41:41
+-- Dump completed on 2021-09-27  9:27:58

@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.25, for Win64 (x86_64)
 --
--- Host: localhost    Database: bookstore_kih
+-- Host: localhost    Database: kih9079
 -- ------------------------------------------------------
 -- Server version	8.0.25
 
@@ -16,34 +16,39 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `cart`
+-- Table structure for table `order`
 --
 
-DROP TABLE IF EXISTS `cart`;
+DROP TABLE IF EXISTS `order`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `cart` (
-  `ca_num` int NOT NULL AUTO_INCREMENT,
-  `ca_amount` int NOT NULL,
-  `ca_re_code` int NOT NULL,
-  `ca_me_id` varchar(50) NOT NULL,
-  `ca_valid` varchar(1) NOT NULL DEFAULT 'I',
-  PRIMARY KEY (`ca_num`),
-  KEY `ca_re_code` (`ca_re_code`),
-  KEY `ca_me_id` (`ca_me_id`),
-  CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`ca_re_code`) REFERENCES `registration` (`re_code`),
-  CONSTRAINT `cart_ibfk_2` FOREIGN KEY (`ca_me_id`) REFERENCES `member` (`me_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=184 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `order` (
+  `or_num` varchar(20) NOT NULL,
+  `or_me_id` varchar(50) NOT NULL,
+  `or_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `or_state` varchar(30) NOT NULL DEFAULT '결제승인중',
+  `or_receiver` varchar(50) NOT NULL,
+  `or_payment` bigint NOT NULL,
+  `or_deliver` int NOT NULL DEFAULT '0',
+  `or_green_point` int NOT NULL,
+  `or_deli_date` datetime NOT NULL,
+  `or_sh_num` int DEFAULT NULL,
+  `or_pay_card` varchar(20) NOT NULL,
+  PRIMARY KEY (`or_num`),
+  KEY `or_sh_num_idx` (`or_sh_num`),
+  KEY `or_me_id_idx` (`or_me_id`),
+  CONSTRAINT `or_me_id` FOREIGN KEY (`or_me_id`) REFERENCES `member` (`me_id`) ON DELETE CASCADE,
+  CONSTRAINT `or_sh_num` FOREIGN KEY (`or_sh_num`) REFERENCES `shipping` (`sh_num`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `cart`
+-- Dumping data for table `order`
 --
 
-LOCK TABLES `cart` WRITE;
-/*!40000 ALTER TABLE `cart` DISABLE KEYS */;
-INSERT INTO `cart` VALUES (181,2,1,'qwe123','D'),(183,3,3,'qwe123','D');
-/*!40000 ALTER TABLE `cart` ENABLE KEYS */;
+LOCK TABLES `order` WRITE;
+/*!40000 ALTER TABLE `order` DISABLE KEYS */;
+/*!40000 ALTER TABLE `order` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -55,4 +60,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-09-23 14:41:42
+-- Dump completed on 2021-09-27  9:27:58
