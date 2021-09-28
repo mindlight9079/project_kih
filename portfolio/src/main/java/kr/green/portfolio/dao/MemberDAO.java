@@ -67,13 +67,13 @@ public interface MemberDAO {
 
 	public ArrayList<BooksVO> booksList(@Param("re_catagory")String re_catagory, @Param("cri")Criteria cri);
 
-	public int getTotalCountGreenPoint(@Param("cri") Criteria cri);
+	public int getTotalCountGreenPoint(@Param("cri") Criteria cri, @Param("me_id") String me_id);
 
 	public ArrayList<BooksVO> getBooksSearch(@Param("cri") Criteria cri);
 
 	public BooksVO getAuthorIntro(Integer bs_num);
 
-	public int getTotalCountMyPage(@Param("cri") Criteria cri);
+	public int getTotalCountMyPage(@Param("cri") Criteria cri, @Param("me_id") String me_id);
 
 	public void updatePoint(@Param("me_id") String me_id, @Param("pr_use_point") Integer pr_use_point);
 

@@ -68,13 +68,13 @@ public interface MemberService {
 
 	ArrayList<BooksVO> booksList(String re_catagory, Criteria cri);
 
-	int getTotalCountGreenPoint(Criteria cri);
+	int getTotalCountGreenPoint(Criteria cri, String me_id);
 
 	ArrayList<BooksVO> getBooksSearch(Criteria cri);
 
 	BooksVO getAuthorIntro(Integer bs_num);
 
-	int getTotalCountMyPage(Criteria cri);
+	int getTotalCountMyPage(Criteria cri, String me_id);
 
 	void updatePoint(String me_id, Integer pr_use_point);
 

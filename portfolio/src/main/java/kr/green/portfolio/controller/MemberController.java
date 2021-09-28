@@ -81,14 +81,14 @@ public class MemberController {
 	
 	@RequestMapping(value="/member/mypage", method=RequestMethod.GET)
 	public ModelAndView mypageGet (ModelAndView mv, HttpSession session, Criteria cri) {
+		MemberVO member = (MemberVO)session.getAttribute("user");
 		PageMaker pm = new PageMaker();
 		cri.setPerPageNum(5);
 		pm.setCriteria(cri);
 		pm.setDisplayPageNum(5);
-		int totalCount = memberService.getTotalCountMyPage(cri);
+		int totalCount = memberService.getTotalCountMyPage(cri, member.getMe_id());
 		pm.setTotalCount(totalCount);
 		pm.calcData();
-		MemberVO member = (MemberVO)session.getAttribute("user");
 		ArrayList<OrderVO> orderList = cartService.selectOrderList(member.getMe_id(),cri);
 		mv.addObject("member", member);
 		mv.addObject("orderList", orderList);
@@ -118,14 +118,14 @@ public class MemberController {
 	
 	@RequestMapping(value="/member/greenpoint", method=RequestMethod.GET)
 	public ModelAndView greenpointGet (ModelAndView mv, Criteria cri, HttpSession session) {
+		MemberVO member = (MemberVO)session.getAttribute("user");
 		PageMaker pm = new PageMaker();
 		cri.setPerPageNum(5);
 		pm.setCriteria(cri);
 		pm.setDisplayPageNum(5);
-		int totalCount = memberService.getTotalCountGreenPoint(cri);
+		int totalCount = memberService.getTotalCountGreenPoint(cri, member.getMe_id());
 		pm.setTotalCount(totalCount);
 		pm.calcData();
-		MemberVO member = (MemberVO)session.getAttribute("user");
 		ArrayList<PointVO> pointList = memberService.getPointList(member.getMe_id(),cri);
 		mv.addObject("member", member);
 		mv.addObject("pointList", pointList);

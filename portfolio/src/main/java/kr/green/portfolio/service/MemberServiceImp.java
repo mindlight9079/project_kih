@@ -325,8 +325,8 @@ public class MemberServiceImp implements MemberService {
 	}
 
 	@Override
-	public int getTotalCountGreenPoint(Criteria cri) {
-		return memberDao.getTotalCountGreenPoint(cri);
+	public int getTotalCountGreenPoint(Criteria cri, String me_id) {
+		return memberDao.getTotalCountGreenPoint(cri, me_id);
 	}
 
 	@Override
@@ -343,8 +343,8 @@ public class MemberServiceImp implements MemberService {
 	}
 
 	@Override
-	public int getTotalCountMyPage(Criteria cri) {
-		return memberDao.getTotalCountMyPage(cri);
+	public int getTotalCountMyPage(Criteria cri, String me_id) {
+		return memberDao.getTotalCountMyPage(cri, me_id);
 	}
 
 	@Override

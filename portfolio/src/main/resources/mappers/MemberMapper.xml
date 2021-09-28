@@ -150,7 +150,7 @@
 		 limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
 	<select id="getTotalCountGreenPoint" resultType="int">
-		select count(*) from `point` where po_point != 0
+		select count(*) from `point` where (po_point != 0 and po_me_id = #{me_id})
 	</select>
 	<select id="getBooksSearch" resultType="kr.green.portfolio.vo.BooksVO">
 		select *,au_title as bs_title, au_contents as bs_contents, au_birth as bs_birth
@@ -167,7 +167,7 @@
 			  where bs_num = #{bs_num}
 	</select>
 	<select id="getTotalCountMyPage" resultType="int">
-		select count(*) from `order`
+		select count(*) from `order` where or_me_id = #{me_id}
 	</select>
 	<update id="updatePoint">
 		update `member` set
