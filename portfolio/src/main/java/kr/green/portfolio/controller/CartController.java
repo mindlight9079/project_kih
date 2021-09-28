@@ -142,7 +142,7 @@ public class CartController {
 	}
 
 	@RequestMapping(value="/order/cartRegister", method=RequestMethod.POST )
-	public ModelAndView getCartList (ModelAndView mv, BigInteger[] checkList, Integer[] cartAmount, HttpSession session) {
+	public ModelAndView CartListget (ModelAndView mv, BigInteger[] checkList, Integer[] cartAmount, HttpSession session) {
 		MemberVO member = (MemberVO)session.getAttribute("user");
 		for(BigInteger tmp : checkList) {
 			System.out.println("체크 : "+tmp);

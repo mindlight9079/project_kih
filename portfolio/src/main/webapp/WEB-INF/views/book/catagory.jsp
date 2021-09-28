@@ -329,12 +329,14 @@
     	$(this).hide();
     	$('.allUnChecked-btn').show();
     	$('input[name=checkList]').prop('checked',true);
+    	$('[name=cartAmount]').prop('checked',true);
     	
     })
     $('.allUnChecked-btn').click(function(){
     	$(this).hide();
     	$('.allChecked-btn').show();
     	$('input[name=checkList]').prop('checked',false);
+    	$('[name=cartAmount]').prop('checked',false);
     })
     
     $('.btn-buy').click(function(e){
