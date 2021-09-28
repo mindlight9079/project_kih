@@ -142,10 +142,16 @@ public class CartController {
 	}
 
 	@RequestMapping(value="/order/cartRegister", method=RequestMethod.POST )
-	public ModelAndView getCartList (ModelAndView mv, BigInteger[] checkList, Integer[] cataAmount, HttpSession session) {
+	public ModelAndView getCartList (ModelAndView mv, BigInteger[] checkList, Integer[] cartAmount, HttpSession session) {
 		MemberVO member = (MemberVO)session.getAttribute("user");
+		for(BigInteger tmp : checkList) {
+			System.out.println("체크 : "+tmp);
+		}
+		for(Integer tmp : cartAmount) {
+			System.out.println("수량 : "+tmp);
+		}
 		String ca_me_id = member.getMe_id();
-		cartService.getCartRegister(checkList, cataAmount, ca_me_id);
+		cartService.getCartRegister(checkList, cartAmount, ca_me_id);
 		mv.setViewName("redirect:/order/cart");
 		return mv;
 	}

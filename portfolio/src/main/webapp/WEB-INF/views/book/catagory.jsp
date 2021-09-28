@@ -264,6 +264,7 @@
 	                        수량 &nbsp;&nbsp; 
 			           		<button type="button" class="decreaseQuantity minus"><i class="fas fa-minus"></i></button>
 	                        <input type="text" name="cataAmount" class="cataAmount" value="1" readonly> <br>
+	                        <input type="checkbox" name="cartAmount" style="display:none" value="1">
 	        			    <button type ="button" class="increaseQuantity plus"><i class="fas fa-plus"></i></button>
 	 	                    <input type="hidden" value="${regi.re_code}" class="code">
 	        			 </div>
@@ -384,37 +385,48 @@
 		if($('input[name=checkList]:checked').length == 0){
 			alert('선택된 상품이 없습니다.')
 			return false;
-		}	
+		}
 	})
+	
+	$('[name=checkList]').click(function(){
+		$(this).parents('tr').find('[name=cartAmount]').prop('checked',$(this).is(':checked'));
+	})	
 	
 	var catagory = $('.catagory').val();
 	$('.titleCatagory').text(catagory);	
 	
     $('.decreaseQuantity').click(function(e){
        	e.preventDefault();
+        if(!$(this).parents('tr').find('[name=checkList]').is(':checked')){
+        	alert('체크 후 수량을 변경하세요.');
+        	return;
+        }
        	var stat = $(this).parent().find('.cataAmount').val();
        	var num = parseInt(stat);
-       	num--;
-      
+       		num--;
+       		
        		$(this).parent().find('.cataAmount').val(num);
+       		$(this).parent().find('[name=cartAmount]').val(num);
        		$(this).parent().find('.cataAmount').change();
      });
     	
      $('.increaseQuantity').click(function(e){
         e.preventDefault();
+        if(!$(this).parents('tr').find('[name=checkList]').is(':checked')){
+        	alert('체크 후 수량을 변경하세요.');
+        	return;
+        }
         var stat = $(this).parent().find('.cataAmount').val();
         var num = parseInt(stat);
         num++;
-
         	$(this).parent().find('.cataAmount').val(num);
+        	$(this).parent().find('[name=cartAmount]').val(num);
         	$(this).parent().find('.cataAmount').change();
      });
      
  	$('.cataAmount').change(function(){
 		var code = $(this).parent().find('.code').val();
 		var amount = $(this).val();
-		console.log(code)
-		console.log(amount)
 		var data = {
 			ca_re_code : code,
 			ca_amount : amount

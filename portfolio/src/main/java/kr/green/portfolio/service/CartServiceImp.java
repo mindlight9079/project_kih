@@ -75,16 +75,16 @@ public class CartServiceImp implements CartService {
 	}
 
 	@Override
-	public void getCartRegister(BigInteger[] checkList, Integer[] cataAmount, String ca_me_id) {
+	public void getCartRegister(BigInteger[] checkList, Integer[] cartAmount, String ca_me_id) {
 		if(checkList == null && ca_me_id == null )
 			return;
 		for(int i = 0 ;i < checkList.length; i++) {
 			CartVO dbCart = cartDao.seletCartRegister(checkList[i],ca_me_id);
 			if(dbCart != null) {
-				 dbCart.setCa_amount(cataAmount[i]);
-				 cartDao.updateCartRegister(dbCart.getCa_num(),cataAmount[i]);
+				 dbCart.setCa_amount(cartAmount[i]);
+				 cartDao.updateCartRegister(dbCart.getCa_num(),cartAmount[i]);
 			} else {				
-				cartDao.getCartRegister(checkList[i],cataAmount[i],ca_me_id);
+				cartDao.getCartRegister(checkList[i],cartAmount[i],ca_me_id);
 			}
 		}
 	}
