@@ -40,7 +40,7 @@
 	</insert>
 	<select id="seletCartRegister" resultType="kr.green.portfolio.vo.CartVO" >
 		select * from book join registration on bk_isbn = re_bk_isbn
-			join cart on re_code = ca_re_code where bk_isbn=#{bigInteger} and ca_valid="I";
+			join cart on re_code = ca_re_code where (bk_isbn=#{bigInteger} and ca_valid="I" and ca_me_id = #{ca_me_id})
 	</select>
 	<update id="updateCartRegister">
 		update cart set

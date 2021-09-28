@@ -30,7 +30,7 @@ public interface CartDAO {
 
 	ArrayList<CartVO> getPaymentList(@Param("isbn")BigInteger isbn, @Param("amount")Integer amount);
 
-	CartVO seletCartRegister(@Param("bigInteger") BigInteger bigInteger, String ca_me_id);
+	CartVO seletCartRegister(@Param("bigInteger") BigInteger bigInteger, @Param("ca_me_id") String ca_me_id);
 
 	void updateCartRegister(@Param("ca_num") int ca_num, @Param("integer") Integer integer);
 
